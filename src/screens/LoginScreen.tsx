@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component, useContext, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Touchable, TouchableOpacity, Alert, ImageBackground, Image, Dimensions } from 'react-native';
+import { BackHandler, View, Text, StyleSheet, TextInput, Button, Touchable, TouchableOpacity, Alert, ImageBackground, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient';
@@ -20,7 +20,9 @@ const LoginScreen = ({ }) => {
 
     const navigation = useNavigation();
 
-
+    React.useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true);
+    });
 
     const checkPasswordValidity = (value: any) => {
         const isNonWhiteSpace = /^\S*$/;
@@ -34,14 +36,17 @@ const LoginScreen = ({ }) => {
     const handleLogin = () => {
         const checkPassword = checkPasswordValidity(password);
 
-        navigation.navigate('Home');
+        navigation.navigate('SignUp');
 
     };
 
-    const handleLogin2 = () => {
+    const handleLogin2 = (val: any) => {
         const checkPassword = checkPasswordValidity(password);
+        console.log(val);
 
-        navigation.navigate('Signin');
+        navigation.navigate('Signin', {
+            Method: val
+        });
 
     };
 
@@ -53,7 +58,7 @@ const LoginScreen = ({ }) => {
     return (
         <LinearGradient
             style={styles.container}
-            colors={['#FF0024', '#FF6648', '#FFCE6C']}>
+            colors={['#FF0024', '#FFB061', '#FFCE6C']}>
             <View style={styles.container}>
                 <View style={styles.wrapper}>
 
@@ -65,7 +70,7 @@ const LoginScreen = ({ }) => {
                         />
                     </View>
 
-                    <View style={styles.mainTextContainer}>
+                    <View style={{ marginStart: 10, marginTop: -80 }}>
                         <Text style={[styles.buttonText2, { fontSize: getFontSize() }]}>
                             BALLY'S MEMBER
                         </Text>
@@ -86,19 +91,39 @@ const LoginScreen = ({ }) => {
                         </Text>
                     </View>
 
+
+                </View>
+            </View>
+            <View style={{ width: '75%', alignItems: 'center', marginBottom: 40 }}>
+                <View style={{ width: '100%', marginTop: 20 }}>
+                    <GradientButtonWithBorder
+                        title="SIGN IN"
+                        onPress={() => handleLogin2('SIGN')}
+                        colors={['transparent', 'transparent', 'transparent']}
+                        borderColor="#FF0024"
+                        buttonStyle={{}}
+                        textStyle={styles.buttonText}
+                    />
+                </View>
+                <Text style={{ textAlign: 'center', color: 'black', fontSize: 16, marginTop: 10 }}>NEW MEMBER LOGIN</Text>
+                <Text style={{ textAlign: 'center' }}>If you are a first time user, please go through the sign up process</Text>
+                <View style={{ marginTop: 20, width: '100%' }}>
                     <GradientButton
                         title="SIGN UP"
                         onPress={handleLogin}
                         colors={['#FF0024', '#FF0024', '#FF0024']}
-                        buttonStyle={styles.customButton}
                         textStyle={styles.buttonText}
                     />
+                </View>
+                <Text style={{ textAlign: 'center', color: 'black', fontSize: 16, marginTop: 10 }}>OR</Text>
+                <Text style={{ textAlign: 'center' }}>If you are with a temporary ID, sign in here</Text>
+                <View style={{ width: '100%', marginTop: 20 }}>
                     <GradientButtonWithBorder
-                        title="SIGN IN"
-                        onPress={handleLogin2}
+                        title="TEMPORARY SIGN IN"
+                        onPress={() => handleLogin2('TEMP')}
                         colors={['transparent', 'transparent', 'transparent']}
                         borderColor="#FF0024"
-                        buttonStyle={styles.customButton}
+                        buttonStyle={{}}
                         textStyle={styles.buttonText}
                     />
                 </View>
@@ -119,8 +144,8 @@ const styles = StyleSheet.create({
         width: width * 0.9,
     },
     image: {
-        width: wp('65%'),
-        height: hp('55%'),
+        width: wp('55%'),
+        height: hp('45%'),
         resizeMode: 'contain',
     },
 
@@ -133,10 +158,9 @@ const styles = StyleSheet.create({
     },
 
     imageContainer: {
-        position: 'absolute',
+        marginStart: 30,
+        marginTop: -50,
         left: width * 0.1,
-        bottom: height * 0.2,
-        // alignItems: 'flex-end',
     },
 
     mainTextContainer: {
@@ -148,14 +172,7 @@ const styles = StyleSheet.create({
     gradient: {
         borderRadius: 10,
     },
-    customButton: {
-        top: 150,
-        margin: 10,
-        padding: 15,
-        borderRadius: 20,
-    },
     buttonText2: {
-        top: height * 0.2,
         color: '#ffffff',
         fontSize: 50,
         textAlign: 'left',
@@ -164,7 +181,6 @@ const styles = StyleSheet.create({
     },
 
     buttonText3: {
-        top: 140,
         color: '#ffffff',
         fontSize: 15,
         textAlign: 'left',
@@ -174,7 +190,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         color: '#000000',
-        fontSize: 20,
+        fontSize: 16,
         textAlign: 'center',
     },
     errorText: {

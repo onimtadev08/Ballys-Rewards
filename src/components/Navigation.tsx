@@ -6,9 +6,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
-import Tab1 from '../screens/Tab1';
-import Tab2 from '../screens/Tab2';
-import Tab3 from '../screens/Tab3';
+// import Tab1 from '../screens/Tab1';
+// import Tab2 from '../screens/Tab2';
+// import Tab3 from '../screens/Tab3';
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
 

@@ -34,23 +34,21 @@ const GradientButtonWithBorder: React.FC<GradientButtonProps> = ({
 
 const styles = StyleSheet.create({
     button: {
-        borderRadius: 10,
+        borderRadius: 20,
         borderWidth: 2,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
         alignItems: 'center',
     },
     signin: {
-        margin: 10,
+        width: '100%',
         borderWidth: 2,
-        padding: 15,
+        padding: 10,
         borderRadius: 20,
     },
 
     buttonText: {
         fontWeight: 'bold',
         color: '#ffffff',
-        fontSize: 20,
+        fontSize: 10,
         textAlign: 'center',
     },
 });
