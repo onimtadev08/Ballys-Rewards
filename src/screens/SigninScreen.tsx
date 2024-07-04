@@ -8,6 +8,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import TextInput from '../components/TextInput';
 import LinearGradient from 'react-native-linear-gradient';
 import Navigation from '../components/Navigation';
+import { Domain } from '../data/data';
 const { width, height } = Dimensions.get('window');
 
 interface BallysLoginState {
@@ -21,6 +22,7 @@ interface BallysLoginState {
 interface myProps {
     Method: string;
     route: any;
+    navigation: any;
 }
 class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
 
@@ -82,7 +84,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                     redirect: "follow",
                 };
 
-                fetch("https://api.ballyscolombo.com/api/Ballys/CheckPIN", requestOptions)
+                fetch(Domain + "/api/Ballys/" + this.state.Method === 'TEMP' ? 'CheckFirstTimeLogin' : 'CheckPIN', requestOptions)
                     .then((response) => {
                         return response.json();
                     })
@@ -141,7 +143,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                                 this.setState({ PlayerID: text });
                             }}
                                 showError={this.state.PlayerID === '' && this.state.showError}
-                                fieldName={'Player ID'}
+                                fieldName={this.state.Method === 'TEMP' ? 'Player ID (Passport No.)' : 'Player ID'}
                                 fieldErrorMsg={'Field empty'}
                             />
                             <TextInput
@@ -149,7 +151,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                                     this.setState({ PIN: text });
                                 }}
                                 showError={this.state.PIN === '' && this.state.showError}
-                                fieldName={'PIN'}
+                                fieldName={this.state.Method === 'TEMP' ? 'PIN (Date of Birth)' : 'PIN'}
                                 fieldErrorMsg={'Field empty'}
                             />
 

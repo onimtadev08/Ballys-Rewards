@@ -1,66 +1,211 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { Checkbox } from 'react-native-paper';
 import TextInput from '../components/TextInput';
 import LinearGradient from 'react-native-linear-gradient';
 import GradientButtonWithBorder from '../components/GradientButton';
 import GradientButton from '../components/GradientButtonfull';
 import { useNavigation } from '@react-navigation/native';
+import { CameraOptions, launchCamera } from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
+
 const { width, height } = Dimensions.get('window');
-
+interface BallysLoginState {
+    PlayerID: string;
+    PIN: string;
+    fname: string;
+    lname: string;
+    mnumber: string;
+    email: string;
+    Token?: string;
+    showError: boolean;
+    isLoading: boolean;
+    checked: boolean;
+    selectedImage: any;
+}
+interface myProps {
+    navigation: any;
+}
 // create a component
-const SignupScreen = () => {
+class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
-    const navigation = useNavigation();
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            PlayerID: '',
+            PIN: '',
+            lname: '',
+            fname: '',
+            email: '',
+            mnumber: '',
+            Token: '',
+            showError: false,
+            isLoading: false,
+            checked: false,
+            selectedImage: '',
+        }
+    }
 
-    const handleLogin = () => {
-        navigation.navigate('SignUp');
+    handleCameraLaunch = () => {
+        const options: CameraOptions = {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxHeight: 2000,
+            maxWidth: 2000,
+        };
+
+        launchCamera(options, this.handleResponse);
+    };
+
+    handleResponse = (response: any) => {
+        if (response.didCancel) {
+            console.log('User cancelled image picker');
+        } else if (response.error) {
+            console.log('Image picker error: ', response.error);
+        } else {
+            let imageUri = response.uri || response.assets?.[0]?.uri;
+            this.setState({ selectedImage: imageUri });
+        }
+    };
+
+    handleLogin = () => {
+
+        this.setState({ showError: false });
+
+        var tempShowError = false;
+
+        if (this.state.fname === '') {
+            tempShowError = true;
+        }
+
+
+        this.setState({ showError: tempShowError });
+
+        if (!tempShowError) {
+            this.props.navigation.navigate('Login');
+        }
 
     };
-    return (
-        <LinearGradient
-            style={styles.container}
-            colors={['#FF0024', '#FF6648', '#FFCE6C']}>
-            <View style={styles.container}>
-                <View style={styles.wrapper}>
-                    <TextInput />
-                    <TextInput />
-                    <TextInput />
-                    <TextInput />
-                    <TextInput />
-                    <TextInput />
 
-                    <GradientButton
-                        title="SIGN IN"
-                        onPress={handleLogin}
-                        colors={['#FF0024', '#FF0024', '#FF0024']}
-                        buttonStyle={styles.customButton}
-                        textStyle={styles.buttonText}
-                    />
-                </View>
-            </View>
-        </LinearGradient>
 
-    );
+    render(): React.ReactNode {
+
+
+
+        return (
+            <LinearGradient
+                style={{ flex: 1 }}
+                colors={['#FF0024', '#FF6648', '#FFCE6C']}>
+                <ScrollView >
+                    <View style={{ flexDirection: 'column' }}>
+                        <View style={{ alignItems: 'center', marginBottom: 20 }} >
+
+                            <Text style={{ marginTop: 50, color: 'white', fontSize: 20, fontWeight: '500' }}>Sign Up</Text>
+
+                            <TouchableOpacity
+                                onPress={() => {
+                                    this.handleCameraLaunch();
+                                }}
+                            >
+                                <Image source={this.state.selectedImage === '' ? require('../images/user.png') : { uri: this.state.selectedImage }} resizeMode='cover' style={{ width: 200, height: 200, borderRadius: 100, marginTop: 30 }} />
+                            </TouchableOpacity>
+
+                            <TextInput
+                                value={this.state.fname} onChangeText={(text: string) => {
+                                    this.setState({ fname: text });
+                                }}
+                                showError={this.state.fname === '' && this.state.showError}
+                                fieldName={'First Name'}
+                                fieldErrorMsg={'Field empty'}
+                            />
+
+                            <TextInput
+                                value={this.state.lname} onChangeText={(text: string) => {
+                                    this.setState({ lname: text });
+                                }}
+                                showError={this.state.lname === '' && this.state.showError}
+                                fieldName={'Last Name'}
+                                fieldErrorMsg={'Field empty'}
+                            />
+
+                            <TextInput
+                                value={this.state.mnumber} onChangeText={(text: string) => {
+                                    this.setState({ mnumber: text });
+                                }}
+                                showError={this.state.mnumber === '' && this.state.showError}
+                                fieldName={'Mobile Number'}
+                                fieldErrorMsg={'Field empty'}
+                            />
+
+                            <TextInput
+                                value={this.state.email} onChangeText={(text: string) => {
+                                    this.setState({ email: text });
+                                }}
+                                showError={this.state.email === '' && this.state.showError}
+                                fieldName={'Email'}
+                                fieldErrorMsg={'Field empty'}
+                            />
+
+                            <TextInput
+                                value={this.state.PlayerID} onChangeText={(text: string) => {
+                                    this.setState({ PlayerID: text });
+                                }}
+                                showError={this.state.PlayerID === '' && this.state.showError}
+                                fieldName={'Passport No (Member ID)'}
+                                fieldErrorMsg={'Field empty'}
+                            />
+
+                            <TextInput
+                                value={this.state.PIN} onChangeText={(text: string) => {
+                                    this.setState({ PIN: text });
+                                }}
+                                showError={this.state.PIN === '' && this.state.showError}
+                                fieldName={'Date Of Birth (DD/MM/YYYY -Pin No.)'}
+                                fieldErrorMsg={'Field empty'}
+                            />
+                            <Text style={{ color: 'red', fontWeight: '500', fontSize: 16, marginTop: 10 }}>All Above Fields are Madndatory</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Checkbox status={this.state.checked ? 'checked' : 'unchecked'} onPress={() => {
+                                    this.setState({ checked: !this.state.checked })
+                                }}></Checkbox>
+                                <View style={{ flexDirection: 'column', marginTop: 10 }}>
+                                    <Text style={{ fontWeight: '500', fontSize: 16 }}>I have read and agreed to the Terms &</Text>
+                                    <Text style={{ fontWeight: '500', fontSize: 16 }}>Conditions</Text>
+                                </View>
+                            </View>
+                            <View style={{ width: '75%', marginTop: 20, marginBottom: 20 }}>
+                                <GradientButton
+                                    title="SIGN IN"
+                                    onPress={this.handleLogin}
+                                    colors={['#FF0024', '#FF0024', '#FF0024']}
+                                    buttonStyle={styles.customButton}
+                                    textStyle={styles.buttonText}
+                                />
+                            </View>
+                            <Text style={{ color: 'black' }}>Sign Up and receive 2000 Bally's</Text>
+                            <Text style={{ marginBottom: 30, color: 'black' }}>Rewards points</Text>
+                        </View>
+                    </View>
+                </ScrollView>
+            </LinearGradient >
+
+        );
+    }
 };
 
 // define your styles
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: 1
     },
     wrapper: {
-        position: 'relative',
-        width: width * 0.8,
+        alignItems: 'center',
+        flexDirection: 'column',
+        width: '100%',
     },
     customButton: {
-        top: 150,
-        margin: 10,
-        padding: 15,
-        borderRadius: 20,
+        width: '75%'
     },
     buttonText: {
         fontWeight: 'bold',
