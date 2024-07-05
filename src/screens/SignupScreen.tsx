@@ -8,6 +8,11 @@ import GradientButtonWithBorder from '../components/GradientButton';
 import GradientButton from '../components/GradientButtonfull';
 import { useNavigation } from '@react-navigation/native';
 import { CameraOptions, launchCamera } from 'react-native-image-picker';
+import ErrorMsg from '../components/errorMsg';
+import Loader from '../components/Loader';
+import { permissionStatus } from '../utilitis/utilities';
+import { Domain } from '../data/data';
+import SuccsessMsg from '../components/SuccsessMsg';
 // import ImagePicker from 'react-native-image-picker';
 
 const { width, height } = Dimensions.get('window');
@@ -23,6 +28,10 @@ interface BallysLoginState {
     isLoading: boolean;
     checked: boolean;
     selectedImage: any;
+    showApiError: boolean;
+    showApiErrorMsg: string;
+    showApiSuccsess: boolean;
+    showApiSuccsessMsg: string;
 }
 interface myProps {
     navigation: any;
@@ -44,7 +53,15 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
             isLoading: false,
             checked: false,
             selectedImage: '',
+            showApiError: false,
+            showApiErrorMsg: '',
+            showApiSuccsess: false,
+            showApiSuccsessMsg: '',
         }
+    }
+
+    async componentDidMount() {
+        await permissionStatus();
     }
 
     handleCameraLaunch = () => {
@@ -79,19 +96,95 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
             tempShowError = true;
         }
 
+        if (this.state.lname === '') {
+            tempShowError = true;
+        }
+
+        if (this.state.mnumber === '') {
+            tempShowError = true;
+        }
+
+        if (this.state.email === '') {
+            tempShowError = true;
+        }
+
+        if (this.state.PlayerID === '') {
+            tempShowError = true;
+        }
+
+        if (this.state.PIN === '') {
+            tempShowError = true;
+        }
 
         this.setState({ showError: tempShowError });
 
-        if (!tempShowError) {
-            this.props.navigation.navigate('Login');
+        if (!tempShowError && this.state.checked) {
+
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            const raw: string = JSON.stringify({
+                strFirstName: this.state.fname,
+                strLastName: this.state.lname,
+                strMobile: this.state.mnumber,
+                strEMail: this.state.email,
+                strDOB: this.state.PIN,
+                strPassport: this.state.PlayerID,
+            });
+
+            const requestOptions: RequestInit = {
+                method: "POST",
+                headers: myHeaders,
+                body: raw,
+                redirect: "follow",
+            };
+
+
+
+            fetch(Domain + '/api/Ballys/FirstTimeLoginSave', requestOptions)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((result) => {
+                    console.log(result);
+                    if (result.strRturnRes) {
+                        this.setState({
+                            isLoading: false,
+                            showApiSuccsess: true,
+                            showApiSuccsessMsg: 'Sign Up Succsess'
+                        });
+                    } else {
+                        this.setState({
+                            isLoading: false,
+                            showApiError: true,
+                            showApiErrorMsg: 'Error Found , Please try again'
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    this.setState({
+                        isLoading: false,
+                        showApiError: true,
+                        showApiErrorMsg: 'Error in Sign Up'
+                    });
+                });
+
+
+
+        } else {
+            if (!this.state.checked) {
+                this.setState({
+                    showApiError: true,
+                    showApiErrorMsg: 'Please Agree to the Terms & Conditions'
+                });
+            }
         }
 
     };
 
 
     render(): React.ReactNode {
-
-
 
         return (
             <LinearGradient
@@ -188,6 +281,20 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                         </View>
                     </View>
                 </ScrollView>
+                {this.state.isLoading ? (
+                    <Loader />
+                ) : null}
+                {this.state.showApiError ?
+                    <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
+                        this.setState({ showApiError: false });
+                    }} />
+                    : null}
+                {this.state.showApiSuccsess ?
+                    <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
+                        this.setState({ showApiSuccsess: false });
+                        this.props.navigation.navigate('Login');
+                    }} />
+                    : null}
             </LinearGradient >
 
         );

@@ -10,7 +10,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import Navigation from '../components/Navigation';
 import { Domain } from '../data/data';
 const { width, height } = Dimensions.get('window');
-
+import ErrorMsg from '../components/errorMsg';
+import Loader from '../components/Loader';
+import InfoMsg from '../components/InfoMsg';
+import OtpMsg from '../components/OtpMsg';
 interface BallysLoginState {
     PlayerID: string;
     PIN: string;
@@ -18,6 +21,11 @@ interface BallysLoginState {
     showError: boolean;
     isLoading: boolean;
     Method: string;
+    showApiError: boolean;
+    showApiErrorMsg: string;
+    showApiInfo: boolean;
+    showApiInfoMsg: string;
+    showOtpMsg: boolean;
 }
 interface myProps {
     Method: string;
@@ -35,6 +43,11 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
             showError: false,
             isLoading: false,
             Method: this.props.route.params.Method,
+            showApiError: false,
+            showApiErrorMsg: '',
+            showApiInfo: false,
+            showApiInfoMsg: '',
+            showOtpMsg: true,
         }
 
 
@@ -43,6 +56,57 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
     componentDidMount(): void {
         this.setState({ PlayerID: 'BM69328', PIN: '1234' });
         //      BackHandler.addEventListener('hardwareBackPress', () => true);
+    }
+
+
+    getOtp() {
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw: string = JSON.stringify({
+            strMID: this.state.PlayerID,
+            strClientID: '',
+        });
+
+        const requestOptions: RequestInit = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+        };
+
+        fetch(Domain + '/api/Ballys/GetOTP', requestOptions)
+            .then((response) => {
+                return response.json();
+            })
+            .then((result) => {
+                console.log(result);
+                if (result.strRturnRes) {
+
+                    this.setState({
+                        isLoading: false,
+                        showOtpMsg: true,
+                    });
+
+                } else {
+                    this.setState({
+                        isLoading: false,
+                        showApiError: true,
+                        showApiErrorMsg: 'Please try again'
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                this.setState({
+                    isLoading: false,
+                    showApiError: true,
+                    showApiErrorMsg: 'Error in Login'
+                });
+            });
+
+        //    this.handleNavigate();
     }
 
     handleNavigate = () => {
@@ -84,31 +148,41 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                     redirect: "follow",
                 };
 
-                fetch(Domain + "/api/Ballys/" + this.state.Method === 'TEMP' ? 'CheckFirstTimeLogin' : 'CheckPIN', requestOptions)
+                let method = this.state.Method === 'TEMP' ? 'CheckFirstTimeLogin' : 'CheckPIN';
+                let url = Domain + '/api/Ballys/' + method;
+
+                fetch(url, requestOptions)
                     .then((response) => {
                         return response.json();
                     })
                     .then((result) => {
                         console.log(result);
                         if (result.strRturnRes) {
-                            this.handleNavigate();
-                        } else {
-                            this.setState({ isLoading: false });
-                            Alert.alert(
-                                'ERROR in Login',
-                                result.strToken.error_description,
-                            );
-                        }
 
+                            if (this.state.Method === 'TEMP') {
+                                this.handleNavigate();
+                            } else {
+                                this.getOtp();
+                            }
+
+
+                        } else {
+                            this.setState({
+                                isLoading: false,
+                                showApiError: true,
+                                showApiErrorMsg: this.state.Method === 'TEMP' ?
+                                    result.strMName === '' ? result.strToken.error_description : 'Invalid Credentials, Please try again'
+                                    : result.strToken.error_description
+                            });
+                        }
                     })
                     .catch((error) => {
                         console.log(error);
-                        this.setState({ isLoading: false });
-                        Alert.alert(
-                            'ERROR in Login',
-                            error.TypeError,
-                        );
-
+                        this.setState({
+                            isLoading: false,
+                            showApiError: true,
+                            showApiErrorMsg: 'Error in Login'
+                        });
                     });
             }
         });
@@ -162,7 +236,14 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                                     colors={['#FF0024', '#FF0024', '#FF0024']}
                                 />
                                 {this.state.Method === 'TEMP' ? null :
-                                    <TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            this.setState({
+                                                showApiInfo: true,
+                                                showApiInfoMsg: 'To change your PIN number you should\nvisit the Ballys front office or\nCALL XXX-XXX XXXX'
+                                            });
+                                        }}
+                                    >
                                         <Text style={{ marginTop: 20, color: 'black', fontSize: 16, borderBottomWidth: 2 }}>FORGET PASSWORD</Text>
                                     </TouchableOpacity>
                                 }
@@ -170,29 +251,23 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                         </View>
                     </View>
                     {this.state.isLoading ? (
-                        <View
-                            style={{
-                                backgroundColor: 'black',
-                                position: 'absolute',
-                                width: 120,
-                                height: 100,
-                                backgroundColor: 'rgba(0,0,0,0.4)',
-                                top: '50%',
-                                bottom: 0,
-                                left: '36%',
-                                borderRadius: 10,
-                            }}>
-                            <ActivityIndicator
-                                animating={true}
-                                size={'large'}
-                                color={'white'}
-                                style={{ top: 20 }}
-                            />
-                            <Text style={{ left: '18%', marginTop: 20, color: 'white' }}>
-                                Please wait
-                            </Text>
-                        </View>
+                        <Loader />
                     ) : null}
+                    {this.state.showApiError ?
+                        <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
+                            this.setState({ showApiError: false });
+                        }} />
+                        : null}
+                    {this.state.showApiInfo ?
+                        <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
+                            this.setState({ showApiInfo: false });
+                        }} />
+                        : null}
+                    {this.state.showOtpMsg ?
+                        <OtpMsg msg={this.state.showApiInfoMsg} onPress={() => {
+                            this.setState({ showApiInfo: false });
+                        }} />
+                        : null}
                 </LinearGradient>
             </View>
         );
