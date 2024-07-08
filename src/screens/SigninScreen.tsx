@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component, useState } from 'react';
-import { ActivityIndicator, View, Text, StyleSheet, Image, Dimensions, Alert, BackHandler, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, View, Text, StyleSheet, Image, Dimensions, Alert, BackHandler, TouchableOpacity, ScrollView } from 'react-native';
 import GradientButtonWithBorder from '../components/GradientButton';
 import GradientButton from '../components/GradientButtonfull';
 import { useNavigation } from '@react-navigation/native';
@@ -47,7 +47,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
             showApiErrorMsg: '',
             showApiInfo: false,
             showApiInfoMsg: '',
-            showOtpMsg: true,
+            showOtpMsg: false,
         }
 
 
@@ -160,9 +160,9 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                         if (result.strRturnRes) {
 
                             if (this.state.Method === 'TEMP') {
-                                this.handleNavigate();
-                            } else {
                                 this.getOtp();
+                            } else {
+                                this.handleNavigate();
                             }
 
 
@@ -195,81 +195,162 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                 <LinearGradient
                     style={{ flex: 1 }}
                     colors={['#FF0024', '#FF6648', '#FFCE6C']}>
-                    <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
 
-                        <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>Sign in</Text>
-                        <Image
-                            source={require('../images/logo.png')}
-                            style={{ width: '50%', marginTop: -50 }}
-                            resizeMode="contain"
-                        />
-                        {this.state.Method === 'TEMP' ?
-                            <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1, marginTop: -150 }}>
-                                <Text style={{ color: 'white', fontSize: 14, marginTop: -70 }}>if this is your First time logging in please note</Text>
-                                <Text style={{ color: 'white', fontSize: 14, }}>the passport No, you used is your Player ID #</Text>
-                                <Text style={{ color: 'white', fontSize: 14, }}>and your Password is your birthday is</Text>
-                                <Text style={{ color: 'white', fontSize: 14, }}>DD/MM/YY YY format</Text>
-                            </View>
-                            : null}
-                        <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1, marginTop: -150, width: '100%' }}>
-
-                            <TextInput value={this.state.PlayerID} onChangeText={(text: string) => {
-                                this.setState({ PlayerID: text });
-                            }}
-                                showError={this.state.PlayerID === '' && this.state.showError}
-                                fieldName={this.state.Method === 'TEMP' ? 'Player ID (Passport No.)' : 'Player ID'}
-                                fieldErrorMsg={'Field empty'}
-                            />
-                            <TextInput
-                                value={this.state.PIN} onChangeText={(text: string) => {
-                                    this.setState({ PIN: text });
-                                }}
-                                showError={this.state.PIN === '' && this.state.showError}
-                                fieldName={this.state.Method === 'TEMP' ? 'PIN (Date of Birth)' : 'PIN'}
-                                fieldErrorMsg={'Field empty'}
-                            />
-
-                            <View style={{ width: '75%', alignItems: 'center', marginTop: 40 }}>
-                                <GradientButton
-                                    title="SIGN IN"
-                                    onPress={() => { this.Login(); }}
-                                    colors={['#FF0024', '#FF0024', '#FF0024']}
+                    <ScrollView >
+                        <View style={{ height: height }}>
+                            <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                                <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold', marginTop: -50 }}>Sign in</Text>
+                                <Image
+                                    source={require('../images/logo.png')}
+                                    style={{ width: '50%', height: '50%' }}
+                                    resizeMode="contain"
                                 />
-                                {this.state.Method === 'TEMP' ? null :
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            this.setState({
-                                                showApiInfo: true,
-                                                showApiInfoMsg: 'To change your PIN number you should\nvisit the Ballys front office or\nCALL XXX-XXX XXXX'
-                                            });
-                                        }}
-                                    >
-                                        <Text style={{ marginTop: 20, color: 'black', fontSize: 16, borderBottomWidth: 2 }}>FORGET PASSWORD</Text>
-                                    </TouchableOpacity>
-                                }
+                            </View>
+                            {this.state.Method === 'TEMP' ?
+                                <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: -80 }}>
+                                    <Text style={{ color: 'white', fontSize: 14, }}>if this is your First time logging in please note</Text>
+                                    <Text style={{ color: 'white', fontSize: 14, }}>the passport No, you used is your Player ID #</Text>
+                                    <Text style={{ color: 'white', fontSize: 14, }}>and your Password is your birthday is</Text>
+                                    <Text style={{ color: 'white', fontSize: 14, }}>DD/MM/YY YY format</Text>
+                                </View>
+                                : null}
+                            <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+
+                                <TextInput value={this.state.PlayerID} onChangeText={(text: string) => {
+                                    this.setState({ PlayerID: text });
+                                }}
+                                    showError={this.state.PlayerID === '' && this.state.showError}
+                                    fieldName={this.state.Method === 'TEMP' ? 'Player ID (Passport No.)' : 'Player ID'}
+                                    fieldErrorMsg={'Field empty'}
+                                />
+                                <TextInput
+                                    value={this.state.PIN} onChangeText={(text: string) => {
+                                        this.setState({ PIN: text });
+                                    }}
+                                    showError={this.state.PIN === '' && this.state.showError}
+                                    fieldName={this.state.Method === 'TEMP' ? 'PIN (Date of Birth)' : 'PIN'}
+                                    fieldErrorMsg={'Field empty'}
+                                />
+
+                                <View style={{ width: '75%', alignItems: 'center', marginTop: 40 }}>
+                                    <GradientButton
+                                        title="SIGN IN"
+                                        onPress={() => { this.Login(); }}
+                                        colors={['#FF0024', '#FF0024', '#FF0024']}
+                                    />
+                                    {this.state.Method === 'TEMP' ? null :
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                this.setState({
+                                                    showApiInfo: true,
+                                                    showApiInfoMsg: 'To change your PIN number you should\nvisit the Ballys front office or\nCALL XXX-XXX XXXX'
+                                                });
+                                            }}
+                                        >
+                                            <Text style={{ marginTop: 20, color: 'black', fontSize: 16, borderBottomWidth: 2 }}>FORGET PASSWORD</Text>
+                                        </TouchableOpacity>
+                                    }
+                                </View>
+                            </View>
+                            {this.state.isLoading ? (
+                                <Loader />
+                            ) : null}
+                            {this.state.showApiError ?
+                                <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
+                                    this.setState({ showApiError: false });
+                                }} />
+                                : null}
+                            {this.state.showApiInfo ?
+                                <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
+                                    this.setState({ showApiInfo: false });
+                                }} />
+                                : null}
+                            {this.state.showOtpMsg ?
+                                <OtpMsg msg={'Verfy OTP number'} onPress={() => {
+                                    this.setState({ showApiInfo: false });
+                                }} onReturnOtp={function (otp: string): void {
+                                    console.log(otp);
+                                }} onResendOtp={(): void => {
+                                    this.getOtp();
+                                }} />
+                                : null}
+                            {/*
+                            <Image
+                                source={require('../images/logo.png')}
+                                style={{ width: '50%', marginTop: -50 }}
+                                resizeMode="contain"
+                            />
+                            {this.state.Method === 'TEMP' ?
+                                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                    <Text style={{ color: 'white', fontSize: 14, marginTop: -70 }}>if this is your First time logging in please note</Text>
+                                    <Text style={{ color: 'white', fontSize: 14, }}>the passport No, you used is your Player ID #</Text>
+                                    <Text style={{ color: 'white', fontSize: 14, }}>and your Password is your birthday is</Text>
+                                    <Text style={{ color: 'white', fontSize: 14, }}>DD/MM/YY YY format</Text>
+                                </View>
+                                : null}
+                            <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+
+                                <TextInput value={this.state.PlayerID} onChangeText={(text: string) => {
+                                    this.setState({ PlayerID: text });
+                                }}
+                                    showError={this.state.PlayerID === '' && this.state.showError}
+                                    fieldName={this.state.Method === 'TEMP' ? 'Player ID (Passport No.)' : 'Player ID'}
+                                    fieldErrorMsg={'Field empty'}
+                                />
+                                <TextInput
+                                    value={this.state.PIN} onChangeText={(text: string) => {
+                                        this.setState({ PIN: text });
+                                    }}
+                                    showError={this.state.PIN === '' && this.state.showError}
+                                    fieldName={this.state.Method === 'TEMP' ? 'PIN (Date of Birth)' : 'PIN'}
+                                    fieldErrorMsg={'Field empty'}
+                                />
+
+                                <View style={{ width: '75%', alignItems: 'center', marginTop: 40 }}>
+                                    <GradientButton
+                                        title="SIGN IN"
+                                        onPress={() => { this.Login(); }}
+                                        colors={['#FF0024', '#FF0024', '#FF0024']}
+                                    />
+                                    {this.state.Method === 'TEMP' ? null :
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                this.setState({
+                                                    showApiInfo: true,
+                                                    showApiInfoMsg: 'To change your PIN number you should\nvisit the Ballys front office or\nCALL XXX-XXX XXXX'
+                                                });
+                                            }}
+                                        >
+                                            <Text style={{ marginTop: 20, color: 'black', fontSize: 16, borderBottomWidth: 2 }}>FORGET PASSWORD</Text>
+                                        </TouchableOpacity>
+                                    }
+                                </View>
                             </View>
                         </View>
-                    </View>
-                    {this.state.isLoading ? (
-                        <Loader />
-                    ) : null}
-                    {this.state.showApiError ?
-                        <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
-                            this.setState({ showApiError: false });
-                        }} />
-                        : null}
-                    {this.state.showApiInfo ?
-                        <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
-                            this.setState({ showApiInfo: false });
-                        }} />
-                        : null}
-                    {this.state.showOtpMsg ?
-                        <OtpMsg msg={this.state.showApiInfoMsg} onPress={() => {
-                            this.setState({ showApiInfo: false });
-                        }} />
-                        : null}
+                        {this.state.isLoading ? (
+                            <Loader />
+                        ) : null}
+                        {this.state.showApiError ?
+                            <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
+                                this.setState({ showApiError: false });
+                            }} />
+                            : null}
+                        {this.state.showApiInfo ?
+                            <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
+                                this.setState({ showApiInfo: false });
+                            }} />
+                            : null}
+                        {this.state.showOtpMsg ?
+                            <OtpMsg msg={this.state.showApiInfoMsg} onPress={() => {
+                                this.setState({ showApiInfo: false });
+                            }} onReturnOtp={function (otp: string): void {
+                                console.log(otp);
+                            }} />
+                            : null} */}
+                        </View>
+                    </ScrollView>
                 </LinearGradient>
-            </View>
+            </View >
         );
     }
 }

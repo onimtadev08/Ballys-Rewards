@@ -13,6 +13,7 @@ import Loader from '../components/Loader';
 import { permissionStatus } from '../utilitis/utilities';
 import { Domain } from '../data/data';
 import SuccsessMsg from '../components/SuccsessMsg';
+import OtpMsg from '../components/OtpMsg';
 // import ImagePicker from 'react-native-image-picker';
 
 const { width, height } = Dimensions.get('window');
@@ -32,6 +33,8 @@ interface BallysLoginState {
     showApiErrorMsg: string;
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
+    showOtpMsg: boolean;
+    showApiInfo: string;
 }
 interface myProps {
     navigation: any;
@@ -57,6 +60,9 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
             showApiErrorMsg: '',
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
+            showApiInfo: '',
+            showOtpMsg: true,
+
         }
     }
 
@@ -184,6 +190,56 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
     };
 
 
+    getOtp() {
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw: string = JSON.stringify({
+            strMID: this.state.PlayerID,
+            strClientID: '',
+        });
+
+        const requestOptions: RequestInit = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+        };
+
+        fetch(Domain + '/api/Ballys/GetOTP', requestOptions)
+            .then((response) => {
+                return response.json();
+            })
+            .then((result) => {
+                console.log(result);
+                if (result.strRturnRes) {
+
+                    this.setState({
+                        isLoading: false,
+                        showOtpMsg: true,
+                    });
+
+                } else {
+                    this.setState({
+                        isLoading: false,
+                        showApiError: true,
+                        showApiErrorMsg: 'Please try again'
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                this.setState({
+                    isLoading: false,
+                    showApiError: true,
+                    showApiErrorMsg: 'Error in Login'
+                });
+            });
+
+        //    this.handleNavigate();
+    }
+
     render(): React.ReactNode {
 
         return (
@@ -280,21 +336,31 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                             <Text style={{ marginBottom: 30, color: 'black' }}>Rewards points</Text>
                         </View>
                     </View>
+
+                    {this.state.isLoading ? (
+                        <Loader />
+                    ) : null}
+                    {this.state.showApiError ?
+                        <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
+                            this.setState({ showApiError: false });
+                        }} />
+                        : null}
+                    {this.state.showApiSuccsess ?
+                        <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
+                            this.setState({ showApiSuccsess: false });
+                            this.props.navigation.navigate('Login');
+                        }} />
+                        : null}
+                    {this.state.showOtpMsg ?
+                        <OtpMsg msg={'We have sent you OTP number, Enter the OTP you have received to continue'} onPressCancel={() => {
+                            this.setState({ showOtpMsg: false });
+                        }} onReturnOtp={function (otp: string): void {
+                            console.log(otp);
+                        }} onResendOtp={(): void => {
+                            this.getOtp();
+                        }} />
+                        : null}
                 </ScrollView>
-                {this.state.isLoading ? (
-                    <Loader />
-                ) : null}
-                {this.state.showApiError ?
-                    <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
-                        this.setState({ showApiError: false });
-                    }} />
-                    : null}
-                {this.state.showApiSuccsess ?
-                    <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
-                        this.setState({ showApiSuccsess: false });
-                        this.props.navigation.navigate('Login');
-                    }} />
-                    : null}
             </LinearGradient >
 
         );
