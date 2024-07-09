@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, ImageBackground } from 'react-native';
+import { BackHandler, View, Text, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Assuming you're using a class-based navigation solution
 import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,9 +18,11 @@ const images = [
 interface myStates {
     currentIndex: number;
 }
-class HomeScreen extends Component<{}, myStates> {
+interface myProps {
+    navigation: any
+}
+class HomeScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
-
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
 
@@ -34,6 +36,9 @@ class HomeScreen extends Component<{}, myStates> {
     }
     // Fetches navigation reference and sets up interval on mount
     componentDidMount() {
+
+        BackHandler.addEventListener('hardwareBackPress', () => true);
+
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
 
         const interval = setInterval(() => {

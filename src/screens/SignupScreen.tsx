@@ -14,6 +14,8 @@ import { permissionStatus } from '../utilitis/utilities';
 import { Domain } from '../data/data';
 import SuccsessMsg from '../components/SuccsessMsg';
 import OtpMsg from '../components/OtpMsg';
+import { getOtp } from '../api/Api';
+import MyDatePicker from '../components/MyDatePicker';
 // import ImagePicker from 'react-native-image-picker';
 
 const { width, height } = Dimensions.get('window');
@@ -35,6 +37,9 @@ interface BallysLoginState {
     showApiSuccsessMsg: string;
     showOtpMsg: boolean;
     showApiInfo: string;
+    openDatePicker: boolean;
+    TempPIN: Date;
+    VerfyOtp: string;
 }
 interface myProps {
     navigation: any;
@@ -61,7 +66,10 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
             showApiInfo: '',
-            showOtpMsg: true,
+            showOtpMsg: false,
+            openDatePicker: false,
+            TempPIN: new Date(),
+            VerfyOtp: '',
 
         }
     }
@@ -154,6 +162,10 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                 .then((result) => {
                     console.log(result);
                     if (result.strRturnRes) {
+
+                        this.setState({ VerfyOtp: result.strOTPCODE });
+
+                        this.getOtp();
                         this.setState({
                             isLoading: false,
                             showApiSuccsess: true,
@@ -190,55 +202,89 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
     };
 
 
-    getOtp() {
+    // getOtp() {
 
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
 
-        const raw: string = JSON.stringify({
-            strMID: this.state.PlayerID,
-            strClientID: '',
-        });
+    getOtp = async () => {
+        this.setState({ isLoading: true });
+        try {
+            const result = await getOtp(this.state.PlayerID, '');
+            console.log(result);
+            if (result.strRturnRes) {
 
-        const requestOptions: RequestInit = {
-            method: "POST",
-            headers: myHeaders,
-            body: raw,
-            redirect: "follow",
-        };
+                this.setState({
+                    isLoading: false,
+                    showOtpMsg: true,
+                });
 
-        fetch(Domain + '/api/Ballys/GetOTP', requestOptions)
-            .then((response) => {
-                return response.json();
-            })
-            .then((result) => {
-                console.log(result);
-                if (result.strRturnRes) {
-
-                    this.setState({
-                        isLoading: false,
-                        showOtpMsg: true,
-                    });
-
-                } else {
-                    this.setState({
-                        isLoading: false,
-                        showApiError: true,
-                        showApiErrorMsg: 'Please try again'
-                    });
-                }
-            })
-            .catch((error) => {
-                console.log(error);
+            } else {
                 this.setState({
                     isLoading: false,
                     showApiError: true,
-                    showApiErrorMsg: 'Error in Login'
+                    showApiErrorMsg: 'Please try again'
                 });
+            }
+        } catch (error) {
+            console.log(error);
+            this.setState({
+                isLoading: false,
+                showApiError: true,
+                showApiErrorMsg: 'Error in Login'
             });
+        } finally {
 
-        //    this.handleNavigate();
-    }
+        }
+    };
+
+
+
+    //     const myHeaders = new Headers();
+    //     myHeaders.append("Content-Type", "application/json");
+
+    //     const raw: string = JSON.stringify({
+    //         strMID: this.state.PlayerID,
+    //         strClientID: '',
+    //     });
+
+    //     const requestOptions: RequestInit = {
+    //         method: "POST",
+    //         headers: myHeaders,
+    //         body: raw,
+    //         redirect: "follow",
+    //     };
+
+    //     fetch(Domain + '/api/Ballys/GetOTP', requestOptions)
+    //         .then((response) => {
+    //             return response.json();
+    //         })
+    //         .then((result) => {
+    //             console.log(result);
+    //             if (result.strRturnRes) {
+
+    //                 this.setState({
+    //                     isLoading: false,
+    //                     showOtpMsg: true,
+    //                 });
+
+    //             } else {
+    //                 this.setState({
+    //                     isLoading: false,
+    //                     showApiError: true,
+    //                     showApiErrorMsg: 'Please try again'
+    //                 });
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //             this.setState({
+    //                 isLoading: false,
+    //                 showApiError: true,
+    //                 showApiErrorMsg: 'Error in Login'
+    //             });
+    //         });
+
+    //     //    this.handleNavigate();
+    // }
 
     render(): React.ReactNode {
 
@@ -305,14 +351,26 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                 fieldErrorMsg={'Field empty'}
                             />
 
-                            <TextInput
-                                value={this.state.PIN} onChangeText={(text: string) => {
-                                    this.setState({ PIN: text });
+                            <TouchableOpacity style={{
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '100%'
+                            }}
+                                onPress={() => {
+                                    this.setState({ openDatePicker: true });
                                 }}
-                                showError={this.state.PIN === '' && this.state.showError}
-                                fieldName={'Date Of Birth (DD/MM/YYYY -Pin No.)'}
-                                fieldErrorMsg={'Field empty'}
-                            />
+                            >
+                                <TextInput
+                                    editable={false}
+                                    value={this.state.PIN} onChangeText={(text: string) => {
+                                        this.setState({ PIN: text });
+                                    }}
+                                    showError={this.state.PIN === '' && this.state.showError}
+                                    fieldName={'Date Of Birth (DD/MM/YYYY -Pin No.)'}
+                                    fieldErrorMsg={'Field empty'}
+                                />
+                            </TouchableOpacity>
+
                             <Text style={{ color: 'red', fontWeight: '500', fontSize: 16, marginTop: 10 }}>All Above Fields are Madndatory</Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Checkbox status={this.state.checked ? 'checked' : 'unchecked'} onPress={() => {
@@ -336,31 +394,56 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                             <Text style={{ marginBottom: 30, color: 'black' }}>Rewards points</Text>
                         </View>
                     </View>
-
-                    {this.state.isLoading ? (
-                        <Loader />
-                    ) : null}
-                    {this.state.showApiError ?
-                        <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
-                            this.setState({ showApiError: false });
-                        }} />
-                        : null}
-                    {this.state.showApiSuccsess ?
-                        <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
-                            this.setState({ showApiSuccsess: false });
-                            this.props.navigation.navigate('Login');
-                        }} />
-                        : null}
-                    {this.state.showOtpMsg ?
-                        <OtpMsg msg={'We have sent you OTP number, Enter the OTP you have received to continue'} onPressCancel={() => {
-                            this.setState({ showOtpMsg: false });
-                        }} onReturnOtp={function (otp: string): void {
-                            console.log(otp);
-                        }} onResendOtp={(): void => {
-                            this.getOtp();
-                        }} />
-                        : null}
                 </ScrollView>
+                {this.state.isLoading ? (
+                    <Loader />
+                ) : null}
+                {this.state.showApiError ?
+                    <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
+                        this.setState({ showApiError: false });
+                    }} />
+                    : null}
+                {this.state.showApiSuccsess ?
+                    <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
+                        this.setState({ showApiSuccsess: false });
+                        this.props.navigation.navigate('Login');
+                    }} />
+                    : null}
+                {this.state.showOtpMsg ?
+                    <OtpMsg msg={'We have sent you OTP number, Enter the OTP you have received to continue'} onPressCancel={() => {
+                        this.setState({ showOtpMsg: false });
+                    }} onReturnOtp={(otp: string): void => {
+                        console.log(otp);
+
+                        if (otp === this.state.VerfyOtp) {
+                            this.setState({ showOtpMsg: false, showApiSuccsess: true, showApiSuccsessMsg: 'OTP Verification sucssesfull' });
+                        } else {
+                            this.setState({ showApiError: true, showApiErrorMsg: 'Invalid OTP' });
+                        }
+
+                    }} onResendOtp={(): void => {
+                        this.getOtp();
+                    }} onPressDone={(otp: string): void => {
+                        console.log(otp);
+                        this.setState({ showOtpMsg: false });
+                    }} />
+                    : null}
+ 
+                {this.state.openDatePicker ?
+                    <MyDatePicker
+                        date={this.state.TempPIN}
+                        onDateChange={(date: Date): void => {
+                            this.setState({ TempPIN: date });
+                        }}
+                        format='DD/MM/YYYY'
+                        mode='date'
+                        onPressCancel={(): void => {
+                            this.setState({ openDatePicker: false });
+                        }} onDone={(data: string): void => {
+                            console.log(data);
+                            this.setState({ openDatePicker: false, PIN: data });
+                        }} />
+                    : null}
             </LinearGradient >
 
         );

@@ -14,10 +14,15 @@ import ErrorMsg from '../components/errorMsg';
 import Loader from '../components/Loader';
 import InfoMsg from '../components/InfoMsg';
 import OtpMsg from '../components/OtpMsg';
+import { TempLogin, VaidateOTP } from '../api/Api';
+import MyDatePicker from '../components/MyDatePicker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 interface BallysLoginState {
     PlayerID: string;
     PIN: string;
-    Token?: string;
+    Token: string;
     showError: boolean;
     isLoading: boolean;
     Method: string;
@@ -26,6 +31,9 @@ interface BallysLoginState {
     showApiInfo: boolean;
     showApiInfoMsg: string;
     showOtpMsg: boolean;
+    openDatePicker: boolean;
+    TempPIN: Date;
+    VerifyOTP: string;
 }
 interface myProps {
     Method: string;
@@ -48,66 +56,53 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
             showApiInfo: false,
             showApiInfoMsg: '',
             showOtpMsg: false,
+            openDatePicker: false,
+            TempPIN: new Date(),
+            VerifyOTP: '',
         }
 
 
     }
 
     componentDidMount(): void {
-        this.setState({ PlayerID: 'BM69328', PIN: '1234' });
+        this.setState({ PlayerID: 'BM15125', PIN: '1234' });
         //      BackHandler.addEventListener('hardwareBackPress', () => true);
     }
 
+    VaidateOTP = async (otp: string) => {
+        this.setState({ isLoading: true });
+        try {
+            const result = await VaidateOTP(this.state.PlayerID, otp);
+            console.log(result);
+            if (result.strRturnRes) {
 
-    getOtp() {
-
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        const raw: string = JSON.stringify({
-            strMID: this.state.PlayerID,
-            strClientID: '',
-        });
-
-        const requestOptions: RequestInit = {
-            method: "POST",
-            headers: myHeaders,
-            body: raw,
-            redirect: "follow",
-        };
-
-        fetch(Domain + '/api/Ballys/GetOTP', requestOptions)
-            .then((response) => {
-                return response.json();
-            })
-            .then((result) => {
-                console.log(result);
-                if (result.strRturnRes) {
-
-                    this.setState({
-                        isLoading: false,
-                        showOtpMsg: true,
-                    });
-
-                } else {
-                    this.setState({
-                        isLoading: false,
-                        showApiError: true,
-                        showApiErrorMsg: 'Please try again'
-                    });
-                }
-            })
-            .catch((error) => {
-                console.log(error);
                 this.setState({
                     isLoading: false,
-                    showApiError: true,
-                    showApiErrorMsg: 'Error in Login'
+                    showOtpMsg: false,
                 });
-            });
 
-        //    this.handleNavigate();
+                this.handleNavigate();
+
+            } else {
+                this.setState({
+                    isLoading: false,
+                    showOtpMsg: false,
+                    showApiError: true,
+                    showApiErrorMsg: 'Please try again'
+                });
+            }
+        } catch (error) {
+            console.log(error);
+            this.setState({
+                isLoading: false,
+                showApiError: true,
+                showApiErrorMsg: 'Server Connection error',
+            });
+        } finally {
+
+        }
     }
+
 
     handleNavigate = () => {
         const { navigation } = this.props; // Destructure navigation prop
@@ -115,8 +110,8 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
         this.setState({ isLoading: false });
     };
 
-    Login() {
-        this.setState({ showError: false, isLoading: true }, () => {
+    Login = async () => {
+        this.setState({ showError: false, isLoading: true }, async () => {
 
 
             if (this.state.PlayerID === '') {
@@ -129,63 +124,47 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
 
             console.log(!this.state.showError, this.state.PlayerID !== '', this.state.PIN !== '');
 
-
             if (!this.state.showError && (this.state.PlayerID !== '' && this.state.PIN !== '')) {
 
-                const myHeaders = new Headers();
-                myHeaders.append("Content-Type", "application/json");
+                try {
+                    const result = await TempLogin(this.state.PlayerID, this.state.PIN, this.state.Token, this.state.Method);
+                    console.log(result);
+                    if (result.strRturnRes) {
 
-                const raw: string = JSON.stringify({
-                    strMID: this.state.PlayerID,
-                    strPIN: this.state.PIN,
-                    strToken: this.state.Token,
-                });
+                        AsyncStorage.setItem('Token', result.strToken.access_token);
 
-                const requestOptions: RequestInit = {
-                    method: "POST",
-                    headers: myHeaders,
-                    body: raw,
-                    redirect: "follow",
-                };
+                        this.setState({
+                            isLoading: false,
+                            showOtpMsg: true,
+                        });
 
-                let method = this.state.Method === 'TEMP' ? 'CheckFirstTimeLogin' : 'CheckPIN';
-                let url = Domain + '/api/Ballys/' + method;
+                        //    this.getOtp();
 
-                fetch(url, requestOptions)
-                    .then((response) => {
-                        return response.json();
-                    })
-                    .then((result) => {
-                        console.log(result);
-                        if (result.strRturnRes) {
-
-                            if (this.state.Method === 'TEMP') {
-                                this.getOtp();
-                            } else {
-                                this.handleNavigate();
-                            }
-
-
-                        } else {
-                            this.setState({
-                                isLoading: false,
-                                showApiError: true,
-                                showApiErrorMsg: this.state.Method === 'TEMP' ?
-                                    result.strMName === '' ? result.strToken.error_description : 'Invalid Credentials, Please try again'
-                                    : result.strToken.error_description
-                            });
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error);
+                    } else {
                         this.setState({
                             isLoading: false,
                             showApiError: true,
-                            showApiErrorMsg: 'Error in Login'
+                            showApiErrorMsg: this.state.Method === 'TEMP' ?
+                                result.strMName === '' ? result.strToken.error_description : 'Invalid Credentials, Please try again'
+                                : result.strToken.error_description
                         });
+                    }
+                } catch (error) {
+                    console.log(error);
+                    this.setState({
+                        isLoading: false,
+                        showApiError: true,
+                        showApiErrorMsg: 'Error in Login'
                     });
+                } finally {
+
+                }
             }
         });
+    }
+
+    ResendOtp = async () => {
+
     }
 
     render(): React.ReactNode {
@@ -216,21 +195,48 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                                 : null}
                             <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%' }}>
 
-                                <TextInput value={this.state.PlayerID} onChangeText={(text: string) => {
-                                    this.setState({ PlayerID: text });
-                                }}
+                                <TextInput
+                                    value={this.state.PlayerID}
+                                    onChangeText={(text: string) => {
+                                        this.setState({ PlayerID: text });
+                                    }}
                                     showError={this.state.PlayerID === '' && this.state.showError}
                                     fieldName={this.state.Method === 'TEMP' ? 'Player ID (Passport No.)' : 'Player ID'}
                                     fieldErrorMsg={'Field empty'}
                                 />
-                                <TextInput
-                                    value={this.state.PIN} onChangeText={(text: string) => {
-                                        this.setState({ PIN: text });
+
+                                {this.state.Method === 'TEMP' ?
+                                    <TouchableOpacity style={{
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: '100%'
                                     }}
-                                    showError={this.state.PIN === '' && this.state.showError}
-                                    fieldName={this.state.Method === 'TEMP' ? 'PIN (Date of Birth)' : 'PIN'}
-                                    fieldErrorMsg={'Field empty'}
-                                />
+                                        onPress={() => {
+                                            this.setState({ openDatePicker: true });
+                                        }}
+                                    >
+                                        <TextInput
+                                            editable={false}
+                                            value={this.state.PIN}
+                                            onChangeText={(text: string) => {
+                                                this.setState({ PIN: text });
+                                            }}
+                                            showError={this.state.PIN === '' && this.state.showError}
+                                            fieldName={'PIN (Date of Birth)'}
+                                            fieldErrorMsg={'Field empty'}
+                                        />
+                                    </TouchableOpacity>
+                                    :
+                                    <TextInput
+                                        value={this.state.PIN} onChangeText={(text: string) => {
+                                            this.setState({ PIN: text });
+                                        }}
+                                        showError={this.state.PIN === '' && this.state.showError}
+                                        fieldName={'PIN'}
+                                        fieldErrorMsg={'Field empty'}
+                                    />
+                                }
+
 
                                 <View style={{ width: '75%', alignItems: 'center', marginTop: 40 }}>
                                     <GradientButton
@@ -252,103 +258,52 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                                     }
                                 </View>
                             </View>
-                            {this.state.isLoading ? (
-                                <Loader />
-                            ) : null}
-                            {this.state.showApiError ?
-                                <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
-                                    this.setState({ showApiError: false });
-                                }} />
-                                : null}
-                            {this.state.showApiInfo ?
-                                <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
-                                    this.setState({ showApiInfo: false });
-                                }} />
-                                : null}
-                            {this.state.showOtpMsg ?
-                                <OtpMsg msg={'Verfy OTP number'} onPress={() => {
-                                    this.setState({ showApiInfo: false });
-                                }} onReturnOtp={function (otp: string): void {
-                                    console.log(otp);
-                                }} onResendOtp={(): void => {
-                                    this.getOtp();
-                                }} />
-                                : null}
-                            {/*
-                            <Image
-                                source={require('../images/logo.png')}
-                                style={{ width: '50%', marginTop: -50 }}
-                                resizeMode="contain"
-                            />
-                            {this.state.Method === 'TEMP' ?
-                                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                    <Text style={{ color: 'white', fontSize: 14, marginTop: -70 }}>if this is your First time logging in please note</Text>
-                                    <Text style={{ color: 'white', fontSize: 14, }}>the passport No, you used is your Player ID #</Text>
-                                    <Text style={{ color: 'white', fontSize: 14, }}>and your Password is your birthday is</Text>
-                                    <Text style={{ color: 'white', fontSize: 14, }}>DD/MM/YY YY format</Text>
-                                </View>
-                                : null}
-                            <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%' }}>
 
-                                <TextInput value={this.state.PlayerID} onChangeText={(text: string) => {
-                                    this.setState({ PlayerID: text });
-                                }}
-                                    showError={this.state.PlayerID === '' && this.state.showError}
-                                    fieldName={this.state.Method === 'TEMP' ? 'Player ID (Passport No.)' : 'Player ID'}
-                                    fieldErrorMsg={'Field empty'}
-                                />
-                                <TextInput
-                                    value={this.state.PIN} onChangeText={(text: string) => {
-                                        this.setState({ PIN: text });
-                                    }}
-                                    showError={this.state.PIN === '' && this.state.showError}
-                                    fieldName={this.state.Method === 'TEMP' ? 'PIN (Date of Birth)' : 'PIN'}
-                                    fieldErrorMsg={'Field empty'}
-                                />
-
-                                <View style={{ width: '75%', alignItems: 'center', marginTop: 40 }}>
-                                    <GradientButton
-                                        title="SIGN IN"
-                                        onPress={() => { this.Login(); }}
-                                        colors={['#FF0024', '#FF0024', '#FF0024']}
-                                    />
-                                    {this.state.Method === 'TEMP' ? null :
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                                this.setState({
-                                                    showApiInfo: true,
-                                                    showApiInfoMsg: 'To change your PIN number you should\nvisit the Ballys front office or\nCALL XXX-XXX XXXX'
-                                                });
-                                            }}
-                                        >
-                                            <Text style={{ marginTop: 20, color: 'black', fontSize: 16, borderBottomWidth: 2 }}>FORGET PASSWORD</Text>
-                                        </TouchableOpacity>
-                                    }
-                                </View>
-                            </View>
-                        </View>
-                        {this.state.isLoading ? (
-                            <Loader />
-                        ) : null}
-                        {this.state.showApiError ?
-                            <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
-                                this.setState({ showApiError: false });
-                            }} />
-                            : null}
-                        {this.state.showApiInfo ?
-                            <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
-                                this.setState({ showApiInfo: false });
-                            }} />
-                            : null}
-                        {this.state.showOtpMsg ?
-                            <OtpMsg msg={this.state.showApiInfoMsg} onPress={() => {
-                                this.setState({ showApiInfo: false });
-                            }} onReturnOtp={function (otp: string): void {
-                                console.log(otp);
-                            }} />
-                            : null} */}
                         </View>
                     </ScrollView>
+                    {this.state.isLoading ? (
+                        <Loader />
+                    ) : null}
+                    {this.state.showApiError ?
+                        <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
+                            this.setState({ showApiError: false });
+                        }} />
+                        : null}
+                    {this.state.showApiInfo ?
+                        <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
+                            this.setState({ showApiInfo: false });
+                        }} />
+                        : null}
+                    {this.state.showOtpMsg ?
+                        <OtpMsg msg={'We have sent you OTP number, Enter the OTP you have received to continue'}
+                            onPressCancel={() => {
+                                this.setState({ showOtpMsg: false });
+                            }} onReturnOtp={(otp: string): void => {
+                                console.log(otp);
+                                if (otp !== '') {
+                                    this.VaidateOTP(otp);
+                                }
+                            }} onResendOtp={(): void => {
+                                this.ResendOtp();
+                            }} onPressDone={function (otp: string): void {
+                                console.log(otp);
+                            }} />
+                        : null}
+                    {this.state.openDatePicker ?
+                        <MyDatePicker
+                            date={this.state.TempPIN}
+                            onDateChange={(date: Date): void => {
+                                this.setState({ TempPIN: date });
+                            }}
+                            format='DD/MM/YYYY'
+                            mode='date'
+                            onPressCancel={(): void => {
+                                this.setState({ openDatePicker: false });
+                            }} onDone={(data: string): void => {
+                                console.log(data);
+                                this.setState({ openDatePicker: false, PIN: data });
+                            }} />
+                        : null}
                 </LinearGradient>
             </View >
         );

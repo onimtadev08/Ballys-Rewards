@@ -12,12 +12,14 @@ interface errorMsgProps {
     onPressCancel: () => void;
     onReturnOtp: (otp: string) => void;
     onResendOtp: () => void;
+    onPressDone: (otp: string) => void
 }
 const OtpMsg: React.FC<errorMsgProps> = ({
     msg,
     onPressCancel,
     onReturnOtp,
     onResendOtp,
+    onPressDone,
 }) => {
     const ref_input1 = useRef<TextInput | null>(null);
     const ref_input2 = useRef<TextInput | null>(null);
@@ -80,11 +82,12 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                     justifyContent: 'center',
                     position: 'absolute',
                     width: '90%',
-                    height: '25%',
-                    top: height / 20,
+                    height: '40%',
+                    top: height / 30,
                     left: -80,
                     elevation: 50,
                     borderRadius: 20,
+                    minHeight:'70%',
                 }}>
                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                     <View style={{ flexDirection: 'row' }}>
@@ -212,6 +215,23 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                             </Text>
                         </View>
                     </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={{
+                            backgroundColor: 'green',
+                            padding: 10,
+                            width: '75%',
+                            alignItems: 'center',
+                            borderRadius: 10,
+                            marginTop: -20,
+                            marginBottom: 10,
+                        }}
+                        onPress={() => {
+                            onPressDone(Text1 + '' + Text2 + '' + Text3 + '' + Text4);
+                        }}>
+                        <Text style={{ color: 'white', fontWeight: '500' }}>Done</Text>
+                    </TouchableOpacity>
+
                 </View>
             </View>
         </View>

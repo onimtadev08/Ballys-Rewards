@@ -21,10 +21,12 @@ const TextInput = (props: any) => {
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center' }}>
                     <NativeTextInput
-                        style={{ width: '88%' }}
+                        editable={props.editable === undefined ? true : false}
+                        style={{ width: '88%', color: 'black' }}
                         onChangeText={(text) => {
                             props.onChangeText(text);
                         }}
+                        value={props.value === null ? '' : props.value}
                     />
                     {props.showError ? <MaterialIcons name='error-outline' size={25} color={'red'} /> : null}
                 </View>
