@@ -14,7 +14,7 @@ import { permissionStatus } from '../utilitis/utilities';
 import { Domain } from '../data/data';
 import SuccsessMsg from '../components/SuccsessMsg';
 import OtpMsg from '../components/OtpMsg';
-import { getOtp } from '../api/Api';
+import { FirstTimeSignIn, getOtp } from '../api/Api';
 import MyDatePicker from '../components/MyDatePicker';
 import { CountryItem, CountryPicker } from "react-native-country-codes-picker";
 // import ImagePicker from 'react-native-image-picker';
@@ -43,6 +43,7 @@ interface BallysLoginState {
     VerfyOtp: string;
     CountryCode: string;
     CountryPicker: boolean;
+    ShowCountryCode: string;
 }
 interface myProps {
     navigation: any;
@@ -73,8 +74,9 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
             openDatePicker: false,
             TempPIN: new Date(),
             VerfyOtp: '',
-            CountryCode: '',
+            CountryCode: '+94',
             CountryPicker: false,
+            ShowCountryCode: '🇱🇰 LK +94',
 
         }
     }
@@ -105,9 +107,9 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
         }
     };
 
-    handleLogin = () => {
+    handleLogin = async () => {
 
-        this.setState({ showError: false });
+        this.setState({ showError: false, isLoading: true });
 
         var tempShowError = false;
 
@@ -139,59 +141,42 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
         if (!tempShowError && this.state.checked) {
 
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
+            const result = await FirstTimeSignIn(
+                this.state.fname,
+                this.state.lname,
+                this.state.CountryCode + '' + this.state.mnumber,
+                this.state.email,
+                this.state.PlayerID,
+                this.state.PIN,
+            );
 
-            const raw: string = JSON.stringify({
-                strFirstName: this.state.fname,
-                strLastName: this.state.lname,
-                strMobile: this.state.mnumber,
-                strEMail: this.state.email,
-                strDOB: this.state.PIN,
-                strPassport: this.state.PlayerID,
-            });
+            try {
 
-            const requestOptions: RequestInit = {
-                method: "POST",
-                headers: myHeaders,
-                body: raw,
-                redirect: "follow",
-            };
+                if (result.strRturnRes) {
 
+                    this.setState({
+                        isLoading: false,
+                        showApiSuccsess: true,
+                        showApiSuccsessMsg: 'Sign Up Succsess'
+                    });
 
-
-            fetch(Domain + '/api/Ballys/FirstTimeLoginSave', requestOptions)
-                .then((response) => {
-                    return response.json();
-                })
-                .then((result) => {
-                    console.log(result);
-                    if (result.strRturnRes) {
-
-                        this.setState({
-                            isLoading: false,
-                            showApiSuccsess: true,
-                            showApiSuccsessMsg: 'Sign Up Succsess'
-                        });
-
-                    } else {
-                        this.setState({
-                            isLoading: false,
-                            showApiError: true,
-                            showApiErrorMsg: 'Error Found , Please try again'
-                        });
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
+                } else {
                     this.setState({
                         isLoading: false,
                         showApiError: true,
-                        showApiErrorMsg: 'Error in Sign Up'
+                        showApiErrorMsg: result.strDES
                     });
+                }
+
+            } catch (error) {
+                this.setState({
+                    isLoading: false,
+                    showApiError: true,
+                    showApiErrorMsg: 'Error in Sign Up'
                 });
+            } finally {
 
-
+            }
 
         } else {
             if (!this.state.checked) {
@@ -327,7 +312,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                 fieldErrorMsg={'Field empty'}
                             />
 
-                            <View style={{ flexDirection: 'row', height: 100, marginLeft: 40, marginRight: -15 }}>
+                            <View style={{ flexDirection: 'row', height: 100, marginLeft: 35, marginRight: -5 }}>
                                 <TouchableOpacity
                                     style={{ flex: 0.6 }}
                                     onPress={() => {
@@ -337,9 +322,9 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
                                     <TextInput
                                         editable={false}
-                                        value={this.state.CountryCode}
+                                        value={this.state.ShowCountryCode}
                                         showError={this.state.mnumber === '' && this.state.showError}
-                                        fieldName={''}
+                                        fieldName={'Country Code'}
                                         fieldErrorMsg={'Field empty'}
                                     />
 
@@ -353,7 +338,12 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                         initialState='+94'
                                         show={this.state.CountryPicker}
                                         pickerButtonOnPress={(item: CountryItem) => {
-                                            this.setState({ CountryCode: item.flag + ' ' + item.code + ' ' + item.dial_code });
+                                            console.log(item.flag);
+
+                                            this.setState({
+                                                ShowCountryCode: item.flag + ' ' + item.code + ' ' + item.dial_code,
+                                                CountryCode: item.dial_code
+                                            });
                                             this.setState({ CountryPicker: false });
                                         }}
                                         lang={'en'} />

@@ -8,6 +8,9 @@ const VaidateOTPUrl = Domain + '/api/Ballys/ValidateOTP';
 
 const ResendOTPUrl = Domain + '/api/Ballys/ResendOTP';
 
+const FirstTimeSignInUrl = Domain + '/api/Ballys/FirstTimeLoginSave';
+
+
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
 
@@ -39,7 +42,7 @@ export async function getOtp(PlayerID: string, ClientID: string) {
 // sign in temp and original
 export async function TempLogin(PlayerID: string, PIN: string, Token: string, Method: string) {
 
-    let method = Method === 'TEMP' ? 'CheckFirstTimeLogin' : 'SignIn';
+    let method = Method === 'TEMP' ? 'FirstTimeSignIn' : 'SignIn';
     let Url = Domain + '/api/Ballys/' + method;
 
 
@@ -49,8 +52,11 @@ export async function TempLogin(PlayerID: string, PIN: string, Token: string, Me
     const raw: string = JSON.stringify({
         strMID: PlayerID,
         strPIN: PIN,
-        strToken: Token,
     });
+
+    console.log('=====================================');
+    console.log(Url, '\n', raw);
+
 
     const requestOptions: RequestInit = {
         method: "POST",
@@ -128,4 +134,43 @@ export async function ResendOTP(PlayerID: string) {
     console.log('=====================================');
 
     return response.json();
+}
+
+export async function FirstTimeSignIn(fname: string, lname: string, arg2: string, email: string, PlayerID: string, PIN: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "bearer " + Token);
+
+    const raw: string = JSON.stringify({
+        strFirstName: fname,
+        strLastName: lname,
+        strMobile: arg2,
+        strEMail: email,
+        strDOB: PIN,
+        strPassport: PlayerID,
+    });
+
+    console.log('=====================================');
+    console.log(FirstTimeSignInUrl, '\n', raw);
+
+
+    const requestOptions: RequestInit = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+    };
+
+    const response = await fetch(FirstTimeSignInUrl, requestOptions);
+    if (!response.ok) {
+        throw new Error('Server Connection error');
+    }
+    console.log(response.json());
+    console.log('=====================================');
+
+    return response.json();
+
 }

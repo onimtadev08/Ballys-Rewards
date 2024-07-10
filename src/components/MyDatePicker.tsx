@@ -49,7 +49,7 @@ const MyDatePicker = (prop: DatePickerProps) => {
                     position: 'absolute',
                     width: '70%',
                     height: '50%',
-                    top: height / 13         ,
+                    top: height / 13,
                     left: -35,
                     elevation: 100,
                     borderRadius: 20,
@@ -72,11 +72,7 @@ const MyDatePicker = (prop: DatePickerProps) => {
                             fontWeight: '500',
                         }}>Select Date</Text>
 
-                        <TouchableOpacity
-                            onPress={prop.onPressCancel}
-                        >
-                            <AntDesing name='close' size={50} color={'red'} style={{ flex: 1, margin: 10 }} />
-                        </TouchableOpacity>
+
 
                     </View>
                     <DatePicker
@@ -88,21 +84,45 @@ const MyDatePicker = (prop: DatePickerProps) => {
                         cancelText="hh"
 
                     />
-                    <TouchableOpacity
-                        style={{
-                            backgroundColor: 'green',
-                            padding: 10,
-                            width: '75%',
-                            alignItems: 'center',
-                            borderRadius: 10,
-                            top: 50,
-                        }}
-                        onPress={() => {
-                            prop.onDone(moment(selectedDate).format('DD/MM/YYYY'));
-                        }}
-                    >
-                        <Text style={{ color: 'white', fontWeight: '500' }}>Done</Text>
-                    </TouchableOpacity>
+
+                    <View style={{ flexDirection: 'row' }}>
+                        <TouchableOpacity
+                            style={{
+                                borderColor: 'green',
+                                borderWidth: 2,
+                                padding: 10,
+                                width: '40%',
+                                alignItems: 'center',
+                                borderRadius: 10,
+                                top: 50,
+                                marginRight: 10,
+                            }}
+                            onPress={() => {
+                                prop.onPressCancel();
+                            }}
+                        >
+                            <Text style={{ color: 'black', fontWeight: '500' }}>Cancel</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={{
+                                backgroundColor: 'green',
+                                padding: 10,
+                                width: '40%',
+                                alignItems: 'center',
+                                borderRadius: 10,
+                                top: 50,
+                                marginLeft: 10,
+                            }}
+                            onPress={() => {
+                                prop.onDone(moment(selectedDate).format('DD/MM/YYYY'));
+                            }}
+                        >
+                            <Text style={{ color: 'white', fontWeight: '500' }}>Done</Text>
+                        </TouchableOpacity>
+                    </View>
+
+
                 </View>
             </View>
         </View>
