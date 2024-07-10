@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component, useState } from 'react';
-import { ActivityIndicator, View, Text, StyleSheet, Image, Dimensions, Alert, BackHandler, TouchableOpacity, ScrollView } from 'react-native';
+import { ActivityIndicator, View, Text, StyleSheet, Image, Dimensions, Alert, BackHandler, TouchableOpacity, ScrollView, Keyboard } from 'react-native';
 import GradientButtonWithBorder from '../components/GradientButton';
 import GradientButton from '../components/GradientButtonfull';
 import { useNavigation } from '@react-navigation/native';
@@ -14,10 +14,10 @@ import ErrorMsg from '../components/errorMsg';
 import Loader from '../components/Loader';
 import InfoMsg from '../components/InfoMsg';
 import OtpMsg from '../components/OtpMsg';
-import { TempLogin, VaidateOTP } from '../api/Api';
+import { ResendOTP, TempLogin, VaidateOTP } from '../api/Api';
 import MyDatePicker from '../components/MyDatePicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import SuccsessMsg from '../components/SuccsessMsg';
 
 interface BallysLoginState {
     PlayerID: string;
@@ -34,6 +34,8 @@ interface BallysLoginState {
     openDatePicker: boolean;
     TempPIN: Date;
     VerifyOTP: string;
+    showApiSuccsess: boolean;
+    showApiSuccsessMsg: string;
 }
 interface myProps {
     Method: string;
@@ -55,10 +57,12 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
             showApiErrorMsg: '',
             showApiInfo: false,
             showApiInfoMsg: '',
-            showOtpMsg: false,
+            showOtpMsg: true,
             openDatePicker: false,
             TempPIN: new Date(),
             VerifyOTP: '',
+            showApiSuccsess: false,
+            showApiSuccsessMsg: '',
         }
 
 
@@ -84,9 +88,9 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                 this.handleNavigate();
 
             } else {
+                Keyboard.dismiss();
                 this.setState({
                     isLoading: false,
-                    showOtpMsg: false,
                     showApiError: true,
                     showApiErrorMsg: 'Please try again'
                 });
@@ -141,6 +145,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                         //    this.getOtp();
 
                     } else {
+                        Keyboard.dismiss();
                         this.setState({
                             isLoading: false,
                             showApiError: true,
@@ -164,6 +169,32 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
     }
 
     ResendOtp = async () => {
+
+        try {
+            const result = await ResendOTP(this.state.PlayerID);
+
+            if (result.strRturnRes) {
+
+                this.setState({ showApiSuccsess: true, showApiSuccsessMsg: 'Resend OTP Sucssesfull' });
+
+            } else {
+                Keyboard.dismiss();
+                this.setState({
+                    isLoading: false,
+                    showApiError: true,
+                    showApiErrorMsg: 'Resend OTP Fails',
+                });
+            }
+        } catch (error) {
+            console.log(error);
+            this.setState({
+                isLoading: false,
+                showApiError: true,
+                showApiErrorMsg: 'Error in Resend OTP'
+            });
+        } finally {
+
+        }
 
     }
 
@@ -261,19 +292,6 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
 
                         </View>
                     </ScrollView>
-                    {this.state.isLoading ? (
-                        <Loader />
-                    ) : null}
-                    {this.state.showApiError ?
-                        <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
-                            this.setState({ showApiError: false });
-                        }} />
-                        : null}
-                    {this.state.showApiInfo ?
-                        <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
-                            this.setState({ showApiInfo: false });
-                        }} />
-                        : null}
                     {this.state.showOtpMsg ?
                         <OtpMsg msg={'We have sent you OTP number, Enter the OTP you have received to continue'}
                             onPressCancel={() => {
@@ -304,6 +322,24 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                                 this.setState({ openDatePicker: false, PIN: data });
                             }} />
                         : null}
+                    {this.state.showApiSuccsess ?
+                        <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
+                            this.setState({ showApiSuccsess: false });
+                        }} />
+                        : null}
+                    {this.state.showApiError ?
+                        <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
+                            this.setState({ showApiError: false });
+                        }} />
+                        : null}
+                    {this.state.showApiInfo ?
+                        <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
+                            this.setState({ showApiInfo: false });
+                        }} />
+                        : null}
+                    {this.state.isLoading ? (
+                        <Loader />
+                    ) : null}
                 </LinearGradient>
             </View >
         );

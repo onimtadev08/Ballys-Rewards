@@ -45,7 +45,7 @@ const LoginScreen = ({ }) => {
         console.log(val);
 
         navigation.navigate('Signin', {
-            Method: val
+            "Method": val,
         });
 
     };

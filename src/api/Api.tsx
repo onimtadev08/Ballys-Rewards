@@ -6,7 +6,7 @@ const getOtpUrl = Domain + '/api/Ballys/GetOTP';
 
 const VaidateOTPUrl = Domain + '/api/Ballys/ValidateOTP';
 
-
+const ResendOTPUrl = Domain + '/api/Ballys/ResendOTP';
 
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
@@ -98,7 +98,7 @@ export async function VaidateOTP(PlayerID: string, OTP: string) {
 }
 
 
-export async function ResendOTP(PlayerID: string, OTP: string) {
+export async function ResendOTP(PlayerID: string) {
     const Token = await AsyncStorage.getItem('Token');
 
     const myHeaders = new Headers();
@@ -107,10 +107,10 @@ export async function ResendOTP(PlayerID: string, OTP: string) {
 
     const raw: string = JSON.stringify({
         strMID: PlayerID,
-        strOTP: OTP,
     });
 
-    console.log(raw);
+    console.log('=====================================');
+    console.log(ResendOTPUrl, '\n', raw);
 
 
     const requestOptions: RequestInit = {
@@ -120,9 +120,12 @@ export async function ResendOTP(PlayerID: string, OTP: string) {
         redirect: "follow",
     };
 
-    const response = await fetch(VaidateOTPUrl, requestOptions);
+    const response = await fetch(ResendOTPUrl, requestOptions);
     if (!response.ok) {
         throw new Error('Server Connection error');
     }
+    console.log(response);
+    console.log('=====================================');
+
     return response.json();
 }

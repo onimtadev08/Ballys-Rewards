@@ -16,6 +16,7 @@ import SuccsessMsg from '../components/SuccsessMsg';
 import OtpMsg from '../components/OtpMsg';
 import { getOtp } from '../api/Api';
 import MyDatePicker from '../components/MyDatePicker';
+import { CountryItem, CountryPicker } from "react-native-country-codes-picker";
 // import ImagePicker from 'react-native-image-picker';
 
 const { width, height } = Dimensions.get('window');
@@ -40,6 +41,8 @@ interface BallysLoginState {
     openDatePicker: boolean;
     TempPIN: Date;
     VerfyOtp: string;
+    CountryCode: string;
+    CountryPicker: boolean;
 }
 interface myProps {
     navigation: any;
@@ -70,6 +73,8 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
             openDatePicker: false,
             TempPIN: new Date(),
             VerfyOtp: '',
+            CountryCode: '',
+            CountryPicker: false,
 
         }
     }
@@ -163,14 +168,12 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                     console.log(result);
                     if (result.strRturnRes) {
 
-                        this.setState({ VerfyOtp: result.strOTPCODE });
-
-                        this.getOtp();
                         this.setState({
                             isLoading: false,
                             showApiSuccsess: true,
                             showApiSuccsessMsg: 'Sign Up Succsess'
                         });
+
                     } else {
                         this.setState({
                             isLoading: false,
@@ -324,14 +327,51 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                 fieldErrorMsg={'Field empty'}
                             />
 
-                            <TextInput
-                                value={this.state.mnumber} onChangeText={(text: string) => {
-                                    this.setState({ mnumber: text });
-                                }}
-                                showError={this.state.mnumber === '' && this.state.showError}
-                                fieldName={'Mobile Number'}
-                                fieldErrorMsg={'Field empty'}
-                            />
+                            <View style={{ flexDirection: 'row', height: 100, marginLeft: 40, marginRight: -15 }}>
+                                <TouchableOpacity
+                                    style={{ flex: 0.6 }}
+                                    onPress={() => {
+                                        this.setState({ CountryPicker: true });
+                                    }}
+                                >
+
+                                    <TextInput
+                                        editable={false}
+                                        value={this.state.CountryCode}
+                                        showError={this.state.mnumber === '' && this.state.showError}
+                                        fieldName={''}
+                                        fieldErrorMsg={'Field empty'}
+                                    />
+
+                                    <CountryPicker
+                                        style={{
+                                            modal: {
+                                                height: 350,
+                                                minHeight: 350,
+                                            }
+                                        }}
+                                        initialState='+94'
+                                        show={this.state.CountryPicker}
+                                        pickerButtonOnPress={(item: CountryItem) => {
+                                            this.setState({ CountryCode: item.flag + ' ' + item.code + ' ' + item.dial_code });
+                                            this.setState({ CountryPicker: false });
+                                        }}
+                                        lang={'en'} />
+                                </TouchableOpacity>
+
+                                <View style={{ flex: 1, left: -30 }}>
+                                    <TextInput
+                                        value={this.state.mnumber} onChangeText={(text: string) => {
+                                            this.setState({ mnumber: text });
+                                        }}
+                                        showError={this.state.mnumber === '' && this.state.showError}
+                                        fieldName={'Mobile Number'}
+                                        fieldErrorMsg={'Field empty'}
+                                    />
+                                </View>
+                            </View>
+
+
 
                             <TextInput
                                 value={this.state.email} onChangeText={(text: string) => {
@@ -406,7 +446,11 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                 {this.state.showApiSuccsess ?
                     <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
                         this.setState({ showApiSuccsess: false });
-                        this.props.navigation.navigate('Login');
+                        this.props.navigation.navigate('Signin', {
+                            'PlayerID': this.state.PlayerID,
+                            'PIN': this.state.PIN,
+                            'Method': 'TEMP',
+                        });
                     }} />
                     : null}
                 {this.state.showOtpMsg ?
@@ -428,7 +472,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                         this.setState({ showOtpMsg: false });
                     }} />
                     : null}
- 
+
                 {this.state.openDatePicker ?
                     <MyDatePicker
                         date={this.state.TempPIN}

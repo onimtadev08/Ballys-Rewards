@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, TextInput, Keyboard } from 'react-native';
 import AntDesing from 'react-native-vector-icons/AntDesign'
 
 const { width, height } = Dimensions.get('window');
@@ -36,6 +36,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
     const [start, setStart] = useState<boolean>(true);
 
     React.useEffect(() => {
+        Keyboard.dismiss();
         resendOTP();
     }, [start]);
 
@@ -53,7 +54,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
 
             if (s === 0) {
                 setEnable(false);
-                setSecond(30);
+                setSecond(60);
                 clearInterval(interval);
             }
         }, 1000);
@@ -62,7 +63,14 @@ const OtpMsg: React.FC<errorMsgProps> = ({
 
 
     React.useEffect(() => {
-        onReturnOtp(Text1 + '' + Text2 + '' + Text3 + '' + Text4);
+        if ((Text1 + '' + Text2 + '' + Text3 + '' + Text4) !== '') {
+            onReturnOtp(Text1 + '' + Text2 + '' + Text3 + '' + Text4);
+            setText1('');
+            setText2('');
+            setText3('');
+            setText4('');
+        }
+
     }, [Text4]);
 
     return (
@@ -76,18 +84,16 @@ const OtpMsg: React.FC<errorMsgProps> = ({
         }}>
             <View
                 style={{
-                    margin: 100,
                     backgroundColor: 'white',
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'absolute',
                     width: '90%',
-                    height: '40%',
-                    top: height / 30,
-                    left: -80,
+                    height: 300,
+                    top: 100,
                     elevation: 50,
                     borderRadius: 20,
-                    minHeight:'70%',
+                    minHeight: 300,
                 }}>
                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                     <View style={{ flexDirection: 'row' }}>
@@ -100,18 +106,14 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                             fontWeight: '500',
                         }}>{msg}</Text>
 
-                        <TouchableOpacity
-                            onPress={onPressCancel}
-                        >
-                            <AntDesing name='close' size={50} color={'red'} style={{ flex: 1, margin: 10 }} />
-                        </TouchableOpacity>
+
 
                     </View>
                     <View style={{
                         flex: 1,
                         width: '100%',
                         height: '100%',
-                        marginTop: 30,
+                        marginTop: 10,
                         flexDirection: 'row'
                     }}>
 
@@ -203,7 +205,13 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         disabled={isEnable}
                         style={{ flex: 1, alignItems: 'center', marginTop: 20 }}
                         onPress={() => {
+                            Keyboard.dismiss;
+                            setText1('');
+                            setText2('');
+                            setText3('');
+                            setText4('');
                             onResendOtp();
+                            resendOTP();
                         }}>
                         <View>
                             <Text
@@ -215,22 +223,68 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                             </Text>
                         </View>
                     </TouchableOpacity>
+                    <View style={{ flexDirection: 'row' }}>
+                        <TouchableOpacity
+                            style={{
+                                borderWidth: 2,
+                                borderColor: 'green',
+                                padding: 10,
+                                width: 150,
+                                alignItems: 'center',
+                                borderRadius: 10,
+                                marginTop: -20,
+                                marginBottom: 10,
+                            }}
+                            onPress={() => {
+                                Keyboard.dismiss;
+                                onPressCancel();
+                            }}>
+                            <Text style={{ color: 'black', fontWeight: '500' }}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                                marginLeft: 20,
+                                backgroundColor: 'green',
+                                padding: 10,
+                                width: 150,
+                                alignItems: 'center',
+                                borderRadius: 10,
+                                marginTop: -20,
+                                marginBottom: 10,
+                            }}
+                            onPress={() => {
+                                Keyboard.dismiss;
 
-                    <TouchableOpacity
-                        style={{
-                            backgroundColor: 'green',
-                            padding: 10,
-                            width: '75%',
-                            alignItems: 'center',
-                            borderRadius: 10,
-                            marginTop: -20,
-                            marginBottom: 10,
-                        }}
-                        onPress={() => {
-                            onPressDone(Text1 + '' + Text2 + '' + Text3 + '' + Text4);
-                        }}>
-                        <Text style={{ color: 'white', fontWeight: '500' }}>Done</Text>
-                    </TouchableOpacity>
+                                let val: boolean = true;
+
+                                if (Text1 === '') {
+                                    val = false;
+                                }
+
+                                if (Text2 === '') {
+                                    val = false;
+                                }
+
+                                if (Text3 === '') {
+                                    val = false;
+                                }
+
+                                if (Text4 === '') {
+                                    val = false;
+                                }
+
+                                if (((Text1 + '' + Text2 + '' + Text3 + '' + Text4) !== '') && val) {
+                                    onReturnOtp(Text1 + '' + Text2 + '' + Text3 + '' + Text4);
+                                    setText1('');
+                                    setText2('');
+                                    setText3('');
+                                    setText4('');
+                                } 
+                            }}>
+                            <Text style={{ color: 'white', fontWeight: '500' }}>Verify</Text>
+                        </TouchableOpacity>
+                    </View>
+
 
                 </View>
             </View>
