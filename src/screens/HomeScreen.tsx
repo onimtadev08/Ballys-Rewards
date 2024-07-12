@@ -1,25 +1,42 @@
 import React, { Component } from 'react';
-import { BackHandler, View, Text, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, ImageBackground } from 'react-native';
+import { Keyboard, BackHandler, View, Text, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Assuming you're using a class-based navigation solution
 import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
 import MainMenuButton from '../components/MainManuButton'
+import SuccsessMsg from '../components/SuccsessMsg';
+import ErrorMsg from '../components/errorMsg';
+import InfoMsg from '../components/InfoMsg';
+import Loader from '../components/Loader';
+import { Home } from '../api/Api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const images = [
-    require('../images/ballys.png'),
-    require('../images/wha.jpg'),
-    require('../images/meg.jpg'),
-    require('../images/sms.jpg'),
-    require('../images/pon.jpg'),
-    // Add more local image paths as needed
-];
+// const images = [
+//     require('../images/ballys.png'),
+//     require('../images/wha.jpg'),
+//     require('../images/meg.jpg'),
+//     require('../images/sms.jpg'),
+//     require('../images/pon.jpg'),
+//     // Add more local image paths as needed
+// ];
 interface myStates {
     currentIndex: number;
+    isLoading: boolean;
+    showApiError: boolean;
+    showApiErrorMsg: string;
+    showApiInfo: boolean;
+    showApiInfoMsg: string;
+    showOtpMsg: boolean;
+    showApiSuccsess: boolean;
+    showApiSuccsessMsg: string;
+    PlayerID: string;
+    Images: Array<string>;
 }
 interface myProps {
-    navigation: any
+    navigation: any;
+    router: any;
 }
 class HomeScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
@@ -31,7 +48,20 @@ class HomeScreen extends Component<myProps, myStates> {
         this.scrollRef = React.createRef<ScrollView>();
         this.state = {
             currentIndex: 0,
+            isLoading: false,
+            showApiError: false,
+            showApiErrorMsg: '',
+            showApiInfo: false,
+            showApiInfoMsg: '',
+            showOtpMsg: false,
+            showApiSuccsess: false,
+            showApiSuccsessMsg: '',
+            PlayerID: props.route.params.PlayerID,
+            Images: [],
         };
+
+        console.log(props.route.params);
+
 
     }
     // Fetches navigation reference and sets up interval on mount
@@ -42,15 +72,60 @@ class HomeScreen extends Component<myProps, myStates> {
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
 
         const interval = setInterval(() => {
-            const nextIndex = (this.state.currentIndex + 1) % images.length;
+            const nextIndex = (this.state.currentIndex + 1) % this.state.Images.length;
             if (this.scrollRef) {
                 this.scrollRef.current?.scrollTo({ x: nextIndex * screenWidth, animated: true });
             }
             this.setState({ currentIndex: nextIndex });
         }, 2000);
 
+        this.MainHomeLoad();
+
         return () => clearInterval(interval);
     }
+
+    async MainHomeLoad() {
+
+        this.setState({ isLoading: true });
+        try {
+            const result: any = await Home(this.state.PlayerID);
+            console.log('val : ', result);
+            if (result.strRturnRes) {
+
+                let img = [];
+
+                for (let index = 0; index < result.data.length; index++) {
+                    const element = result.data[index].Url;
+                    img.push(element);
+                }
+
+                this.setState({
+                    isLoading: false,
+                    Images: img,
+                });
+
+
+            } else {
+                Keyboard.dismiss();
+                this.setState({
+                    isLoading: false,
+                    showApiError: true,
+                    showApiErrorMsg: 'Please try again'
+                });
+            }
+        } catch (error) {
+            console.log(error);
+            this.setState({
+                isLoading: false,
+                showApiError: true,
+                showApiErrorMsg: 'Server Connection error',
+            });
+        } finally {
+
+        }
+
+    }
+
 
     // Handles login button press and navigates to 'SignUp' screen
     handleLogin = () => {
@@ -127,14 +202,14 @@ class HomeScreen extends Component<myProps, myStates> {
                                         pagingEnabled
                                         showsHorizontalScrollIndicator={false}
                                     >
-                                        {images.map((image, index) => (
+                                        {this.state.Images.map((image, index) => (
                                             <View key={index} style={{ width: screenWidth }}>
                                                 <View style={styles.backgroundContainer}>
-                                                    <Image blurRadius={6} source={image} style={styles.backdrop} />
+                                                    <Image blurRadius={6} source={{ uri: image }} style={styles.backdrop} />
                                                 </View>
 
                                                 <View style={styles.overlay}>
-                                                    <Image style={styles.logo} source={image} />
+                                                    <Image style={styles.logo} source={{ uri: image }} />
                                                 </View>
 
                                             </View>
@@ -150,7 +225,12 @@ class HomeScreen extends Component<myProps, myStates> {
                             flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                         }}>
 
-                            <MainMenuButton Url={require('../images/account.png')} title={'My Account \n '} />
+                            <MainMenuButton Url={require('../images/account.png')} title={'My Account \n '}
+                                onPress={() => {
+                                    AsyncStorage.removeItem('Token', () => {
+                                        this.navigation.navigate('Login');
+                                    });
+                                }} />
 
                             <MainMenuButton Url={require('../images/offer.png')} title={'My Offer \n '} />
 
@@ -197,6 +277,24 @@ class HomeScreen extends Component<myProps, myStates> {
 
                         </View>
                     </ScrollView>
+                    {this.state.showApiSuccsess ?
+                        <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
+                            this.setState({ showApiSuccsess: false });
+                        }} />
+                        : null}
+                    {this.state.showApiError ?
+                        <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
+                            this.setState({ showApiError: false });
+                        }} />
+                        : null}
+                    {this.state.showApiInfo ?
+                        <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
+                            this.setState({ showApiInfo: false });
+                        }} />
+                        : null}
+                    {this.state.isLoading ? (
+                        <Loader />
+                    ) : null}
                 </LinearGradient>
             </SafeAreaView>
         );

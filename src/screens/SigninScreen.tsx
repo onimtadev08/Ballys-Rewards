@@ -110,7 +110,10 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
 
     handleNavigate = () => {
         const { navigation } = this.props; // Destructure navigation prop
-        navigation.navigate('Home');
+        navigation.navigate('Home',
+            { 'PlayerID': this.state.PlayerID }
+        );
+
         this.setState({ isLoading: false });
     };
 
@@ -136,6 +139,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                     if (result.strRturnRes) {
 
                         AsyncStorage.setItem('Token', result.strToken.access_token);
+                        AsyncStorage.setItem('MID', this.state.PlayerID);
 
                         this.setState({
                             isLoading: false,

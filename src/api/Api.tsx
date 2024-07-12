@@ -10,7 +10,7 @@ const ResendOTPUrl = Domain + '/api/Ballys/ResendOTP';
 
 const FirstTimeSignInUrl = Domain + '/api/Ballys/FirstTimeLoginSave';
 
-
+const HomeUrl = Domain + '/api/Ballys/Home';
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
 
@@ -52,6 +52,7 @@ export async function TempLogin(PlayerID: string, PIN: string, Token: string, Me
     const raw: string = JSON.stringify({
         strMID: PlayerID,
         strPIN: PIN,
+        strToken: ''
     });
 
     console.log('=====================================');
@@ -86,7 +87,7 @@ export async function VaidateOTP(PlayerID: string, OTP: string) {
         strOTP: OTP,
     });
 
-    console.log(raw);
+    console.log(Token, raw);
 
 
     const requestOptions: RequestInit = {
@@ -172,5 +173,38 @@ export async function FirstTimeSignIn(fname: string, lname: string, arg2: string
     console.log('=====================================');
 
     return response.json();
+
+}
+
+export async function Home(MID: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + Token);
+
+        const raw = JSON.stringify({
+            "strMID": MID
+        });
+
+        const requestOptions: any = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+        fetch(HomeUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('data : ', result);
+                resolve(result);
+            })
+            .catch((error) => {
+                console.log(error);
+                throw new Error('Server Connection error');
+            });
+    })
 
 }

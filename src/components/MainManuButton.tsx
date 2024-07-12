@@ -7,20 +7,19 @@ const { width: screenWidth } = Dimensions.get('window');
 interface myProps {
     Url: ImageSourcePropType;
     title: string;
+    onPress?: () => void;
 }
 
 const MainMenuButton: React.FC<myProps> = ({
     Url,
     title,
+    onPress,
 }) => {
     console.log(Url)
     return (
         <View>
             <TouchableHighlight
-                onPress={() => {
-                    console.log('aa');
-
-                }}
+                onPress={onPress}
                 underlayColor={'transparent'}
                 style={{
                     marginTop: -10,

@@ -8,6 +8,7 @@ import GradientButtonWithBorder from '../components/GradientButton';
 import GradientButton from '../components/GradientButtonfull';
 const { width, height } = Dimensions.get('window');
 import LottieView from 'lottie-react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 // create a component
@@ -22,7 +23,23 @@ const LoginScreen = ({ }) => {
 
     React.useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => true);
+
+        CheckLogin();
+
     });
+
+    const CheckLogin = async () => {
+        const Token = await AsyncStorage.getItem('Token');
+
+        if (Token !== '' && Token !== undefined) {
+            const MID = await AsyncStorage.getItem('MID');
+
+            navigation.navigate('Home',
+                { 'PlayerID': MID });
+
+        }
+
+    }
 
     const checkPasswordValidity = (value: any) => {
         const isNonWhiteSpace = /^\S*$/;
