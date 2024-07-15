@@ -8,7 +8,7 @@ const VaidateOTPUrl = Domain + '/api/Ballys/ValidateOTP';
 
 const ResendOTPUrl = Domain + '/api/Ballys/ResendOTP';
 
-const FirstTimeSignInUrl = Domain + '/api/Ballys/FirstTimeLoginSave';
+const FirstTimeSignInUrl = Domain + '/api/Ballys/PlayerAccountSave';
 
 const HomeUrl = Domain + '/api/Ballys/Home';
 // get otp
@@ -136,8 +136,16 @@ export async function ResendOTP(PlayerID: string) {
 
     return response.json();
 }
-
-export async function FirstTimeSignIn(fname: string, lname: string, arg2: string, email: string, PlayerID: string, PIN: string) {
+// PlayerAccountSave
+export async function FirstTimeSignIn(
+    fname: string,
+    lname: string,
+    arg2: string,
+    email: string,
+    PlayerID: string,
+    PIN: string,
+    Image: string,
+) {
     const Token = await AsyncStorage.getItem('Token');
 
 
@@ -146,12 +154,14 @@ export async function FirstTimeSignIn(fname: string, lname: string, arg2: string
     myHeaders.append("Authorization", "bearer " + Token);
 
     const raw: string = JSON.stringify({
-        strFirstName: fname,
-        strLastName: lname,
-        strMobile: arg2,
-        strEMail: email,
-        strDOB: PIN,
-        strPassport: PlayerID,
+        FirstName: fname,
+        LastName: lname,
+        Phone: arg2,
+        Email: email,
+        DOB: PIN,
+        Passport: PlayerID,
+        strPlayerID: '',
+        Image: Image,
     });
 
     console.log('=====================================');

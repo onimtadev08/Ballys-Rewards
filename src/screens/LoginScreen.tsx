@@ -31,11 +31,17 @@ const LoginScreen = ({ }) => {
     const CheckLogin = async () => {
         const Token = await AsyncStorage.getItem('Token');
 
-        if (Token !== '' && Token !== undefined) {
+        console.log('Token : ', Token);
+
+
+        if (Token !== null && (Token !== '' && Token !== undefined)) {
             const MID = await AsyncStorage.getItem('MID');
 
+            console.log('MID : ' + MID);
+
+
             navigation.navigate('Home',
-                { 'PlayerID': MID });
+                { 'PlayerID': String | MID });
 
         }
 

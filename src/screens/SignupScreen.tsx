@@ -17,6 +17,7 @@ import OtpMsg from '../components/OtpMsg';
 import { FirstTimeSignIn, getOtp } from '../api/Api';
 import MyDatePicker from '../components/MyDatePicker';
 import { CountryItem, CountryPicker } from "react-native-country-codes-picker";
+import { getBase64ImageFromUrl } from '../utilitis/utilities';
 // import ImagePicker from 'react-native-image-picker';
 
 const { width, height } = Dimensions.get('window');
@@ -44,6 +45,7 @@ interface BallysLoginState {
     CountryCode: string;
     CountryPicker: boolean;
     ShowCountryCode: string;
+    base64Image: string;
 }
 interface myProps {
     navigation: any;
@@ -77,6 +79,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
             CountryCode: '+94',
             CountryPicker: false,
             ShowCountryCode: '🇱🇰 LK +94',
+            base64Image: '',
 
         }
     }
@@ -103,7 +106,13 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
             console.log('Image picker error: ', response.error);
         } else {
             let imageUri = response.uri || response.assets?.[0]?.uri;
-            this.setState({ selectedImage: imageUri });
+
+            getBase64ImageFromUrl(imageUri)
+                .then(result => {
+                    this.setState({ selectedImage: imageUri, base64Image: result });
+                })
+                .catch(err => console.error(err));
+
         }
     };
 
@@ -148,6 +157,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                 this.state.email,
                 this.state.PlayerID,
                 this.state.PIN,
+                this.state.base64Image,
             );
 
             try {
@@ -288,7 +298,8 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
                             <TouchableOpacity
                                 onPress={() => {
-                                    this.handleCameraLaunch();
+                              //      this.handleCameraLaunch();
+                                this.props.navigation.navigate('EyeDetectScreen');
                                 }}
                             >
                                 <Image source={this.state.selectedImage === '' ? require('../images/user.png') : { uri: this.state.selectedImage }} resizeMode='cover' style={{ width: 200, height: 200, borderRadius: 100, marginTop: 30 }} />

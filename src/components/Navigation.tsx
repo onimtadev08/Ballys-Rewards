@@ -11,6 +11,7 @@ import LoginScreen from '../screens/LoginScreen';
 // import Tab3 from '../screens/Tab3';
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
+import EyeDetect from '../screens/EyeDetect';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -36,6 +37,11 @@ const Navigation = () => {
                     name='SignUp'
                     options={{ headerShown: false }}
                     component={SignupScreen} />
+
+                <Stack.Screen
+                    name='EyeDetectScreen'
+                    options={{ headerShown: false }}
+                    component={EyeDetect} />
             </Stack.Navigator>
         </NavigationContainer>
     );
