@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView, Image, TouchableOpacity, Keyboard } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import TextInput from '../components/TextInput';
 import LinearGradient from 'react-native-linear-gradient';
@@ -14,10 +14,11 @@ import { permissionStatus } from '../utilitis/utilities';
 import { Domain } from '../data/data';
 import SuccsessMsg from '../components/SuccsessMsg';
 import OtpMsg from '../components/OtpMsg';
-import { FirstTimeSignIn, getOtp } from '../api/Api';
+import { FirstTimeSignIn, getOtp, VaidateOTP } from '../api/Api';
 import MyDatePicker from '../components/MyDatePicker';
 import { CountryItem, CountryPicker } from "react-native-country-codes-picker";
 import { getBase64ImageFromUrl } from '../utilitis/utilities';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import ImagePicker from 'react-native-image-picker';
 
 const { width, height } = Dimensions.get('window');
@@ -82,6 +83,9 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
             base64Image: '',
 
         }
+
+        console.log(props.route.params);
+
     }
 
     async componentDidMount() {
@@ -116,6 +120,52 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
         }
     };
 
+    handleNavigate = () => {
+        const { navigation } = this.props; // Destructure navigation prop
+        navigation.navigate('Home',
+            { 'PlayerID': this.state.PlayerID }
+        );
+
+        this.setState({ isLoading: false });
+    };
+
+    VaidateOTP = async (otp: string) => {
+        this.setState({ isLoading: true });
+        try {
+            const result = await VaidateOTP(this.state.PlayerID, otp);
+            console.log(result);
+            if (result.strRturnRes) {
+
+                AsyncStorage.setItem('Token', result.strToken.access_token);
+                AsyncStorage.setItem('MID', this.state.PlayerID);
+
+                this.setState({
+                    isLoading: false,
+                    showOtpMsg: true,
+                });
+
+                this.handleNavigate();
+
+            } else {
+                Keyboard.dismiss();
+                this.setState({
+                    isLoading: false,
+                    showApiError: true,
+                    showApiErrorMsg: 'Please try again'
+                });
+            }
+        } catch (error) {
+            console.log(error);
+            this.setState({
+                isLoading: false,
+                showApiError: true,
+                showApiErrorMsg: 'Server Connection error',
+            });
+        } finally {
+
+        }
+    }
+
     handleLogin = async () => {
 
         this.setState({ showError: false, isLoading: true });
@@ -143,6 +193,10 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
         }
 
         if (this.state.PIN === '') {
+            tempShowError = true;
+        }
+
+        if (this.state.base64Image === '') {
             tempShowError = true;
         }
 
@@ -284,6 +338,12 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
     //     //    this.handleNavigate();
     // }
 
+    refresh({ Img, ImgApi }: { Img: string, ImgApi: string }) {
+        console.log("ININI", Img);
+
+        this.setState({ selectedImage: Img, base64Image: ImgApi })
+    }
+
     render(): React.ReactNode {
 
         return (
@@ -298,8 +358,11 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
                             <TouchableOpacity
                                 onPress={() => {
-                              //      this.handleCameraLaunch();
-                                this.props.navigation.navigate('EyeDetectScreen');
+                                    //      this.handleCameraLaunch();
+                                    // this.props.navigation.navigate('EyeDetectScreen', { "aa": '' });
+                                    this.props.navigation.navigate('EyeDetectScreen', {
+                                        onGoBack: (value:{Img: string, ImgApi: string}) => this.refresh({ Img:value.Img, ImgApi:value.ImgApi }),
+                                    });
                                 }}
                             >
                                 <Image source={this.state.selectedImage === '' ? require('../images/user.png') : { uri: this.state.selectedImage }} resizeMode='cover' style={{ width: 200, height: 200, borderRadius: 100, marginTop: 30 }} />
@@ -447,25 +510,15 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                 {this.state.showApiSuccsess ?
                     <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
                         this.setState({ showApiSuccsess: false });
-                        this.props.navigation.navigate('Signin', {
-                            'PlayerID': this.state.PlayerID,
-                            'PIN': this.state.PIN,
-                            'Method': 'TEMP',
-                        });
                     }} />
                     : null}
                 {this.state.showOtpMsg ?
                     <OtpMsg msg={'We have sent you OTP number, Enter the OTP you have received to continue'} onPressCancel={() => {
                         this.setState({ showOtpMsg: false });
                     }} onReturnOtp={(otp: string): void => {
-                        console.log(otp);
-
-                        if (otp === this.state.VerfyOtp) {
-                            this.setState({ showOtpMsg: false, showApiSuccsess: true, showApiSuccsessMsg: 'OTP Verification sucssesfull' });
-                        } else {
-                            this.setState({ showApiError: true, showApiErrorMsg: 'Invalid OTP' });
+                        if (otp !== '') {
+                            this.VaidateOTP(otp);
                         }
-
                     }} onResendOtp={(): void => {
                         this.getOtp();
                     }} onPressDone={(otp: string): void => {

@@ -59,7 +59,7 @@ const LoginScreen = ({ }) => {
     const handleLogin = () => {
         const checkPassword = checkPasswordValidity(password);
 
-        navigation.navigate('SignUp');
+        navigation.navigate('SignUp', { 'Img': '', 'ImgApi': '' });
 
     };
 

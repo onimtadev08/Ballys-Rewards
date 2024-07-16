@@ -13,8 +13,19 @@ import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
 import EyeDetect from '../screens/EyeDetect';
 
+type RootStack = {
+    Login: undefined
+    Home: undefined
+    Signin: undefined
+    SignUp: {
+        onGoBack: (Img: string, ImgApi: string) => void
+    }
+    EyeDetectScreen: undefined
+
+}
+
 const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStack>();
 // create a component
 const Navigation = () => {
     return (
