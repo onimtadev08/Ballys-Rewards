@@ -16,7 +16,7 @@ function EyeDetect(props) {
   const yotiFaceCaptureRef = useRef(null);
   const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
   const [Detection, setDetection] = useState('');
-  const [isDetected, setDetected] = useState(true);
+  const [isDetected, setDetected] = useState(false);
   const [base64Icon, setbase64Icon] = useState('');
   const [base64IconApi, setbase64IconAPi] = useState('');
   const navigation = useNavigation()
@@ -24,6 +24,7 @@ function EyeDetect(props) {
 
   useEffect(() => {
     if (yotiFaceCaptureRef.current) {
+      console.log('cam start');
       yotiFaceCaptureRef.current.startCamera();
       yotiFaceCaptureRef.current.startAnalyzing();
     }
@@ -68,8 +69,9 @@ function EyeDetect(props) {
                 onPress={() => {
 
 
-
+                  console.log('start 1');
                   if (yotiFaceCaptureRef.current) {
+                    console.log('start');
                     yotiFaceCaptureRef.current.startCamera();
                     yotiFaceCaptureRef.current.startAnalyzing();
                   }
@@ -122,6 +124,7 @@ function EyeDetect(props) {
                   setbase64IconAPi(croppedImage);
 
                   yotiFaceCaptureRef.current.stopAnalyzing();
+                  yotiFaceCaptureRef.current.stopCamera()
 
                 }}
                 onFaceCaptureImageAnalysisFailed={({ cause }) => {

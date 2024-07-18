@@ -136,7 +136,10 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
             console.log(result);
             if (result.strRturnRes) {
 
-                AsyncStorage.setItem('Token', result.strToken.access_token);
+                if (result.strToken.access_token !== undefined) {
+                    AsyncStorage.setItem('Token', result.strToken.access_token);
+                }
+
                 AsyncStorage.setItem('MID', this.state.PlayerID);
 
                 this.setState({
@@ -168,8 +171,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
     handleLogin = async () => {
 
-        this.setState({ showError: false, isLoading: true });
-
+     
         var tempShowError = false;
 
         if (this.state.fname === '') {
@@ -204,17 +206,20 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
         if (!tempShowError && this.state.checked) {
 
-            const result = await FirstTimeSignIn(
-                this.state.fname,
-                this.state.lname,
-                this.state.CountryCode + '' + this.state.mnumber,
-                this.state.email,
-                this.state.PlayerID,
-                this.state.PIN,
-                this.state.base64Image,
-            );
+            this.setState({ showError: false, isLoading: true });
+
 
             try {
+
+                const result: any = await FirstTimeSignIn(
+                    this.state.fname,
+                    this.state.lname,
+                    this.state.CountryCode + '' + this.state.mnumber,
+                    this.state.email,
+                    this.state.PlayerID,
+                    this.state.PIN,
+                    this.state.base64Image,
+                );
 
                 if (result.strRturnRes) {
 
@@ -228,11 +233,12 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                     this.setState({
                         isLoading: false,
                         showApiError: true,
-                        showApiErrorMsg: result.strDES
+                        showApiErrorMsg: 'Sign Up Fail',
                     });
                 }
 
             } catch (error) {
+                console.log(error);
                 this.setState({
                     isLoading: false,
                     showApiError: true,
@@ -361,7 +367,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                     //      this.handleCameraLaunch();
                                     // this.props.navigation.navigate('EyeDetectScreen', { "aa": '' });
                                     this.props.navigation.navigate('EyeDetectScreen', {
-                                        onGoBack: (value:{Img: string, ImgApi: string}) => this.refresh({ Img:value.Img, ImgApi:value.ImgApi }),
+                                        onGoBack: (value: { Img: string, ImgApi: string }) => this.refresh({ Img: value.Img, ImgApi: value.ImgApi }),
                                     });
                                 }}
                             >
@@ -431,6 +437,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                         showError={this.state.mnumber === '' && this.state.showError}
                                         fieldName={'Mobile Number'}
                                         fieldErrorMsg={'Field empty'}
+                                        keyboardType='phone-pad'
                                     />
                                 </View>
                             </View>
@@ -444,6 +451,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                 showError={this.state.email === '' && this.state.showError}
                                 fieldName={'Email'}
                                 fieldErrorMsg={'Field empty'}
+                                keyboardType='email-address'
                             />
 
                             <TextInput
@@ -499,6 +507,22 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                         </View>
                     </View>
                 </ScrollView>
+
+                {this.state.showOtpMsg ?
+                    <OtpMsg msg={'We have sent you OTP number, Enter the OTP you have received to continue'}
+                        onPressCancel={() => {
+                            this.setState({ showOtpMsg: false });
+                        }} onReturnOtp={(otp: string): void => {
+                            if (otp !== '') {
+                                this.VaidateOTP(otp);
+                            }
+                        }} onResendOtp={(): void => {
+                            this.getOtp();
+                        }} onPressDone={(otp: string): void => {
+                            console.log(otp);
+                            this.setState({ showOtpMsg: false });
+                        }} />
+                    : null}
                 {this.state.isLoading ? (
                     <Loader />
                 ) : null}
@@ -509,24 +533,9 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                     : null}
                 {this.state.showApiSuccsess ?
                     <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
-                        this.setState({ showApiSuccsess: false });
+                        this.setState({ showApiSuccsess: false, showOtpMsg: true });
                     }} />
                     : null}
-                {this.state.showOtpMsg ?
-                    <OtpMsg msg={'We have sent you OTP number, Enter the OTP you have received to continue'} onPressCancel={() => {
-                        this.setState({ showOtpMsg: false });
-                    }} onReturnOtp={(otp: string): void => {
-                        if (otp !== '') {
-                            this.VaidateOTP(otp);
-                        }
-                    }} onResendOtp={(): void => {
-                        this.getOtp();
-                    }} onPressDone={(otp: string): void => {
-                        console.log(otp);
-                        this.setState({ showOtpMsg: false });
-                    }} />
-                    : null}
-
                 {this.state.openDatePicker ?
                     <MyDatePicker
                         date={this.state.TempPIN}

@@ -23,6 +23,7 @@ const TextInput = (props: any) => {
                     <NativeTextInput
                         editable={props.editable === undefined ? true : false}
                         style={{ width: '88%', color: 'black' }}
+                        keyboardType={props.keyboardType === undefined ? 'default' : props.keyboardType}
                         onChangeText={(text) => {
                             props.onChangeText(text);
                         }}

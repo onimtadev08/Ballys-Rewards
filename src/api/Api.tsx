@@ -148,41 +148,45 @@ export async function FirstTimeSignIn(
 ) {
     const Token = await AsyncStorage.getItem('Token');
 
+    return new Promise((resolve, reject) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        //  myHeaders.append("Authorization", "bearer " + Token);
 
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "bearer " + Token);
+        const raw: string = JSON.stringify({
+            FirstName: fname,
+            LastName: lname,
+            Phone: arg2,
+            Email: email,
+            DOB: PIN,
+            Passport: PlayerID,
+            strPlayerID: '',
+            Image: Image,
+        });
 
-    const raw: string = JSON.stringify({
-        FirstName: fname,
-        LastName: lname,
-        Phone: arg2,
-        Email: email,
-        DOB: PIN,
-        Passport: PlayerID,
-        strPlayerID: '',
-        Image: Image,
-    });
-
-    console.log('=====================================');
-    console.log(FirstTimeSignInUrl, '\n', raw);
+        console.log('=====================================');
+        console.log(FirstTimeSignInUrl, '\n', raw);
 
 
-    const requestOptions: RequestInit = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-    };
+        const requestOptions: RequestInit = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+        };
 
-    const response = await fetch(FirstTimeSignInUrl, requestOptions);
-    if (!response.ok) {
-        throw new Error('Server Connection error');
-    }
-    console.log(response.json());
-    console.log('=====================================');
-
-    return response.json();
+        fetch(FirstTimeSignInUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('data : ', result);
+                resolve(result);
+            })
+            .catch((error) => {
+                console.log('api : ', error);
+                reject('Server Connection error');
+                //       throw new Error('Server Connection error'); 
+            });
+    })
 
 }
 
@@ -213,6 +217,7 @@ export async function Home(MID: string) {
             })
             .catch((error) => {
                 console.log(error);
+                reject(error);
                 throw new Error('Server Connection error');
             });
     })
