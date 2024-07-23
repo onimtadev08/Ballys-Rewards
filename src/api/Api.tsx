@@ -11,6 +11,8 @@ const ResendOTPUrl = Domain + '/api/Ballys/ResendOTP';
 const FirstTimeSignInUrl = Domain + '/api/Ballys/PlayerAccountSave';
 
 const HomeUrl = Domain + '/api/Ballys/Home';
+
+const PlayerStatusUrl = Domain + '/api/Ballys/PlayerStatus';
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
 
@@ -210,6 +212,44 @@ export async function Home(MID: string) {
         };
 
         fetch(HomeUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('data : ', result);
+                resolve(result);
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}
+
+
+export async function PlayerStatus(MID: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + Token);
+
+        const raw = JSON.stringify({
+            "strMID": MID,
+            "strToken": ''
+        });
+
+        console.log(myHeaders, '\n', raw);
+
+        const requestOptions: any = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+        fetch(PlayerStatusUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
                 console.log('data : ', result);

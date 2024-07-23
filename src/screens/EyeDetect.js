@@ -1,5 +1,5 @@
 import React, { PixelRatio, useEffect, useRef, useState } from 'react';
-import { Dimensions, View, Text, Image } from 'react-native';
+import { Dimensions, View, Text, Image, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import GradientButton from '../components/GradientButtonfull';
 import GradientButtonWithBorder from '../components/GradientButton';
@@ -44,7 +44,11 @@ function EyeDetect(props) {
         {isDetected ?
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
             <View style={{ width: windowWidth, alignItems: 'center' }}>
-              <Image source={isDetected === '' ? require('../images/user.png') : { uri: base64Icon }} resizeMode='cover' style={{ width: 300, height: 300, borderRadius: 200, marginTop: 100 }} />
+              <Image
+                source={isDetected === '' ? require('../images/user.png') : { uri: base64Icon }}
+                resizeMode='cover'
+                style={styles.cImage}
+              />
             </View>
             <View style={{ width: '75%', marginTop: 20, marginBottom: 20 }}>
               <GradientButton
@@ -147,10 +151,15 @@ function EyeDetect(props) {
 
                 }}
                 onFaceCaptureStateChanged={(state) => {
-                  console.log(state);
+                  console.log('onFaceCaptureStateChanged : ', state);
+
+                  if (state === 'FaceCaptureStateCameraReady') {
+                    yotiFaceCaptureRef.current.startAnalyzing();
+                  }
+
                 }}
                 onFaceCaptureStateFailed={(reason) => {
-                  console.log(reason);
+                  console.log('onFaceCaptureStateFailed : ', reason);
                 }}
               />
             </View>
@@ -162,7 +171,17 @@ function EyeDetect(props) {
       </LinearGradient>
     </View>
   )
-
-
 }
+
+const styles = StyleSheet.create({
+  cImage: {
+    width: 300,
+    height: 300,
+    borderRadius: 200,
+    marginTop: 100,
+    borderColor: 'black',
+    borderWidth: 0.5
+  }
+});
+
 export default EyeDetect;

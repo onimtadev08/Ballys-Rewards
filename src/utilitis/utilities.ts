@@ -62,3 +62,18 @@ export async function getBase64ImageFromUrl(imageUrl: string) {
     reader.readAsDataURL(blob);
   })
 }
+
+
+
+export function ThousandSeparator(value: string) {
+
+  console.log(value);
+  if (value !== undefined) {
+
+    const number = parseFloat(value.toString().replace(/,/g, '')); // Remove existing commas
+    if (isNaN(number)) return '';
+    return new Intl.NumberFormat().format(number);
+  } else {
+    return '';
+  }
+};

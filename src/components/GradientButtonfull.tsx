@@ -17,7 +17,7 @@ const GradientButton: React.FC<GradientButtonProps> = ({
     textStyle,
 }) => {
     return (
-        <TouchableOpacity onPress={onPress} style={{width:'100%'}}>
+        <TouchableOpacity onPress={onPress} style={{ width: '100%' }}>
             <LinearGradient colors={colors}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
@@ -30,8 +30,10 @@ const GradientButton: React.FC<GradientButtonProps> = ({
 
 const styles = StyleSheet.create({
     signup: {
+        borderColor: 'black',
+        borderWidth: 1,
         padding: 13,
-        borderRadius: 20,
+        borderRadius: 5,
     },
 
     buttonText: {

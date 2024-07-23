@@ -69,7 +69,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
     }
 
     componentDidMount(): void {
-        this.setState({ PlayerID: 'BM15125', PIN: '1234' });
+        this.setState({ PlayerID: '', PIN: '' });
         //      BackHandler.addEventListener('hardwareBackPress', () => true);
     }
 
@@ -163,7 +163,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                     this.setState({
                         isLoading: false,
                         showApiError: true,
-                        showApiErrorMsg: 'Error in Login'
+                        showApiErrorMsg: 'Server Connection error'
                     });
                 } finally {
 
@@ -194,7 +194,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
             this.setState({
                 isLoading: false,
                 showApiError: true,
-                showApiErrorMsg: 'Error in Resend OTP'
+                showApiErrorMsg: 'Server Connection error'
             });
         } finally {
 
@@ -211,17 +211,17 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                     colors={['#FF0024', '#FF6648', '#FFCE6C']}>
 
                     <ScrollView >
-                        <View style={{ height: height }}>
+                        <View style={{ height: '100%' }}>
                             <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                                <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold', marginTop: -50 }}>Sign in</Text>
+                                <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>Sign in</Text>
                                 <Image
                                     source={require('../images/logo.png')}
-                                    style={{ width: '50%', height: '50%' }}
+                                    style={{ width: width / 1.2, height: width / 1.2 }}
                                     resizeMode="contain"
                                 />
                             </View>
                             {this.state.Method === 'TEMP' ?
-                                <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: -80 }}>
+                                <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: -40, marginBottom: 20 }}>
                                     <Text style={{ color: 'white', fontSize: 14, }}>if this is your First time logging in please note</Text>
                                     <Text style={{ color: 'white', fontSize: 14, }}>the passport No, you used is your Player ID #</Text>
                                     <Text style={{ color: 'white', fontSize: 14, }}>and your Password is your birthday is</Text>

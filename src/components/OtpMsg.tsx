@@ -84,7 +84,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
         }}>
             <View
                 style={{
-                    backgroundColor: 'white',
+                    backgroundColor: '#FFCE6C',
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'absolute',
@@ -102,7 +102,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                             margin: 20,
                             textAlign: 'center',
                             color: 'black',
-                            fontSize: 14,
+                            fontSize: 18,
                             fontWeight: '500',
                         }}>{msg}</Text>
 
@@ -120,13 +120,13 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                borderColor: 'black',
+                                borderColor: '#FF0024',
                                 borderWidth: 1,
                                 width: 50,
                                 height: 50,
                                 borderRadius: 10,
                                 margin: 10,
-                                textAlign: 'center'
+                                textAlign: 'center',
                             }}
                             ref={ref_input1}
                             onChangeText={(val) => {
@@ -141,7 +141,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                borderColor: 'black',
+                                borderColor: '#FF0024',
                                 borderWidth: 1,
                                 width: 50,
                                 height: 50,
@@ -162,7 +162,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                borderColor: 'black',
+                                borderColor: '#FF0024',
                                 borderWidth: 1,
                                 width: 50,
                                 height: 50,
@@ -183,7 +183,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                borderColor: 'black',
+                                borderColor: '#FF0024',
                                 borderWidth: 1,
                                 width: 50,
                                 height: 50,
@@ -216,7 +216,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <View>
                             <Text
                                 style={{
-                                    color: isEnable ? '#d1d1d1' : 'black',
+                                    color: isEnable ? 'white' : 'black', fontSize: 16
                                 }}>
                                 Resend Code{' '}
                                 {isEnable ? '00:' + second : null}
@@ -227,7 +227,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TouchableOpacity
                             style={{
                                 borderWidth: 2,
-                                borderColor: 'green',
+                                borderColor: '#FF0024',
                                 padding: 10,
                                 width: 150,
                                 alignItems: 'center',
@@ -239,12 +239,12 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                 Keyboard.dismiss;
                                 onPressCancel();
                             }}>
-                            <Text style={{ color: 'black', fontWeight: '500' }}>Cancel</Text>
+                            <Text style={{ color: 'black', fontWeight: '500', fontSize: 18 }}>Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{
                                 marginLeft: 20,
-                                backgroundColor: 'green',
+                                backgroundColor: '#FF0024',
                                 padding: 10,
                                 width: 150,
                                 alignItems: 'center',
@@ -279,9 +279,9 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                     setText2('');
                                     setText3('');
                                     setText4('');
-                                } 
+                                }
                             }}>
-                            <Text style={{ color: 'white', fontWeight: '500' }}>Verify</Text>
+                            <Text style={{ color: 'white', fontWeight: '500', fontSize: 18 }}>Verify</Text>
                         </TouchableOpacity>
                     </View>
 

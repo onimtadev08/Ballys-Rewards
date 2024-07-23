@@ -43,7 +43,7 @@ const MyDatePicker = (prop: DatePickerProps) => {
             <View
                 style={{
                     margin: 100,
-                    backgroundColor: 'white',
+                    backgroundColor: '#FFCE6C',
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'absolute',
@@ -88,7 +88,7 @@ const MyDatePicker = (prop: DatePickerProps) => {
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity
                             style={{
-                                borderColor: 'green',
+                                borderColor: '#FF0024',
                                 borderWidth: 2,
                                 padding: 10,
                                 width: '40%',
@@ -106,7 +106,7 @@ const MyDatePicker = (prop: DatePickerProps) => {
 
                         <TouchableOpacity
                             style={{
-                                backgroundColor: 'green',
+                                backgroundColor: '#FF0024',
                                 padding: 10,
                                 width: '40%',
                                 alignItems: 'center',

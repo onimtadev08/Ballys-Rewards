@@ -12,6 +12,10 @@ import LoginScreen from '../screens/LoginScreen';
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
 import EyeDetect from '../screens/EyeDetect';
+import { TouchableOpacity } from 'react-native';
+import AntDesing from 'react-native-vector-icons/AntDesign'
+import Entypo from 'react-native-vector-icons/Entypo'
+import ProfileScreen from '../screens/ProfileScreen';
 
 type RootStack = {
     Login: undefined
@@ -39,20 +43,99 @@ const Navigation = () => {
                     name='Home'
                     options={{ headerShown: false }}
                     component={HomeScreen} />
+
+                <Stack.Screen
+                    name='Profile'
+                    options={({ navigation }) => ({
+                        title: '',
+                        headerStyle: {
+                            backgroundColor: '#0e0436',
+                        },
+                        headerTintColor: 'black',
+                        headerLeft: () => (
+                            <TouchableOpacity
+                                style={{ marginLeft: 20, marginRight: 10 }}
+                                onPress={() => {
+                                    console.log('test');
+                                    navigation.goBack();
+                                }}>
+                                <Entypo name="chevron-thin-left" color={'white'} size={25} />
+                            </TouchableOpacity>
+
+                        ),
+                    })
+                    }
+                    component={ProfileScreen} />
+
                 <Stack.Screen
                     name='Signin'
-                    options={{ headerShown: false }}
+                    options={({ navigation }) => ({
+                        title: '',
+                        headerStyle: {
+                            backgroundColor: '#FF0024',
+                        },
+                        headerTintColor: 'black',
+                        headerLeft: () => (
+                            <TouchableOpacity
+                                style={{ marginLeft: 20, marginRight: 10 }}
+                                onPress={() => {
+                                    console.log('test');
+                                    navigation.goBack();
+                                }}>
+                                <Entypo name="chevron-thin-left" color={'white'} size={25} />
+                            </TouchableOpacity>
+
+                        ),
+                    })
+                    }
                     component={SigninScreen} />
 
                 <Stack.Screen
                     name='SignUp'
-                    options={{ headerShown: false }}
+                    options={({ navigation }) => ({
+                        title: '',
+                        headerStyle: {
+                            backgroundColor: '#FF0024',
+                        },
+                        headerTintColor: 'black',
+                        headerLeft: () => (
+                            <TouchableOpacity
+                                style={{ marginLeft: 20, marginRight: 10 }}
+                                onPress={() => {
+                                    console.log('test');
+                                    navigation.goBack();
+                                }}>
+                                <Entypo name="chevron-thin-left" color={'white'} size={25} />
+                            </TouchableOpacity>
+
+                        ),
+                    })
+                    }
                     component={SignupScreen} />
 
                 <Stack.Screen
                     name='EyeDetectScreen'
-                    options={{ headerShown: false }}
+                    options={({ navigation }) => ({
+                        title: '',
+                        headerStyle: {
+                            backgroundColor: '#FF0024',
+                        },
+                        headerTintColor: 'black',
+                        headerLeft: () => (
+                            <TouchableOpacity
+                                style={{ marginLeft: 20, marginRight: 10 }}
+                                onPress={() => {
+                                    console.log('test');
+                                    navigation.goBack();
+                                }}>
+                                <Entypo name="chevron-thin-left" color={'white'} size={25} />
+                            </TouchableOpacity>
+
+                        ),
+                    })
+                    }
                     component={EyeDetect} />
+
             </Stack.Navigator>
         </NavigationContainer>
     );

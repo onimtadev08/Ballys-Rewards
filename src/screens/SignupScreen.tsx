@@ -19,6 +19,7 @@ import MyDatePicker from '../components/MyDatePicker';
 import { CountryItem, CountryPicker } from "react-native-country-codes-picker";
 import { getBase64ImageFromUrl } from '../utilitis/utilities';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AntDesign from 'react-native-vector-icons/AntDesign'
 // import ImagePicker from 'react-native-image-picker';
 
 const { width, height } = Dimensions.get('window');
@@ -171,7 +172,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
     handleLogin = async () => {
 
-     
+
         var tempShowError = false;
 
         if (this.state.fname === '') {
@@ -392,44 +393,47 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                 fieldErrorMsg={'Field empty'}
                             />
 
-                            <View style={{ flexDirection: 'row', height: 100, marginLeft: 35, marginRight: -5 }}>
+                            <View style={{ flexDirection: 'row', height: 100, marginRight: 10, marginLeft: 12, marginBottom: -25 }}>
                                 <TouchableOpacity
                                     style={{ flex: 0.6 }}
                                     onPress={() => {
+                                        console.log('kk');
+
                                         this.setState({ CountryPicker: true });
                                     }}
                                 >
+                                    <View pointerEvents='none'>
+                                        <TextInput
+                                            editable={false}
+                                            value={this.state.ShowCountryCode}
+                                            showError={this.state.mnumber === '' && this.state.showError}
+                                            fieldName={'Country Code'}
+                                            fieldErrorMsg={'Field empty'}
+                                        />
 
-                                    <TextInput
-                                        editable={false}
-                                        value={this.state.ShowCountryCode}
-                                        showError={this.state.mnumber === '' && this.state.showError}
-                                        fieldName={'Country Code'}
-                                        fieldErrorMsg={'Field empty'}
-                                    />
+                                        <CountryPicker
+                                            style={{
+                                                modal: {
+                                                    height: 350,
+                                                    minHeight: 350,
+                                                }
+                                            }}
+                                            initialState='+94'
+                                            show={this.state.CountryPicker}
+                                            pickerButtonOnPress={(item: CountryItem) => {
+                                                console.log(item.flag);
 
-                                    <CountryPicker
-                                        style={{
-                                            modal: {
-                                                height: 350,
-                                                minHeight: 350,
-                                            }
-                                        }}
-                                        initialState='+94'
-                                        show={this.state.CountryPicker}
-                                        pickerButtonOnPress={(item: CountryItem) => {
-                                            console.log(item.flag);
-
-                                            this.setState({
-                                                ShowCountryCode: item.flag + ' ' + item.code + ' ' + item.dial_code,
-                                                CountryCode: item.dial_code
-                                            });
-                                            this.setState({ CountryPicker: false });
-                                        }}
-                                        lang={'en'} />
+                                                this.setState({
+                                                    ShowCountryCode: item.flag + ' ' + item.code + ' ' + item.dial_code,
+                                                    CountryCode: item.dial_code
+                                                });
+                                                this.setState({ CountryPicker: false });
+                                            }}
+                                            lang={'en'} />
+                                    </View>
                                 </TouchableOpacity>
 
-                                <View style={{ flex: 1, left: -30 }}>
+                                <View style={{ flex: 1 }}>
                                     <TextInput
                                         value={this.state.mnumber} onChangeText={(text: string) => {
                                             this.setState({ mnumber: text });
@@ -485,9 +489,11 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
                             <Text style={{ color: 'red', fontWeight: '500', fontSize: 16, marginTop: 10 }}>All Above Fields are Madndatory</Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Checkbox status={this.state.checked ? 'checked' : 'unchecked'} onPress={() => {
+                                <TouchableOpacity onPress={() => {
                                     this.setState({ checked: !this.state.checked })
-                                }}></Checkbox>
+                                }} style={{ margin: 20 }}>
+                                    <AntDesign name={this.state.checked ? 'checkcircle' : 'checkcircleo'} size={25} />
+                                </TouchableOpacity>
                                 <View style={{ flexDirection: 'column', marginTop: 10 }}>
                                     <Text style={{ fontWeight: '500', fontSize: 16 }}>I have read and agreed to the Terms &</Text>
                                     <Text style={{ fontWeight: '500', fontSize: 16 }}>Conditions</Text>

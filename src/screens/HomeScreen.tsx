@@ -137,6 +137,7 @@ class HomeScreen extends Component<myProps, myStates> {
 
         const styles = StyleSheet.create({
             safeArea: {
+                backgroundColor: 'rgba(0,0,0,0.0)',
                 flex: 1,
             },
             container: {
@@ -168,7 +169,7 @@ class HomeScreen extends Component<myProps, myStates> {
                 resizeMode: 'contain',
                 backgroundColor: 'rgba(0,0,0,0)',
                 width: screenWidth,
-                height: (screenWidth * 1.1) - 50,
+                height: (screenWidth * 1.1) - 100,
                 bottom: 60,
             },
             backdrop: {
@@ -185,118 +186,125 @@ class HomeScreen extends Component<myProps, myStates> {
         });
 
         return (
-            <SafeAreaView style={styles.safeArea}>
-                <LinearGradient
-                    colors={['#FF0024', '#FF6648', '#FFCE6C']}
-                    style={styles.container}>
-                    <ScrollView style={styles.container}>
-                        <View style={{ flex: 1, flexDirection: 'row' }}>
-                            <CardView style={{ flex: 1, flexDirection: 'column', borderRadius: 20, margin: 10 }}
-                                cardElevation={20}
-                                cardMaxElevation={10}
-                                cornerRadius={20}>
-                                <View style={{ flexDirection: 'column', borderRadius: 10 }}>
-                                    <ScrollView
-                                        ref={this.scrollRef}
-                                        horizontal
-                                        pagingEnabled
-                                        showsHorizontalScrollIndicator={false}
-                                    >
-                                        {this.state.Images.map((image, index) => (
-                                            <View key={index} style={{ width: screenWidth }}>
-                                                <View style={styles.backgroundContainer}>
-                                                    <Image blurRadius={6} source={{ uri: image }} style={styles.backdrop} />
+            <LinearGradient
+                colors={['#FF0024', '#FF6648', '#FFCE6C']}
+                style={styles.container}>
+                <SafeAreaView style={styles.safeArea}>
+                    <LinearGradient
+                        colors={['#FF0024', '#FF6648', '#FFCE6C']}
+                        style={styles.container}>
+                        <ScrollView style={styles.container}>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <CardView style={{ flex: 1, flexDirection: 'column', borderRadius: 20, margin: 10 }}
+                                    cardElevation={20}
+                                    cardMaxElevation={10}
+                                    cornerRadius={20}>
+                                    <View style={{ flexDirection: 'column', borderRadius: 10 }}>
+                                        <ScrollView
+                                            ref={this.scrollRef}
+                                            horizontal
+                                            pagingEnabled
+                                            showsHorizontalScrollIndicator={false}
+                                        >
+                                            {this.state.Images.map((image, index) => (
+                                                <View key={index} style={{ width: screenWidth }}>
+                                                    <View style={styles.backgroundContainer}>
+                                                        <Image blurRadius={6} source={{ uri: image }} style={styles.backdrop} />
+                                                    </View>
+
+                                                    <View style={styles.overlay}>
+                                                        <Image style={styles.logo} source={{ uri: image }} />
+                                                    </View>
+
                                                 </View>
+                                            ))}
+                                        </ScrollView>
 
-                                                <View style={styles.overlay}>
-                                                    <Image style={styles.logo} source={{ uri: image }} />
-                                                </View>
+                                    </View>
+                                </CardView>
 
-                                            </View>
-                                        ))}
-                                    </ScrollView>
+                            </View>
 
-                                </View>
-                            </CardView>
+                            <View style={{
+                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
+                            }}>
 
-                        </View>
+                                <MainMenuButton Url={require('../images/account.png')} title={'My Account \n '}
+                                    onPress={async () => {
+                                        const MID = await AsyncStorage.getItem('MID');
 
-                        <View style={{
-                            flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
-                        }}>
+                                        console.log('MID : ' + MID);
 
-                            <MainMenuButton Url={require('../images/account.png')} title={'My Account \n '}
-                                onPress={() => {
-                                    AsyncStorage.removeItem('Token', () => {
-                                        this.navigation.navigate('Login');
-                                    });
-                                }} />
+                                        this.navigation.navigate('Profile', { 'PlayerID': MID });
 
-                            <MainMenuButton Url={require('../images/offer.png')} title={'My Offer \n '} />
+                                    }} />
 
-                            <MainMenuButton Url={require('../images/tournament.png')} title={'Tournament & \n Drawer'} />
+                                <MainMenuButton Url={require('../images/offer.png')} title={'My Offer \n '} />
 
-                        </View>
+                                <MainMenuButton Url={require('../images/tournament.png')} title={'Tournament & \n Drawer'} />
+
+                            </View>
 
 
-                        <View style={{
-                            flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
-                        }}>
+                            <View style={{
+                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
+                            }}>
 
-                            <MainMenuButton Url={require('../images/dining.png')} title={'Dining'} />
+                                <MainMenuButton Url={require('../images/dining.png')} title={'Dining'} />
 
-                            <MainMenuButton Url={require('../images/entertainment.png')} title={'Entertainment'} />
+                                <MainMenuButton Url={require('../images/entertainment.png')} title={'Entertainment'} />
 
-                            <MainMenuButton Url={require('../images/onlinecasino.png')} title={'Online Casino'} />
+                                <MainMenuButton Url={require('../images/onlinecasino.png')} title={'Online Casino'} />
 
-                        </View>
-
-
-                        <View style={{
-                            flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
-                        }}>
-
-                            <MainMenuButton Url={require('../images/packages.png')} title={'Packages'} />
-
-                            <MainMenuButton Url={require('../images/rewards2.png')} title={'Rewards Circle'} />
-
-                            <MainMenuButton Url={require('../images/contact.png')} title={'Contact Us'} />
-
-                        </View>
+                            </View>
 
 
-                        <View style={{
-                            flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
-                        }}>
+                            <View style={{
+                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
+                            }}>
 
-                            <MainMenuButton Url={require('../images/messaging.png')} title={'Messaging\n \n '} />
+                                <MainMenuButton Url={require('../images/packages.png')} title={'Packages'} />
 
-                            <MainMenuButton Url={require('../images/feedback.png')} title={'Feedback &\nFollow Us \n '} />
+                                <MainMenuButton Url={require('../images/rewards2.png')} title={'Rewards Circle'} />
 
-                            <MainMenuButton Url={require('../images/myride.png')} title={'My Ride\n \n '} />
+                                <MainMenuButton Url={require('../images/contact.png')} title={'Contact Us'} />
 
-                        </View>
-                    </ScrollView>
-                    {this.state.showApiSuccsess ?
-                        <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
-                            this.setState({ showApiSuccsess: false });
-                        }} />
-                        : null}
-                    {this.state.showApiError ?
-                        <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
-                            this.setState({ showApiError: false });
-                        }} />
-                        : null}
-                    {this.state.showApiInfo ?
-                        <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
-                            this.setState({ showApiInfo: false });
-                        }} />
-                        : null}
-                    {this.state.isLoading ? (
-                        <Loader />
-                    ) : null}
-                </LinearGradient>
-            </SafeAreaView>
+                            </View>
+
+
+                            <View style={{
+                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
+                            }}>
+
+                                <MainMenuButton Url={require('../images/messaging.png')} title={'Messaging\n \n '} />
+
+                                <MainMenuButton Url={require('../images/feedback.png')} title={'Feedback &\nFollow Us \n '} />
+
+                                <MainMenuButton Url={require('../images/myride.png')} title={'My Ride\n \n '} />
+
+                            </View>
+                        </ScrollView>
+                        {this.state.showApiSuccsess ?
+                            <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
+                                this.setState({ showApiSuccsess: false });
+                            }} />
+                            : null}
+                        {this.state.showApiError ?
+                            <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
+                                this.setState({ showApiError: false });
+                            }} />
+                            : null}
+                        {this.state.showApiInfo ?
+                            <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
+                                this.setState({ showApiInfo: false });
+                            }} />
+                            : null}
+                        {this.state.isLoading ? (
+                            <Loader />
+                        ) : null}
+                    </LinearGradient>
+                </SafeAreaView>
+            </LinearGradient>
         );
     }
 }

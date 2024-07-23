@@ -93,11 +93,11 @@ const LoginScreen = ({ }) => {
                         />
                     </View>
 
-                    <View style={{ marginStart: 10, marginTop: -80 }}>
-                        <Text style={[styles.buttonText2, { fontSize: getFontSize() }]}>
+                    <View style={{ marginStart: 10 ,marginTop:-100}}>
+                        <Text style={[styles.buttonText2, { fontSize: 30 }]}>
                             BALLY'S MEMBER
                         </Text>
-                        <Text style={[styles.buttonText2, { fontSize: getFontSize() }]} >
+                        <Text style={[styles.buttonText2, { fontSize: 30 }]} >
                             LOGIN
                         </Text>
                     </View>
@@ -117,8 +117,8 @@ const LoginScreen = ({ }) => {
 
                 </View>
             </View>
-            <View style={{ width: '75%', alignItems: 'center', marginBottom: 40 }}>
-                <View style={{ width: '100%', marginTop: 20 }}>
+            <View style={{ width: '75%', alignItems: 'center', marginBottom: 80 }}>
+                <View style={{ width: '100%'}}>
                     <GradientButtonWithBorder
                         title="SIGN IN"
                         onPress={() => handleLogin2('SIGN')}
@@ -128,8 +128,8 @@ const LoginScreen = ({ }) => {
                         textStyle={styles.buttonText}
                     />
                 </View>
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 16, marginTop: 10 }}>NEW MEMBER LOGIN</Text>
-                <Text style={{ textAlign: 'center' }}>If you are a first time user, please go through the sign up process</Text>
+                <Text style={{ textAlign: 'center', color: 'black', fontSize: 20, marginTop: 10, fontWeight: 'bold' }}>NEW MEMBER LOGIN</Text>
+                <Text style={{ textAlign: 'center', fontSize: 18 }}>If you are a first time user, please go through the sign up process</Text>
                 <View style={{ marginTop: 20, width: '100%' }}>
                     <GradientButton
                         title="SIGN UP"
@@ -138,8 +138,8 @@ const LoginScreen = ({ }) => {
                         textStyle={styles.buttonText}
                     />
                 </View>
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 16, marginTop: 10 }}>OR</Text>
-                <Text style={{ textAlign: 'center' }}>If you are with a temporary ID, sign in here</Text>
+                <Text style={{ textAlign: 'center', color: 'black', fontSize: 20, marginTop: 10, fontWeight: 'bold' }}>OR</Text>
+                <Text style={{ textAlign: 'center', fontSize: 18 }}>If you are with a temporary ID, sign in here</Text>
                 <View style={{ width: '100%', marginTop: 20 }}>
                     <GradientButtonWithBorder
                         title="TEMPORARY SIGN IN"
@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
         width: width * 0.9,
     },
     image: {
+        marginTop:-50,
         width: wp('55%'),
         height: hp('45%'),
         resizeMode: 'contain',
@@ -182,14 +183,11 @@ const styles = StyleSheet.create({
 
     imageContainer: {
         marginStart: 30,
-        marginTop: -50,
         left: width * 0.1,
     },
 
     mainTextContainer: {
-        margin: 10,
-        marginTop: 5,
-        marginBottom: 20
+        marginLeft: 10,
     },
 
     gradient: {
@@ -205,7 +203,7 @@ const styles = StyleSheet.create({
 
     buttonText3: {
         color: '#ffffff',
-        fontSize: 15,
+        fontSize: 18,
         textAlign: 'left',
         fontFamily: 'Helvetica',
     },
@@ -213,7 +211,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         color: '#000000',
-        fontSize: 16,
+        fontSize: 18,
         textAlign: 'center',
     },
     errorText: {

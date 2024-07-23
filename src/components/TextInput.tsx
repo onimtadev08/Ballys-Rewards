@@ -15,14 +15,16 @@ const TextInput = (props: any) => {
 
     return (
         <View style={{ width: '100%', alignItems: 'center' }}>
-            <View style={{ flexDirection: 'row', marginTop: 20, width: '65%' }}>
+            {/* <View style={{ flexDirection: 'row', marginTop: 20, width: '100%', marginLeft: 30 }}>
                 <Text style={{ flex: 2.5, color: 'white', fontSize: 14, fontWeight: 'bold', textAlign: 'left' }}>{props.fieldName}</Text>
-            </View>
+            </View> */}
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center' }}>
                     <NativeTextInput
+                        placeholderTextColor={'black'}
+                        placeholder={props.fieldName}
                         editable={props.editable === undefined ? true : false}
-                        style={{ width: '88%', color: 'black' }}
+                        style={{ width: '100%', color: 'black', height: 50, textAlign: 'center'}}
                         keyboardType={props.keyboardType === undefined ? 'default' : props.keyboardType}
                         onChangeText={(text) => {
                             props.onChangeText(text);
@@ -39,11 +41,11 @@ const TextInput = (props: any) => {
 // define your styles
 const styles = StyleSheet.create({
     container: {
-        paddingStart: 20,
-        width: '75%',
-        borderColor: 'white',
+        margin: 10,
+        width: '90%',
+        borderColor: 'black',
         borderWidth: 1,
-        borderRadius: 20,
+        borderRadius: 5,
         backgroundColor: '#FFCE6C',
     },
 });
