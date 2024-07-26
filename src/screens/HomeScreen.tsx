@@ -11,6 +11,11 @@ import Loader from '../components/Loader';
 import { Home } from '../api/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { interpolate } from "react-native-reanimated";
+import Carousel from "react-native-reanimated-carousel";
+import TAnimationStyle from "react-native-reanimated-carousel"
+
+
 const { width: screenWidth } = Dimensions.get('window');
 
 // const images = [
@@ -32,12 +37,20 @@ interface myStates {
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
     PlayerID: string;
-    Images: Array<string>;
+    Images: string[];
 }
 interface myProps {
     navigation: any;
     router: any;
 }
+
+interface CustomSlideProps {
+    index: number;
+    item: string;
+    style: any; // Replace with appropriate type if known
+    width: number;
+}
+
 class HomeScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
@@ -71,17 +84,17 @@ class HomeScreen extends Component<myProps, myStates> {
 
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
 
-        const interval = setInterval(() => {
-            const nextIndex = (this.state.currentIndex + 1) % this.state.Images.length;
-            if (this.scrollRef) {
-                this.scrollRef.current?.scrollTo({ x: nextIndex * screenWidth, animated: true });
-            }
-            this.setState({ currentIndex: nextIndex });
-        }, 2000);
+        // const interval = setInterval(() => {
+        //     const nextIndex = (this.state.currentIndex + 1) % this.state.Images.length;
+        //     if (this.scrollRef) {
+        //         this.scrollRef.current?.scrollTo({ x: nextIndex * screenWidth, animated: true });
+        //     }
+        //     this.setState({ currentIndex: nextIndex });
+        // }, 2000);
 
         this.MainHomeLoad();
 
-        return () => clearInterval(interval);
+        // return () => clearInterval(interval);
     }
 
     async MainHomeLoad() {
@@ -92,7 +105,7 @@ class HomeScreen extends Component<myProps, myStates> {
             console.log('val : ', result);
             if (result.strRturnRes) {
 
-                let img = [];
+                let img: string[] = [];
 
                 for (let index = 0; index < result.data.length; index++) {
                     const element = result.data[index].Url;
@@ -133,6 +146,21 @@ class HomeScreen extends Component<myProps, myStates> {
     };
 
 
+    animationStyle: TAnimationStyle = (value: number) => {
+        "worklet";
+
+        const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30]);
+        const scale = interpolate(value, [-1, 0, 1], [1.25, 1, 0.25]);
+        const opacity = interpolate(value, [-0.75, 0, 1], [0, 1, 0]);
+
+        return {
+            transform: [{ scale }],
+            zIndex,
+            opacity,
+        };
+    };
+
+
     render(): React.ReactNode {
 
         const styles = StyleSheet.create({
@@ -161,16 +189,14 @@ class HomeScreen extends Component<myProps, myStates> {
             },
             overlay: {
                 opacity: 1,
-                top: 60,
-                right: 29,
+                // top: 60,
+                // right: 29,
             },
             logo: {
-                margin: 20,
                 resizeMode: 'contain',
                 backgroundColor: 'rgba(0,0,0,0)',
                 width: screenWidth,
-                height: (screenWidth * 1.1) - 100,
-                bottom: 60,
+                height: '100%',
             },
             backdrop: {
                 height: screenWidth * 1.1,
@@ -182,13 +208,63 @@ class HomeScreen extends Component<myProps, myStates> {
                 textAlign: 'center',
                 backgroundColor: 'black',
                 color: 'white'
-            }
+            },
+            slider: { backgroundColor: '#000', height: 350 },
+            content1: {
+                width: '100%',
+                height: 50,
+                marginBottom: 10,
+                backgroundColor: '#000',
+                justifyContent: 'center',
+                alignItems: 'center',
+            },
+            content2: {
+                width: '100%',
+                height: 100,
+                marginTop: 10,
+                backgroundColor: '#000',
+                justifyContent: 'center',
+                alignItems: 'center',
+            },
+            contentText: { color: '#fff' },
+            buttons: {
+                zIndex: 1,
+                height: 15,
+                marginTop: -25,
+                marginBottom: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+            },
+            button: {
+                margin: 3,
+                width: 15,
+                height: 15,
+                opacity: 0.9,
+                alignItems: 'center',
+                justifyContent: 'center',
+            },
+            buttonSelected: {
+                opacity: 1,
+                color: 'red',
+            },
+            customSlide: {
+                backgroundColor: 'green',
+                alignItems: 'center',
+                justifyContent: 'center',
+            },
+            customImage: {
+                width: 100,
+                height: 100,
+            },
+
         });
+
 
         return (
             <LinearGradient
                 colors={['#FF0024', '#FF6648', '#FFCE6C']}
-                style={styles.container}>
+                style={styles.container} >
                 <SafeAreaView style={styles.safeArea}>
                     <LinearGradient
                         colors={['#FF0024', '#FF6648', '#FFCE6C']}
@@ -200,7 +276,7 @@ class HomeScreen extends Component<myProps, myStates> {
                                     cardMaxElevation={10}
                                     cornerRadius={20}>
                                     <View style={{ flexDirection: 'column', borderRadius: 10 }}>
-                                        <ScrollView
+                                        {/* <ScrollView
                                             ref={this.scrollRef}
                                             horizontal
                                             pagingEnabled
@@ -218,7 +294,37 @@ class HomeScreen extends Component<myProps, myStates> {
 
                                                 </View>
                                             ))}
-                                        </ScrollView>
+                                        </ScrollView> */}
+
+                                        <Carousel
+                                            autoPlay={true}
+                                            autoPlayInterval={2000}
+                                            loop
+                                            style={{
+                                                width: screenWidth - 20,
+                                                height: screenWidth * 1.1,
+                                                borderRadius: 20,
+                                            }}
+                                            width={screenWidth - 20}
+                                            height={screenWidth * 1.1}
+                                            data={this.state.Images}
+                                            renderItem={({ index }) => {
+                                                return (
+                                                    <View key={index} style={{ width: screenWidth }}>
+                                                        <View style={styles.backgroundContainer}>
+                                                            <Image blurRadius={6} source={{ uri: this.state.Images[index] }} style={styles.backdrop} />
+                                                        </View>
+
+                                                        <View style={styles.overlay}>
+                                                            <Image style={styles.logo} source={{ uri: this.state.Images[index] }} />
+                                                        </View>
+
+                                                    </View>
+                                                );
+                                            }}
+                                            customAnimation={this.animationStyle}
+                                        />
+
 
                                     </View>
                                 </CardView>
@@ -263,7 +369,11 @@ class HomeScreen extends Component<myProps, myStates> {
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
-                                <MainMenuButton Url={require('../images/packages.png')} title={'Packages'} />
+                                <MainMenuButton Url={require('../images/packages.png')} title={'Packages'}
+                                    onPress={() => (
+                                        this.navigation.navigate('PackagesScreen')
+                                    )}
+                                />
 
                                 <MainMenuButton Url={require('../images/rewards2.png')} title={'Rewards Circle'} />
 
@@ -303,8 +413,8 @@ class HomeScreen extends Component<myProps, myStates> {
                             <Loader />
                         ) : null}
                     </LinearGradient>
-                </SafeAreaView>
-            </LinearGradient>
+                </SafeAreaView >
+            </LinearGradient >
         );
     }
 }

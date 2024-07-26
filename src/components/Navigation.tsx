@@ -12,15 +12,18 @@ import LoginScreen from '../screens/LoginScreen';
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
 import EyeDetect from '../screens/EyeDetect';
-import { TouchableOpacity } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 import AntDesing from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ProfileScreen from '../screens/ProfileScreen';
+import PackagesScreen from '../screens/PackagesScreen';
 
 type RootStack = {
     Login: undefined
     Home: undefined
     Signin: undefined
+    PackagesScreen: PackagesScreen
+    Profile: PackagesScreen
     SignUp: {
         onGoBack: (Img: string, ImgApi: string) => void
     }
@@ -135,6 +138,14 @@ const Navigation = () => {
                     })
                     }
                     component={EyeDetect} />
+
+
+                <Stack.Screen
+                    name='PackagesScreen'
+                    options={{ headerShown: false }}
+                    component={PackagesScreen}
+                />
+
 
             </Stack.Navigator>
         </NavigationContainer>

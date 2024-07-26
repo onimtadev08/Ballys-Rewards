@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component, PureComponent } from 'react';
-import { ScrollView, View, Text, StyleSheet, Image, SafeAreaView, Keyboard } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image, SafeAreaView, Keyboard, Dimensions } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient';
 import { PlayerStatus } from '../api/Api';
@@ -9,6 +9,14 @@ import SuccsessMsg from '../components/SuccsessMsg';
 import InfoMsg from '../components/InfoMsg';
 import Loader from '../components/Loader';
 import { ThousandSeparator } from '../utilitis/utilities';
+import GradientButton from '../components/GradientButtonfull';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import MainManuButton from '../components/MainManuButton';
+
+
+
+const { width: screenWidth } = Dimensions.get('window');
+
 interface myStates {
     currentIndex: number;
     isLoading: boolean;
@@ -43,9 +51,37 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
             showApiSuccsessMsg: '',
             PlayerID: props.route.params.PlayerID,
             Images: [],
-            result: {},
+            result: {
+                "strDes": "SUCCESS",
+                "strReturnMID": "BM 12345",
+                "strMName": "BALLYS MEMBER NAME",
+                "strCurr_R": "INFINITY",
+                "strNext_R": "INFINITY",
+                "strReturn_NextDes1": "Earn 0 Ballys points to upgrade next card level.",
+                "strReturn_CurrentDes": "0",
+                "strCurrentURL_1": "https://i.imgur.com/G2nHqSr.png",
+                "strNextURL_1": "https://i.imgur.com/G2nHqSr.png",
+                "strReturn_CurrentDes1": "Earn 0 Ballys points by May  9 2025 to maintaining Current card level.",
+                "LastRewardPoints": 0,
+                "LastExpDate": "Jan  1 2024",
+                "CurrentExpDate": "Jan  1 2024",
+                "CurrentRewardPoints": 0,
+                "NextExpDate": "Jan  1 2024",
+                "TodayTBLPoints": 0,
+                "TodaySlotPoints": 0,
+                "TodayTotalPoints": 0,
+                "TodayMessage": "",
+                "TodayBallysCoins": 0,
+                "TodayBallysCoinsMessage": "Today Earn Points*60",
+                "TodayLKR": 0,
+                "TodayLKRMessage": "Today Earn Points*40",
+                "LastUpdateDateTime": "Jan 1 2024  12:00AM",
+                "Message": "",
+                "strRturnRes": true
+            },
         };
 
+        //      this.setState({result:});
 
         console.log(props);
 
@@ -97,6 +133,14 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
     }
 
     render(): React.ReactNode {
+        const handleLogin = (): void => {
+
+            AsyncStorage.removeItem('Token', () => {
+                this.props.navigation.navigate('Login');
+            });
+
+        }
+
         return (
 
 
@@ -112,6 +156,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                     }}>
                         <Text style={{
                             color: 'white',
+                            textAlign: 'center',
                             fontSize: 18,
                             fontWeight: 'bold',
                             marginLeft: 20,
@@ -128,6 +173,16 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                     <ScrollView >
                         <View style={{ height: '100%', marginBottom: 20 }}>
 
+                            <View style={{
+                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
+                            }}>
+
+                                <MainManuButton Url={require('../images/wallet_two.png')} title={'Wallet\n \n '} />
+
+                                <MainManuButton Url={require('../images/lucky.png')} title={'Lucky Draw\n \n '} />
+
+                        
+                            </View>
 
                             <View style={{ flexDirection: 'row' }}>
 
@@ -138,36 +193,12 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                                     margin: 10,
                                 }}>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        marginLeft: 16,
-                                        marginTop: 10
-                                    }}> Current Tier</Text>
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        marginLeft: 16,
-                                    }}> Points</Text>
+                                    <Text style={styles.cardHaderText}> Current Tier</Text>
+                                    <Text style={[styles.cardHaderText, { marginTop: 0 }]}> Points</Text>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 14,
-                                        marginLeft: 20,
-                                    }}>{this.state.result.CurrentExpDate}</Text>
+                                    <Text style={styles.cardDetailsText}>{this.state.result.CurrentExpDate}</Text>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 30,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 10,
-                                        marginBottom: 10,
-                                        textAlign:'right',
-                                        marginRight:20,
-                                    }}>{ThousandSeparator(this.state.result.CurrentRewardPoints)}</Text>
+                                    <Text style={styles.cardDetail}>{ThousandSeparator(this.state.result.CurrentRewardPoints)}</Text>
 
                                 </View>
 
@@ -178,37 +209,13 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                                     margin: 10
                                 }}>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        marginLeft: 16,
-                                        marginTop: 10
-                                    }}> Last Tier</Text>
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        marginLeft: 16,
-                                    }}> Points</Text>
+                                    <Text style={styles.cardHaderText}> Last Tier</Text>
+                                    <Text style={[styles.cardHaderText, { marginTop: 0 }]}> Points</Text>
 
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 14,
-                                        marginLeft: 20,
-                                    }}>{this.state.result.LastExpDate}</Text>
+                                    <Text style={styles.cardDetailsText}>{this.state.result.LastExpDate}</Text>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 30,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 10,
-                                        marginBottom: 10,
-                                        textAlign:'right',
-                                        marginRight:20,
-                                    }}>{ThousandSeparator(this.state.result.LastRewardPoints)}</Text>
+                                    <Text style={styles.cardDetail}>{ThousandSeparator(this.state.result.LastRewardPoints)}</Text>
 
                                 </View>
 
@@ -354,36 +361,12 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                                     margin: 10,
                                 }}>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 10
-                                    }}>Slot Points</Text>
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                    }}>Earned</Text>
+                                    <Text style={styles.cardHaderText}>Slot Points</Text>
+                                    <Text style={[styles.cardHaderText, { marginTop: 0 }]}>Earned</Text>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 14,
-                                        marginLeft: 20,
-                                    }}>{this.state.result.LastUpdateDateTime}</Text>
+                                    <Text style={[styles.cardDetailsText, { marginLeft: 0, marginRight: 0 }]}>{this.state.result.LastUpdateDateTime}</Text>
 
-                                    <Text style={{
-                                        textAlign: 'right',
-                                        color: 'black',
-                                        fontSize: 30,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 10,
-                                        marginBottom: 10,
-                                        marginEnd: 20,
-                                    }}> {ThousandSeparator(this.state.result.TodaySlotPoints)}</Text>
+                                    <Text style={styles.cardDetail}> {ThousandSeparator(this.state.result.TodaySlotPoints)}</Text>
 
                                 </View>
 
@@ -394,36 +377,12 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                                     margin: 10,
                                 }}>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 10
-                                    }}>Table Points</Text>
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                    }}>Earned</Text>
+                                    <Text style={styles.cardHaderText}>Table Points</Text>
+                                    <Text style={[styles.cardHaderText, { marginTop: 0 }]}>Earned</Text>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 14,
-                                        marginLeft: 20,
-                                    }}>{this.state.result.LastUpdateDateTime}</Text>
+                                    <Text style={[styles.cardDetailsText, { marginLeft: 0, marginEnd: 0 }]}>{this.state.result.LastUpdateDateTime}</Text>
 
-                                    <Text style={{
-                                        textAlign: 'right',
-                                        color: 'black',
-                                        fontSize: 30,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 10,
-                                        marginBottom: 10,
-                                        marginEnd: 20,
-                                    }}> {ThousandSeparator(this.state.result.TodayTBLPoints)}</Text>
+                                    <Text style={styles.cardDetail}> {ThousandSeparator(this.state.result.TodayTBLPoints)}</Text>
 
                                 </View>
 
@@ -453,30 +412,11 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                                     margin: 10,
                                 }}>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 10
-                                    }}>Ballys Coins</Text>
+                                    <Text style={styles.cardHaderText}>Ballys Coins</Text>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 14,
-                                        marginLeft: 20,
-                                    }}>{this.state.result.TodayBallysCoinsMessage}</Text>
+                                    <Text style={[styles.cardDetailsText, { marginLeft: 0, marginRight: 0 }]}>{this.state.result.TodayBallysCoinsMessage}</Text>
 
-                                    <Text style={{
-                                        textAlign: 'right',
-                                        color: 'black',
-                                        fontSize: 30,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 10,
-                                        marginBottom: 10,
-                                        marginEnd: 20,
-                                    }}> {ThousandSeparator(this.state.result.TodayBallysCoins)}</Text>
+                                    <Text style={styles.cardDetail}> {ThousandSeparator(this.state.result.TodayBallysCoins)}</Text>
 
                                 </View>
 
@@ -486,36 +426,30 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                                     backgroundColor: '#FFCE6C',
                                     margin: 10,
                                 }}>
+                                    <Text style={styles.cardHaderText}>Ballys Rupees</Text>
 
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 18,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 10
-                                    }}>Ballys Rupees</Text>
+                                    <Text style={[styles.cardDetailsText, { marginLeft: 0, marginRight: 0 }]}>{this.state.result.TodayLKRMessage}</Text>
 
-
-                                    <Text style={{
-                                        color: 'black',
-                                        fontSize: 14,
-                                        marginLeft: 20,
-                                    }}>{this.state.result.TodayLKRMessage}</Text>
-
-                                    <Text style={{
-                                        textAlign: 'right',
-                                        color: 'black',
-                                        fontSize: 30,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 10,
-                                        marginBottom: 10,
-                                        marginEnd: 20,
-                                    }}> {ThousandSeparator(this.state.result.TodayLKR)}</Text>
+                                    <Text style={styles.cardDetail}> {ThousandSeparator(this.state.result.TodayLKR)}</Text>
 
                                 </View>
 
 
+                            </View>
+
+                            <View style={{ width: '100%', alignItems: 'center' }}>
+                                <View style={{
+                                    marginTop: 20,
+                                    width: '80%',
+                                    alignItems: 'center'
+                                }}>
+                                    <GradientButton
+                                        title="LOGOUT"
+                                        onPress={handleLogin}
+                                        colors={['#FF0024', '#FF0024', '#FF0024']}
+                                        textStyle={styles.buttonText}
+                                    />
+                                </View>
                             </View>
 
                         </View>
@@ -557,6 +491,37 @@ const styles = StyleSheet.create({
     },
     safeArea: {
         flex: 1
+    },
+    buttonText: {
+        fontWeight: 'bold',
+        color: '#000000',
+        fontSize: 18,
+        textAlign: 'center',
+    },
+    cardHaderText: {
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginLeft: 16,
+        marginTop: 10,
+        marginRight: 20,
+    }, cardDetailsText: {
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 14,
+        marginLeft: 20,
+        marginRight: 20,
+    },
+    cardDetail: {
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginLeft: 20,
+        marginTop: 10,
+        marginBottom: 10,
+        marginRight: 20,
     }
 });
 

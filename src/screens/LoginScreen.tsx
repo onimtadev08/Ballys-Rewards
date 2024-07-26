@@ -93,7 +93,7 @@ const LoginScreen = ({ }) => {
                         />
                     </View>
 
-                    <View style={{ marginStart: 10 ,marginTop:-100}}>
+                    <View style={{ marginStart: 10, marginTop: -100 }}>
                         <Text style={[styles.buttonText2, { fontSize: 30 }]}>
                             BALLY'S MEMBER
                         </Text>
@@ -118,7 +118,7 @@ const LoginScreen = ({ }) => {
                 </View>
             </View>
             <View style={{ width: '75%', alignItems: 'center', marginBottom: 80 }}>
-                <View style={{ width: '100%'}}>
+                <View style={{ width: '100%' }}>
                     <GradientButtonWithBorder
                         title="SIGN IN"
                         onPress={() => handleLogin2('SIGN')}
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
         width: width * 0.9,
     },
     image: {
-        marginTop:-50,
+        marginTop: -50,
         width: wp('55%'),
         height: hp('45%'),
         resizeMode: 'contain',
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     buttonText2: {
         color: '#ffffff',
         fontSize: 50,
-        textAlign: 'left',
+        textAlign: 'center',
         fontFamily: 'Helvetica',
         fontWeight: 'bold',
     },
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     buttonText3: {
         color: '#ffffff',
         fontSize: 18,
-        textAlign: 'left',
+        textAlign: 'center',
         fontFamily: 'Helvetica',
     },
 
