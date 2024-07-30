@@ -21,6 +21,70 @@ interface myProps {
 
 const { width: screenWidth } = Dimensions.get('window');
 
+
+const PackageData = [
+    {
+        "Name": "SILK",
+        "Buying": "US$ 8,000",
+        "Discount": "10%",
+        "Accormadation": "5 star, std room for room for 3 nights",
+        "AirTicket": "Economy",
+        "Transport": "Premier Car",
+        "Service": "N/A",
+        "ImgUrl": require('../images/pack_one.png'),
+    },
+    {
+        "Name": "VINTAGE",
+        "Buying": "US$ 15,000",
+        "Discount": "10%",
+        "Accormadation": "5 star, std room for room for 5 nights",
+        "AirTicket": "Economy",
+        "Transport": "Sedan",
+        "Service": "N/A",
+        "ImgUrl": require('../images/pack_two.png'),
+    },
+    {
+        "Name": "ELITE",
+        "Buying": "US$ 25,000",
+        "Discount": "10%",
+        "Accormadation": "5 star, Executive room for room for 3 nights",
+        "AirTicket": "Economy of Business",
+        "Transport": "MUV",
+        "Service": "City Sight Seeing",
+        "ImgUrl": require('../images/pack_tree.png'),
+    },
+    {
+        "Name": "MONARCH",
+        "Buying": "US$ 50,000",
+        "Discount": "10% + 5%",
+        "Accormadation": "5 star, Suite room for room for 3 nights",
+        "AirTicket": "Business",
+        "Transport": "SUV",
+        "Service": "1 Day SPA Treatment",
+        "ImgUrl": require('../images/pack_one.png'),
+    },
+    {
+        "Name": "ROYAL",
+        "Buying": "US$ 100,000",
+        "Discount": "10% + 5%",
+        "Accormadation": "5 star, Suite room for room for 5 nights",
+        "AirTicket": "Business & Slik Route",
+        "Transport": "VIP Luxury Limousins",
+        "Service": "2 Day's SPA Treatment",
+        "ImgUrl": require('../images/pack_two.png'),
+    },
+    {
+        "Name": "EMPEROR",
+        "Buying": "US$ 500,000",
+        "Discount": "10% + 5%",
+        "Accormadation": "5 star, Luxury Suite room for room for 5 nights",
+        "AirTicket": "First Class & Silk Route",
+        "Transport": "VIP Luxury Stretch Limousine",
+        "Service": "2 Day's SPA Treatment Dinner @ Exclusive Restaurant + golf",
+        "ImgUrl": require('../images/pack_tree.png'),
+    },
+];
+
 class PackagesScreen extends React.PureComponent<myProps, myStates> {
 
 
@@ -163,41 +227,22 @@ class PackagesScreen extends React.PureComponent<myProps, myStates> {
                                 </LinearGradient>
 
 
-                                <PackageDetailsCard
-                                    Name={"SILK"}
-                                    Accommodation={"5 star, std room for room for 3 nights"}
-                                    AirTicket={"Economy"}
-                                    Transportation={"Premier Car"}
-                                    SpecialService={"N/A"}
-                                    Ammount={"US$ 8,000"}
-                                    Precentage={"10%"}
-                                    onPress={function (): void {
-                                        throw new Error("Function not implemented.");
-                                    }} />
+                                {PackageData.map((data, index) => (
+                                    <PackageDetailsCard
+                                        key={index}
+                                        Name={data.Name}
+                                        Accommodation={data.Accormadation}
+                                        AirTicket={data.AirTicket}
+                                        Transportation={data.Transport}
+                                        SpecialService={data.Service}
+                                        Ammount={data.Buying}
+                                        Precentage={data.Discount}
+                                        onPress={function (): void {
+                                            throw new Error("Function not implemented.");
+                                        }}
+                                        ImgUrl={data.ImgUrl} />
 
-                                <PackageDetailsCard
-                                    Name={"VINTAGE"}
-                                    Accommodation={"5 star, std room for room for 3 nights"}
-                                    AirTicket={"Economy"}
-                                    Transportation={"Premier Car"}
-                                    SpecialService={"N/A"}
-                                    Ammount={"US$ 15,000"}
-                                    Precentage={"10%"}
-                                    onPress={function (): void {
-                                        throw new Error("Function not implemented.");
-                                    }} />
-
-                                <PackageDetailsCard
-                                    Name={"ELITE"}
-                                    Accommodation={"5 star, std room for room for 3 nights"}
-                                    AirTicket={"Economy"}
-                                    Transportation={"MUV"}
-                                    SpecialService={"City sight seeing"}
-                                    Ammount={"US$ 25,000"}
-                                    Precentage={"10%"}
-                                    onPress={function (): void {
-                                        throw new Error("Function not implemented.");
-                                    }} />
+                                ))}
 
 
 

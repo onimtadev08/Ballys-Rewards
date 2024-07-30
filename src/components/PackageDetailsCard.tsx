@@ -11,7 +11,8 @@ interface errorMsgProps {
     Transportation: string;
     SpecialService: string;
     Ammount: string;
-    Precentage: string
+    Precentage: string;
+    ImgUrl: any;
     onPress: () => void;
 }
 const PackageDetailsCard: React.FC<errorMsgProps> = ({
@@ -22,16 +23,17 @@ const PackageDetailsCard: React.FC<errorMsgProps> = ({
     SpecialService,
     Ammount,
     Precentage,
+    ImgUrl,
     onPress,
 }) => {
     return (
         <View style={{ alignItems: 'center', height: 220, marginBottom: 20 }}>
-            <Image source={require('../images/pack_two.png')} style={{ position: 'absolute' }}></Image>
+            <Image source={ImgUrl} style={{ position: 'absolute' }}></Image>
             <View style={{ flexDirection: 'column' }}>
                 <View style={{ flexDirection: 'row', marginStart: 35, marginTop: 20, marginEnd: 35 }}>
-                    <Text style={{ fontSize: 20, color: 'white', flex: 1, fontWeight: 'bold' }}>{Name}</Text>
-                    <Text style={{ fontSize: 20, color: 'white', flex: 1.5, textAlign: 'center', fontWeight: 'bold' }}> {Ammount}</Text>
-                    <Text style={{ fontSize: 20, color: 'white', flex: 1, textAlign: 'right', fontWeight: 'bold' }}>{Precentage}</Text>
+                    <Text style={{ fontSize: 18, color: 'white', flex: 0.5, fontWeight: 'bold' }}>{Name}</Text>
+                    <Text style={{ fontSize: 18, color: 'white', flex: 0.7, textAlign: 'center', fontWeight: 'bold' }}> {Ammount}</Text>
+                    <Text style={{ fontSize: 18, color: 'white', flex: 0.5, textAlign: 'right', fontWeight: 'bold' }}>{Precentage}</Text>
                 </View>
 
                 <View style={{ flexDirection: 'column', marginStart: 35, marginEnd: 35 }}>
