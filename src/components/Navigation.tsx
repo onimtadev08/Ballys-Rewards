@@ -17,6 +17,7 @@ import AntDesing from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ProfileScreen from '../screens/ProfileScreen';
 import PackagesScreen from '../screens/PackagesScreen';
+import MenuScreen from '../screens/MenuScreen'
 
 type RootStack = {
     Login: undefined
@@ -44,7 +45,7 @@ const Navigation = () => {
                     component={LoginScreen} />
                 <Stack.Screen
                     name='Home'
-                    options={{ headerShown: false }}
+                    options={{ headerShown: false, gestureEnabled: false }}
                     component={HomeScreen} />
 
                 <Stack.Screen
@@ -144,6 +145,12 @@ const Navigation = () => {
                     name='PackagesScreen'
                     options={{ headerShown: false }}
                     component={PackagesScreen}
+                />
+
+                <Stack.Screen
+                    name='MenuScreen'
+                    options={{ headerShown: false }}
+                    component={MenuScreen}
                 />
 
 

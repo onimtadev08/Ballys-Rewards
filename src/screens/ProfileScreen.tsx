@@ -13,8 +13,6 @@ import GradientButton from '../components/GradientButtonfull';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MainManuButton from '../components/MainManuButton';
 
-
-
 const { width: screenWidth } = Dimensions.get('window');
 
 interface myStates {

@@ -97,12 +97,22 @@ class HomeScreen extends Component<myProps, myStates> {
 
 
     }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
     // Fetches navigation reference and sets up interval on mount
     componentDidMount() {
 
-        BackHandler.addEventListener('hardwareBackPress', () => true);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
+
+
+        // this.navigation.addListener('beforeRemove', (e: any) => {
+        //     e.preventDefault();
+        // });
 
         // const interval = setInterval(() => {
         //     const nextIndex = (this.state.currentIndex + 1) % this.state.Images.length;
@@ -116,6 +126,12 @@ class HomeScreen extends Component<myProps, myStates> {
 
         // return () => clearInterval(interval);
     }
+
+    handleBackPress
+        = () => {
+            // Handle back button press logic here
+            return true; // Prevent default back behavior
+        };
 
     async MainHomeLoad() {
 
@@ -304,7 +320,11 @@ class HomeScreen extends Component<myProps, myStates> {
                                         borderRadius: 40,
                                         width: '25%',
                                         alignItems: 'center',
-                                    }}>
+                                    }}
+                                    onPress={() => {
+                                        this.navigation.navigate('MenuScreen');
+                                    }}
+                                >
                                     <Entypo name='menu' size={30} color={'white'} style={{ margin: 10 }} />
                                 </TouchableOpacity>
 
