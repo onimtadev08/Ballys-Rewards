@@ -356,7 +356,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
         return (
             <LinearGradient
                 style={{ flex: 1 }}
-                colors={['#FF0024', '#FF6648', '#FFCE6C']}>
+                colors={['#fd0925', '#ff0909', '#ff6603']}>
                 <ScrollView >
                     <View style={{ flexDirection: 'column' }}>
                         <View style={{ alignItems: 'center', marginBottom: 20 }} >

@@ -113,7 +113,7 @@ class PackagesScreen extends React.PureComponent<myProps, myStates> {
 
 
         return (
-            <View style={{ flex: 1, backgroundColor: '#FFCE6C' }}>
+            <View style={{ flex: 1, backgroundColor: '#ff6603' }}>
                 <View>
                     <Image source={require('../images/pack.png')}></Image>
                     <TouchableOpacity
@@ -139,7 +139,7 @@ class PackagesScreen extends React.PureComponent<myProps, myStates> {
 
                 <SafeAreaView style={{ flex: 1 }}>
                     <LinearGradient
-                        colors={['#FF0024', '#FF6648', '#FFCE6C']}
+                       colors={['#fd0925', '#ff0909', '#ff6603']}
                         style={styles.container}>
                         <ScrollView style={styles.container}>
                             <View style={{ flex: 1, flexDirection: 'column' }}>

@@ -5,20 +5,22 @@ import React from 'react'
 const { width: screenWidth } = Dimensions.get('window');
 
 interface myProps {
-    Url: ImageSourcePropType;
+    Url?: ImageSourcePropType;
     title: string;
+    svg?: React.JSX.Element;
     onPress?: () => void;
 }
 
 const MainMenuButton: React.FC<myProps> = ({
     Url,
     title,
+    svg,
     onPress,
 }) => {
     console.log(Url)
     return (
         <View>
-            <TouchableHighlight
+            <TouchableOpacity
                 onPress={onPress}
                 underlayColor={'transparent'}
                 style={{
@@ -40,13 +42,14 @@ const MainMenuButton: React.FC<myProps> = ({
                     cornerRadius={20}
                     cardElevation={10}
                 >
-                    <Image source={Url} style={{
-                        width: '100%',
-                        height: '100%'
-                    }} />
+                    {svg ? svg : <Image source={Url} style={{
+                        width: '50%',
+                        height: '50%'
+                    }} />}
+
                 </CardView>
-            </TouchableHighlight>
-            <Text style={{ fontWeight: 'bold', textAlign: 'center', marginTop: -10, fontSize: 15, color: 'black' }}>{title}</Text>
+            </TouchableOpacity>
+            <Text style={{ fontWeight: 'bold', textAlign: 'center', marginTop: -10, fontSize: 15, color: 'white' }}>{title}</Text>
         </View>
     )
 }

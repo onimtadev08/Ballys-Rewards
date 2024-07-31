@@ -40,7 +40,7 @@ function EyeDetect(props) {
     <View style={{ flex: 1 }}>
       <LinearGradient
         style={{ flex: 1 }}
-        colors={['#FF0024', '#FF6648', '#FFCE6C']}>
+        colors={['#fd0925', '#ff0909', '#ff6603']}>
         {isDetected ?
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
             <View style={{ width: windowWidth, alignItems: 'center' }}>

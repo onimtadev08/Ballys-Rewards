@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Keyboard, BackHandler, View, Text, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, ImageBackground } from 'react-native';
+import { Keyboard, BackHandler, View, Text, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, ImageBackground, TouchableHighlight } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Assuming you're using a class-based navigation solution
 import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
@@ -14,7 +14,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { interpolate } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
 import TAnimationStyle from "react-native-reanimated-carousel"
+import Entypo from 'react-native-vector-icons/Entypo'
+import { SvgUri } from 'react-native-svg';
 
+
+import MyAccount from '../images/svgs/MyAccount.js'
+import MyOffer from '../images/svgs/MyOffer.js'
+import Tournament from '../images/svgs/Tournament.js';
+import Dining from '../images/svgs/Dining.js';
+import Entertainment from '../images/svgs/Entertainment.js';
+import BallysBet from '../images/svgs/BallysBet.js';
+import Packages from '../images/svgs/Packages.js';
+import Rewards from '../images/svgs/Rewards.js';
+import ContactUs from '../images/svgs/ContactUs.js';
+import MyMassage from '../images/svgs/MyMassage.js';
+import FeedBack from '../images/svgs/FeedBack.js';
+import MyRide from '../images/svgs/MyRide.js';
+import MyCard from '../images/svgs/MyCard.js';
+import MyBookings from '../images/svgs/MyBookings.js';
+import MyHost from '../images/svgs/MyHost.js';
+import MyWallet from '../images/svgs/MyWallet.js';
+import Spa from '../images/svgs/Spa.js';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -196,7 +216,7 @@ class HomeScreen extends Component<myProps, myStates> {
                 resizeMode: 'contain',
                 backgroundColor: 'rgba(0,0,0,0)',
                 width: screenWidth,
-                height: '100%',
+                height: screenWidth / 1.4,
             },
             backdrop: {
                 height: screenWidth * 1.1,
@@ -263,49 +283,68 @@ class HomeScreen extends Component<myProps, myStates> {
 
         return (
             <LinearGradient
-                colors={['#FF0024', '#FF6648', '#FFCE6C']}
+                colors={['#fd0925', '#ff0909', '#ff6603']}
                 style={styles.container} >
+
                 <SafeAreaView style={styles.safeArea}>
+
                     <LinearGradient
-                        colors={['#FF0024', '#FF6648', '#FFCE6C']}
+                        colors={['#fd0925', '#ff0909', '#ff6603']}
                         style={styles.container}>
+                        <View style={{
+                            flexDirection: 'row',
+                            width: '100%'
+                        }} >
+
+                            <View style={{ marginStart: 10, flex: 1 }} >
+
+                                <TouchableOpacity
+                                    style={{
+
+                                        borderRadius: 40,
+                                        width: '25%',
+                                        alignItems: 'center',
+                                    }}>
+                                    <Entypo name='menu' size={30} color={'white'} style={{ margin: 10 }} />
+                                </TouchableOpacity>
+
+                            </View>
+
+                            <View style={{ marginEnd: 10, flex: 1, alignItems: 'flex-end' }} >
+
+                                <TouchableOpacity
+                                    style={{
+
+                                        borderRadius: 40,
+                                        width: '25%',
+                                        alignItems: 'center',
+                                    }}>
+                                    <Entypo name='message' size={30} color={'white'} style={{ margin: 10 }} />
+                                </TouchableOpacity>
+
+                            </View>
+
+                        </View>
                         <ScrollView style={styles.container}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
+
                                 <CardView style={{ flex: 1, flexDirection: 'column', borderRadius: 20, margin: 10 }}
                                     cardElevation={20}
                                     cardMaxElevation={10}
                                     cornerRadius={20}>
                                     <View style={{ flexDirection: 'column', borderRadius: 10 }}>
-                                        {/* <ScrollView
-                                            ref={this.scrollRef}
-                                            horizontal
-                                            pagingEnabled
-                                            showsHorizontalScrollIndicator={false}
-                                        >
-                                            {this.state.Images.map((image, index) => (
-                                                <View key={index} style={{ width: screenWidth }}>
-                                                    <View style={styles.backgroundContainer}>
-                                                        <Image blurRadius={6} source={{ uri: image }} style={styles.backdrop} />
-                                                    </View>
-
-                                                    <View style={styles.overlay}>
-                                                        <Image style={styles.logo} source={{ uri: image }} />
-                                                    </View>
-
-                                                </View>
-                                            ))}
-                                        </ScrollView> */}
 
                                         <Carousel
                                             autoPlay={true}
                                             autoPlayInterval={2000}
                                             loop
                                             style={{
-                                                width: screenWidth - 20,
-                                                height: screenWidth * 1.1,
-                                                borderRadius: 20,
+                                                left: -10,
+                                                width: screenWidth,
+                                                height: screenWidth / 1.4,
+                                                borderRadius: 3,
                                             }}
-                                            width={screenWidth - 20}
+                                            width={screenWidth}
                                             height={screenWidth * 1.1}
                                             data={this.state.Images}
                                             renderItem={({ index }) => {
@@ -335,7 +374,9 @@ class HomeScreen extends Component<myProps, myStates> {
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
-                                <MainMenuButton Url={require('../images/account.png')} title={'My Account \n '}
+
+
+                                <MainMenuButton svg={<MyAccount width={'100%'} height={'100%'} />} title={'My Account \n '}
                                     onPress={async () => {
                                         const MID = await AsyncStorage.getItem('MID');
 
@@ -345,22 +386,9 @@ class HomeScreen extends Component<myProps, myStates> {
 
                                     }} />
 
-                                <MainMenuButton Url={require('../images/offer.png')} title={'My Offer \n '} />
+                                <MainMenuButton svg={<MyOffer width={'100%'} height={'100%'} />} title={'My Offer \n '} />
 
-                                <MainMenuButton Url={require('../images/tournament.png')} title={'Tournament & \n Drawer'} />
-
-                            </View>
-
-
-                            <View style={{
-                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
-                            }}>
-
-                                <MainMenuButton Url={require('../images/dining.png')} title={'Dining'} />
-
-                                <MainMenuButton Url={require('../images/entertainment.png')} title={'Entertainment'} />
-
-                                <MainMenuButton Url={require('../images/onlinecasino.png')} title={'Online Casino'} />
+                                <MainMenuButton svg={<Tournament width={'100%'} height={'100%'} />} title={'Tournament & \n Drawer'} />
 
                             </View>
 
@@ -369,15 +397,28 @@ class HomeScreen extends Component<myProps, myStates> {
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
-                                <MainMenuButton Url={require('../images/packages.png')} title={'Packages'}
+                                <MainMenuButton svg={<Spa width={'100%'} height={'100%'} />} title={'Dining'} />
+
+                                <MainMenuButton svg={<Entertainment width={'100%'} height={'100%'} />} title={'Entertainment'} />
+
+                                <MainMenuButton svg={<BallysBet width={'100%'} height={'100%'} />} title={'Online Casino'} />
+
+                            </View>
+
+
+                            <View style={{
+                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
+                            }}>
+
+                                <MainMenuButton svg={<Packages width={'100%'} height={'100%'} />} title={'Packages'}
                                     onPress={() => (
                                         this.navigation.navigate('PackagesScreen')
                                     )}
                                 />
 
-                                <MainMenuButton Url={require('../images/rewards2.png')} title={'Rewards Circle'} />
+                                <MainMenuButton svg={<Rewards width={'100%'} height={'100%'} />} title={'Rewards Circle'} />
 
-                                <MainMenuButton Url={require('../images/contact.png')} title={'Contact Us'} />
+                                <MainMenuButton svg={<ContactUs width={'100%'} height={'100%'} />} title={'Contact Us'} />
 
                             </View>
 
@@ -386,11 +427,11 @@ class HomeScreen extends Component<myProps, myStates> {
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
-                                <MainMenuButton Url={require('../images/messaging.png')} title={'Messaging\n \n '} />
+                                <MainMenuButton svg={<MyMassage width={'100%'} height={'100%'} />} title={'Messaging\n \n '} />
 
-                                <MainMenuButton Url={require('../images/feedback.png')} title={'Feedback &\nFollow Us \n '} />
+                                <MainMenuButton svg={<FeedBack width={'100%'} height={'100%'} />} title={'Feedback &\nFollow Us \n '} />
 
-                                <MainMenuButton Url={require('../images/myride.png')} title={'My Ride\n \n '} />
+                                <MainMenuButton svg={<MyRide width={'100%'} height={'100%'} />} title={'My Ride\n \n '} />
 
                             </View>
                         </ScrollView>
@@ -414,6 +455,23 @@ class HomeScreen extends Component<myProps, myStates> {
                         ) : null}
                     </LinearGradient>
                 </SafeAreaView >
+                <View style={{ height: '10%', flexDirection: 'row', marginBottom: 20 }}>
+                    <TouchableOpacity style={{ margin: 10, flex: 1 }}>
+                        <MyCard />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ margin: 10, flex: 1 }}>
+                        <MyBookings />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ margin: 10, flex: 1 }}>
+                        <MyHost />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ margin: 10, flex: 1 }}>
+                        <MyWallet />
+                    </TouchableOpacity>
+                </View>
             </LinearGradient >
         );
     }

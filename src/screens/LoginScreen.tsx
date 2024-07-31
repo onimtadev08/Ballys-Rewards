@@ -81,7 +81,7 @@ const LoginScreen = ({ }) => {
     return (
         <LinearGradient
             style={styles.container}
-            colors={['#FF0024', '#FFB061', '#FFCE6C']}>
+            colors={['#fd0925', '#ff0909', '#ff6603']}>
             <View style={styles.container}>
                 <View style={styles.wrapper}>
 
@@ -123,7 +123,7 @@ const LoginScreen = ({ }) => {
                         title="SIGN IN"
                         onPress={() => handleLogin2('SIGN')}
                         colors={['transparent', 'transparent', 'transparent']}
-                        borderColor="#FF0024"
+                        borderColor="#FFCE6C"
                         buttonStyle={{}}
                         textStyle={styles.buttonText}
                     />
@@ -145,7 +145,7 @@ const LoginScreen = ({ }) => {
                         title="TEMPORARY SIGN IN"
                         onPress={() => handleLogin2('TEMP')}
                         colors={['transparent', 'transparent', 'transparent']}
-                        borderColor="#FF0024"
+                        borderColor="#FFCE6C"
                         buttonStyle={{}}
                         textStyle={styles.buttonText}
                     />
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     },
 
     buttonText3: {
-        color: '#ffffff',
+        color: 'white',
         fontSize: 18,
         textAlign: 'center',
         fontFamily: 'Helvetica',

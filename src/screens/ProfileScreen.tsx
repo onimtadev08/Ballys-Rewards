@@ -145,7 +145,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
 
 
             <LinearGradient
-                colors={['#FF0024', '#FF6648', '#FFCE6C']}
+                colors={['#fd0925', '#ff0909', '#ff6603']}
                 style={styles.container}>
                 <SafeAreaView style={styles.safeArea}>
                     <View style={{
@@ -181,7 +181,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
 
                                 <MainManuButton Url={require('../images/lucky.png')} title={'Lucky Draw\n \n '} />
 
-                        
+
                             </View>
 
                             <View style={{ flexDirection: 'row' }}>

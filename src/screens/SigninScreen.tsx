@@ -208,7 +208,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
             <View style={{ flex: 1 }}>
                 <LinearGradient
                     style={{ flex: 1 }}
-                    colors={['#FF0024', '#FF6648', '#FFCE6C']}>
+                    colors={['#fd0925', '#ff0909', '#ff6603']}>
 
                     <ScrollView >
                         <View style={{ height: '100%' }}>
