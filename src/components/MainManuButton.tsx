@@ -1,6 +1,9 @@
-import { View, Button, Text, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, ImageBackground, TouchableHighlight, ImageSourcePropType } from 'react-native';
+import { Font, View, Button, Text, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, ImageBackground, TouchableHighlight, ImageSourcePropType } from 'react-native';
 import CardView from 'react-native-cardview';
 import React from 'react'
+import AwesomeButton from 'react-native-really-awesome-button';
+
+
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -18,39 +21,61 @@ const MainMenuButton: React.FC<myProps> = ({
     onPress,
 }) => {
     console.log(Url)
+
+
+    React.useEffect(() => {
+        //     Font.loadAsync({
+        //         'MyCustomFont': require('./assets/fonts/Ubuntu-Italic.ttf'),
+        //     }).then(() => {
+        //    //     setFontLoaded(true);
+        //     });
+    }, []);
+
     return (
-        <View>
-            <TouchableOpacity
+        <View style={{ backgroundColor: 'transparent', height: '90%' }}>
+            <AwesomeButton
                 onPress={onPress}
-                underlayColor={'transparent'}
-                style={{
-                    marginTop: -10,
-                    width: (screenWidth / 100) * 30,
-                    height: (screenWidth / 100) * 40,
+                backgroundColor='transparent'
+                width={(screenWidth / 100) * 33}
+                height={(screenWidth / 100) * 43}
+                raiseLevel={15}
+                backgroundDarker='transparent'
+                backgroundShadow='transparent'
+                backgroundActive='transparent'
+            >
+                <View style={{
+                    minWidth: '100%',
+                    height: '100%',
+                    left: 8,
+                    justifyContent: 'center',
                     alignItems: 'center',
-                    justifyContent: 'space-around'
+                    flexDirection: 'column',
                 }}>
+                    <View style={{
+                        width: '80%',
+                        height: '80%',
+                    }}>
+                        {svg ? svg : <Image source={Url} style={{
+                            width: '50%',
+                            height: '50%'
+                        }} />}
+                    </View>
+                    <Text style={{
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        fontSize: 14,
+                        color: 'white',
+                        fontFamily: 'SFPRODISPLAYBOLD',
+                    }}>{title.toUpperCase()}</Text>
+                </View>
+            </AwesomeButton>
 
-                <CardView
-                    style={{
-                        width: '100%',
-                        height: '75%',
-                        alignItems: 'center',
-                        justifyContent: 'space-around',
-                        backgroundColor: '#FFCE6C'
-                    }}
-                    cornerRadius={20}
-                    cardElevation={10}
-                >
-                    {svg ? svg : <Image source={Url} style={{
-                        width: '50%',
-                        height: '50%'
-                    }} />}
-
-                </CardView>
-            </TouchableOpacity>
-            <Text style={{ fontWeight: 'bold', textAlign: 'center', marginTop: -10, fontSize: 15, color: 'white' }}>{title}</Text>
-        </View>
+        </View >
     )
 }
+
+
+
+
+
 export default React.memo(MainMenuButton);

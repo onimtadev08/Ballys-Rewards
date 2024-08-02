@@ -18,6 +18,10 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import ProfileScreen from '../screens/ProfileScreen';
 import PackagesScreen from '../screens/PackagesScreen';
 import MenuScreen from '../screens/MenuScreen'
+import EntertainmentScreen from '../screens/EntertainmentScreen'
+import MyBooking from '../screens/MyBookings';
+import MyHost from '../screens/MyHost';
+import MyWalletScreen from '../screens/MyWalletScreen';
 
 type RootStack = {
     Login: undefined
@@ -153,6 +157,29 @@ const Navigation = () => {
                     component={MenuScreen}
                 />
 
+                <Stack.Screen
+                    name='EntertainmentScreen'
+                    options={{ headerShown: false }}
+                    component={EntertainmentScreen}
+                />
+
+                <Stack.Screen
+                    name='MyBookings'
+                    options={{ headerShown: false }}
+                    component={MyBooking}
+                />
+
+                <Stack.Screen
+                    name='MyHost'
+                    options={{ headerShown: false }}
+                    component={MyHost}
+                />
+
+                <Stack.Screen
+                    name='MyWallet'
+                    options={{ headerShown: false }}
+                    component={MyWalletScreen}
+                />
 
             </Stack.Navigator>
         </NavigationContainer>

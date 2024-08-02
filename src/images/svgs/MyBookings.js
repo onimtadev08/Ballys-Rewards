@@ -182,19 +182,19 @@ function MyBookings(props) {
           <Path
             className="cls-20"
             d="M94.29 139.15H160.51V140.48000000000002H94.29z"
-            fill="#FF0024"
+            fill="#fff3d8"
           />
           <Path
             className="cls-20"
             d="M94.29 142.43H160.51V143.76000000000002H94.29z"
-            fill="#FF0024"
+            fill="#fff3d8"
           />
           <Path
             className="cls-20"
             d="M96.22 145.7H158.57999999999998V147.03H96.22z"
-            fill="#FF0024"
+            fill="#fff3d8"
           />
-          <Path className="cls-20" d="M98.19 148.98H156.62V150.31H98.19z" />
+          <Path className="cls-20" d="M98.19 148.98H156.62V150.31H98.19z" fill="#fff3d8" />
           <Path
             d="M171.83 73.27H82.96c-1.57 0-2.84-1.27-2.84-2.84s1.27-2.84 2.84-2.84h88.87c1.57 0 2.84 1.27 2.84 2.84s-1.27 2.84-2.84 2.84z"
             fill="#FF0024"
@@ -222,7 +222,7 @@ function MyBookings(props) {
           />
           <Path
             d="M80.38 132.85H63.1c-1.57 0-2.84-1.27-2.84-2.84v-17.28c0-1.57 1.27-2.84 2.84-2.84h17.28c1.57 0 2.84 1.27 2.84 2.84v17.28c0 1.57-1.27 2.84-2.84 2.84zm-14.44-5.68h11.61v-11.61H65.94v11.61z"
-            fill="url(#linear-gradient-6)"
+            fill="#FF0024"
             fillRule="evenodd"
           />
           <Path

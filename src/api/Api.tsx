@@ -13,6 +13,8 @@ const FirstTimeSignInUrl = Domain + '/api/Ballys/PlayerAccountSave';
 const HomeUrl = Domain + '/api/Ballys/Home';
 
 const PlayerStatusUrl = Domain + '/api/Ballys/PlayerStatus';
+
+const GetEventsUrl = Domain + '/api/Ballys/GetEvents';
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
 
@@ -226,6 +228,29 @@ export async function Home(MID: string) {
 
 }
 
+export async function GetEvents() {
+
+    return new Promise((resolve, reject) => {
+
+        const requestOptions: any = {
+            method: "GET",
+            redirect: "follow"
+        };
+
+        fetch(GetEventsUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('data : ', result);
+                resolve(result);
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}
 
 export async function PlayerStatus(MID: string) {
     const Token = await AsyncStorage.getItem('Token');
@@ -262,4 +287,4 @@ export async function PlayerStatus(MID: string) {
             });
     })
 
-}
+}             

@@ -12,9 +12,27 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		205299A6BC0D48E3A010BF8C /* SFPRODISPLAYBLACKITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 215C9A2D1D16481B8913BA08 /* SFPRODISPLAYBLACKITALIC.OTF */; };
+		248D6241568E475D907B9219 /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8996BC64323E44A29677DCEE /* Ubuntu-Italic.ttf */; };
+		3AFBEFF297314AE39DDD192F /* SFPRODISPLAYLIGHTITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = B80A6E727352400B8F56B8A6 /* SFPRODISPLAYLIGHTITALIC.OTF */; };
+		423D999EA64745D98D55C3A0 /* Ubuntu-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C41B616A04CF41D1AFE25078 /* Ubuntu-MediumItalic.ttf */; };
+		5749B5A9114B41E98FE7873B /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29C3878B73504C91860C8613 /* Ubuntu-LightItalic.ttf */; };
+		734CE05353E341879E593BA7 /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 570EF16BE4EB49D5B66AA42E /* Ubuntu-Medium.ttf */; };
+		74A77CC110E44545ABD5F504 /* SFPRODISPLAYREGULAR.OTF in Resources */ = {isa = PBXBuildFile; fileRef = C8EC300F2E4C4E09B1F91614 /* SFPRODISPLAYREGULAR.OTF */; };
 		7699B88040F8A987B510C191 /* libPods-BallysRewards-BallysRewardsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-BallysRewards-BallysRewardsTests.a */; };
+		7FF4957CC7DC4ADCACBDB00A /* SFPRODISPLAYMEDIUM.OTF in Resources */ = {isa = PBXBuildFile; fileRef = B886A1FF51094E2BBF51A857 /* SFPRODISPLAYMEDIUM.OTF */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8D6547EB6607463D82B2F6BA /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C19DEDDE4EF34E4BA81DB633 /* Ubuntu-Regular.ttf */; };
+		912B6CB19604476FA016F940 /* SFPRODISPLAYBOLD.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 8A9EEFEEFCCD4C3CA4A46EE4 /* SFPRODISPLAYBOLD.OTF */; };
+		A46262A6EA5B42D1AFB5113A /* Satisfy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D8878AE54A643B4975419B6 /* Satisfy-Regular.ttf */; };
+		A8C78C6C7FBA43B288CC05E8 /* SFPRODISPLAYHEAVYITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = FD0F08E2D8C342CB8357A8E3 /* SFPRODISPLAYHEAVYITALIC.OTF */; };
+		BD2AF6DD00D74536B89EA3D4 /* SFPRODISPLAYTHINITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 3FFC1977A6AF4FB4A0D549FA /* SFPRODISPLAYTHINITALIC.OTF */; };
+		C5C35C4B70344831A174A4C8 /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87A8AC3B73E346B08D7E02B0 /* Ubuntu-Bold.ttf */; };
+		C6563FA480F04CFB9B938706 /* SFPRODISPLAYSEMIBOLDITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 2E7D7204015648F8B5BAD630 /* SFPRODISPLAYSEMIBOLDITALIC.OTF */; };
+		DB4C5B7F107D4F5E89414492 /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2585B47D4A404B60AC2D75C3 /* Ubuntu-Light.ttf */; };
+		DEAC06AB7D544281B0A5BD31 /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3012B02C1594A99BB7C6A4E /* Ubuntu-BoldItalic.ttf */; };
 		F6AAC2CF737D8594124B276F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4DAEF17AA157318D07D561DF /* PrivacyInfo.xcprivacy */; };
+		F870DE9E8DD449E29C73D76D /* SFPRODISPLAYULTRALIGHTITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = B18985F345154AC4A664840B /* SFPRODISPLAYULTRALIGHTITALIC.OTF */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,14 +56,32 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BallysRewards/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BallysRewards/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-BallysRewards-BallysRewardsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BallysRewards-BallysRewardsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		215C9A2D1D16481B8913BA08 /* SFPRODISPLAYBLACKITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYBLACKITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYBLACKITALIC.OTF; sourceTree = "<group>"; };
+		2585B47D4A404B60AC2D75C3 /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Light.ttf"; path = "../assets/fonts/Ubuntu-Light.ttf"; sourceTree = "<group>"; };
+		29C3878B73504C91860C8613 /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-LightItalic.ttf"; path = "../assets/fonts/Ubuntu-LightItalic.ttf"; sourceTree = "<group>"; };
+		2E7D7204015648F8B5BAD630 /* SFPRODISPLAYSEMIBOLDITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYSEMIBOLDITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYSEMIBOLDITALIC.OTF; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-BallysRewards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards.debug.xcconfig"; path = "Target Support Files/Pods-BallysRewards/Pods-BallysRewards.debug.xcconfig"; sourceTree = "<group>"; };
+		3FFC1977A6AF4FB4A0D549FA /* SFPRODISPLAYTHINITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYTHINITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYTHINITALIC.OTF; sourceTree = "<group>"; };
 		4DAEF17AA157318D07D561DF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = BallysRewards/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-BallysRewards.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards.release.xcconfig"; path = "Target Support Files/Pods-BallysRewards/Pods-BallysRewards.release.xcconfig"; sourceTree = "<group>"; };
+		570EF16BE4EB49D5B66AA42E /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Medium.ttf"; path = "../assets/fonts/Ubuntu-Medium.ttf"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-BallysRewards-BallysRewardsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards-BallysRewardsTests.debug.xcconfig"; path = "Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-BallysRewards.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BallysRewards.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D8878AE54A643B4975419B6 /* Satisfy-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Satisfy-Regular.ttf"; path = "../assets/fonts/Satisfy-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BallysRewards/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		87A8AC3B73E346B08D7E02B0 /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Bold.ttf"; path = "../assets/fonts/Ubuntu-Bold.ttf"; sourceTree = "<group>"; };
+		8996BC64323E44A29677DCEE /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Italic.ttf"; path = "../assets/fonts/Ubuntu-Italic.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-BallysRewards-BallysRewardsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards-BallysRewardsTests.release.xcconfig"; path = "Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests.release.xcconfig"; sourceTree = "<group>"; };
+		8A9EEFEEFCCD4C3CA4A46EE4 /* SFPRODISPLAYBOLD.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYBOLD.OTF; path = ../assets/fonts/SFPRODISPLAYBOLD.OTF; sourceTree = "<group>"; };
+		A3012B02C1594A99BB7C6A4E /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-BoldItalic.ttf"; path = "../assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; };
+		B18985F345154AC4A664840B /* SFPRODISPLAYULTRALIGHTITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYULTRALIGHTITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYULTRALIGHTITALIC.OTF; sourceTree = "<group>"; };
+		B80A6E727352400B8F56B8A6 /* SFPRODISPLAYLIGHTITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYLIGHTITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYLIGHTITALIC.OTF; sourceTree = "<group>"; };
+		B886A1FF51094E2BBF51A857 /* SFPRODISPLAYMEDIUM.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYMEDIUM.OTF; path = ../assets/fonts/SFPRODISPLAYMEDIUM.OTF; sourceTree = "<group>"; };
+		C19DEDDE4EF34E4BA81DB633 /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Regular.ttf"; path = "../assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; };
+		C41B616A04CF41D1AFE25078 /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-MediumItalic.ttf"; path = "../assets/fonts/Ubuntu-MediumItalic.ttf"; sourceTree = "<group>"; };
+		C8EC300F2E4C4E09B1F91614 /* SFPRODISPLAYREGULAR.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYREGULAR.OTF; path = ../assets/fonts/SFPRODISPLAYREGULAR.OTF; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FD0F08E2D8C342CB8357A8E3 /* SFPRODISPLAYHEAVYITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYHEAVYITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYHEAVYITALIC.OTF; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +119,31 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		04EEA713C0844E43B0C50469 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7D8878AE54A643B4975419B6 /* Satisfy-Regular.ttf */,
+				87A8AC3B73E346B08D7E02B0 /* Ubuntu-Bold.ttf */,
+				A3012B02C1594A99BB7C6A4E /* Ubuntu-BoldItalic.ttf */,
+				8996BC64323E44A29677DCEE /* Ubuntu-Italic.ttf */,
+				2585B47D4A404B60AC2D75C3 /* Ubuntu-Light.ttf */,
+				29C3878B73504C91860C8613 /* Ubuntu-LightItalic.ttf */,
+				570EF16BE4EB49D5B66AA42E /* Ubuntu-Medium.ttf */,
+				C41B616A04CF41D1AFE25078 /* Ubuntu-MediumItalic.ttf */,
+				C19DEDDE4EF34E4BA81DB633 /* Ubuntu-Regular.ttf */,
+				215C9A2D1D16481B8913BA08 /* SFPRODISPLAYBLACKITALIC.OTF */,
+				8A9EEFEEFCCD4C3CA4A46EE4 /* SFPRODISPLAYBOLD.OTF */,
+				FD0F08E2D8C342CB8357A8E3 /* SFPRODISPLAYHEAVYITALIC.OTF */,
+				B80A6E727352400B8F56B8A6 /* SFPRODISPLAYLIGHTITALIC.OTF */,
+				B886A1FF51094E2BBF51A857 /* SFPRODISPLAYMEDIUM.OTF */,
+				C8EC300F2E4C4E09B1F91614 /* SFPRODISPLAYREGULAR.OTF */,
+				2E7D7204015648F8B5BAD630 /* SFPRODISPLAYSEMIBOLDITALIC.OTF */,
+				3FFC1977A6AF4FB4A0D549FA /* SFPRODISPLAYTHINITALIC.OTF */,
+				B18985F345154AC4A664840B /* SFPRODISPLAYULTRALIGHTITALIC.OTF */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		13B07FAE1A68108700A75B9A /* BallysRewards */ = {
@@ -125,6 +186,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				04EEA713C0844E43B0C50469 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -247,6 +309,24 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				F6AAC2CF737D8594124B276F /* PrivacyInfo.xcprivacy in Resources */,
+				A46262A6EA5B42D1AFB5113A /* Satisfy-Regular.ttf in Resources */,
+				C5C35C4B70344831A174A4C8 /* Ubuntu-Bold.ttf in Resources */,
+				DEAC06AB7D544281B0A5BD31 /* Ubuntu-BoldItalic.ttf in Resources */,
+				248D6241568E475D907B9219 /* Ubuntu-Italic.ttf in Resources */,
+				DB4C5B7F107D4F5E89414492 /* Ubuntu-Light.ttf in Resources */,
+				5749B5A9114B41E98FE7873B /* Ubuntu-LightItalic.ttf in Resources */,
+				734CE05353E341879E593BA7 /* Ubuntu-Medium.ttf in Resources */,
+				423D999EA64745D98D55C3A0 /* Ubuntu-MediumItalic.ttf in Resources */,
+				8D6547EB6607463D82B2F6BA /* Ubuntu-Regular.ttf in Resources */,
+				205299A6BC0D48E3A010BF8C /* SFPRODISPLAYBLACKITALIC.OTF in Resources */,
+				912B6CB19604476FA016F940 /* SFPRODISPLAYBOLD.OTF in Resources */,
+				A8C78C6C7FBA43B288CC05E8 /* SFPRODISPLAYHEAVYITALIC.OTF in Resources */,
+				3AFBEFF297314AE39DDD192F /* SFPRODISPLAYLIGHTITALIC.OTF in Resources */,
+				7FF4957CC7DC4ADCACBDB00A /* SFPRODISPLAYMEDIUM.OTF in Resources */,
+				74A77CC110E44545ABD5F504 /* SFPRODISPLAYREGULAR.OTF in Resources */,
+				C6563FA480F04CFB9B938706 /* SFPRODISPLAYSEMIBOLDITALIC.OTF in Resources */,
+				BD2AF6DD00D74536B89EA3D4 /* SFPRODISPLAYTHINITALIC.OTF in Resources */,
+				F870DE9E8DD449E29C73D76D /* SFPRODISPLAYULTRALIGHTITALIC.OTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,7 +560,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 5DJARB69NA;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BallysRewards/Info.plist;
@@ -516,7 +596,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 5DJARB69NA;
 				INFOPLIST_FILE = BallysRewards/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Ballys Rewards";

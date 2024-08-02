@@ -39,7 +39,7 @@ const MenuButton: React.FC<MyProps> = ({
                 <View style={{ flexDirection: 'row', alignItems: 'center', margin: 10 }}>
                     {Icon === '' ?
                         Icon2 === '' ?
-                            Icon3 === '' ? 
+                            Icon3 === '' ?
                                 <FontAwesome5 name={Icon4} size={40} style={{ flex: 0.3 }}></FontAwesome5>
                                 :
                                 <Ionicons name={Icon3} size={40} style={{ flex: 0.3 }}></Ionicons>
@@ -48,7 +48,12 @@ const MenuButton: React.FC<MyProps> = ({
                         :
                         <Entypo name={Icon} size={40} style={{ flex: 0.3 }}></Entypo>}
 
-                    <Text style={{ flex: 1, fontSize: 20, fontWeight: 'bold' }}>{Titel}</Text>
+                    <Text style={{
+                        flex: 1,
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        fontFamily: 'SFPRODISPLAYBOLD',
+                    }}>{Titel}</Text>
                 </View>
             </TouchableOpacity>
         </View>
