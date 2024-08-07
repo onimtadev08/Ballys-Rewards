@@ -22,6 +22,8 @@ import EntertainmentScreen from '../screens/EntertainmentScreen'
 import MyBooking from '../screens/MyBookings';
 import MyHost from '../screens/MyHost';
 import MyWalletScreen from '../screens/MyWalletScreen';
+import MyCard from '../screens/MyCard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type RootStack = {
     Login: undefined
@@ -63,9 +65,12 @@ const Navigation = () => {
                         headerLeft: () => (
                             <TouchableOpacity
                                 style={{ marginLeft: 20, marginRight: 10 }}
-                                onPress={() => {
-                                    console.log('test');
-                                    navigation.goBack();
+                                onPress={async () => {
+                                    const MID = await AsyncStorage.getItem('MID');
+
+                                    console.log('MID : ' + MID);
+                                    navigation.navigate('Home',
+                                        { 'PlayerID': String | MID });
                                 }}>
                                 <Entypo name="chevron-thin-left" color={'white'} size={25} />
                             </TouchableOpacity>
@@ -179,6 +184,12 @@ const Navigation = () => {
                     name='MyWallet'
                     options={{ headerShown: false }}
                     component={MyWalletScreen}
+                />
+
+                <Stack.Screen
+                    name='MyCard'
+                    options={{ headerShown: false }}
+                    component={MyCard}
                 />
 
             </Stack.Navigator>

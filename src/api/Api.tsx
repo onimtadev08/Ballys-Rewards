@@ -213,6 +213,9 @@ export async function Home(MID: string) {
             redirect: "follow"
         };
 
+        console.log(requestOptions);
+
+
         fetch(HomeUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {

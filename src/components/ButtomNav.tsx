@@ -36,7 +36,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
                         console.log('MID : ' + MID);
-                        navigation.navigate('Profile', { 'PlayerID': MID });
+                        navigation.navigate('MyCard', { 'PlayerID': MID });
                     }}
                 >
                     <View style={{ flexDirection: 'column', backgroundColor: 'transparent', paddingBottom: 10, marginTop: 10, minWidth: '100%' }}>

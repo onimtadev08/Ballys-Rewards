@@ -12,7 +12,7 @@ import Tab1 from './Tab1';
 import Tab2 from './Tab2';
 import Tab3 from './Tab3';
 import Tab4 from './Tab4';
-import ProfileScreen from './ProfileScreen';
+import ProfileScreen from '../ProfileScreen';
 
 // const Tab = createMaterialBottomTabNavigator();
 const Tab = createBottomTabNavigator();

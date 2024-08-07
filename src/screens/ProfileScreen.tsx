@@ -12,8 +12,12 @@ import { ThousandSeparator } from '../utilitis/utilities';
 import GradientButton from '../components/GradientButtonfull';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MainManuButton from '../components/MainManuButton';
+import AwesomeButton from 'react-native-really-awesome-button';
+import MyWallet from '../images/svgs/MyWallet';
+
 
 const { width: screenWidth } = Dimensions.get('window');
+const { height: screenHeight } = Dimensions.get('window');
 
 interface myStates {
     currentIndex: number;
@@ -47,7 +51,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
             showOtpMsg: false,
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
-            PlayerID: props.route.params.PlayerID,
+            PlayerID: '',
             Images: [],
             result: {
                 "strDes": "SUCCESS",
@@ -86,6 +90,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
     }
 
     componentDidMount(): void {
+
         this.getPlayerStatus();
     }
 
@@ -94,7 +99,8 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
 
     async getPlayerStatus() {
 
-        this.setState({ isLoading: true });
+        const MID = await AsyncStorage.getItem('MID');
+        this.setState({ isLoading: true, PlayerID: MID === null ? '' : MID });
         try {
             console.log(this.state.PlayerID);
             const result: any = await PlayerStatus(this.state.PlayerID);
@@ -172,12 +178,89 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                         <View style={{ height: '100%', marginBottom: 20 }}>
 
                             <View style={{
+                                flex: 1,
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
-                                <MainManuButton Url={require('../images/wallet_two.png')} title={'Wallet\n \n '} />
 
-                                <MainManuButton Url={require('../images/lucky.png')} title={'Lucky Draw\n \n '} />
+
+                                <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'transparent', marginTop: 10 }}>
+                                    <AwesomeButton
+                                        backgroundColor='transparent'
+                                        raiseLevel={15}
+                                        backgroundDarker='transparent'
+                                        backgroundShadow='transparent'
+                                        backgroundActive='transparent'
+                                        width={(screenWidth / 100) * 24}
+                                        height={(screenHeight / 100) * 10}
+                                        onPress={async () => {
+                                            const MID = await AsyncStorage.getItem('MID');
+                                            console.log('MID : ' + MID);
+                                            this.props.navigation.navigate('MyWallet', { 'PlayerID': MID });
+                                        }}
+                                    >
+                                        <View style={{
+                                            flexDirection: 'column',
+                                            backgroundColor: 'transparent',
+                                            paddingBottom: 10,
+                                            marginTop: 10,
+                                            minWidth: '100%'
+                                        }}>
+                                            <MyWallet />
+                                            <Text
+                                                style={{
+                                                    backgroundColor: 'transparent',
+                                                    fontWeight: 'bold',
+                                                    textAlign: 'center',
+                                                    fontSize: 10,
+                                                    color: 'white',
+                                                    fontFamily: 'SFPRODISPLAYBOLD',
+                                                    marginTop: 5,
+                                                }}
+                                            >MY WALLET</Text>
+                                        </View>
+                                    </AwesomeButton>
+                                </View>
+
+
+
+                                {/* <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'transparent', marginTop: 10 }}>
+                                    <AwesomeButton
+                                        backgroundColor='transparent'
+                                        raiseLevel={15}
+                                        backgroundDarker='transparent'
+                                        backgroundShadow='transparent'
+                                        backgroundActive='transparent'
+                                        width={(screenWidth / 100) * 24}
+                                        height={(screenHeight / 100) * 10}
+                                        onPress={async () => {
+                                            const MID = await AsyncStorage.getItem('MID');
+                                            console.log('MID : ' + MID);
+                                            this.props.navigation.navigate('MyWallet', { 'PlayerID': MID });
+                                        }}
+                                    >
+                                        <View style={{
+                                            flexDirection: 'column',
+                                            backgroundColor: 'transparent',
+                                            paddingBottom: 10,
+                                            marginTop: 10,
+                                            minWidth: '100%'
+                                        }}>
+                                            <MyWallet />
+                                            <Text
+                                                style={{
+                                                    backgroundColor: 'transparent',
+                                                    fontWeight: 'bold',
+                                                    textAlign: 'center',
+                                                    fontSize: 10,
+                                                    color: 'white',
+                                                    fontFamily: 'SFPRODISPLAYBOLD',
+                                                    marginTop: 5,
+                                                }}
+                                            >MY WALLET</Text>
+                                        </View>
+                                    </AwesomeButton>
+                                </View> */}
 
 
                             </View>

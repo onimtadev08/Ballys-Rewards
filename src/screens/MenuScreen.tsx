@@ -7,7 +7,7 @@ import MenuButton from '../components/MenuButton'
 
 interface myProps {
     navigation: any;
-    router: any;
+    route: any;
 }
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -90,7 +90,7 @@ class ManuScreen extends React.PureComponent<myProps> {
                                     Titel={"My Profile"}
                                     Icon2='account-circle'
                                     onPress={(): void => {
-                                        this.props.navigation.goBack();
+                                        this.props.navigation.navigate('Profile', { 'PlayerID': this.props.route.params.PlayerID });
                                     }}
                                 />
 

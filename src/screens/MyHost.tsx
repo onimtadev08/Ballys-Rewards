@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity } from 'react-native';
-import CardView from 'react-native-cardview';
+import { Linking, Image, FlatList, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity, ListRenderItem } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { interpolate } from "react-native-reanimated";
-import Carousel from "react-native-reanimated-carousel";
-import Entypo from 'react-native-vector-icons/Entypo'
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
 
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
@@ -15,7 +15,8 @@ import Loader from '../components/Loader.tsx';
 import ButtomNav from '../components/ButtomNav.tsx';
 import { GetEvents } from '../api/Api.tsx';
 
-import { Marquee } from '@animatereactnative/marquee';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -39,8 +40,8 @@ interface myStates {
     showOtpMsg: boolean;
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
-    Tags: string[];
     Images: string[];
+    HostData: Hosts[];
 }
 interface myProps {
     navigation: any;
@@ -52,6 +53,13 @@ interface CustomSlideProps {
     item: string;
     style: any; // Replace with appropriate type if known
     width: number;
+}
+
+interface Hosts {
+    Name: string;
+    Number: string;
+    UserImg: string;
+    Post: string;
 }
 
 const scale = 0.8;
@@ -76,8 +84,25 @@ class MyHost extends Component<myProps, myStates> {
             showOtpMsg: false,
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
-            Tags: ["European dancing", "Belly dancing", "Pole dancing", "Body building show", "Traditional dancing"],
             Images: [],
+            HostData: [{
+                Name: "TELLES LOY",
+                Post: "MARKETING MANAGER INTERNATIONAL",
+                Number: "94774771234",
+                UserImg: "https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310"
+            },
+            {
+                Name: "TELLES LOY",
+                Post: "MARKETING MANAGER INTERNATIONAL",
+                Number: "94774771234",
+                UserImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSesdgCvM3cA5htDSUnB1V2RKXCRbdDGlG3Iw&s"
+            },
+            {
+                Name: "TELLES LOY",
+                Post: "MARKETING MANAGER INTERNATIONAL",
+                Number: "94774771234",
+                UserImg: "https://www.shutterstock.com/image-photo/headshot-portrait-smiling-young-african-260nw-1896247645.jpg"
+            }],
         };
 
         console.log(props.route.params);
@@ -207,6 +232,41 @@ class MyHost extends Component<myProps, myStates> {
         };
     }
 
+
+    renderItem = ({ item }: { item: Hosts }) => {
+        return (
+            <View style={{ alignItems: 'center', margin: 10 }}>
+                <Image source={{ uri: item.UserImg }} style={{ height: 200, width: 200, borderColor: 'white', borderWidth: 1, borderRadius: 20 }}></Image>
+                <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{item.Name}</Text>
+                <Text style={{ color: 'white', fontSize: 16 }}>{item.Post}</Text>
+                <Text style={{ color: 'white', marginBottom: 10, fontSize: 20 }}>MOBILE : {item.Number}</Text>
+                <View style={{ flexDirection: "row", flex: 1 }}>
+                    <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                Linking.openURL('whatsapp://send?text=&phone={' + item.Number + '}');
+                            }}
+                        >
+                            <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                Linking.openURL('tel:${' + item.Number + '}');
+                            }}
+                        >
+                            <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />
+                        </TouchableOpacity>
+                    </View>
+
+                </View>
+                <View style={{ borderWidth: 2, borderColor: 'white', width: '90%', marginTop: 20 }} />
+            </View>
+        );
+    }
+
     render(): React.ReactNode {
 
         const styles = StyleSheet.create({
@@ -334,6 +394,8 @@ class MyHost extends Component<myProps, myStates> {
         });
 
 
+
+
         return (
             <LinearGradient
                 colors={['#fd0925', '#ff0909', '#fd0925']}
@@ -355,8 +417,12 @@ class MyHost extends Component<myProps, myStates> {
                                     style={{
                                         alignItems: 'center',
                                     }}
-                                    onPress={() => {
-                                        this.navigation.goBack();
+                                    onPress={async () => {
+                                        const MID = await AsyncStorage.getItem('MID');
+
+                                        console.log('MID : ' + MID);
+                                        this.navigation.navigate('Home',
+                                            { 'PlayerID': String | MID });
                                     }}
                                 >
                                     <Entypo name="chevron-thin-left" size={30} color={'white'} style={{ margin: 10 }} />
@@ -364,6 +430,14 @@ class MyHost extends Component<myProps, myStates> {
 
                             </View>
 
+
+                            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{
+                                    color: 'white',
+                                    fontSize: 20,
+                                    textAlign: 'center'
+                                }}>MY HOST</Text>
+                            </View>
 
                             <View style={{ flex: 0.5, alignItems: 'flex-end', backgroundColor: 'transparent', marginEnd: 10 }} >
 
@@ -379,7 +453,9 @@ class MyHost extends Component<myProps, myStates> {
                         </View>
                         {/* <ScrollView style={styles.container}> */}
 
-
+                        <FlatList
+                            data={this.state.HostData}
+                            renderItem={this.renderItem} />
 
                         {/* </ScrollView> */}
                         {this.state.showApiSuccsess ?
@@ -407,6 +483,7 @@ class MyHost extends Component<myProps, myStates> {
             </LinearGradient >
         );
     }
+
 }
 
 

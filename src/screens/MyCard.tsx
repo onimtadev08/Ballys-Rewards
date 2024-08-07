@@ -1,39 +1,25 @@
 import React, { Component } from 'react';
-import { Keyboard, BackHandler, View, Text, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, ImageBackground, TouchableHighlight } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Assuming you're using a class-based navigation solution
+import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, Linking } from 'react-native';
 import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
-import MainMenuButton from '../components/MainManuButton'
-import SuccsessMsg from '../components/SuccsessMsg';
-import ErrorMsg from '../components/errorMsg';
-import InfoMsg from '../components/InfoMsg';
-import Loader from '../components/Loader';
-import { Home } from '../api/Api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { interpolate } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
-import TAnimationStyle from "react-native-reanimated-carousel"
 import Entypo from 'react-native-vector-icons/Entypo'
-import { SvgUri } from 'react-native-svg';
 
+import SuccsessMsg from '../components/SuccsessMsg.tsx';
+import InfoMsg from '../components/InfoMsg.tsx';
+import ErrorMsg from '../components/errorMsg.tsx';
+import Loader from '../components/Loader.tsx';
 
-import MyAccount from '../images/svgs/MyAccount.js'
-import MyOffer from '../images/svgs/MyOffer.js'
-import Tournament from '../images/svgs/Tournament.js';
-import Dining from '../images/svgs/Dining.js';
-import Entertainment from '../images/svgs/Entertainment.js';
-import BallysBet from '../images/svgs/BallysBet.js';
-import Packages from '../images/svgs/Packages.js';
-import Rewards from '../images/svgs/Rewards.js';
-import ContactUs from '../images/svgs/ContactUs.js';
-import MyMassage from '../images/svgs/MyMassage.js';
-import FeedBack from '../images/svgs/FeedBack.js';
-import MyRide from '../images/svgs/MyRide.js';
 import ButtomNav from '../components/ButtomNav.tsx';
-import Spa from '../images/svgs/Spa.js';
+import { GetEvents } from '../api/Api.tsx';
+
+import { Marquee } from '@animatereactnative/marquee';
+
 
 const { width: screenWidth } = Dimensions.get('window');
+const { height: screenHeight } = Dimensions.get('window');
 
 // const images = [
 //     require('../images/ballys.png'),
@@ -42,7 +28,7 @@ const { width: screenWidth } = Dimensions.get('window');
 //     require('../images/sms.jpg'),
 //     require('../images/pon.jpg'),
 //     // Add more local image paths as needed
-// ];
+// ];∆
 interface myStates {
     currentIndex: number;
     isLoading: boolean;
@@ -53,8 +39,9 @@ interface myStates {
     showOtpMsg: boolean;
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
-    PlayerID: string;
+    Tags: string[];
     Images: string[];
+    time: string;
 }
 interface myProps {
     navigation: any;
@@ -68,10 +55,15 @@ interface CustomSlideProps {
     width: number;
 }
 
-class HomeScreen extends Component<myProps, myStates> {
+const scale = 0.8;
+const PAGE_WIDTH = screenWidth * scale;
+const PAGE_HEIGHT = 240 * scale;
+
+class MyCard extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
+    IntervalID: any;
 
     constructor(props: any) {
         super(props)
@@ -86,8 +78,9 @@ class HomeScreen extends Component<myProps, myStates> {
             showOtpMsg: false,
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
-            PlayerID: props.route.params.PlayerID,
+            Tags: ["European dancing", "Belly dancing", "Pole dancing", "Body building show", "Traditional dancing"],
             Images: [],
+            time: new Date().toLocaleString(),
         };
 
         console.log(props.route.params);
@@ -96,6 +89,7 @@ class HomeScreen extends Component<myProps, myStates> {
     }
 
     componentWillUnmount() {
+        clearInterval(this.IntervalID);
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
     }
 
@@ -119,9 +113,14 @@ class HomeScreen extends Component<myProps, myStates> {
         //     this.setState({ currentIndex: nextIndex });
         // }, 2000);
 
-        this.MainHomeLoad();
+        //    this.MainHomeLoad();
 
         // return () => clearInterval(interval);
+
+        this.IntervalID = setInterval(() => {
+            this.setState({ time: new Date().toLocaleString() })
+        }, 1000);
+
     }
 
     handleBackPress
@@ -134,7 +133,9 @@ class HomeScreen extends Component<myProps, myStates> {
 
         this.setState({ isLoading: true });
         try {
-            const result: any = await Home(this.state.PlayerID);
+
+
+            const result: any = await GetEvents();
             console.log('val : ', result);
             if (result.strRturnRes) {
 
@@ -179,20 +180,41 @@ class HomeScreen extends Component<myProps, myStates> {
     };
 
 
+    // animationStyle: TAnimationStyle = (value: number) => {
+    //     "worklet";
+
+    //     const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30]);
+    //     const scale = interpolate(value, [-1, 0, 1], [1.25, 1, 0.25]);
+    //     const opacity = interpolate(value, [-0.75, 0, 1], [0, 1, 0]);
+
+    //     return {
+    //         transform: [{ scale }],
+    //         zIndex,
+    //         opacity,
+    //     };
+    // };
+
+
     animationStyle: TAnimationStyle = (value: number) => {
         "worklet";
 
         const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30]);
-        const scale = interpolate(value, [-1, 0, 1], [1.25, 1, 0.25]);
-        const opacity = interpolate(value, [-0.75, 0, 1], [0, 1, 0]);
+        const rotateZ = `${interpolate(
+            value,
+            [-1, 0, 1],
+            [-45, 0, 45],
+        )}deg`;
+        const translateX = interpolate(
+            value,
+            [-1, 0, 1],
+            [-screenWidth, 0, screenWidth + 100],
+        );
 
         return {
-            transform: [{ scale }],
+            transform: [{ rotateZ }, { translateX }],
             zIndex,
-            opacity,
         };
-    };
-
+    }
 
     render(): React.ReactNode {
 
@@ -226,13 +248,16 @@ class HomeScreen extends Component<myProps, myStates> {
                 // right: 29,
             },
             logo: {
-                resizeMode: 'contain',
+
+                resizeMode: 'stretch',
                 backgroundColor: 'rgba(0,0,0,0)',
                 width: screenWidth,
-                height: screenWidth / 1.4,
+                height: '100%',
+                // top:50,
+                // bottom: 70,
             },
             backdrop: {
-                height: screenWidth * 1.1,
+                height: screenHeight,
                 width: screenWidth,
                 resizeMode: 'cover',
             },
@@ -290,7 +315,31 @@ class HomeScreen extends Component<myProps, myStates> {
                 width: 100,
                 height: 100,
             },
-
+            tagContainer: {
+                marginStart: 20,
+                marginEnd: 20,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                marginBottom: 10,
+            },
+            tagWrapper: {
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginVertical: 5,
+                marginRight: 5,
+            },
+            tag: {
+                backgroundColor: '#FFCE6C',
+                borderRadius: 20,
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+            },
+            tagText: {
+                color: 'black',
+                fontSize: 16,
+                margin: 10,
+                fontFamily: 'SFPRODISPLAYREGULAR'
+            }
         });
 
 
@@ -306,43 +355,36 @@ class HomeScreen extends Component<myProps, myStates> {
                         style={styles.container}>
                         <View style={{
                             flexDirection: 'row',
-                            width: '100%',
+                            width: '100%'
                         }} >
 
-                            <View style={{ marginStart: 10, flex: 1 }} >
+                            <View style={{ backgroundColor: 'transparent', flex: 0.5, alignItems: 'flex-start', marginStart: 10 }} >
 
                                 <TouchableOpacity
                                     style={{
-
-                                        borderRadius: 40,
-                                        width: '40%',
                                         alignItems: 'center',
                                     }}
                                     onPress={() => {
-                                        this.navigation.navigate('MenuScreen', { 'PlayerID': this.state.PlayerID });
+                                        this.navigation.goBack();
                                     }}
                                 >
-                                    <Entypo name='menu' size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Entypo name="chevron-thin-left" size={30} color={'white'} style={{ margin: 10 }} />
                                 </TouchableOpacity>
 
-                            </View                                                                                                                                                                                               >
+                            </View>
 
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                                 <Text style={{
                                     color: 'white',
                                     fontSize: 20,
                                     textAlign: 'center'
-                                }}>HOME</Text>
+                                }}>MY CARD</Text>
                             </View>
 
-
-                            <View style={{ marginEnd: 10, flex: 1, alignItems: 'flex-end' }} >
+                            <View style={{ flex: 0.5, alignItems: 'flex-end', backgroundColor: 'transparent', marginEnd: 10 }} >
 
                                 <TouchableOpacity
                                     style={{
-
-                                        borderRadius: 40,
-                                        width: '40%',
                                         alignItems: 'center',
                                     }}>
                                     <Entypo name='message' size={30} color={'white'} style={{ margin: 10 }} />
@@ -352,119 +394,77 @@ class HomeScreen extends Component<myProps, myStates> {
 
                         </View>
                         <ScrollView style={styles.container}>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
-
-                                <CardView style={{ flex: 1, flexDirection: 'column', borderRadius: 20, margin: 10 }}
-                                    cardElevation={20}
-                                    cardMaxElevation={10}
-                                    cornerRadius={20}>
-                                    <View style={{ flexDirection: 'column', borderRadius: 10 }}>
-
-                                        <Carousel
-                                            autoPlay={true}
-                                            autoPlayInterval={2000}
-                                            loop
-                                            style={{
-                                                left: -10,
-                                                width: screenWidth,
-                                                height: screenWidth / 1.4,
-                                                borderRadius: 3,
-                                            }}
-                                            width={screenWidth}
-                                            height={screenWidth * 1.1}
-                                            data={this.state.Images}
-                                            renderItem={({ index }) => {
-                                                return (
-                                                    <View key={index} style={{ width: screenWidth }}>
-                                                        <View style={styles.backgroundContainer}>
-                                                            <Image blurRadius={6} source={{ uri: this.state.Images[index] }} style={styles.backdrop} />
-                                                        </View>
-
-                                                        <View style={styles.overlay}>
-                                                            <Image style={styles.logo} source={{ uri: this.state.Images[index] }} />
-                                                        </View>
-
-                                                    </View>
-                                                );
-                                            }}
-                                            customAnimation={this.animationStyle}
-                                        />
-
-
-                                    </View>
-                                </CardView>
-
-                            </View>
-
-                            <View style={{
-                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
-                            }}>
-
-
-
-                                <MainMenuButton svg={<MyAccount width={'100%'} height={'100%'} />} title={'My Account \n '}
-                                    onPress={async () => {
-                                        const MID = await AsyncStorage.getItem('MID');
-
-                                        console.log('MID : ' + MID);
-
-                                        this.navigation.navigate('Profile', { 'PlayerID': MID });
-
-                                    }} />
-
-                                <MainMenuButton svg={<MyOffer width={'100%'} height={'100%'} />} title={'My Offer \n '} />
-
-                                <MainMenuButton svg={<Tournament width={'100%'} height={'100%'} />} title={'Tournament & \n Drawer'} />
-
-                            </View>
-
-
-                            <View style={{
-                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
-                            }}>
-
-                                <MainMenuButton svg={<Spa width={'100%'} height={'100%'} />} title={'Dining'} />
-
-                                <MainMenuButton svg={<Entertainment width={'100%'} height={'100%'} />} title={'Entertainment'}
-                                    onPress={() => {
-                                        this.props.navigation.navigate('EntertainmentScreen');
+                            <View style={{ alignItems: 'center' }}>
+                                <Image
+                                    source={{ uri: 'https://i.imgur.com/G2nHqSr.png' }}
+                                    style={{
+                                        marginTop: 20,
+                                        marginBottom: 20,
+                                        height: 180,
+                                        width: 300
                                     }}
-                                />
+                                    resizeMode='stretch' />
 
-                                <MainMenuButton svg={<BallysBet width={'100%'} height={'100%'} />} title={'Online Casino'} />
+                                <View style={{ alignItems: 'center' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <View>
 
-                            </View>
+                                            <Image
+                                                source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/026/164/709/small_2x/businessman-portrait-elegant-man-in-business-suit-employee-of-business-institution-in-uniform-man-office-worker-business-avatar-profile-picture-illustration-vector.jpg' }}
+                                                style={{
+                                                    height: 180,
+                                                    width: 130,
+                                                    borderRadius: 20,
+                                                    borderColor: 'white',
+                                                    borderWidth: 5,
+                                                }}
+                                            />
+                                        </View>
+                                        <View style={{ flexDirection: 'column', width: '55%', backgroundColor: 'white', height: 100, borderEndEndRadius: 20, borderTopEndRadius: 20 }}>
+                                            <Text style={{ marginStart: 10, fontSize: 18, marginTop: 10 }}>BALLYS MEMBER</Text>
+                                            <View style={{ borderWidth: 1, borderColor: 'red', marginStart: 10, marginEnd: 20 }}></View>
+
+                                            <View style={{ flexDirection: 'row', marginStart: 10, flex: 1 }}>
+                                                <Text style={{ flex: 1, fontSize: 16 }}>MEMBER # : </Text>
+                                                <Text style={{ flex: 1, fontSize: 16 }}>BM15125</Text>
+                                            </View>
+
+                                            <View style={{ flexDirection: 'row', flex: 1, marginStart: 10 }}>
+                                                <Text style={{ flex: 1, fontSize: 16 }}>EXPIRES : </Text>
+                                                <Text style={{ flex: 1, fontSize: 16 }}>2024-12-31</Text>
+                                            </View>
+
+                                            <View style={{ flexDirection: 'row', flex: 1, marginStart: 10, marginBottom: 10 }}>
+                                                <Text style={{ flex: 1, fontSize: 16 }}>CARD TIER : </Text>
+                                                <Text style={{ flex: 1, fontSize: 16 }}>INFINITY</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+                                </View>
 
 
-                            <View style={{
-                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
-                            }}>
-
-                                <MainMenuButton svg={<Packages width={'100%'} height={'100%'} />} title={'Packages'}
-                                    onPress={() => (
-                                        this.navigation.navigate('PackagesScreen')
-                                    )}
-                                />
-
-                                <MainMenuButton svg={<Rewards width={'100%'} height={'100%'} />} title={'Rewards Circle'} />
-
-                                <MainMenuButton svg={<ContactUs width={'100%'} height={'100%'} />} title={'Contact Us'} />
-
-                            </View>
+                                <Text
+                                    style={{
+                                        color: 'white',
+                                        fontSize: 18,
+                                        fontFamily: 'SFPRODISPLAYREGULAR',
+                                        marginTop: 20,
+                                        fontWeight: 'bold'
+                                    }}
+                                >{this.state.time}</Text>
 
 
-                            <View style={{
-                                flexDirection: 'row',
-                                width: screenWidth,
-                                alignItems: 'center',
-                                justifyContent: 'space-around'
-                            }}>
+                                <Image style={{ height: 200, width: 200, marginTop: 20 }} source={require('../images/whatAppMsg.png')}></Image>
 
-                                {/* <MainMenuButton svg={<MyMassage width={'100%'} height={'100%'} />} title={'Messaging\n \n '} /> */}
 
-                                <MainMenuButton svg={<FeedBack width={'100%'} height={'100%'} />} title={'Feedback &\nFollow Us \n '} />
-
-                                <MainMenuButton svg={<MyRide width={'100%'} height={'100%'} />} title={'My Ride\n \n '} />
+                                <Text style={{ color: 'white', marginTop: 20 }}>24 HOURS GAMBLING COUNSELING HOTLINE</Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        Linking.openURL('tel:${94112460460}');
+                                    }}
+                                >
+                                    <Text style={{ color: 'white', marginBottom: 20, fontSize: 20, fontWeight: 'bold' }}>+94 112 460 460</Text>
+                                </TouchableOpacity>
 
                             </View>
                         </ScrollView>
@@ -497,4 +497,4 @@ class HomeScreen extends Component<myProps, myStates> {
 
 
 
-export default HomeScreen;
+export default MyCard;

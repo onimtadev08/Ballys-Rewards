@@ -1,9 +1,9 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import TextInput from '../components/TextInput';
+import TextInput from '../../components/TextInput';
 import { useNavigation } from '@react-navigation/native';
-import GradientButtonWithBorder from '../components/GradientButton';
+import GradientButtonWithBorder from '../../components/GradientButton';
 
 // create a component
 const Tab2 = () => {
