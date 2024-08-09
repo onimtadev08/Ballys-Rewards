@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, processColor } from 'react-native';
 import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -20,6 +20,7 @@ import MyWallet from '../images/svgs/MyWallet.js';
 import AwesomeButton from 'react-native-really-awesome-button';
 
 
+import { PieChart } from 'react-native-charts-wrapper';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -42,9 +43,34 @@ interface myStates {
     showOtpMsg: boolean;
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
-    Tags: string[];
-    Images: string[];
+    data: datas;
+    legend: any;
+    description: {};
+    highlights: any[];
+
 }
+
+interface datas {
+    dataSets: any[];
+}
+
+interface legends {
+    enabled: boolean;
+    textSize: number;
+    form: string;
+    horizontalAlignment: string;
+    verticalAlignment: string;
+    orientation: string;
+    wordWrapEnabled: boolean;
+}
+
+interface chat {
+    value: number;
+    displayValue: string;
+    text: string;
+    color: string;
+}
+
 interface myProps {
     navigation: any;
     router: any;
@@ -61,7 +87,7 @@ const scale = 0.8;
 const PAGE_WIDTH = screenWidth * scale;
 const PAGE_HEIGHT = 240 * scale;
 
-class MyWalletScreen extends Component<myProps, myStates> {
+class MyWalletScreen extends React.Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
@@ -79,8 +105,43 @@ class MyWalletScreen extends Component<myProps, myStates> {
             showOtpMsg: false,
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
-            Tags: ["European dancing", "Belly dancing", "Pole dancing", "Body building show", "Traditional dancing"],
-            Images: [],
+            legend: {
+                enabled: true,
+                textColor: processColor('white'),
+                textSize: 15,
+                form: 'CIRCLE',
+                horizontalAlignment: "CENTER",
+                verticalAlignment: "CENTER",
+                orientation: "VERTICAL",
+                wordWrapEnabled: true
+            },
+            data: {
+                dataSets: [{
+                    values: [
+                        { value: 45, label: 'ACCOUNT' },
+                        { value: 21, label: 'FIXED DEPOSIT' }],
+                    label: '',
+                    config: {
+                        colors: [processColor('#8CEAFF'), processColor('#FFF78C'), processColor('#FFD08C'), processColor('#8CEAFF'), processColor('#FF8C9D')],
+                        valueTextSize: 20,
+                        valueTextColor: processColor('transparent'),
+                        sliceSpace: 5,
+                        selectionShift: 13,
+                        // xValuePosition: "OUTSIDE_SLICE",
+                        // yValuePosition: "OUTSIDE_SLICE",
+                        valueFormatter: "#.#'%'",
+                        valueLineColor: processColor('transparent'),
+                        valueLinePart1Length: 0.5
+                    }
+                }],
+            },
+            highlights: [{ x: 2 }],
+            description: {
+                text: 'This is Pie chart description',
+                textSize: 15,
+                textColor: processColor('darkgray'),
+
+            }
         };
 
         console.log(props.route.params);
@@ -333,8 +394,15 @@ class MyWalletScreen extends Component<myProps, myStates> {
                 fontSize: 16,
                 margin: 10,
                 fontFamily: 'SFPRODISPLAYREGULAR'
+            },
+            chart: {
+                flex: 1,
+                height: 300,
+                width: '100%'
             }
         });
+
+
 
 
         return (
@@ -389,7 +457,84 @@ class MyWalletScreen extends Component<myProps, myStates> {
                         </View>
                         <ScrollView style={styles.container}>
 
+                            <Text style={{
+                                marginTop:20,
+                                color: 'white',
+                                fontSize: 20,
+                                textAlign: 'center'
+                            }}>ACCOUNT SUMMARY</Text>
 
+                            <PieChart
+                                style={styles.chart}
+                                // logEnabled={true}
+                                // chartBackgroundColor={processColor('transparent')}
+                                // chartDescription={this.state.description}
+                                data={this.state.data}
+                                legend={this.state.legend}
+                                // highlights={this.state.highlights}
+
+                                // extraOffsets={{ left: 5, top: 5, right: 5, bottom: 5 }}
+
+                                entryLabelColor={processColor('transparent')}
+                                entryLabelTextSize={15}
+                                // entryLabelFontFamily={'HelveticaNeue-Medium'}
+                                drawEntryLabels={true}
+
+                                rotationEnabled={false}
+                                rotationAngle={145}
+                                usePercentValues={false}
+                                // styledCenterText={{ text: 'Pie center text!', color: processColor('pink'), fontFamily: 'HelveticaNeue-Medium', size: 20 }}
+                                centerTextRadiusPercent={100}
+                                holeRadius={80}
+                                holeColor={processColor('transparent')}
+                                transparentCircleRadius={0}
+                                transparentCircleColor={processColor('transparent')}
+                                maxAngle={250}
+                                onSelect={() => { }}
+                                onChange={(event: { nativeEvent: any; }) => console.log(event.nativeEvent)}
+                            />
+
+                            <Text style={{
+                                top: -50,
+                                color: 'white',
+                                fontSize: 16,
+                                textAlign: 'center'
+                            }}>TOTAL DEPOSIT</Text>
+                            <Text style={{
+                                top: -50,
+                                color: 'white',
+                                fontSize: 30,
+                                textAlign: 'center',
+                                fontWeight: 'bold',
+                            }}>1,100,000</Text>
+
+
+
+                            <Text style={{
+                                top: -20,
+                                color: 'white',
+                                fontSize: 20,
+                                textAlign: 'center'
+                            }}>NEED A FIXED DEPOSIT ?</Text>
+
+                            <Text style={{
+                                top: -20,
+                                color: 'white',
+                                fontSize: 16,
+                                textAlign: 'center'
+                            }}>WE WILL HELP YOU OPEN IT INSTANLY</Text>
+
+
+                            <View style={{ alignItems: 'center' }}>
+                                <TouchableOpacity style={{ borderColor: 'black', borderWidth: 1, borderRadius: 5, top: -10, backgroundColor: 'white', width: '50%', alignItems: 'center' }}>
+                                    <Text style={{
+                                        margin: 10,
+                                        color: '#fd0925',
+                                        fontSize: 16,
+                                        textAlign: 'center'
+                                    }}>OPEN NOW</Text>
+                                </TouchableOpacity>
+                            </View>
 
 
                             <LinearGradient
@@ -404,6 +549,11 @@ class MyWalletScreen extends Component<myProps, myStates> {
                                     borderWidth: 0
                                 }}
                             >
+
+
+
+
+
                                 <View style={{ marginLeft: 100, alignItems: 'flex-start' }}>
                                     <Image style={{ position: 'absolute', height: 100, width: 100 }} source={require('../images/coins.png')}></Image>
                                 </View>
@@ -873,3 +1023,7 @@ class MyWalletScreen extends Component<myProps, myStates> {
 
 
 export default MyWalletScreen;
+
+function handleSelect(event: any) {
+    throw new Error('Function not implemented.');
+}

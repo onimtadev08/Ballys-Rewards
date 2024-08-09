@@ -24,6 +24,7 @@ import MyHost from '../screens/MyHost';
 import MyWalletScreen from '../screens/MyWalletScreen';
 import MyCard from '../screens/MyCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ContactUsScreen from '../screens/ContactUsScreen';
 
 type RootStack = {
     Login: undefined
@@ -190,6 +191,12 @@ const Navigation = () => {
                     name='MyCard'
                     options={{ headerShown: false }}
                     component={MyCard}
+                />
+
+                <Stack.Screen
+                    name='ContactUsScreen'
+                    options={{ headerShown: false }}
+                    component={ContactUsScreen}
                 />
 
             </Stack.Navigator>

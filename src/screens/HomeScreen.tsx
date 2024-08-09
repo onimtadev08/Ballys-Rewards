@@ -448,7 +448,10 @@ class HomeScreen extends Component<myProps, myStates> {
 
                                 <MainMenuButton svg={<Rewards width={'100%'} height={'100%'} />} title={'Rewards Circle'} />
 
-                                <MainMenuButton svg={<ContactUs width={'100%'} height={'100%'} />} title={'Contact Us'} />
+                                <MainMenuButton svg={<ContactUs width={'100%'} height={'100%'} />} title={'Contact Us'}
+                                    onPress={() => {
+                                        this.navigation.navigate('ContactUsScreen');
+                                    }} />
 
                             </View>
 

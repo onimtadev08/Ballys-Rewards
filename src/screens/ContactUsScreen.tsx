@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity } from 'react-native';
-import CardView from 'react-native-cardview';
+import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import TextInput from '../components/TextInput';
 
 import MyDatePicker from '../components/MyDatePicker';
 
 import { interpolate } from "react-native-reanimated";
-import Carousel from "react-native-reanimated-carousel";
 import Entypo from 'react-native-vector-icons/Entypo'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import Evillcons from 'react-native-vector-icons/EvilIcons.js'
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
 import ErrorMsg from '../components/errorMsg.tsx';
@@ -18,16 +14,10 @@ import Loader from '../components/Loader.tsx';
 
 import ButtomNav from '../components/ButtomNav.tsx';
 import { GetEvents } from '../api/Api.tsx';
-
-import { Marquee } from '@animatereactnative/marquee';
-import { Dropdown } from 'react-native-element-dropdown';
-import GradientButton from '../components/GradientButtonfull.tsx';
+import { SocialIcon, SocialIconProps } from '@rneui/themed';
 
 const { width: screenWidth } = Dimensions.get('window');
-const { height: screenHeight } = Dimensions.get('window');
 
-// const images = [
-//     require('../images/ballys.png'),
 //     require('../images/wha.jpg'),
 //     require('../images/meg.jpg'),
 //     require('../images/sms.jpg'),
@@ -82,7 +72,7 @@ const scale = 0.8;
 const PAGE_WIDTH = screenWidth * scale;
 const PAGE_HEIGHT = 240 * scale;
 
-class MyBookings extends Component<myProps, myStates> {
+class ContactUsScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
@@ -362,7 +352,13 @@ class MyBookings extends Component<myProps, myStates> {
 
                             </View>
 
-
+                            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{
+                                    color: 'white',
+                                    fontSize: 20,
+                                    textAlign: 'center'
+                                }}>SOCIAL MEDIA</Text>
+                            </View>
 
                             <View style={{ flex: 0.5, alignItems: 'flex-end', backgroundColor: 'transparent', marginEnd: 10 }} >
 
@@ -378,172 +374,134 @@ class MyBookings extends Component<myProps, myStates> {
                         </View>
                         <ScrollView style={styles.container}>
 
-                            <View style={{ alignItems: 'center' }}>
-                                <View style={{ flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                                    <View style={{ backgroundColor: 'white', borderTopRightRadius: 20, borderTopLeftRadius: 20 }}>
-
-                                        <Image
-                                            source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/026/164/709/small_2x/businessman-portrait-elegant-man-in-business-suit-employee-of-business-institution-in-uniform-man-office-worker-business-avatar-profile-picture-illustration-vector.jpg' }}
-                                            style={{
-                                                height: 180,
-                                                width: 130,
-                                                borderRadius: 20,
-                                                borderBottomLeftRadius: 0,
-                                                borderBottomRightRadius: 0,
-                                                marginLeft: 5,
-                                                marginRight: 5,
-
-                                            }}
-                                        />
+                            <View style={{ flexDirection: 'row', flex: 1, margin: 20 }}>
+                                <View style={{
+                                    flex: 1,
+                                    alignItems: 'flex-start',
+                                    flexDirection: 'row',
+                                    backgroundColor: '#FFCE6C',
+                                    borderColor: 'black',
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    marginEnd: 10
+                                }}>
+                                    <SocialIcon
+                                        type={'facebook'}
+                                        iconType={'font-awesome'}
+                                    />
+                                    <View style={{ marginStart: 10, justifyContent: 'center', height: '100%' }}>
+                                        <Text style={{}}>FACEBOOK</Text>
                                     </View>
-                                    <View style={{ flexDirection: 'column', width: '70%', backgroundColor: 'white', height: 100, borderRadius: 20 }}>
-                                        <Text style={{ marginStart: 10, fontSize: 18, marginTop: 10 }}>BALLYS MEMBER</Text>
-                                        <View style={{ borderWidth: 1, borderColor: 'red', marginStart: 10, marginEnd: 20 }}></View>
-
-                                        <View style={{ flexDirection: 'row', marginStart: 10, flex: 1 }}>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>MEMBER # : </Text>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>BM15125</Text>
-                                        </View>
-
-                                        <View style={{ flexDirection: 'row', flex: 1, marginStart: 10 }}>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>EXPIRES : </Text>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>2024-12-31</Text>
-                                        </View>
-
-                                        <View style={{ flexDirection: 'row', flex: 1, marginStart: 10, marginBottom: 10 }}>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>CARD TIER : </Text>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>INFINITY</Text>
-                                        </View>
+                                </View>
+                                <View style={{
+                                    flex: 1,
+                                    alignItems: 'flex-start',
+                                    flexDirection: 'row',
+                                    backgroundColor: '#FFCE6C',
+                                    borderColor: 'black',
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    marginStart: 10
+                                }}>
+                                    <SocialIcon
+                                        type={'youtube'}
+                                        iconType={'font-awesome'}
+                                    />
+                                    <View style={{ marginStart: 10, justifyContent: 'center', height: '100%' }}>
+                                        <Text style={{}}>YOUTUBE</Text>
                                     </View>
+
                                 </View>
                             </View>
 
 
-                            <View style={{ flexDirection: 'row', marginEnd: 10, marginStart: 10 }}>
-                                <TouchableOpacity style={{
+
+                            <View style={{ flexDirection: 'row', flex: 1, margin: 20 }}>
+                                <View style={{
                                     flex: 1,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    width: '100%',
-                                    height: 50,
-                                    marginTop: 20,
-                                    marginEnd: 10,
-                                }}
-                                    onPress={() => {
-                                        console.log('kkk');
-
-                                        this.setState({ openDatePicker: true, picker: 1 });
-                                    }}
-                                >
-                                    <View pointerEvents='none' style={{ width: '100%', height: '100%' }}>
-                                        <View style={{
-                                            flexDirection: 'row',
-                                            backgroundColor: '#FFCE6C',
-                                            borderColor: 'black',
-                                            borderWidth: 1,
-                                            borderRadius: 5, height: '100%', alignItems: 'center', justifyContent: 'center'
-                                        }}>
-                                            <Text style={{ textAlign: 'center', flex: 1, color: 'black', fontSize: 16 }}>{this.state.arrival === '' ? 'ARRIVAL\nDATE' : this.state.arrival}</Text>
-                                            <Evillcons name='calendar' color={'black'} size={45} />
-                                        </View>
-
+                                    alignItems: 'flex-start',
+                                    flexDirection: 'row',
+                                    backgroundColor: '#FFCE6C',
+                                    borderColor: 'black',
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    marginEnd: 10
+                                }}>
+                                    <SocialIcon
+                                        type={'instagram'}
+                                        iconType={'font-awesome'}
+                                    />
+                                    <View style={{ marginStart: 10, justifyContent: 'center', height: '100%' }}>
+                                        <Text style={{}}>INSTAGRAM</Text>
                                     </View>
-                                </TouchableOpacity>
+                                </View>
 
-                                <TouchableOpacity style={{
-                                    marginStart: 10,
+                            </View>
+
+
+                            <View style={{ flexDirection: 'row', flex: 1, margin: 20 }}>
+                                <View style={{
                                     flex: 1,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    width: '100%',
-                                    height: 50,
-                                    marginTop: 20,
-                                }}
-                                    onPress={() => {
-                                        console.log('kkk');
-
-                                        this.setState({ openDatePicker: true, picker: 2 });
-                                    }}
-                                >
-                                    <View pointerEvents='none' style={{ width: '100%', height: '100%' }}>
-                                        <View style={{
-                                            flexDirection: 'row',
-                                            backgroundColor: '#FFCE6C',
-                                            borderColor: 'black',
-                                            borderWidth: 1,
-                                            borderRadius: 5, height: '100%', alignItems: 'center', justifyContent: 'center'
-                                        }}>
-                                            <Text style={{ textAlign: 'center', flex: 1, color: 'black', fontSize: 16 }}>{this.state.depatcher === '' ? 'DEPARTURE\nDATE' : this.state.depatcher}</Text>
-                                            <Evillcons name='calendar' color={'black'} size={45} />
-                                        </View>
-
+                                    alignItems: 'flex-start',
+                                    flexDirection: 'row',
+                                    backgroundColor: '#FFCE6C',
+                                    borderColor: 'black',
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    marginEnd: 10
+                                }}>
+                                    <SocialIcon
+                                        type={'linkedin'}
+                                        iconType={'font-awesome'}
+                                    />
+                                    <View style={{ marginStart: 10, justifyContent: 'center', height: '100%' }}>
+                                        <Text style={{}}>LINKEDIN</Text>
                                     </View>
-                                </TouchableOpacity>
+                                </View>
+                                <View style={{
+                                    flex: 1,
+                                    alignItems: 'flex-start',
+                                    flexDirection: 'row',
+                                    backgroundColor: '#FFCE6C',
+                                    borderColor: 'black',
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    marginStart: 10
+                                }}>
+                                    <SocialIcon
+                                        type={'twitter'}
+                                        iconType={'font-awesome'}
+                                    />
+                                    <View style={{ marginStart: 10, justifyContent: 'center', height: '100%' }}>
+                                        <Text style={{}}>TWITTER</Text>
+                                    </View>
+
+                                </View>
                             </View>
 
+                            {/* <View style={{ flexDirection: 'row', flex: 1, margin: 20 }}>
+                                <View style={{
+                                    flex: 1,
+                                    alignItems: 'flex-start',
+                                    flexDirection: 'row',
+                                    backgroundColor: '#FFCE6C',
+                                    borderColor: 'black',
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    marginEnd: 10
+                                }}>
+                                    <SocialIcon
+                                        type={'facebook'}
+                                        iconType={'font-awesome'}
+                                    />
+                                    <View style={{ marginStart: 10, justifyContent: 'center', height: '100%' }}>
+                                        <Text style={{}}>TRIP ADVISOR</Text>
+                                    </View>
+                                </View>
 
-                            <View>
-
-                                <Dropdown
-                                    style={styles.dropdown}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={this.state.packeageData}
-                                    search
-                                    maxHeight={300}
-                                    labelField="label"
-                                    valueField="value"
-                                    placeholder="Select Package"
-                                    searchPlaceholder="Search..."
-                                    value={this.state.PackeageValue}
-                                    onChange={item => {
-                                        this.setState({ PaxValue: item.label })
-                                    }}
-                                    renderLeftIcon={() => (
-                                        <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-                                    )}
-                                    renderItem={renderItem}
-                                />
+                            </View> */}
 
 
-                                <Dropdown
-                                    style={styles.dropdown}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={this.state.PaxData}
-                                    search
-                                    maxHeight={300}
-                                    labelField="label"
-                                    valueField="value"
-                                    placeholder="Select Pax"
-                                    searchPlaceholder="Search..."
-                                    value={this.state.PaxValue}
-                                    onChange={item => {
-                                        this.setState({ PaxValue: item.label })
-                                    }}
-                                    renderLeftIcon={() => (
-                                        <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-                                    )}
-                                    renderItem={renderItem}
-                                />
-
-                            </View>
-
-                            <View style={{ margin: 10, marginTop: 20 }}>
-                                <GradientButton
-                                    title="SUBMIT"
-                                    onPress={() => {
-
-                                    }}
-                                    colors={['#FF0024', '#FF0024', '#FF0024']}
-                                    buttonStyle={styles.customButton}
-                                    textStyle={styles.buttonText}
-                                />
-                            </View>
 
                         </ScrollView>
                         {this.state.openDatePicker ?
@@ -556,7 +514,7 @@ class MyBookings extends Component<myProps, myStates> {
                                 mode='date'
                                 onPressCancel={(): void => {
                                     this.setState({ openDatePicker: false });
-                                }} 
+                                }}
                                 onDone={(data: string): void => {
                                     console.log(data);
                                     if (this.state.picker === 1) {
@@ -596,4 +554,4 @@ class MyBookings extends Component<myProps, myStates> {
 
 
 
-export default MyBookings;
+export default ContactUsScreen;

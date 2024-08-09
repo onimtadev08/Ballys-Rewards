@@ -32,21 +32,36 @@ const MainMenuButton: React.FC<myProps> = ({
     }, []);
 
     return (
-        <View style={{ backgroundColor: 'transparent', height: '90%' }}>
-            <AwesomeButton
-                onPress={onPress}
+        <View style={{ height: '90%', alignItems: 'center' }}>
+            {/* <AwesomeButton
+           //     onPress={() => { console.log('onPress') }}
+                onPressIn={() => { console.log('onPressIn') }}
+                onPressOut={() => { console.log('onPressOut') }}
+                onPressedIn={() => { console.log('onPressedIn') }}
+                onProgressStart={() => { console.log('onProgressStart') }}
+                onProgressEnd={() => { console.log('onProgressEnd') }}
+                onPress={()=>{
+                    console.log('onPress');
+                    onPress;
+                }}
                 backgroundColor='transparent'
-                width={(screenWidth / 100) * 33}
-                height={(screenWidth / 100) * 43}
+               
                 raiseLevel={15}
                 backgroundDarker='transparent'
                 backgroundShadow='transparent'
                 backgroundActive='transparent'
+            > */}
+            <TouchableOpacity style={{
+                width: (screenWidth / 100) * 33,
+                height: (screenWidth / 100) * 43,
+                shadowColor:'black',
+                elevation:3,
+            }}
+                onPress={onPress}
             >
                 <View style={{
                     minWidth: '100%',
                     height: '100%',
-                    left: 8,
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'column',
@@ -68,7 +83,7 @@ const MainMenuButton: React.FC<myProps> = ({
                         fontFamily: 'SFPRODISPLAYBOLD',
                     }}>{title.toUpperCase()}</Text>
                 </View>
-            </AwesomeButton>
+            </TouchableOpacity>
 
         </View >
     )

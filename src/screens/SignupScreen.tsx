@@ -470,21 +470,26 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                             <TouchableOpacity style={{
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                width: '100%'
+                                width: '100%',
                             }}
-                                onPress={() => {
+                                onPressIn={() => {
                                     this.setState({ openDatePicker: true });
                                 }}
                             >
-                                <TextInput
-                                    editable={false}
-                                    value={this.state.PIN} onChangeText={(text: string) => {
-                                        this.setState({ PIN: text });
-                                    }}
-                                    showError={this.state.PIN === '' && this.state.showError}
-                                    fieldName={'Date Of Birth (DD/MM/YYYY -Pin No.)'}
-                                    fieldErrorMsg={'Field empty'}
-                                />
+                                <View pointerEvents='none'>
+                                    <TextInput
+                                        editable={false}
+                                        value={this.state.PIN} onChangeText={(text: string) => {
+                                            this.setState({ PIN: text });
+                                        }}
+                                        showError={this.state.PIN === '' && this.state.showError}
+                                        fieldName={'Date Of Birth (DD/MM/YYYY -Pin No.)'}
+                                        fieldErrorMsg={'Field empty'}
+                                    />
+
+                                    <Text></Text>
+
+                                </View>
                             </TouchableOpacity>
 
                             <Text style={{ color: 'red', fontWeight: '500', fontSize: 16, marginTop: 10 }}>All Above Fields are Madndatory</Text>
