@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, TouchableOpacity, Dimensions, TextInput, Keyboard } from 'react-native';
 import AntDesing from 'react-native-vector-icons/AntDesign'
+import { ColorTherd } from '../data/data';
+import { BlurView } from '@react-native-community/blur';
 
 const { width, height } = Dimensions.get('window');
 
@@ -74,17 +76,20 @@ const OtpMsg: React.FC<errorMsgProps> = ({
     }, [Text4]);
 
     return (
-        <View style={{
-            backgroundColor: 'rgba(0,0,0,0.4)',
+        <BlurView style={{
             alignItems: 'center',
             justifyContent: 'center',
             position: 'absolute',
             width: '100%',
             height: '100%',
-        }}>
+        }}
+            blurAmount={5}
+            blurType='dark'
+            reducedTransparencyFallbackColor='white'
+        >
             <View
                 style={{
-                    backgroundColor: '#FFCE6C',
+                    backgroundColor: ColorTherd,
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'absolute',
@@ -101,7 +106,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                             flex: 5,
                             margin: 20,
                             textAlign: 'center',
-                            color: 'black',
+                            color: 'white',
                             fontSize: 18,
                             fontWeight: '500',
                         }}>{msg}</Text>
@@ -120,7 +125,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                borderColor: '#FF0024',
+                                borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
                                 height: 50,
@@ -141,7 +146,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                borderColor: '#FF0024',
+                                borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
                                 height: 50,
@@ -162,7 +167,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                borderColor: '#FF0024',
+                                borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
                                 height: 50,
@@ -183,7 +188,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                borderColor: '#FF0024',
+                                borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
                                 height: 50,
@@ -216,7 +221,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <View>
                             <Text
                                 style={{
-                                    color: isEnable ? 'white' : 'black', fontSize: 16
+                                    color: isEnable ? 'black' : 'white', fontSize: 16
                                 }}>
                                 Resend Code{' '}
                                 {isEnable ? '00:' + second : null}
@@ -227,7 +232,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TouchableOpacity
                             style={{
                                 borderWidth: 2,
-                                borderColor: '#FF0024',
+                                borderColor: 'gold',
                                 padding: 10,
                                 width: 150,
                                 alignItems: 'center',
@@ -239,12 +244,12 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                 Keyboard.dismiss;
                                 onPressCancel();
                             }}>
-                            <Text style={{ color: 'black', fontWeight: '500', fontSize: 18 }}>Cancel</Text>
+                            <Text style={{ color: 'white', fontWeight: '500', fontSize: 18 }}>Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{
                                 marginLeft: 20,
-                                backgroundColor: '#FF0024',
+                                backgroundColor: 'gold',
                                 padding: 10,
                                 width: 150,
                                 alignItems: 'center',
@@ -281,14 +286,14 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                     setText4('');
                                 }
                             }}>
-                            <Text style={{ color: 'white', fontWeight: '500', fontSize: 18 }}>Verify</Text>
+                            <Text style={{ color: 'black', fontWeight: '500', fontSize: 18 }}>Verify</Text>
                         </TouchableOpacity>
                     </View>
 
 
                 </View>
             </View>
-        </View>
+        </BlurView>
     );
 }
 export default OtpMsg;                                            

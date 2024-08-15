@@ -20,6 +20,8 @@ import { CountryItem, CountryPicker } from "react-native-country-codes-picker";
 import { getBase64ImageFromUrl } from '../utilitis/utilities';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { ColorFirst, ColorSecond, ColorTherd } from '../data/data';
+
 // import ImagePicker from 'react-native-image-picker';
 
 const { width, height } = Dimensions.get('window');
@@ -356,7 +358,8 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
         return (
             <LinearGradient
                 style={{ flex: 1 }}
-                colors={['#fd0925', '#ff0909', '#ff6603']}>
+                colors={[ColorFirst, ColorSecond, ColorTherd]}
+            >
                 <ScrollView >
                     <View style={{ flexDirection: 'column' }}>
                         <View style={{ alignItems: 'center', marginBottom: 20 }} >
@@ -487,7 +490,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                         fieldErrorMsg={'Field empty'}
                                     />
 
-                                    <Text></Text>
+                                    {/* <Text></Text> */}
 
                                 </View>
                             </TouchableOpacity>
@@ -497,24 +500,30 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                 <TouchableOpacity onPress={() => {
                                     this.setState({ checked: !this.state.checked })
                                 }} style={{ margin: 20 }}>
-                                    <AntDesign name={this.state.checked ? 'checkcircle' : 'checkcircleo'} size={25} />
+                                    <AntDesign name={this.state.checked ? 'checkcircle' : 'checkcircleo'} size={25} color={'white'} />
                                 </TouchableOpacity>
                                 <View style={{ flexDirection: 'column', marginTop: 10 }}>
-                                    <Text style={{ fontWeight: '500', fontSize: 16 }}>I have read and agreed to the Terms &</Text>
-                                    <Text style={{ fontWeight: '500', fontSize: 16 }}>Conditions</Text>
+                                    <Text style={{ fontWeight: '500', fontSize: 16, color: 'white' }}>I have read and agreed to the Terms &</Text>
+                                    <Text style={{ fontWeight: '500', fontSize: 16, color: 'white' }}>Conditions</Text>
                                 </View>
                             </View>
-                            <View style={{ width: '75%', marginTop: 20, marginBottom: 20 }}>
-                                <GradientButton
+
+
+                            <View style={{ margin: 20, justifyContent: 'center', width: '100%' }}>
+                                <GradientButtonWithBorder
                                     title="SIGN IN"
                                     onPress={this.handleLogin}
-                                    colors={['#FF0024', '#FF0024', '#FF0024']}
+                                    colors={['transparent', 'transparent', 'transparent']}
+                                    borderColor="#FFCE6C"
                                     buttonStyle={styles.customButton}
                                     textStyle={styles.buttonText}
                                 />
                             </View>
-                            <Text style={{ color: 'black' }}>Sign Up and receive 2000 Bally's</Text>
-                            <Text style={{ marginBottom: 30, color: 'black' }}>Rewards points</Text>
+
+
+
+                            <Text style={{ color: 'white' }}>Sign Up and receive 2000 Bally's</Text>
+                            <Text style={{ marginBottom: 30, color: 'white' }}>Rewards points</Text>
                         </View>
                     </View>
                 </ScrollView>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface GradientButtonProps {
@@ -18,12 +18,15 @@ const GradientButton: React.FC<GradientButtonProps> = ({
 }) => {
     return (
         <TouchableOpacity onPress={onPress} style={{ width: '100%' }}>
-            <LinearGradient colors={colors}
+            <Image source={require('../images/svgtopng/SubmitIconPng.png')}
+                style={{ width: '100%' }} resizeMode='center' />
+            <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+            {/* <LinearGradient colors={colors}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.signup}>
                 <Text style={styles.buttonText}>{title}</Text>
-            </LinearGradient>
+            </LinearGradient> */}
         </TouchableOpacity>
     );
 };

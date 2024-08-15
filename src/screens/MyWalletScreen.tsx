@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, processColor } from 'react-native';
 import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { interpolate } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
@@ -19,9 +20,9 @@ import { Marquee } from '@animatereactnative/marquee';
 import MyWallet from '../images/svgs/MyWallet.js';
 import AwesomeButton from 'react-native-really-awesome-button';
 
-
+import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import { PieChart } from 'react-native-charts-wrapper';
-
+import GradientButton from '../components/GradientButton.tsx';
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -47,6 +48,7 @@ interface myStates {
     legend: any;
     description: {};
     highlights: any[];
+    Accounts: any[];
 
 }
 
@@ -141,7 +143,23 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                 textSize: 15,
                 textColor: processColor('darkgray'),
 
-            }
+            },
+            Accounts: [{
+                Account: 'LKRc',
+                AccountValue: '1,000,000',
+                FixedDeposit: '100,000',
+                Total: '1,100,000'
+            }, {
+                Account: 'INRc',
+                AccountValue: '300,000',
+                FixedDeposit: '33,000',
+                Total: '333,000'
+            }, {
+                Account: 'USDc',
+                AccountValue: '3,000',
+                FixedDeposit: '300',
+                Total: '33,000'
+            }]
         };
 
         console.log(props.route.params);
@@ -173,7 +191,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
         //     this.setState({ currentIndex: nextIndex });
         // }, 2000);
 
-        this.MainHomeLoad();
+        //       this.MainHomeLoad();
 
         // return () => clearInterval(interval);
     }
@@ -407,13 +425,13 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
 
         return (
             <LinearGradient
-                colors={['#fd0925', '#ff0909', '#fd0925']}
+                colors={[ColorFirst, ColorSecond, ColorTherd]}
                 style={styles.container} >
 
                 <SafeAreaView style={styles.safeArea}>
 
                     <LinearGradient
-                        colors={['#fd0925', '#ff0909', '#ff6603']}
+                        colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
                         <View style={{
                             flexDirection: 'row',
@@ -426,11 +444,12 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                                     style={{
                                         alignItems: 'center',
                                     }}
-                                    onPress={() => {
-                                        this.navigation.goBack();
+                                    onPress={async () => {
+                                        const MID = await AsyncStorage.getItem('MID');
+                                        this.navigation.navigate('MenuScreen', { 'PlayerID': MID });
                                     }}
                                 >
-                                    <Entypo name="chevron-thin-left" size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
                                 </TouchableOpacity>
 
                             </View>
@@ -449,7 +468,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                                     style={{
                                         alignItems: 'center',
                                     }}>
-                                    <Entypo name='message' size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Image source={require('../images/svgtopng/MESSAGE.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
                                 </TouchableOpacity>
 
                             </View>
@@ -458,538 +477,152 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                         <ScrollView style={styles.container}>
 
                             <Text style={{
-                                marginTop:20,
+                                marginTop: 20,
                                 color: 'white',
                                 fontSize: 20,
                                 textAlign: 'center'
                             }}>ACCOUNT SUMMARY</Text>
 
-                            <PieChart
-                                style={styles.chart}
-                                // logEnabled={true}
-                                // chartBackgroundColor={processColor('transparent')}
-                                // chartDescription={this.state.description}
-                                data={this.state.data}
-                                legend={this.state.legend}
-                                // highlights={this.state.highlights}
+                            {this.state.Accounts.map((item) => {
+                                return (
+                                    <View>
+                                        <View style={{ borderWidth: 2, borderColor: 'white', marginTop: 30, marginBottom: 50, margin: 20, borderRadius: 20, alignItems: 'center' }}>
 
-                                // extraOffsets={{ left: 5, top: 5, right: 5, bottom: 5 }}
+                                            <View style={{ backgroundColor: 'white', borderRadius: 10, height: 50, justifyContent: 'center', top: -20 }}>
+                                                <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginStart: 10, marginEnd: 10 }}>{item.Account}</Text>
+                                            </View>
 
-                                entryLabelColor={processColor('transparent')}
-                                entryLabelTextSize={15}
-                                // entryLabelFontFamily={'HelveticaNeue-Medium'}
-                                drawEntryLabels={true}
-
-                                rotationEnabled={false}
-                                rotationAngle={145}
-                                usePercentValues={false}
-                                // styledCenterText={{ text: 'Pie center text!', color: processColor('pink'), fontFamily: 'HelveticaNeue-Medium', size: 20 }}
-                                centerTextRadiusPercent={100}
-                                holeRadius={80}
-                                holeColor={processColor('transparent')}
-                                transparentCircleRadius={0}
-                                transparentCircleColor={processColor('transparent')}
-                                maxAngle={250}
-                                onSelect={() => { }}
-                                onChange={(event: { nativeEvent: any; }) => console.log(event.nativeEvent)}
-                            />
-
-                            <Text style={{
-                                top: -50,
-                                color: 'white',
-                                fontSize: 16,
-                                textAlign: 'center'
-                            }}>TOTAL DEPOSIT</Text>
-                            <Text style={{
-                                top: -50,
-                                color: 'white',
-                                fontSize: 30,
-                                textAlign: 'center',
-                                fontWeight: 'bold',
-                            }}>1,100,000</Text>
-
-
-
-                            <Text style={{
-                                top: -20,
-                                color: 'white',
-                                fontSize: 20,
-                                textAlign: 'center'
-                            }}>NEED A FIXED DEPOSIT ?</Text>
-
-                            <Text style={{
-                                top: -20,
-                                color: 'white',
-                                fontSize: 16,
-                                textAlign: 'center'
-                            }}>WE WILL HELP YOU OPEN IT INSTANLY</Text>
-
-
-                            <View style={{ alignItems: 'center' }}>
-                                <TouchableOpacity style={{ borderColor: 'black', borderWidth: 1, borderRadius: 5, top: -10, backgroundColor: 'white', width: '50%', alignItems: 'center' }}>
-                                    <Text style={{
-                                        margin: 10,
-                                        color: '#fd0925',
-                                        fontSize: 16,
-                                        textAlign: 'center'
-                                    }}>OPEN NOW</Text>
-                                </TouchableOpacity>
-                            </View>
-
-
-                            <LinearGradient
-                                colors={['#FFCE6C', '#ffb162', '#fd0925']}
-                                start={{ x: 0, y: 0 }}
-                                end={{ x: 1, y: 0 }}
-                                style={{
-                                    borderRadius: 10,
-                                    margin: 20,
-                                    alignItems: 'center',
-                                    borderColor: 'black',
-                                    borderWidth: 0
-                                }}
-                            >
-
-
-
-
-
-                                <View style={{ marginLeft: 100, alignItems: 'flex-start' }}>
-                                    <Image style={{ position: 'absolute', height: 100, width: 100 }} source={require('../images/coins.png')}></Image>
-                                </View>
-
-                                <Text style={{
-                                    fontSize: 20,
-                                    fontWeight: 'bold',
-                                    marginLeft: 20,
-                                    marginTop: 20,
-                                    width: '100%',
-                                    textAlign: 'left',
-                                    fontFamily: 'SFPRODISPLAYBOLD'
-                                }}>Bally's Coins</Text>
-                                <Text style={{
-                                    width: '100%',
-                                    fontSize: 18,
-                                    marginLeft: 20,
-                                    marginBottom: 20,
-                                    textAlign: 'left',
-                                    fontFamily: 'SFPRODISPLAYBOLD'
-                                }}>10,000</Text>
-                            </LinearGradient>
-
-                            <View style={{ flexDirection: 'row', flex: 1 }}>
-
-                                <View style={{ borderRadius: 10, backgroundColor: '#FFCE6C', flex: 1, marginEnd: 10, marginStart: 20 }}>
-                                    <Text style={{
-                                        fontSize: 20,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 20,
-                                        width: '100%',
-                                        textAlign: 'left',
-                                        fontFamily: 'SFPRODISPLAYBOLD'
-                                    }}>Available{'\n'}Coins</Text>
-                                    <Text style={{
-                                        width: '100%',
-                                        fontSize: 18,
-                                        marginLeft: 20,
-                                        marginBottom: 20,
-                                        textAlign: 'left',
-                                        fontFamily: 'SFPRODISPLAYBOLD'
-                                    }}>10,000</Text>
-                                </View>
-
-
-
-                                <View style={{ borderRadius: 10, backgroundColor: '#FFCE6C', flex: 1, marginStart: 10, marginEnd: 20 }}>
-                                    <Text style={{
-                                        fontSize: 20,
-                                        fontWeight: 'bold',
-                                        marginLeft: 20,
-                                        marginTop: 20,
-                                        width: '100%',
-                                        textAlign: 'left',
-                                        fontFamily: 'SFPRODISPLAYBOLD'
-                                    }}>Bally's{'\n'}Rupees</Text>
-                                    <Text style={{
-                                        width: '100%',
-                                        fontSize: 18,
-                                        marginLeft: 20,
-                                        marginBottom: 20,
-                                        textAlign: 'left',
-                                        fontFamily: 'SFPRODISPLAYBOLD'
-                                    }}>10,000</Text>
-                                </View>
-
-                            </View>
-
-                            <Text style={{
-                                textShadowOffset: { width: -1, height: -1 },
-                                textShadowColor: 'rgba(0,0,0,0.99)',
-                                color: 'white',
-                                fontSize: 20,
-                                fontWeight: 'bold',
-                                marginLeft: 20,
-                                marginTop: 20,
-                                width: '100%',
-                                textAlign: 'left',
-                                fontFamily: 'SFPRODISPLAYBOLD'
-                            }}>Quick Actions</Text>
-
-
-                            <View style={{
-                                borderRadius: 10,
-                                backgroundColor: '#FFCE6C',
-                                flex: 1,
-                                marginStart: 20,
-                                marginEnd: 20,
-                                marginTop: 20,
-                            }}>
-
-
-                                <AwesomeButton
-                                    height={120}
-                                    backgroundColor='transparent'
-                                    raiseLevel={15}
-                                    backgroundDarker='transparent'
-                                    backgroundShadow='transparent'
-                                    backgroundActive='transparent'
-                                >
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-
-                                        <Image source={require('../images/onlineCards.png')} style={{ width: 100, height: 100, margin: 10 }}></Image>
-                                        <View>
-                                            <Text style={{
-                                                fontSize: 20,
-                                                fontWeight: 'bold',
-                                                marginLeft: 20,
-                                                marginTop: 20,
-                                                width: '100%',
-                                                textAlign: 'left',
-                                                fontFamily: 'SFPRODISPLAYBOLD'
-                                            }}>Bally's Online</Text>
-                                            <Text style={{
-                                                width: '100%',
-                                                fontSize: 16,
-                                                marginLeft: 20,
-                                                marginBottom: 20,
-                                                textAlign: 'left',
-                                                fontFamily: 'SFPRODISPLAYBOLD'
-                                            }}>Online Pay! This convenient{'\n'}and secure platform allows{'\n'}you to make payments{'\n'}online with ease</Text>
-                                        </View>
-                                    </View>
-                                </AwesomeButton>
-                            </View>
-
-
-
-                            <View style={{ flexDirection: 'row', flex: 1 }}>
-
-                                <View style={{ flex: 1 }}>
-                                    <View style={{
-                                        borderRadius: 10,
-                                        backgroundColor: '#FFCE6C',
-                                        flex: 1,
-                                        marginStart: 20,
-                                        marginEnd: 20,
-                                        marginTop: 20,
-                                    }}>
-
-
-                                        <AwesomeButton
-                                            height={270}
-                                            backgroundColor='transparent'
-                                            raiseLevel={15}
-                                            backgroundDarker='transparent'
-                                            backgroundShadow='transparent'
-                                            backgroundActive='transparent'
-                                        >
-                                            <View style={{ flexDirection: 'column', alignItems: 'flex-end', marginTop: 30 }}>
-
-                                                <Image source={require('../images/cashs.png')} resizeMode='stretch' style={{ width: 80, height: 70, marginTop: 20 }}></Image>
-                                                <View>
-                                                    <Text style={{
-                                                        fontSize: 20,
-                                                        fontWeight: 'bold',
-                                                        marginLeft: 20,
-                                                        marginStart: -1,
-                                                        marginTop: 20,
-                                                        width: '100%',
-                                                        textAlign: 'left',
-                                                        fontFamily: 'SFPRODISPLAYBOLD'
-                                                    }}>Add Cash</Text>
-                                                    <Text style={{
-                                                        width: '100%',
-                                                        fontSize: 16,
-                                                        marginLeft: 20,
-                                                        marginBottom: 20,
-                                                        marginStart: -1,
-                                                        textAlign: 'left',
-                                                        fontFamily: 'SFPRODISPLAYBOLD'
-                                                    }}>Online Pay!{'\n'}This convenient{'\n'}and secure{'\n'}platform allows{'\n'}you to make{'\n'}payments{'\n'}online with ease</Text>
+                                            <View style={{ top: -10, width: '70%' }}>
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    <Text style={{ color: 'white', fontSize: 15 }}>{'\u25cf '}</Text>
+                                                    <Text style={{ color: 'white' }}>ACCOUNT</Text>
+                                                </View>
+                                                <View style={{ flexDirection: 'row', marginStart: 10, marginEnd: 10, justifyContent: 'center', flex: 1 }}>
+                                                    <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', color: 'white', flex: 1 }}>{item.AccountValue}</Text>
+                                                    <Text style={{ fontSize: 18, textAlign: 'center', color: 'white' }}>{item.Account}</Text>
                                                 </View>
                                             </View>
-                                        </AwesomeButton>
+
+
+                                            <LinearGradient
+                                                start={{ x: 0, y: 0 }}
+                                                end={{ x: 1, y: 0 }}
+                                                colors={[ColorFirst, 'white', ColorFirst]}
+                                                style={{ width: '100%', height: 2 }} />
 
 
 
-                                    </View>
-                                </View>
-
-                                <View style={{ flex: 1 }}>
-
-                                    <View style={{
-                                        borderRadius: 10,
-                                        backgroundColor: '#FFCE6C',
-                                        flex: 1,
-                                        marginTop: 20,
-                                        marginStart: 10,
-                                        marginEnd: 20,
-                                        justifyContent: 'center',
-
-                                    }}>
-                                        <AwesomeButton
-                                            backgroundColor='transparent'
-                                            height={80}
-                                            raiseLevel={15}
-                                            backgroundDarker='transparent'
-                                            backgroundShadow='transparent'
-                                            backgroundActive='transparent'
-                                        >
-                                            <Text style={{
-                                                fontSize: 20,
-                                                fontWeight: 'bold',
-                                                marginLeft: 20,
-                                                width: '100%',
-                                                textAlign: 'left',
-                                                fontFamily: 'SFPRODISPLAYBOLD'
-                                            }}>Credit{'\n'}Request</Text>
-                                        </AwesomeButton>
-                                    </View>
-
-                                    <View style={{
-                                        justifyContent: 'center',
-                                        borderRadius: 10,
-                                        backgroundColor: '#FFCE6C',
-                                        flex: 1,
-                                        marginTop: 20,
-                                        marginStart: 10,
-                                        marginEnd: 20
-                                    }}>
-
-                                        <AwesomeButton
-                                            backgroundColor='transparent'
-                                            height={80}
-                                            raiseLevel={15}
-                                            backgroundDarker='transparent'
-                                            backgroundShadow='transparent'
-                                            backgroundActive='transparent'
-                                        >
-                                            <Text style={{
-                                                fontSize: 20,
-                                                fontWeight: 'bold',
-                                                marginLeft: 20,
-                                                width: '100%',
-                                                textAlign: 'left',
-                                                fontFamily: 'SFPRODISPLAYBOLD'
-                                            }}>Chips{'\n'}Buying</Text>
-                                        </AwesomeButton>
-                                    </View>
+                                            <View style={{ top: 15, width: '70%' }}>
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    <Text style={{ color: 'red', fontSize: 15 }}>{'\u25cf '}</Text>
+                                                    <Text style={{ color: 'white' }}>FIXED DEPOSIT</Text>
+                                                </View>
+                                                <View style={{ flexDirection: 'row', marginStart: 10, marginEnd: 10, justifyContent: 'center', flex: 1 }}>
+                                                    <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', color: 'white', flex: 1 }}>{item.FixedDeposit}</Text>
+                                                    <Text style={{ fontSize: 18, textAlign: 'center', color: 'white' }}>{item.Account}</Text>
+                                                </View>
+                                            </View>
 
 
 
-                                </View>
+                                            <View style={{ backgroundColor: 'white', borderRadius: 10, justifyContent: 'center', bottom: -30 }}>
+                                                <Text style={{ fontSize: 18, textAlign: 'center' }}>{item.Account}</Text>
 
-                            </View>
+                                                <View style={{ flexDirection: 'row', marginStart: 10, marginEnd: 10 }}>
+                                                    <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center' }}>{item.Total}</Text>
+                                                    <Text style={{ fontSize: 18, textAlign: 'center' }}>{item.Account}</Text>
+                                                </View>
+                                            </View>
 
-                            <View style={{ flexDirection: 'row', marginStart: 10 }}>
-                                <View style={{ borderRadius: 10, backgroundColor: '#FFCE6C', flex: 1, marginTop: 20, marginStart: 10, marginEnd: 20 }}>
-
-                                    <AwesomeButton
-                                        height={200}
-                                        backgroundColor='transparent'
-                                        raiseLevel={15}
-                                        backgroundDarker='transparent'
-                                        backgroundShadow='transparent'
-                                        backgroundActive='transparent'
-                                    >
-                                        <View>
-                                            <Text style={{
-                                                fontSize: 20,
-                                                fontWeight: 'bold',
-                                                // marginLeft: 20,
-                                                marginTop: 20,
-                                                width: '100%',
-                                                textAlign: 'left',
-                                                fontFamily: 'SFPRODISPLAYBOLD'
-                                            }}>Bally's{'\n'}Member</Text>
-                                            <Text style={{
-                                                width: '100%',
-                                                fontSize: 18,
-                                                // marginLeft: 20,
-                                                marginBottom: 20,
-                                                textAlign: 'left',
-                                                fontFamily: 'SFPRODISPLAYBOLD'
-                                            }}>Experience the{'\n'}simplicity of{'\n'}member to{'\n'}member{'\n'}money transfers</Text>
                                         </View>
-                                    </AwesomeButton>
+                                    </View>
+                                );
+                            })}
+
+
+                            <View style={{ top: 3 }}>
+                                <Text style={{
+                                    color: 'white',
+                                    fontSize: 20,
+                                    textAlign: 'center'
+                                }}>NEED A FIXED DEPOSIT ?</Text>
+
+                                <Text style={{
+                                    color: 'white',
+                                    fontSize: 16,
+                                    textAlign: 'center'
+                                }}>WE WILL HELP YOU OPEN IT INSTANLY</Text>
+
+
+                                <View style={{ margin: 20, justifyContent: 'center' }}>
+                                    <GradientButton
+                                        title="OPEN NOW"
+                                        onPress={() => { }}
+                                        colors={['transparent', 'transparent', 'transparent']}
+                                        buttonStyle={{}}
+                                        textStyle={{}} borderColor={''} />
                                 </View>
 
-                                <View style={{ borderRadius: 10, backgroundColor: '#FFCE6C', flex: 1, marginTop: 20, marginStart: 10, marginEnd: 20 }}>
+                            </View>
 
-                                    <AwesomeButton
-                                        height={200}
-                                        backgroundColor='transparent'
-                                        raiseLevel={15}
-                                        backgroundDarker='transparent'
-                                        backgroundShadow='transparent'
-                                        backgroundActive='transparent'
-                                    >
-                                        <View>
 
-                                            <Text style={{
-                                                fontSize: 20,
-                                                fontWeight: 'bold',
-                                                // marginLeft: 20,
-                                                marginTop: 20,
-                                                width: '100%',
-                                                textAlign: 'left',
-                                                fontFamily: 'SFPRODISPLAYBOLD'
-                                            }}>Bally's{'\n'}Deposit</Text>
-                                            <Text style={{
-                                                width: '100%',
-                                                fontSize: 18,
-                                                // marginLeft: 20,
-                                                marginBottom: 20,
-                                                textAlign: 'left',
-                                                fontFamily: 'SFPRODISPLAYBOLD'
-                                            }}>Keep your cash{'\n'}safe and{'\n'}organized with{'\n'}our convenient{'\n'}money deposit</Text>
+                            <View style={{ marginTop: 20 }}>
+                                <View style={{ borderWidth: 2, borderColor: 'white', marginTop: 30, marginBottom: 50, margin: 20, borderRadius: 20, alignItems: 'center' }}>
+
+                                    <Image source={require('../images/svgtopng/GOLD.png')} style={{ width: 80, height: 80, top: -40 }} />
+                                    <View style={{ top: -30, width: '100%', alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 20, color: 'white' }}>BALLYS COIN</Text>
+
+                                        <View style={{ flexDirection: 'row', flex: 1, marginTop: 10 }}>
+                                            <Text style={{ flex: 1, color: 'white', fontSize: 18, textAlign: 'center' }}>TODAY</Text>
+                                            <Text style={{ flex: 1, color: 'white', fontSize: 18, textAlign: 'center' }}>BALANCE</Text>
                                         </View>
-                                    </AwesomeButton>
+
+                                        <LinearGradient
+                                            start={{ x: 0, y: 0 }}
+                                            end={{ x: 1, y: 0 }}
+                                            colors={[ColorFirst, 'white', ColorFirst]}
+                                            style={{ width: '100%', height: 2, top: 10 }} />
+
+                                        <View style={{ flexDirection: 'row', flex: 1, top: 20 }}>
+                                            <Text style={{ flex: 1, color: 'white', fontSize: 20, textAlign: 'center' }}>100</Text>
+                                            <View style={{ backgroundColor: 'white', width: 1 }} />
+                                            <Text style={{ flex: 1, color: 'white', fontSize: 20, textAlign: 'center' }}>3000</Text>
+                                        </View>
+
+                                    </View>
+
                                 </View>
                             </View>
 
-                            <Text style={{
-                                textShadowOffset: { width: -1, height: -1 },
-                                textShadowColor: 'rgba(0,0,0,0.99)',
-                                color: 'white',
-                                fontSize: 20,
-                                fontWeight: 'bold',
-                                marginLeft: 20,
-                                marginTop: 20,
-                                width: '100%',
-                                textAlign: 'left',
-                                fontFamily: 'SFPRODISPLAYBOLD'
-                            }}>Collecting methods</Text>
 
+                            <View style={{ marginTop: 20 }}>
+                                <View style={{ borderWidth: 2, borderColor: 'white', marginTop: 30, marginBottom: 50, margin: 20, borderRadius: 20, alignItems: 'center' }}>
 
-                            <View style={{ borderRadius: 10, backgroundColor: '#FFCE6C', flex: 1, marginTop: 20, marginStart: 20, marginEnd: 20 }}>
+                                    <Image source={require('../images/svgtopng/SILVER.png')} style={{ width: 80, height: 80, top: -40 }} />
+                                    <View style={{ top: -30, width: '100%', alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 20, color: 'white' }}>BALLYS RUPEES</Text>
 
-                                <AwesomeButton
-                                    height={120}
-                                    backgroundColor='transparent'
-                                    raiseLevel={15}
-                                    backgroundDarker='transparent'
-                                    backgroundShadow='transparent'
-                                    backgroundActive='transparent'
-                                >
-                                    <View>
-                                        <Text style={{
-                                            fontSize: 20,
-                                            fontWeight: 'bold',
-                                            marginLeft: 10,
-                                            marginTop: 30,
-                                            width: '100%',
-                                            textAlign: 'left',
-                                            fontFamily: 'SFPRODISPLAYBOLD'
-                                        }}>Scan</Text>
-                                        <Text style={{
-                                            marginStart: 10,
-                                            width: '100%',
-                                            fontSize: 18,
-                                            // marginLeft: 20,
-                                            marginBottom: 20,
-                                            textAlign: 'left',
-                                            fontFamily: 'SFPRODISPLAYBOLD'
-                                        }}>Whether you'r looking to access exclusive{'\n'}content, make payments, or retrieve{'\n'}important information, the scan QR has{'\n'}got you coverd</Text>
+                                        <View style={{ flexDirection: 'row', flex: 1, marginTop: 10 }}>
+                                            <Text style={{ flex: 1, color: 'white', fontSize: 18, textAlign: 'center' }}>TODAY</Text>
+                                            <Text style={{ flex: 1, color: 'white', fontSize: 18, textAlign: 'center' }}>BALANCE</Text>
+                                        </View>
+
+                                        <LinearGradient
+                                            start={{ x: 0, y: 0 }}
+                                            end={{ x: 1, y: 0 }}
+                                            colors={[ColorFirst, 'white', ColorFirst]}
+                                            style={{ width: '100%', height: 2, top: 10 }} />
+
+                                        <View style={{ flexDirection: 'row', flex: 1, top: 20 }}>
+                                            <Text style={{ flex: 1, color: 'white', fontSize: 20, textAlign: 'center' }}>100</Text>
+                                            <View style={{ backgroundColor: 'white', width: 1 }} />
+                                            <Text style={{ flex: 1, color: 'white', fontSize: 20, textAlign: 'center' }}>3000</Text>
+                                        </View>
+
                                     </View>
-                                </AwesomeButton>
-                            </View>
 
-
-
-                            <View style={{ borderRadius: 10, backgroundColor: '#FFCE6C', flex: 1, marginTop: 20, marginStart: 20, marginEnd: 20 }}>
-
-                                <AwesomeButton
-                                    height={120}
-                                    backgroundColor='transparent'
-                                    raiseLevel={15}
-                                    backgroundDarker='transparent'
-                                    backgroundShadow='transparent'
-                                    backgroundActive='transparent'
-                                >
-                                    <View>
-                                        <Text style={{
-                                            fontSize: 20,
-                                            fontWeight: 'bold',
-                                            // marginLeft: 20,
-                                            marginTop: 20,
-                                            width: '100%',
-                                            textAlign: 'left',
-                                            fontFamily: 'SFPRODISPLAYBOLD'
-                                        }}>Collect</Text>
-                                        <Text style={{
-                                            width: '100%',
-                                            fontSize: 18,
-                                            // marginLeft: 20,
-                                            marginBottom: 20,
-                                            textAlign: 'left',
-                                            fontFamily: 'SFPRODISPLAYBOLD'
-                                        }}>Whether you're a seasoned colloector{'\n'}or just starting out, our wide range{'\n'}of coins will surely captivate you</Text>
-                                    </View>
-                                </AwesomeButton>
-                            </View>
-
-
-
-                            <View style={{
-                                borderRadius: 10,
-                                backgroundColor: '#FFCE6C',
-                                flex: 1,
-                                marginTop: 20,
-                                marginStart: 20,
-                                marginEnd: 20,
-                                marginBottom: 10,
-                            }}>
-
-                                <AwesomeButton
-                                    height={120}
-                                    backgroundColor='transparent'
-                                    raiseLevel={15}
-                                    backgroundDarker='transparent'
-                                    backgroundShadow='transparent'
-                                    backgroundActive='transparent'
-                                >
-                                    <View>
-                                        <Text style={{
-                                            fontSize: 20,
-                                            fontWeight: 'bold',
-                                            // marginLeft: 20,
-                                            marginTop: 20,
-                                            width: '100%',
-                                            textAlign: 'left',
-                                            fontFamily: 'SFPRODISPLAYBOLD'
-                                        }}>Pay</Text>
-                                        <Text style={{
-                                            width: '100%',
-                                            fontSize: 18,
-                                            // marginLeft: 20,
-                                            marginBottom: 20,
-                                            textAlign: 'left',
-                                            fontFamily: 'SFPRODISPLAYBOLD'
-                                        }}>Simply pour in your coins and watch{'\n'}as the are converted into digital{'\n'}currency for seamless trasantions</Text>
-                                    </View>
-                                </AwesomeButton>
+                                </View>
                             </View>
 
                         </ScrollView>

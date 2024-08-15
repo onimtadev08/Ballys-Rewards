@@ -25,6 +25,8 @@ import MyWalletScreen from '../screens/MyWalletScreen';
 import MyCard from '../screens/MyCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ContactUsScreen from '../screens/ContactUsScreen';
+import { ColorFirst } from '../data/data';
+import MyOfferScreen from '../screens/MyOfferScreen';
 
 type RootStack = {
     Login: undefined
@@ -86,7 +88,7 @@ const Navigation = () => {
                     options={({ navigation }) => ({
                         title: '',
                         headerStyle: {
-                            backgroundColor: '#FF0024',
+                            backgroundColor: ColorFirst,
                         },
                         headerTintColor: 'black',
                         headerLeft: () => (
@@ -109,7 +111,7 @@ const Navigation = () => {
                     options={({ navigation }) => ({
                         title: '',
                         headerStyle: {
-                            backgroundColor: '#FF0024',
+                            backgroundColor: ColorFirst,
                         },
                         headerTintColor: 'black',
                         headerLeft: () => (
@@ -198,6 +200,13 @@ const Navigation = () => {
                     options={{ headerShown: false }}
                     component={ContactUsScreen}
                 />
+
+                <Stack.Screen
+                    name='MyOfferScreen'
+                    options={{ headerShown: false }}
+                    component={MyOfferScreen}
+                />
+
 
             </Stack.Navigator>
         </NavigationContainer>

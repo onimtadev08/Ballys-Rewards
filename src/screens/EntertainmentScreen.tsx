@@ -16,7 +16,7 @@ import ButtomNav from '../components/ButtomNav.tsx';
 import { GetEvents } from '../api/Api.tsx';
 
 import { Marquee } from '@animatereactnative/marquee';
-
+import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -336,13 +336,13 @@ class EntertainmentScreen extends Component<myProps, myStates> {
 
         return (
             <LinearGradient
-                colors={['#fd0925', '#ff0909', '#fd0925']}
+                colors={[ColorFirst, ColorSecond, ColorTherd]}
                 style={styles.container} >
 
                 <SafeAreaView style={styles.safeArea}>
 
                     <LinearGradient
-                        colors={['#fd0925', '#ff0909', '#ff6603']}
+                        colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
                         <View style={{
                             flexDirection: 'row',
@@ -355,11 +355,12 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                                     style={{
                                         alignItems: 'center',
                                     }}
-                                    onPress={() => {
-                                        this.navigation.goBack();
+                                    onPress={async () => {
+                                        const MID = await AsyncStorage.getItem('MID');
+                                        this.navigation.navigate('MenuScreen', { 'PlayerID': MID });
                                     }}
                                 >
-                                    <Entypo name="chevron-thin-left" size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
                                 </TouchableOpacity>
 
                             </View>
@@ -390,10 +391,13 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                                     style={{
                                         alignItems: 'center',
                                     }}>
-                                    <Entypo name='message' size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Image source={require('../images/svgtopng/MESSAGE.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
                                 </TouchableOpacity>
 
                             </View>
+
+
+
 
                         </View>
                         {/* <ScrollView style={styles.container}> */}

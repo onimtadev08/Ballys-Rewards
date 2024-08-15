@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
     container: {
         margin: 10,
         width: '90%',
-        borderColor: 'black',
-        borderWidth: 1,
+        borderColor: 'gold',
+        borderWidth: 2,
         borderRadius: 5,
-        backgroundColor: '#FFCE6C',
+        backgroundColor: 'white',
     },
 });
 

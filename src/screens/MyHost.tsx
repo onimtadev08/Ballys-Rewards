@@ -16,7 +16,7 @@ import ButtomNav from '../components/ButtomNav.tsx';
 import { GetEvents } from '../api/Api.tsx';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -134,7 +134,7 @@ class MyHost extends Component<myProps, myStates> {
         //     this.setState({ currentIndex: nextIndex });
         // }, 2000);
 
-        this.MainHomeLoad();
+        //      this.MainHomeLoad();
 
         // return () => clearInterval(interval);
     }
@@ -235,8 +235,8 @@ class MyHost extends Component<myProps, myStates> {
 
     renderItem = ({ item }: { item: Hosts }) => {
         return (
-            <View style={{ alignItems: 'center', margin: 10 }}>
-                <Image source={{ uri: item.UserImg }} style={{ height: 200, width: 200, borderColor: 'white', borderWidth: 1, borderRadius: 20 }}></Image>
+            <View style={{ alignItems: 'center', margin: 10, marginBottom: 20 }}>
+                <Image source={{ uri: item.UserImg }} style={{ height: 200, width: 200, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
                 <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{item.Name}</Text>
                 <Text style={{ color: 'white', fontSize: 16 }}>{item.Post}</Text>
                 <Text style={{ color: 'white', marginBottom: 10, fontSize: 20 }}>MOBILE : {item.Number}</Text>
@@ -262,7 +262,7 @@ class MyHost extends Component<myProps, myStates> {
                     </View>
 
                 </View>
-                <View style={{ borderWidth: 2, borderColor: 'white', width: '90%', marginTop: 20 }} />
+                {/* <View style={{ borderWidth: 2, borderColor: 'white', width: '90%', marginTop: 20 }} /> */}
             </View>
         );
     }
@@ -398,13 +398,13 @@ class MyHost extends Component<myProps, myStates> {
 
         return (
             <LinearGradient
-                colors={['#fd0925', '#ff0909', '#fd0925']}
+                colors={[ColorFirst, ColorSecond, ColorTherd]}
                 style={styles.container} >
 
                 <SafeAreaView style={styles.safeArea}>
 
                     <LinearGradient
-                        colors={['#fd0925', '#ff0909', '#ff6603']}
+                        colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
                         <View style={{
                             flexDirection: 'row',
@@ -419,17 +419,13 @@ class MyHost extends Component<myProps, myStates> {
                                     }}
                                     onPress={async () => {
                                         const MID = await AsyncStorage.getItem('MID');
-
-                                        console.log('MID : ' + MID);
-                                        this.navigation.navigate('Home',
-                                            { 'PlayerID': String | MID });
+                                        this.navigation.navigate('MenuScreen', { 'PlayerID': MID });
                                     }}
                                 >
-                                    <Entypo name="chevron-thin-left" size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
                                 </TouchableOpacity>
 
                             </View>
-
 
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                                 <Text style={{
@@ -445,7 +441,7 @@ class MyHost extends Component<myProps, myStates> {
                                     style={{
                                         alignItems: 'center',
                                     }}>
-                                    <Entypo name='message' size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Image source={require('../images/svgtopng/MESSAGE.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
                                 </TouchableOpacity>
 
                             </View>

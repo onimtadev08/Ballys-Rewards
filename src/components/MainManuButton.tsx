@@ -32,7 +32,7 @@ const MainMenuButton: React.FC<myProps> = ({
     }, []);
 
     return (
-        <View style={{ height: '90%', alignItems: 'center' }}>
+        <View style={{ height: '90%', alignItems: 'center', marginBottom: -15 }}>
             {/* <AwesomeButton
            //     onPress={() => { console.log('onPress') }}
                 onPressIn={() => { console.log('onPressIn') }}
@@ -54,8 +54,8 @@ const MainMenuButton: React.FC<myProps> = ({
             <TouchableOpacity style={{
                 width: (screenWidth / 100) * 33,
                 height: (screenWidth / 100) * 43,
-                shadowColor:'black',
-                elevation:3,
+                shadowColor: 'black',
+                elevation: 3,
             }}
                 onPress={onPress}
             >
@@ -71,11 +71,14 @@ const MainMenuButton: React.FC<myProps> = ({
                         height: '80%',
                     }}>
                         {svg ? svg : <Image source={Url} style={{
-                            width: '50%',
-                            height: '50%'
-                        }} />}
+                            width: '100%',
+                            height: '80%',
+                        }}
+                            resizeMode='stretch'
+                        />}
                     </View>
                     <Text style={{
+                        marginTop: -15,
                         fontWeight: 'bold',
                         textAlign: 'center',
                         fontSize: 14,

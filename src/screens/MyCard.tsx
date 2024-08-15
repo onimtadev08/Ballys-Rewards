@@ -11,11 +11,14 @@ import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
 import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import ButtomNav from '../components/ButtomNav.tsx';
 import { GetEvents } from '../api/Api.tsx';
 
 import { Marquee } from '@animatereactnative/marquee';
+
+import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -345,13 +348,13 @@ class MyCard extends Component<myProps, myStates> {
 
         return (
             <LinearGradient
-                colors={['#fd0925', '#ff0909', '#fd0925']}
+                colors={[ColorFirst, ColorSecond, ColorTherd]}
                 style={styles.container} >
 
                 <SafeAreaView style={styles.safeArea}>
 
                     <LinearGradient
-                        colors={['#fd0925', '#ff0909', '#ff6603']}
+                        colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
                         <View style={{
                             flexDirection: 'row',
@@ -364,11 +367,12 @@ class MyCard extends Component<myProps, myStates> {
                                     style={{
                                         alignItems: 'center',
                                     }}
-                                    onPress={() => {
-                                        this.navigation.goBack();
+                                    onPress={async () => {
+                                        const MID = await AsyncStorage.getItem('MID');
+                                        this.navigation.navigate('MenuScreen', { 'PlayerID': MID });
                                     }}
                                 >
-                                    <Entypo name="chevron-thin-left" size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
                                 </TouchableOpacity>
 
                             </View>
@@ -387,7 +391,7 @@ class MyCard extends Component<myProps, myStates> {
                                     style={{
                                         alignItems: 'center',
                                     }}>
-                                    <Entypo name='message' size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Image source={require('../images/svgtopng/MESSAGE.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
                                 </TouchableOpacity>
 
                             </View>
@@ -395,16 +399,22 @@ class MyCard extends Component<myProps, myStates> {
                         </View>
                         <ScrollView style={styles.container}>
                             <View style={{ alignItems: 'center' }}>
-                                <Image
-                                    source={{ uri: 'https://i.imgur.com/G2nHqSr.png' }}
-                                    style={{
-                                        marginTop: 20,
-                                        marginBottom: 20,
-                                        height: 180,
-                                        width: 300
-                                    }}
-                                    resizeMode='stretch' />
-
+                                <View style={{
+                                    borderCurve: 'continuous',
+                                    borderRadius: 20,
+                                    marginTop: 20,
+                                    marginBottom: 20,
+                                    borderColor: 'rgba(0,0,0,0.3)',
+                                    borderWidth: 10
+                                }}>
+                                    <Image
+                                        source={{ uri: 'https://i.imgur.com/G2nHqSr.png' }}
+                                        style={{
+                                            height: 180,
+                                            width: 300,
+                                        }}
+                                        resizeMode='stretch' />
+                                </View>
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <View>
@@ -415,7 +425,7 @@ class MyCard extends Component<myProps, myStates> {
                                                     height: 180,
                                                     width: 130,
                                                     borderRadius: 20,
-                                                    borderColor: 'white',
+                                                    borderColor: 'gold',
                                                     borderWidth: 5,
                                                 }}
                                             />

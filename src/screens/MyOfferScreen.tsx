@@ -1,30 +1,21 @@
-import React, { Component } from 'react';
-import { Linking, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity } from 'react-native';
-import CardView from 'react-native-cardview';
+import React from 'react';
+import { Linking,Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, processColor } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import TextInput from '../components/TextInput';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
-import MyDatePicker from '../components/MyDatePicker';
-
 import { interpolate } from "react-native-reanimated";
-import Carousel from "react-native-reanimated-carousel";
-import Entypo from 'react-native-vector-icons/Entypo'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import Evillcons from 'react-native-vector-icons/EvilIcons.js'
+
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
 import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
-import GradientButtonWithBorder from '../components/GradientButton.tsx'
+
 import ButtomNav from '../components/ButtomNav.tsx';
 import { GetEvents } from '../api/Api.tsx';
+import MainManuButton from '../components/MainManuButton.tsx';
 
-import { Marquee } from '@animatereactnative/marquee';
-import { Dropdown } from 'react-native-element-dropdown';
-import GradientButton from '../components/GradientButtonfull.tsx';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
-
+import GradientButton from '../components/GradientButton.tsx';
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -46,45 +37,28 @@ interface myStates {
     showOtpMsg: boolean;
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
-    Tags: string[];
-    Images: string[];
-    openDatePicker: boolean;
-    arrival: string;
-    depatcher: string;
-    TempPIN: Date;
-    picker: number;
-    packeageData: packages[];
-    PaxData: Paxs[];
-    PackeageValue: string,
-    PaxValue: string;
+    data: datas;
+    legend: any;
+    description: {};
+    highlights: any[];
+    Accounts: any[];
+
 }
 
-interface packages {
-    label: string;
-    value: string;
+interface datas {
+    dataSets: any[];
 }
 
-interface Paxs {
-    label: string;
-    value: string;
-}
+
+
 interface myProps {
     navigation: any;
     router: any;
 }
 
-interface CustomSlideProps {
-    index: number;
-    item: string;
-    style: any; // Replace with appropriate type if known
-    width: number;
-}
 
-const scale = 0.8;
-const PAGE_WIDTH = screenWidth * scale;
-const PAGE_HEIGHT = 240 * scale;
 
-class MyBookings extends Component<myProps, myStates> {
+class MyOfferScreen extends React.Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
@@ -102,25 +76,59 @@ class MyBookings extends Component<myProps, myStates> {
             showOtpMsg: false,
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
-            Tags: ["European dancing", "Belly dancing", "Pole dancing", "Body building show", "Traditional dancing"],
-            Images: [],
-            arrival: '',
-            depatcher: '',
-            openDatePicker: false,
-            TempPIN: new Date(),
-            picker: 0,
-            packeageData: [
-                { label: 'Package 1', value: '1' },
-                { label: 'Package 2', value: '2' },
-                { label: 'Package 3', value: '3' }
-            ],
-            PaxData: [
-                { label: 'Pax 1', value: '1' },
-                { label: 'Pax 2', value: '2' },
-                { label: 'Pax 3', value: '3' }
-            ],
-            PackeageValue: '',
-            PaxValue: '',
+            legend: {
+                enabled: true,
+                textColor: processColor('white'),
+                textSize: 15,
+                form: 'CIRCLE',
+                horizontalAlignment: "CENTER",
+                verticalAlignment: "CENTER",
+                orientation: "VERTICAL",
+                wordWrapEnabled: true
+            },
+            data: {
+                dataSets: [{
+                    values: [
+                        { value: 45, label: 'ACCOUNT' },
+                        { value: 21, label: 'FIXED DEPOSIT' }],
+                    label: '',
+                    config: {
+                        colors: [processColor('#8CEAFF'), processColor('#FFF78C'), processColor('#FFD08C'), processColor('#8CEAFF'), processColor('#FF8C9D')],
+                        valueTextSize: 20,
+                        valueTextColor: processColor('transparent'),
+                        sliceSpace: 5,
+                        selectionShift: 13,
+                        // xValuePosition: "OUTSIDE_SLICE",
+                        // yValuePosition: "OUTSIDE_SLICE",
+                        valueFormatter: "#.#'%'",
+                        valueLineColor: processColor('transparent'),
+                        valueLinePart1Length: 0.5
+                    }
+                }],
+            },
+            highlights: [{ x: 2 }],
+            description: {
+                text: 'This is Pie chart description',
+                textSize: 15,
+                textColor: processColor('darkgray'),
+
+            },
+            Accounts: [{
+                Account: 'LKRc',
+                AccountValue: '1,000,000',
+                FixedDeposit: '100,000',
+                Total: '1,100,000'
+            }, {
+                Account: 'INRc',
+                AccountValue: '300,000',
+                FixedDeposit: '33,000',
+                Total: '333,000'
+            }, {
+                Account: 'USDc',
+                AccountValue: '3,000',
+                FixedDeposit: '300',
+                Total: '33,000'
+            }]
         };
 
         console.log(props.route.params);
@@ -152,7 +160,7 @@ class MyBookings extends Component<myProps, myStates> {
         //     this.setState({ currentIndex: nextIndex });
         // }, 2000);
 
-        //      this.MainHomeLoad();
+        //       this.MainHomeLoad();
 
         // return () => clearInterval(interval);
     }
@@ -261,77 +269,128 @@ class MyBookings extends Component<myProps, myStates> {
                 flex: 1,
                 width: screenWidth,
             },
-            placeholderStyle: {
-                fontSize: 16,
+            scrollView: {
+                width: screenWidth,
             },
-            selectedTextStyle: {
-                fontSize: 16,
+            image: {
+                width: screenWidth,
+                height: screenWidth * 1.1,
+                resizeMode: 'cover',
             },
-            iconStyle: {
-                width: 20,
-                height: 20,
+            backgroundContainer: {
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
             },
-            inputSearchStyle: {
-                height: 40,
-                fontSize: 16,
+            overlay: {
+                opacity: 1,
+                // top: 60,
+                // right: 29,
             },
-            dropdown: {
-                marginTop: 20,
-                margin: 10,
+            logo: {
+
+                resizeMode: 'stretch',
+                backgroundColor: 'rgba(0,0,0,0)',
+                width: screenWidth,
+                height: '100%',
+                // top:50,
+                // bottom: 70,
+            },
+            backdrop: {
+                height: screenHeight,
+                width: screenWidth,
+                resizeMode: 'cover',
+            },
+            headline: {
+                fontSize: 18,
+                textAlign: 'center',
+                backgroundColor: 'black',
+                color: 'white'
+            },
+            slider: { backgroundColor: '#000', height: 350 },
+            content1: {
+                width: '100%',
                 height: 50,
-                backgroundColor: '#FFCE6C',
-                borderRadius: 5,
-                padding: 12,
-                shadowColor: '#000',
-                shadowOffset: {
-                    width: 0,
-                    height: 1,
-                },
-                shadowOpacity: 0.2,
-                shadowRadius: 1.41,
-                borderWidth: 1,
-                borderColor: 'black',
-                elevation: 2,
-            },
-            icon: {
-                marginRight: 5,
-            },
-            item: {
-                padding: 17,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                marginBottom: 10,
+                backgroundColor: '#000',
+                justifyContent: 'center',
                 alignItems: 'center',
             },
-            textItem: {
+            content2: {
+                width: '100%',
+                height: 100,
+                marginTop: 10,
+                backgroundColor: '#000',
+                justifyContent: 'center',
+                alignItems: 'center',
+            },
+            contentText: { color: '#fff' },
+            buttons: {
+                zIndex: 1,
+                height: 15,
+                marginTop: -25,
+                marginBottom: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+            },
+            button: {
+                margin: 3,
+                width: 15,
+                height: 15,
+                opacity: 0.9,
+                alignItems: 'center',
+                justifyContent: 'center',
+            },
+            buttonSelected: {
+                opacity: 1,
+                color: 'red',
+            },
+            customSlide: {
+                backgroundColor: 'green',
+                alignItems: 'center',
+                justifyContent: 'center',
+            },
+            customImage: {
+                width: 100,
+                height: 100,
+            },
+            tagContainer: {
+                marginStart: 20,
+                marginEnd: 20,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                marginBottom: 10,
+            },
+            tagWrapper: {
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginVertical: 5,
+                marginRight: 5,
+            },
+            tag: {
+                backgroundColor: '#FFCE6C',
+                borderRadius: 20,
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+            },
+            tagText: {
+                color: 'black',
                 fontSize: 16,
+                margin: 10,
+                fontFamily: 'SFPRODISPLAYREGULAR'
             },
-            customButton: {
+            chart: {
+                flex: 1,
+                height: 300,
                 width: '100%'
-            },
-            buttonText: {
-                fontWeight: 'bold',
-                color: '#000000',
-                fontSize: 20,
-                textAlign: 'center',
-            },
+            }
         });
 
 
-        const renderItem = (item: { label: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; value: any; }) => {
-            return (
-                <View style={styles.item}>
-                    <Text style={styles.textItem}>{item.label}</Text>
-                    {item.value === this.state.PackeageValue && (
-                        <AntDesign
-                            style={styles.icon}
-                            color="black"
-                            name="Safety"
-                            size={20}
-                        />
-                    )}
-                </View>
-            );
-        };
+
 
         return (
             <LinearGradient
@@ -344,7 +403,6 @@ class MyBookings extends Component<myProps, myStates> {
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
                         <View style={{
-                            marginBottom:10,
                             flexDirection: 'row',
                             width: '100%'
                         }} >
@@ -370,7 +428,7 @@ class MyBookings extends Component<myProps, myStates> {
                                     color: 'white',
                                     fontSize: 20,
                                     textAlign: 'center'
-                                }}>MY BOOKING</Text>
+                                }}>MY OFFER</Text>
                             </View>
 
                             <View style={{ flex: 0.5, alignItems: 'flex-end', backgroundColor: 'transparent', marginEnd: 10 }} >
@@ -386,195 +444,84 @@ class MyBookings extends Component<myProps, myStates> {
 
                         </View>
                         <ScrollView style={styles.container}>
+                            <View style={{ marginBottom: -50, marginTop: 20 }}>
+                                <View style={{ borderWidth: 2, borderColor: 'white', marginTop: 30, marginBottom: 50, margin: 20, borderRadius: 20, alignItems: 'center' }}>
 
-                            <View style={{ alignItems: 'center' }}>
-                                <View style={{ flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                                    <View style={{ backgroundColor: 'gold', borderTopRightRadius: 20, borderTopLeftRadius: 20 }}>
-
-                                        <Image
-                                            source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/026/164/709/small_2x/businessman-portrait-elegant-man-in-business-suit-employee-of-business-institution-in-uniform-man-office-worker-business-avatar-profile-picture-illustration-vector.jpg' }}
-                                            style={{
-                                                height: 180,
-                                                width: 130,
-                                                borderRadius: 20,
-                                                borderBottomLeftRadius: 0,
-                                                borderBottomRightRadius: 0,
-                                                marginLeft: 5,
-                                                marginRight: 5,
-                                                marginTop: 5
-
-                                            }}
-                                        />
+                                    <View style={{ backgroundColor: 'white', borderRadius: 10, height: 30, justifyContent: 'center', top: -20 }}>
+                                        <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginStart: 10, marginEnd: 10 }}>GIFT AND GOODWILL</Text>
                                     </View>
-                                    <View style={{ borderColor: 'gold', borderWidth: 5, flexDirection: 'column', width: '70%', backgroundColor: 'white', height: 100, borderRadius: 20 }}>
-                                        <Text style={{ marginStart: 10, fontSize: 18, marginTop: 10 }}>BALLYS MEMBER</Text>
-                                        <View style={{ borderWidth: 1, borderColor: 'black', marginStart: 10, marginEnd: 20 }}></View>
 
-                                        <View style={{ flexDirection: 'row', marginStart: 10, flex: 1 }}>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>MEMBER # : </Text>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>BM15125</Text>
-                                        </View>
+                                    <Text style={{ color: 'white', fontSize: 30, fontWeight: '500', marginTop: -10, marginBottom: 10 }}>LKRc 30,000</Text>
 
-                                        <View style={{ flexDirection: 'row', flex: 1, marginStart: 10 }}>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>EXPIRES : </Text>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>2024-12-31</Text>
-                                        </View>
-
-                                        <View style={{ flexDirection: 'row', flex: 1, marginStart: 10, marginBottom: 10 }}>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>CARD TIER : </Text>
-                                            <Text style={{ flex: 1, fontSize: 16 }}>INFINITY</Text>
-                                        </View>
-                                    </View>
                                 </View>
                             </View>
-
-
-                            <View style={{ flexDirection: 'row', marginEnd: 10, marginStart: 10 }}>
-                                <TouchableOpacity style={{
-                                    flex: 1,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    width: '100%',
-                                    height: 50,
-                                    marginTop: 20,
-                                    marginEnd: 10,
-                                }}
-                                    onPress={() => {
-                                        console.log('kkk');
-
-                                        this.setState({ openDatePicker: true, picker: 1 });
-                                    }}
-                                >
-                                    <View pointerEvents='none' style={{ width: '100%', height: '100%' }}>
-                                        <View style={{
-                                            flexDirection: 'row',
-                                            backgroundColor: 'white',
-                                            borderColor: 'gold',
-                                            borderWidth: 2,
-                                            borderRadius: 5, height: '100%', alignItems: 'center', justifyContent: 'center'
-                                        }}>
-                                            <Text style={{ textAlign: 'center', flex: 1, color: 'black', fontSize: 16 }}>{this.state.arrival === '' ? 'ARRIVAL\nDATE' : this.state.arrival}</Text>
-                                            <Evillcons name='calendar' color={'black'} size={45} />
-                                        </View>
-
-                                    </View>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity style={{
-                                    marginStart: 10,
-                                    flex: 1,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    width: '100%',
-                                    height: 50,
-                                    marginTop: 20,
-                                }}
-                                    onPress={() => {
-                                        console.log('kkk');
-
-                                        this.setState({ openDatePicker: true, picker: 2 });
-                                    }}
-                                >
-                                    <View pointerEvents='none' style={{ width: '100%', height: '100%' }}>
-                                        <View style={{
-                                            flexDirection: 'row',
-                                            backgroundColor: 'white',
-                                            borderColor: 'gold',
-                                            borderWidth: 2,
-                                            borderRadius: 5, height: '100%', alignItems: 'center', justifyContent: 'center'
-                                        }}>
-                                            <Text style={{ textAlign: 'center', flex: 1, color: 'black', fontSize: 16 }}>{this.state.depatcher === '' ? 'DEPARTURE\nDATE' : this.state.depatcher}</Text>
-                                            <Evillcons name='calendar' color={'black'} size={45} />
-                                        </View>
-
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-
-
-                            {/* <View>
-
-                                <Dropdown
-                                    style={styles.dropdown}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={this.state.packeageData}
-                                    search
-                                    maxHeight={300}
-                                    labelField="label"
-                                    valueField="value"
-                                    placeholder="Select Package"
-                                    searchPlaceholder="Search..."
-                                    value={this.state.PackeageValue}
-                                    onChange={item => {
-                                        this.setState({ PaxValue: item.label })
-                                    }}
-                                    renderLeftIcon={() => (
-                                        <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-                                    )}
-                                    renderItem={renderItem}
-                                />
-
-
-                                <Dropdown
-                                    style={styles.dropdown}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={this.state.PaxData}
-                                    search
-                                    maxHeight={300}
-                                    labelField="label"
-                                    valueField="value"
-                                    placeholder="Select Pax"
-                                    searchPlaceholder="Search..."
-                                    value={this.state.PaxValue}
-                                    onChange={item => {
-                                        this.setState({ PaxValue: item.label })
-                                    }}
-                                    renderLeftIcon={() => (
-                                        <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-                                    )}
-                                    renderItem={renderItem}
-                                />
-
-                            </View> */}
 
 
                             <View style={{ margin: 20, justifyContent: 'center' }}>
-                                <GradientButtonWithBorder
-                                    title="SUBMIT                              "
+                                <GradientButton
+                                    title="REDEEM"
                                     onPress={() => { }}
                                     colors={['transparent', 'transparent', 'transparent']}
                                     buttonStyle={{}}
-                                    textStyle={{}} borderColor={''} />
+                                    textStyle={{ fontSize: 20 }} borderColor={''} />
                             </View>
 
 
+                            <LinearGradient
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                colors={[ColorFirst, 'white', ColorFirst]}
+                                style={{ width: '100%', height: 2 }} />
 
-                            <View style={{ borderColor: 'white', borderWidth: 1, margin: 20, borderRadius: 10 }}>
+                            <View style={{ marginBottom: -60 }}>
+                                <View style={{ borderWidth: 2, borderColor: 'white', marginTop: 30, marginBottom: 50, margin: 20, borderRadius: 20, alignItems: 'center' }}>
 
-                                <Text style={{
-                                    color: 'white',
-                                    textAlign: 'center',
-                                    marginTop: 10,
-                                    fontSize: 16,
-                                    fontWeight: 'bold',
-                                    fontFamily: 'SFPRODISPLAYREGULAR.OTF'
-                                }}>MY BOOKING DETAILS</Text>
+                                    <View style={{ backgroundColor: 'white', borderRadius: 10, height: 30, justifyContent: 'center', top: -20 }}>
+                                        <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginStart: 10, marginEnd: 10 }}>BIRTHDAY GIFT</Text>
+                                    </View>
 
-                                <View style={{ margin: 20, justifyContent: 'center' }}>
-                                    <GradientButtonWithBorder
-                                        title="CHECK"
-                                        onPress={() => { }}
-                                        colors={['transparent', 'transparent', 'transparent']}
-                                        buttonStyle={{}}
-                                        textStyle={{}} borderColor={''} />
+                                    <Text style={{ color: 'white', fontSize: 30, fontWeight: '500', marginTop: -10, marginBottom: 10 }}>LKRc 50,000</Text>
+
                                 </View>
                             </View>
+
+
+                            <View style={{ margin: 20, justifyContent: 'center' }}>
+                                <GradientButton
+                                    title="REDEEM"
+                                    onPress={() => { }}
+                                    colors={['transparent', 'transparent', 'transparent']}
+                                    buttonStyle={{}}
+                                    textStyle={{ fontSize: 20 }} borderColor={''} />
+                            </View>
+
+
+                            <View style={{
+                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
+                            }}>
+
+                                <MainManuButton Url={require('../images/svgtopng/MyTaxiPng.png')} title={'DINING'} />
+
+                                <MainManuButton Url={require('../images/svgtopng/ENTERTAINMENT.png')} title={"SPA'S"}
+                                    onPress={() => {
+                                    //    this.props.navigation.navigate('EntertainmentScreen');
+                                    }}
+                                />
+
+                                <MainManuButton Url={require('../images/svgtopng/ONLINE.png')} title={'PACKAGES'}
+                                    onPress={() => {
+                                        this.props.navigation.navigate('PackagesScreen');
+                                    }}
+                                />
+
+                            </View>
+
+
+                            <LinearGradient
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                colors={[ColorFirst, 'white', ColorFirst]}
+                                style={{ width: '100%', height: 2,top:40,marginBottom:30 }} />
 
 
                             <View>
@@ -697,28 +644,8 @@ class MyBookings extends Component<myProps, myStates> {
                                     {/* <View style={{ borderWidth: 2, borderColor: 'white', width: '90%', marginTop: 20 }} /> */}
                                 </View>
                             </View>
-                        </ScrollView>
-                        {this.state.openDatePicker ?
-                            <MyDatePicker
-                                date={this.state.TempPIN}
-                                onDateChange={(date: Date): void => {
-                                    this.setState({ TempPIN: date });
-                                }}
-                                format='DD/MM/YYYY'
-                                mode='date'
-                                onPressCancel={(): void => {
-                                    this.setState({ openDatePicker: false });
-                                }}
-                                onDone={(data: string): void => {
-                                    console.log(data);
-                                    if (this.state.picker === 1) {
-                                        this.setState({ openDatePicker: false, arrival: data });
-                                    } else {
-                                        this.setState({ openDatePicker: false, depatcher: data });
-                                    }
 
-                                }} />
-                            : null}
+                        </ScrollView>
                         {this.state.showApiSuccsess ?
                             <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
                                 this.setState({ showApiSuccsess: false });
@@ -748,4 +675,6 @@ class MyBookings extends Component<myProps, myStates> {
 
 
 
-export default MyBookings;
+export default MyOfferScreen;
+
+

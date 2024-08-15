@@ -18,6 +18,7 @@ import { ResendOTP, TempLogin, VaidateOTP } from '../api/Api';
 import MyDatePicker from '../components/MyDatePicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SuccsessMsg from '../components/SuccsessMsg';
+import { ColorFirst, ColorSecond, ColorTherd } from '../data/data';
 
 interface BallysLoginState {
     PlayerID: string;
@@ -208,7 +209,8 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
             <View style={{ flex: 1 }}>
                 <LinearGradient
                     style={{ flex: 1 }}
-                    colors={['#fd0925', '#ff0909', '#ff6603']}>
+                    colors={[ColorFirst, ColorSecond, ColorTherd]}
+                >
 
                     <ScrollView >
                         <View style={{ height: '100%' }}>
@@ -272,13 +274,23 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                                     />
                                 }
 
+                                <View style={{ margin: 20, justifyContent: 'center', width: '100%' }}>
+                                    <GradientButtonWithBorder
+                                        title="SIGN INn"
+                                        onPress={() => { this.Login(); }}
+                                        colors={['transparent', 'transparent', 'transparent']}
+                                        borderColor="#FFCE6C"
+                                        buttonStyle={{}}
+                                        textStyle={{}}
+                                    />
+                                </View>
 
                                 <View style={{ width: '75%', alignItems: 'center', marginTop: 40 }}>
-                                    <GradientButton
-                                        title="SIGN IN"
+                                    {/* <GradientButton
+                                        title="SIGN INn"
                                         onPress={() => { this.Login(); }}
                                         colors={['#FF0024', '#FF0024', '#FF0024']}
-                                    />
+                                    /> */}
                                     {this.state.Method === 'TEMP' ? null :
                                         <TouchableOpacity
                                             onPress={() => {
@@ -288,7 +300,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                                                 });
                                             }}
                                         >
-                                            <Text style={{ marginTop: 20, color: 'black', fontSize: 16, borderBottomWidth: 2 }}>FORGET PASSWORD</Text>
+                                            <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 16, borderBottomWidth: 2 }}>FORGET PASSWORD</Text>
                                         </TouchableOpacity>
                                     }
                                 </View>

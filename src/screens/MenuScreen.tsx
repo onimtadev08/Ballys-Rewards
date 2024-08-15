@@ -4,6 +4,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import LinearGradient from 'react-native-linear-gradient';
 import PackageDetailsCard from '../components/PackageDetailsCard'
 import MenuButton from '../components/MenuButton'
+import { ColorFirst, ColorSecond, ColorTherd } from "../data/data";
 
 interface myProps {
     navigation: any;
@@ -38,7 +39,7 @@ class ManuScreen extends React.PureComponent<myProps> {
 
 
         return (
-            <View style={{ flex: 1, backgroundColor: '#ff6603' }}>
+            <View style={{ flex: 1, backgroundColor: ColorFirst }}>
                 <View style={{ height: '20%' }}>
                     <Image source={require('../images/profileHader.png')} resizeMode='repeat'></Image>
                     <Text style={{ color: 'white', position: 'absolute', fontSize: 25, marginLeft: 20, marginTop: 100, fontWeight: 'bold' }}>Premier Packages</Text>
@@ -46,7 +47,7 @@ class ManuScreen extends React.PureComponent<myProps> {
 
                 <SafeAreaView style={{ flex: 1 }}>
                     <LinearGradient
-                        colors={['#fd0925', '#ff0909', '#ff6603']}
+                        colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
                         <ScrollView style={styles.container}>
                             <View style={{ flex: 1, flexDirection: 'column' }}>

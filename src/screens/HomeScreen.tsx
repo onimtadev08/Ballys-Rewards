@@ -16,7 +16,7 @@ import Carousel from "react-native-reanimated-carousel";
 import TAnimationStyle from "react-native-reanimated-carousel"
 import Entypo from 'react-native-vector-icons/Entypo'
 import { SvgUri } from 'react-native-svg';
-
+import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 
 import MyAccount from '../images/svgs/MyAccount.js'
 import MyOffer from '../images/svgs/MyOffer.js'
@@ -296,13 +296,13 @@ class HomeScreen extends Component<myProps, myStates> {
 
         return (
             <LinearGradient
-                colors={['#fd0925', '#ff0909', '#fd0925']}
+                colors={[ColorFirst, ColorSecond, ColorTherd]}
                 style={styles.container} >
 
                 <SafeAreaView style={styles.safeArea}>
 
                     <LinearGradient
-                        colors={['#fd0925', '#ff0909', '#ff6603']}
+                        colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
                         <View style={{
                             flexDirection: 'row',
@@ -322,7 +322,7 @@ class HomeScreen extends Component<myProps, myStates> {
                                         this.navigation.navigate('MenuScreen', { 'PlayerID': this.state.PlayerID });
                                     }}
                                 >
-                                    <Entypo name='menu' size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
                                 </TouchableOpacity>
 
                             </View                                                                                                                                                                                               >
@@ -345,7 +345,7 @@ class HomeScreen extends Component<myProps, myStates> {
                                         width: '40%',
                                         alignItems: 'center',
                                     }}>
-                                    <Entypo name='message' size={30} color={'white'} style={{ margin: 10 }} />
+                                    <Image source={require('../images/svgtopng/MESSAGE.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
                                 </TouchableOpacity>
 
                             </View>
@@ -397,24 +397,29 @@ class HomeScreen extends Component<myProps, myStates> {
                             </View>
 
                             <View style={{
-                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
+                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around', marginTop: -15
                             }}>
 
 
 
-                                <MainMenuButton svg={<MyAccount width={'100%'} height={'100%'} />} title={'My Account \n '}
+                                <MainMenuButton Url={require('../images/svgtopng/MyWalletPng.png')} title={'My WALLET'}
                                     onPress={async () => {
                                         const MID = await AsyncStorage.getItem('MID');
-
                                         console.log('MID : ' + MID);
-
-                                        this.navigation.navigate('Profile', { 'PlayerID': MID });
+                                        this.props.navigation.navigate('MyWallet', { 'PlayerID': MID });
 
                                     }} />
 
-                                <MainMenuButton svg={<MyOffer width={'100%'} height={'100%'} />} title={'My Offer \n '} />
+                                <MainMenuButton Url={require('../images/svgtopng/MyOfferPng.png')} title={'My Offer'}
+                                    onPress={async () => {
+                                        const MID = await AsyncStorage.getItem('MID');
+                                        console.log('MID : ' + MID);
+                                        this.props.navigation.navigate('MyOfferScreen', { 'PlayerID': MID });
 
-                                <MainMenuButton svg={<Tournament width={'100%'} height={'100%'} />} title={'Tournament & \n Drawer'} />
+                                    }}
+                                />
+
+                                <MainMenuButton Url={require('../images/svgtopng/luckyGamePng.png')} title={'LUCKY GAME'} />
 
                             </View>
 
@@ -423,20 +428,20 @@ class HomeScreen extends Component<myProps, myStates> {
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
-                                <MainMenuButton svg={<Spa width={'100%'} height={'100%'} />} title={'Dining'} />
+                                <MainMenuButton Url={require('../images/svgtopng/MyTaxiPng.png')} title={'MY TAXI'} />
 
-                                <MainMenuButton svg={<Entertainment width={'100%'} height={'100%'} />} title={'Entertainment'}
+                                <MainMenuButton Url={require('../images/svgtopng/ENTERTAINMENT.png')} title={'Entertainment'}
                                     onPress={() => {
                                         this.props.navigation.navigate('EntertainmentScreen');
                                     }}
                                 />
 
-                                <MainMenuButton svg={<BallysBet width={'100%'} height={'100%'} />} title={'Online Casino'} />
+                                <MainMenuButton Url={require('../images/svgtopng/ONLINE.png')} title={'Online'} />
 
                             </View>
 
 
-                            <View style={{
+                            {/* <View style={{
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
@@ -465,11 +470,13 @@ class HomeScreen extends Component<myProps, myStates> {
 
                                 {/* <MainMenuButton svg={<MyMassage width={'100%'} height={'100%'} />} title={'Messaging\n \n '} /> */}
 
-                                <MainMenuButton svg={<FeedBack width={'100%'} height={'100%'} />} title={'Feedback &\nFollow Us \n '} />
+                            {/* <MainMenuButton svg={<FeedBack width={'100%'} height={'100%'} />} title={'Feedback &\nFollow Us \n '} />
 
-                                <MainMenuButton svg={<MyRide width={'100%'} height={'100%'} />} title={'My Ride\n \n '} />
+                                <MainMenuButton svg={<MyRide width={'100%'} height={'100%'} />} title={'My Ride\n \n '} /> */}
 
-                            </View>
+                            {/* </View> */}
+
+
                         </ScrollView>
                         {this.state.showApiSuccsess ?
                             <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
