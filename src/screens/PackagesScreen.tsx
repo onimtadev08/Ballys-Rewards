@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, processColor } from 'react-native';
+import { Linking,Animated, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, processColor } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -15,7 +15,10 @@ import { GetEvents } from '../api/Api.tsx';
 import MainManuButton from '../components/MainManuButton.tsx';
 
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
-import GradientButton from '../components/GradientButton.tsx';
+
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -42,6 +45,8 @@ interface myStates {
     description: {};
     highlights: any[];
     Accounts: any[];
+    Val: number;
+    fadeAnim: Animated.Value;
 
 }
 
@@ -56,12 +61,70 @@ interface myProps {
     router: any;
 }
 
+const PackageData = [
+    {
+        "Name": "QUTUB MINAR A",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://live.staticflickr.com/2785/4355802963_650319e682_b.jpg',
+        "Amount": 'INR 500,000',
+
+    },
+    {
+        "Name": "QUTUB MINAR B",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://www.holidify.com/images/bgImages/SIGIRIYA.jpg',
+        "Amount": 'INR 500,000',
+    },
+    {
+        "Name": "QUTUB MINAR C",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://c.myholidays.com/blog/blog/content/images/2021/04/Ella.webp',
+        "Amount": 'INR 500,000',
+    },
+    {
+        "Name": "QUTUB MINAR D",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://images.travelandleisureasia.com/wp-content/uploads/sites/3/2023/11/20172113/mirissa.jpg',
+        "Amount": 'INR 500,000',
+    },
+    {
+        "Name": "QUTUB MINAR E",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://frugalfrolicker.com/wp-content/uploads/2023/11/sri-lanka-beautiful-places-8.jpg',
+        "Amount": 'INR 500,000',
+    },
+    {
+        "Name": "QUTUB MINAR F",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://www.latexforless.com/cdn/shop/articles/Sri_Lanka_1400x.progressive.jpg?v=1571077290',
+        "Amount": 'INR 500,000',
+    },
+];
 
 
 class MyOfferScreen extends React.Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
+    fadeAnim: Animated.Value;
 
     constructor(props: any) {
         super(props)
@@ -128,12 +191,31 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                 AccountValue: '3,000',
                 FixedDeposit: '300',
                 Total: '33,000'
-            }]
+            }],
+            Val: 0,
+            fadeAnim: new Animated.Value(1),
         };
-
+        this.fadeAnim = this.state.fadeAnim;
         console.log(props.route.params);
 
 
+    }
+
+
+    fadeIn = () => {
+        Animated.timing(this.fadeAnim, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    fadeOut = () => {
+        Animated.timing(this.fadeAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+        }).start();
     }
 
     componentWillUnmount() {
@@ -142,6 +224,8 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
     // Fetches navigation reference and sets up interval on mount
     componentDidMount() {
+
+
 
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
@@ -444,9 +528,9 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
                         </View>
                         <ScrollView style={styles.container}>
-                         
 
-                        <View style={{
+
+                            <View style={{
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
@@ -455,12 +539,133 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
                                 <MainManuButton Url={require('../images/svgtopng/USD.png')} title={''}
                                     onPress={() => {
-                                     //   this.props.navigation.navigate('PackagesScreen');
+                                        //   this.props.navigation.navigate('PackagesScreen');
                                     }}
                                 />
 
                             </View>
 
+
+                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', marginTop: 20 }}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        this.fadeOut();
+                                        setTimeout(() => {
+                                            this.setValMin(this.state.Val);
+                                            this.fadeIn();
+                                        }, 500);
+                                    }}
+                                >
+                                    <Image source={require('../images/svgtopng/arrow.png')} style={{ width: 40, height: 40, margin: 10, transform: [{ rotate: '180deg' }] }} />
+                                </TouchableOpacity>
+                                <View style={{ flex: 1 }}>
+
+                                    <Animated.View
+                                        style={{
+                                            flex: 1,
+                                            opacity: this.fadeAnim,
+                                        }}
+                                    >
+
+                                        <View style={{ borderWidth: 1, borderColor: 'white' }}>
+                                            <View style={{ width: '100%', height: 300 }}>
+                                                <Image source={{ uri: PackageData[this.state.Val].ImgUrl }} style={{ width: '100%', height: '100%', objectFit: 'cover' }} resizeMode={'center'} />
+                                            </View>
+
+
+                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 20, marginTop: 20, fontWeight: 'bold' }}>{PackageData[this.state.Val].Name}</Text>
+
+                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginTop: 20 }}>{'\u25cf '}{PackageData[this.state.Val]['1_value']}</Text>
+                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageData[this.state.Val]['2_value']}</Text>
+                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageData[this.state.Val]['3_value']}</Text>
+                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageData[this.state.Val]['4_value']}</Text>
+
+                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginTop: 20 }}>MINIMUM BUY-IN AMOUNT</Text>
+                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 30, fontWeight: 'bold' }}>{PackageData[this.state.Val]['Amount']}</Text>
+                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginBottom: 20 }}>(PLAYING CHIPS ISSUED TO THE SAME VALUE)</Text>
+                                        </View>
+                                    </Animated.View>
+
+                                </View>
+
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        this.fadeOut();
+                                        setTimeout(() => {
+                                            this.setVal(this.state.Val);
+                                            this.fadeIn();
+                                        }, 500);
+                                    }}
+                                >
+                                    <Image source={require('../images/svgtopng/arrow.png')} style={{ width: 40, height: 40, margin: 10 }} />
+                                </TouchableOpacity>
+
+
+                            </View>
+
+                            <View style={{ flexDirection: 'row', flex: 1 ,marginTop:20}}>
+                                <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
+                                    <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
+                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>
+                                    <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>MARKETING MANAGER INTERNATIONAL</Text>
+                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE : 94774771234</Text>
+                                    <View style={{ flexDirection: "row", flex: 1 }}>
+                                        <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    Linking.openURL('whatsapp://send?text=&phone={94774771234}');
+                                                }}
+                                            >
+                                                <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
+                                            </TouchableOpacity>
+                                        </View>
+
+                                        <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    Linking.openURL('tel:${94774771234}');
+                                                }}
+                                            >
+                                                <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />
+                                            </TouchableOpacity>
+                                        </View>
+
+                                    </View>
+                                    {/* <View style={{ borderWidth: 2, borderColor: 'white', width: '90%', marginTop: 20 }} /> */}
+                                </View>
+
+
+
+                                <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
+                                    <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
+                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>
+                                    <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>MARKETING MANAGER INTERNATIONAL</Text>
+                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE : 94774771234</Text>
+                                    <View style={{ flexDirection: "row", flex: 1 }}>
+                                        <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    Linking.openURL('whatsapp://send?text=&phone={94774771234}');
+                                                }}
+                                            >
+                                                <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
+                                            </TouchableOpacity>
+                                        </View>
+
+                                        <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    Linking.openURL('tel:${94774771234}');
+                                                }}
+                                            >
+                                                <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />
+                                            </TouchableOpacity>
+                                        </View>
+
+                                    </View>
+                                    {/* <View style={{ borderWidth: 2, borderColor: 'white', width: '90%', marginTop: 20 }} /> */}
+                                </View>
+                            </View>
 
                         </ScrollView>
                         {this.state.showApiSuccsess ?
@@ -487,6 +692,17 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                 ></ButtomNav>
             </LinearGradient >
         );
+    }
+    setValMin(Val: number) {
+        if (0 < Val) {
+            this.setState({ Val: Val - 1 });
+        }
+    }
+    setVal(Val: number) {
+        if ((PackageData.length - 1) > Val) {
+            this.setState({ Val: Val + 1 });
+        }
+
     }
 }
 

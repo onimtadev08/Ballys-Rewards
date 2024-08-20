@@ -125,6 +125,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
+                                color:'white',
                                 borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
@@ -146,6 +147,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
+                                color:'white',
                                 borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
@@ -167,6 +169,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
+                                color:'white',
                                 borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
@@ -188,6 +191,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
+                                color:'white',
                                 borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,

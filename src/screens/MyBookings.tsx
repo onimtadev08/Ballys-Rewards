@@ -4,7 +4,7 @@ import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
 import TextInput from '../components/TextInput';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyDatePicker from '../components/MyDatePicker';
 
 import { interpolate } from "react-native-reanimated";

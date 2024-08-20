@@ -62,7 +62,7 @@ const Navigation = () => {
                     options={({ navigation }) => ({
                         title: '',
                         headerStyle: {
-                            backgroundColor: '#0e0436',
+                            backgroundColor: ColorFirst,
                         },
                         headerTintColor: 'black',
                         headerLeft: () => (

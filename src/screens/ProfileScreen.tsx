@@ -14,7 +14,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import MainManuButton from '../components/MainManuButton';
 import AwesomeButton from 'react-native-really-awesome-button';
 import MyWallet from '../images/svgs/MyWallet';
-
+import { ColorFirst, ColorSecond, ColorTherd } from '../data/data';
+import GradientButtonWithBorder from '../components/GradientButton.tsx'
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -149,12 +150,12 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
 
 
             <LinearGradient
-                colors={['#fd0925', '#ff0909', '#ff6603']}
+                colors={[ColorFirst, ColorSecond, ColorTherd]}
                 style={styles.container}>
                 <SafeAreaView style={styles.safeArea}>
                     <View style={{
                         height: 100,
-                        backgroundColor: '#0e0436',
+                        backgroundColor: ColorFirst,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
@@ -518,7 +519,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
 
                             </View>
 
-                            <View style={{ width: '100%', alignItems: 'center' }}>
+                            {/* <View style={{ width: '100%', alignItems: 'center' }}>
                                 <View style={{
                                     marginTop: 20,
                                     width: '80%',
@@ -531,6 +532,15 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                                         textStyle={styles.buttonText}
                                     />
                                 </View>
+                            </View> */}
+
+                            <View style={{ margin: 20, justifyContent: 'center' }}>
+                                <GradientButtonWithBorder
+                                    title="LOGOUT"
+                                    onPress={handleLogin}
+                                    colors={['transparent', 'transparent', 'transparent']}
+                                    buttonStyle={{}}
+                                    textStyle={{}} borderColor={''} />
                             </View>
 
                         </View>

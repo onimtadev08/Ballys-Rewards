@@ -500,15 +500,15 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
-                                <MainManuButton Url={require('../images/svgtopng/MyTaxiPng.png')} title={'DINING'} />
+                                <MainManuButton Url={require('../images/svgtopng/dining.png')} title={'DINING'} />
 
-                                <MainManuButton Url={require('../images/svgtopng/ENTERTAINMENT.png')} title={"SPA'S"}
+                                <MainManuButton Url={require('../images/svgtopng/spa.png')} title={"SPA'S"}
                                     onPress={() => {
                                     //    this.props.navigation.navigate('EntertainmentScreen');
                                     }}
                                 />
 
-                                <MainManuButton Url={require('../images/svgtopng/ONLINE.png')} title={'PACKAGES'}
+                                <MainManuButton Url={require('../images/svgtopng/packages.png')} title={'PACKAGES'}
                                     onPress={() => {
                                         this.props.navigation.navigate('PackagesScreen');
                                     }}
