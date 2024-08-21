@@ -23,6 +23,7 @@ import AwesomeButton from 'react-native-really-awesome-button';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import { PieChart } from 'react-native-charts-wrapper';
 import GradientButton from '../components/GradientButton.tsx';
+import TopNav from '../components/TopNav.tsx';
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -162,7 +163,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
             }]
         };
 
-        console.log(props.route.params);
+      
 
 
     }
@@ -209,7 +210,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
 
 
             const result: any = await GetEvents();
-            console.log('val : ', result);
+       
             if (result.strRturnRes) {
 
                 let img: string[] = [];
@@ -234,7 +235,6 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                 });
             }
         } catch (error) {
-            console.log(error);
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -433,48 +433,11 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-                        <View style={{
-                            flexDirection: 'row',
-                            width: '100%'
-                        }} >
+                     
+                     <TopNav navigation={this.props.navigation} titel={'MY WALLET'} />
 
-                            <View style={{ backgroundColor: 'transparent', flex: 0.5, alignItems: 'flex-start', marginStart: 10 }} >
 
-                                <TouchableOpacity
-                                    style={{
-                                        alignItems: 'center',
-                                    }}
-                                    onPress={async () => {
-                                        const MID = await AsyncStorage.getItem('MID');
-                                        this.navigation.navigate('MenuScreen', { 'PlayerID': MID });
-                                    }}
-                                >
-                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
-                                </TouchableOpacity>
-
-                            </View>
-
-                            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{
-                                    color: 'white',
-                                    fontSize: 20,
-                                    textAlign: 'center'
-                                }}>MY WALLET</Text>
-                            </View>
-
-                            <View style={{ flex: 0.5, alignItems: 'flex-end', backgroundColor: 'transparent', marginEnd: 10 }} >
-
-                                <TouchableOpacity
-                                    style={{
-                                        alignItems: 'center',
-                                    }}>
-                                    <Image source={require('../images/svgtopng/MESSAGE.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
-                                </TouchableOpacity>
-
-                            </View>
-
-                        </View>
-                        <ScrollView style={styles.container}>
+                           <ScrollView style={styles.container}>
 
                             <Text style={{
                                 marginTop: 20,

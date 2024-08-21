@@ -27,6 +27,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ContactUsScreen from '../screens/ContactUsScreen';
 import { ColorFirst } from '../data/data';
 import MyOfferScreen from '../screens/MyOfferScreen';
+import NotificationScreen from '../screens/NotificationScreen';
 
 type RootStack = {
     Login: undefined
@@ -71,7 +72,6 @@ const Navigation = () => {
                                 onPress={async () => {
                                     const MID = await AsyncStorage.getItem('MID');
 
-                                    console.log('MID : ' + MID);
                                     navigation.navigate('Home',
                                         { 'PlayerID': String | MID });
                                 }}>
@@ -95,7 +95,6 @@ const Navigation = () => {
                             <TouchableOpacity
                                 style={{ marginLeft: 20, marginRight: 10 }}
                                 onPress={() => {
-                                    console.log('test');
                                     navigation.goBack();
                                 }}>
                                 <Entypo name="chevron-thin-left" color={'white'} size={25} />
@@ -118,8 +117,7 @@ const Navigation = () => {
                             <TouchableOpacity
                                 style={{ marginLeft: 20, marginRight: 10 }}
                                 onPress={() => {
-                                    console.log('test');
-                                    navigation.goBack();
+                                   navigation.goBack();
                                 }}>
                                 <Entypo name="chevron-thin-left" color={'white'} size={25} />
                             </TouchableOpacity>
@@ -141,7 +139,6 @@ const Navigation = () => {
                             <TouchableOpacity
                                 style={{ marginLeft: 20, marginRight: 10 }}
                                 onPress={() => {
-                                    console.log('test');
                                     navigation.goBack();
                                 }}>
                                 <Entypo name="chevron-thin-left" color={'white'} size={25} />
@@ -207,6 +204,11 @@ const Navigation = () => {
                     component={MyOfferScreen}
                 />
 
+                <Stack.Screen
+                    name='NotificationScreen'
+                    options={{ headerShown: false }}
+                    component={NotificationScreen}
+                />
 
             </Stack.Navigator>
         </NavigationContainer>

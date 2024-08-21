@@ -16,8 +16,7 @@ const Tab3 = () => {
             </View>
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 <TouchableOpacity style={{flex:0.4}}onPress={() => (
-                    console.log("sssssss")
-                )} >
+                 )} >
                 <View style={{ flex: 1, backgroundColor: 'red', borderRadius: 20, margin: 10 }}>
                     
 
@@ -27,16 +26,14 @@ const Tab3 = () => {
                 <View style={{ flex: 1, backgroundColor: '#222942', flexDirection: 'column' }}>
 
                     <TouchableOpacity style={{ flex:1 }} onPress={() => (
-                        console.log("sssssss")
-                    )} >
+                     )} >
                         <View style={{ flex: 1, backgroundColor: 'green', borderRadius: 20, margin: 10 }}>
 
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={{ flex: 1 }} onPress={() => (
-                        console.log("sssssss")
-                    )} >
+                     )} >
                         <View style={{ flex: 1, backgroundColor: 'black', borderRadius: 20, margin: 10 }}>
 
                         </View>

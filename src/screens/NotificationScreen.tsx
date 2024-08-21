@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity } from 'react-native';
-import CardView from 'react-native-cardview';
+import { Linking, Image, FlatList, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity, ListRenderItem } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { interpolate } from "react-native-reanimated";
-import Carousel from "react-native-reanimated-carousel";
-import Entypo from 'react-native-vector-icons/Entypo'
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
 
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
@@ -13,10 +13,12 @@ import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
 
 import ButtomNav from '../components/ButtomNav.tsx';
-import { GetEvents } from '../api/Api.tsx';
+import { getNotification } from '../api/Api.tsx';
 
-import { Marquee } from '@animatereactnative/marquee';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
+import TopNav from '../components/TopNav.tsx';
+
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -39,26 +41,18 @@ interface myStates {
     showOtpMsg: boolean;
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
-    Tags: string[];
-    Images: string[];
+    Messages: any[];
 }
 interface myProps {
     navigation: any;
     router: any;
 }
 
-interface CustomSlideProps {
-    index: number;
-    item: string;
-    style: any; // Replace with appropriate type if known
-    width: number;
-}
-
 const scale = 0.8;
 const PAGE_WIDTH = screenWidth * scale;
 const PAGE_HEIGHT = 240 * scale;
 
-class EntertainmentScreen extends Component<myProps, myStates> {
+class NotificationScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
@@ -76,11 +70,10 @@ class EntertainmentScreen extends Component<myProps, myStates> {
             showOtpMsg: false,
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
-            Tags: ["European dancing", "Belly dancing", "Pole dancing", "Body building show", "Traditional dancing"],
-            Images: [],
+            Messages: [],
         };
 
-    
+     
 
     }
 
@@ -108,7 +101,7 @@ class EntertainmentScreen extends Component<myProps, myStates> {
         //     this.setState({ currentIndex: nextIndex });
         // }, 2000);
 
-        this.MainHomeLoad();
+        this.notifyApiCall();
 
         // return () => clearInterval(interval);
     }
@@ -119,25 +112,18 @@ class EntertainmentScreen extends Component<myProps, myStates> {
             return true; // Prevent default back behavior
         };
 
-    async MainHomeLoad() {
+    async notifyApiCall() {
 
         this.setState({ isLoading: true });
         try {
 
-
-            const result: any = await GetEvents();
+            const MID = await AsyncStorage.getItem('MID') as string;
+            const result: any = await getNotification(MID);
             if (result.strRturnRes) {
-
-                let img: string[] = [];
-
-                for (let index = 0; index < result.data.length; index++) {
-                    const element = result.data[index].Url;
-                    img.push(element);
-                }
 
                 this.setState({
                     isLoading: false,
-                    Images: img,
+                    Messages: result.Messages,
                 });
 
 
@@ -204,6 +190,18 @@ class EntertainmentScreen extends Component<myProps, myStates> {
         };
     }
 
+
+    renderItem = ({ item }: { item: any }) => {
+        return (
+            <View style={{ alignItems: 'center', margin: 10, marginBottom: 10 }}>
+                <View style={{ borderWidth: 1, borderColor: 'gold', padding: 5, borderRadius: 5, width: '100%' }}>
+                    <Text style={{ color: 'white',fontSize:18 }}>{item.Message}</Text>
+                </View>
+
+            </View>
+        );
+    }
+
     render(): React.ReactNode {
 
         const styles = StyleSheet.create({
@@ -237,7 +235,7 @@ class EntertainmentScreen extends Component<myProps, myStates> {
             },
             logo: {
 
-                resizeMode: 'contain',
+                resizeMode: 'stretch',
                 backgroundColor: 'rgba(0,0,0,0)',
                 width: screenWidth,
                 height: '100%',
@@ -331,6 +329,8 @@ class EntertainmentScreen extends Component<myProps, myStates> {
         });
 
 
+
+
         return (
             <LinearGradient
                 colors={[ColorFirst, ColorSecond, ColorTherd]}
@@ -341,138 +341,15 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-                        <View style={{
-                            flexDirection: 'row',
-                            width: '100%'
-                        }} >
 
-                            <View style={{ backgroundColor: 'transparent', flex: 0.5, alignItems: 'flex-start', marginStart: 10 }} >
-
-                                <TouchableOpacity
-                                    style={{
-                                        alignItems: 'center',
-                                    }}
-                                    onPress={async () => {
-                                        const MID = await AsyncStorage.getItem('MID');
-                                        this.navigation.navigate('MenuScreen', { 'PlayerID': MID });
-                                    }}
-                                >
-                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
-                                </TouchableOpacity>
-
-                            </View>
-
-                            <View style={{ flex: 2, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' }}>
-                                <Marquee>
-
-                                    <View style={{ flexDirection: 'row' }}>
-                                        {this.state.Tags.map((tag, index) => (
-
-                                            <Text
-                                                key={index}
-                                                style={{
-                                                    color: 'white',
-                                                    fontSize: 25,
-                                                    fontFamily: 'SFPRODISPLAYREGULAR',
-                                                    fontWeight: 'bold',
-                                                }}> {tag} | </Text>
-
-                                        ))}
-                                    </View>
-                                </Marquee>
-                            </View>
-
-                            <View style={{ flex: 0.5, alignItems: 'flex-end', backgroundColor: 'transparent', marginEnd: 10 }} >
-
-                                <TouchableOpacity
-                                    style={{
-                                        alignItems: 'center',
-                                    }}>
-                                    <Image source={require('../images/svgtopng/MESSAGE.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
-                                </TouchableOpacity>
-
-                            </View>
+                        <TopNav navigation={this.props.navigation} titel={'NOTIFICATION'} />
 
 
-
-
-                        </View>
                         {/* <ScrollView style={styles.container}> */}
 
-
-
-                        <View style={{ flex: 1, flexDirection: 'row' }}>
-
-                            <CardView style={{ flex: 1, flexDirection: 'column', borderRadius: 20, margin: 10 }}
-                                cardElevation={20}
-                                cardMaxElevation={10}
-                                cornerRadius={20}>
-                                <View style={{ flexDirection: 'column', borderRadius: 10 }}>
-
-                                    <Carousel
-                                        autoPlay={true}
-                                        autoPlayInterval={2000}
-                                        // loop
-                                        style={{
-                                            left: -10,
-                                            width: screenWidth,
-                                            height: screenHeight - 160,
-                                            borderRadius: 3,
-                                        }}
-                                        width={screenWidth}
-                                        height={screenHeight - 160}
-                                        data={this.state.Images}
-                                        renderItem={({ index }) => {
-                                            return (
-                                                <View key={index} style={{ width: screenWidth }}>
-                                                    {/* <View style={styles.backgroundContainer}>
-                                                            <Image blurRadius={6} source={{ uri: this.state.Images[index] }} style={styles.backdrop} />
-                                                        </View> */}
-
-                                                    <View style={styles.overlay}>
-                                                        <Image style={styles.logo} source={{ uri: this.state.Images[index] }} />
-                                                    </View>
-
-                                                </View>
-                                            );
-                                        }}
-                                        customAnimation={this.animationStyle}
-                                    />
-
-
-                                </View>
-                            </CardView>
-
-                        </View>
-
-                        {/* <Text style={{
-                                color: 'white',
-                                fontFamily: 'SFPRODISPLAYREGULAR',
-                                fontWeight: 'bold',
-                                fontSize: 20,
-                                marginStart: 20,
-                                marginTop: 10,
-                                marginBottom: 10,
-                            }}>Featuring</Text>
-
-                            <View style={styles.tagContainer}>
-                                {this.state.Tags.map((tag, index) => (
-                                    <View key={index}
-                                        style={styles.tagWrapper}>
-                                        <TouchableOpacity
-                                            style={styles.tag}>
-                                            <Text style={styles.tagText}>
-                                                {tag}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                ))}
-                            </View>
-
-                            <View>
-                                <Image></Image>
-                            </View> */}
-
+                        <FlatList
+                            data={this.state.Messages}
+                            renderItem={this.renderItem} />
 
                         {/* </ScrollView> */}
                         {this.state.showApiSuccsess ?
@@ -500,8 +377,9 @@ class EntertainmentScreen extends Component<myProps, myStates> {
             </LinearGradient >
         );
     }
+
 }
 
 
 
-export default EntertainmentScreen;
+export default NotificationScreen;

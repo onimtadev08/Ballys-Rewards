@@ -15,6 +15,8 @@ const HomeUrl = Domain + '/api/Ballys/Home';
 const PlayerStatusUrl = Domain + '/api/Ballys/PlayerStatus';
 
 const GetEventsUrl = Domain + '/api/Ballys/GetEvents';
+
+const NotificatioMassageUrl = Domain + '/api/Ballys/MemberMessage';
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
 
@@ -59,10 +61,7 @@ export async function TempLogin(PlayerID: string, PIN: string, Token: string, Me
         strToken: ''
     });
 
-    console.log('=====================================');
-    console.log(Url, '\n', raw);
-
-
+   
     const requestOptions: RequestInit = {
         method: "POST",
         headers: myHeaders,
@@ -72,7 +71,6 @@ export async function TempLogin(PlayerID: string, PIN: string, Token: string, Me
 
     const response = await fetch(Url, requestOptions);
     if (!response.ok) {
-        console.log(response);
         throw new Error('Server Connection error');
     }
     return response.json();
@@ -91,7 +89,7 @@ export async function VaidateOTP(PlayerID: string, OTP: string) {
         strOTP: OTP,
     });
 
-    console.log(Token, raw);
+
 
 
     const requestOptions: RequestInit = {
@@ -120,10 +118,7 @@ export async function ResendOTP(PlayerID: string) {
         strMID: PlayerID,
     });
 
-    console.log('=====================================');
-    console.log(ResendOTPUrl, '\n', raw);
-
-
+  
     const requestOptions: RequestInit = {
         method: "POST",
         headers: myHeaders,
@@ -135,9 +130,7 @@ export async function ResendOTP(PlayerID: string) {
     if (!response.ok) {
         throw new Error('Server Connection error');
     }
-    console.log(response);
-    console.log('=====================================');
-
+  
     return response.json();
 }
 // PlayerAccountSave
@@ -168,8 +161,7 @@ export async function FirstTimeSignIn(
             Image: Image,
         });
 
-        console.log('=====================================');
-        console.log(FirstTimeSignInUrl, '\n', raw);
+      
 
 
         const requestOptions: RequestInit = {
@@ -182,11 +174,9 @@ export async function FirstTimeSignIn(
         fetch(FirstTimeSignInUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-                console.log('data : ', result);
                 resolve(result);
             })
             .catch((error) => {
-                console.log('api : ', error);
                 reject('Server Connection error');
                 //       throw new Error('Server Connection error'); 
             });
@@ -213,17 +203,50 @@ export async function Home(MID: string) {
             redirect: "follow"
         };
 
-        console.log(requestOptions);
-
+        
 
         fetch(HomeUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-                console.log('data : ', result);
+              
                 resolve(result);
             })
             .catch((error) => {
-                console.log(error);
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}
+
+export async function getNotification(MID: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + Token);
+
+        const raw = JSON.stringify({
+            "strMID": MID
+        });
+
+        const requestOptions: any = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+     
+        fetch(NotificatioMassageUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+              
+                resolve(result);
+            })
+            .catch((error) => {
+              
                 reject(error);
                 throw new Error('Server Connection error');
             });
@@ -243,11 +266,9 @@ export async function GetEvents() {
         fetch(GetEventsUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-                console.log('data : ', result);
                 resolve(result);
             })
             .catch((error) => {
-                console.log(error);
                 reject(error);
                 throw new Error('Server Connection error');
             });
@@ -268,8 +289,7 @@ export async function PlayerStatus(MID: string) {
             "strToken": ''
         });
 
-        console.log(myHeaders, '\n', raw);
-
+      
         const requestOptions: any = {
             method: "POST",
             headers: myHeaders,
@@ -280,12 +300,10 @@ export async function PlayerStatus(MID: string) {
         fetch(PlayerStatusUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-                console.log('data : ', result);
                 resolve(result);
             })
             .catch((error) => {
-                console.log(error);
-                reject(error);
+               reject(error);
                 throw new Error('Server Connection error');
             });
     })

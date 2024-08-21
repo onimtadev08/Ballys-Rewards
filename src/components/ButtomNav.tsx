@@ -1,18 +1,11 @@
 import React from 'react';
-import { TouchableOpacity, Text, View, ViewStyle, TextStyle, Dimensions, Image } from 'react-native';
+import { Text, View, Dimensions, Image } from 'react-native';
 import MyCard from '../images/svgs/MyCard.js';
-import MyBookings from '../images/svgs/MyBookings.js';
-import MyHost from '../images/svgs/MyHost.js';
-import MyWallet from '../images/svgs/MyWallet.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AwesomeButton from 'react-native-really-awesome-button';
 
-
-
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
-
-
 
 interface ButtomNavProps {
     navigation: any;
@@ -22,9 +15,10 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
     navigation
 }) => {
     return (
-        <View style={{ marginStart: 20, height: '9%', flexDirection: 'row', marginBottom: 30 }}>
+        <View style={{ height: '12%', flexDirection: 'row', marginBottom: 10, alignItems: 'center',backgroundColor:'transparent' }}>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 10, marginLeft: -15 }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 15, alignItems: 'center' }}>
+
                 <AwesomeButton
                     backgroundColor='transparent'
                     raiseLevel={15}
@@ -35,16 +29,16 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                     height={(screenHeight / 100) * 10}
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
-                        console.log('MID : ' + MID);
                         navigation.navigate('Home', { 'PlayerID': MID });
                     }}
                 >
-                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', paddingBottom: 10, marginTop: 10, minWidth: '100%' }}>
+                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', paddingBottom: 10, marginTop: 10 }}>
 
-                        <Image source={require('../images/svgtopng/HOME.png')} resizeMode='contain' style={{ height: 50, width: 100 }} />
+                        <Image source={require('../images/svgtopng/HOME.png')} resizeMode='contain' style={{ height: 50, width: 50 }} />
 
                         <Text
                             style={{
+                                width: '100%',
                                 fontWeight: 'bold',
                                 textAlign: 'center',
                                 fontSize: 10,
@@ -57,7 +51,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                 </AwesomeButton>
             </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 10, marginLeft: -5 }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 15, alignItems: 'center' }}>
                 <AwesomeButton
                     backgroundColor='transparent'
                     raiseLevel={15}
@@ -68,12 +62,14 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                     height={(screenHeight / 100) * 10}
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
-                        console.log('MID : ' + MID);
                         navigation.navigate('MyCard', { 'PlayerID': MID });
                     }}
                 >
-                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', paddingBottom: 10, marginTop: 10, minWidth: '100%' }}>
-                        <MyCard />
+                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', paddingBottom: 10, marginTop: 10 }}>
+
+                        <Image source={require('../images/svgtopng/myCard.png')} resizeMode='contain' style={{ height: 50, width: 50 }} />
+
+
                         <Text
                             style={{
                                 fontWeight: 'bold',
@@ -88,8 +84,47 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                 </AwesomeButton>
             </View>
 
+            <View style={{ flex: 1, backgroundColor: 'transparent', paddingTop: 20, alignItems: 'center', }}>
+                <AwesomeButton
+                style={{top:-5}}
+                    backgroundColor='transparent'
+                    raiseLevel={15}
+                    backgroundDarker='transparent'
+                    backgroundShadow='transparent'
+                    backgroundActive='transparent'
+                    width={(screenWidth / 100) * 24}
+                    height={(screenHeight / 100) * 13}
+                    onPress={async () => {
+                        const MID = await AsyncStorage.getItem('MID');
+                        navigation.navigate('MyWallet', { 'PlayerID': MID });
+                    }}
+                >
+                    <View style={{
+                        flexDirection: 'column',
+                        backgroundColor: 'transparent',
+                        paddingBottom: 10,
+                        marginTop: 20,
+                        alignItems: 'center'
+                    }}>
+                        {/* <MyWallet /> */}
+                        <Image source={require('../images/svgtopng/MyWalletPng.png')} resizeMode='contain' style={{ height: 70, width: 70,marginTop:10 }} />
+                        <Text
+                            style={{
+                                backgroundColor: 'transparent',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                fontSize: 10,
+                                color: 'white',
+                                fontFamily: 'SFPRODISPLAYBOLD',
+                                marginTop: 5,
+                                marginBottom:20
+                            }}
+                        >MY WALLET</Text>
+                    </View>
+                </AwesomeButton>
+            </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 10, marginLeft: -5 }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 15, alignItems: 'center' }}>
                 <AwesomeButton
                     backgroundColor='transparent'
                     raiseLevel={15}
@@ -100,7 +135,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                     height={(screenHeight / 100) * 10}
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
-                        console.log('MID : ' + MID);
+                      
                         navigation.navigate('MyBookings', { 'PlayerID': MID });
                     }}
                 >
@@ -109,11 +144,11 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                         backgroundColor: 'transparent',
                         paddingBottom: 10,
                         marginTop: 10,
-                        minWidth: '100%'
+                        alignItems: 'center'
                     }}>
                         {/* <MyBookings /> */}
 
-                        <Image source={require('../images/svgtopng/MyBookingPng.png')} resizeMode='contain' style={{ height: 50, width: 100 }} />
+                        <Image source={require('../images/svgtopng/MyBookingPng.png')} resizeMode='contain' style={{ height: 50, width: 50 }} />
 
 
                         <Text
@@ -125,13 +160,14 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                                 color: 'white',
                                 fontFamily: 'SFPRODISPLAYBOLD',
                                 marginTop: 5,
+                                width: '100%'
                             }}
                         >MY BOOKING</Text>
                     </View>
                 </AwesomeButton>
             </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 10, marginLeft: -5 }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 15, alignItems: 'center' }}>
                 <AwesomeButton
                     backgroundColor='transparent'
                     raiseLevel={15}
@@ -142,7 +178,6 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                     height={(screenHeight / 100) * 10}
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
-                        console.log('MID : ' + MID);
                         navigation.navigate('MyHost', { 'PlayerID': MID });
                     }}
                 >
@@ -151,10 +186,9 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                         backgroundColor: 'transparent',
                         paddingBottom: 10,
                         marginTop: 10,
-                        minWidth: '100%'
                     }}>
                         {/* <MyHost /> */}
-                        <Image source={require('../images/svgtopng/MyHost.png')} resizeMode='contain' style={{ height: 50, width: 100 }} />
+                        <Image source={require('../images/svgtopng/MyHost.png')} resizeMode='contain' style={{ height: 50, width: 50 }} />
 
                         <Text
                             style={{
@@ -171,44 +205,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                 </AwesomeButton>
             </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 10, marginLeft: -5, marginEnd: 10 }}>
-                <AwesomeButton
-                    backgroundColor='transparent'
-                    raiseLevel={15}
-                    backgroundDarker='transparent'
-                    backgroundShadow='transparent'
-                    backgroundActive='transparent'
-                    width={(screenWidth / 100) * 24}
-                    height={(screenHeight / 100) * 10}
-                    onPress={async () => {
-                        const MID = await AsyncStorage.getItem('MID');
-                        console.log('MID : ' + MID);
-                        navigation.navigate('MyWallet', { 'PlayerID': MID });
-                    }}
-                >
-                    <View style={{
-                        flexDirection: 'column',
-                        backgroundColor: 'transparent',
-                        paddingBottom: 10,
-                        marginTop: 10,
-                        minWidth: '100%'
-                    }}>
-                        {/* <MyWallet /> */}
-                        <Image source={require('../images/svgtopng/MyWalletPng.png')} resizeMode='contain' style={{ height: 50, width: 100 }} />
-                        <Text
-                            style={{
-                                backgroundColor: 'transparent',
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                                fontSize: 10,
-                                color: 'white',
-                                fontFamily: 'SFPRODISPLAYBOLD',
-                                marginTop: 5,
-                            }}
-                        >MY WALLET</Text>
-                    </View>
-                </AwesomeButton>
-            </View>
+           
         </View >
     );
 };

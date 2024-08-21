@@ -24,6 +24,7 @@ import { Marquee } from '@animatereactnative/marquee';
 import { Dropdown } from 'react-native-element-dropdown';
 import GradientButton from '../components/GradientButtonfull.tsx';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
+import TopNav from '../components/TopNav.tsx';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -123,8 +124,7 @@ class MyBookings extends Component<myProps, myStates> {
             PaxValue: '',
         };
 
-        console.log(props.route.params);
-
+       
 
     }
 
@@ -170,7 +170,7 @@ class MyBookings extends Component<myProps, myStates> {
 
 
             const result: any = await GetEvents();
-            console.log('val : ', result);
+         
             if (result.strRturnRes) {
 
                 let img: string[] = [];
@@ -195,7 +195,7 @@ class MyBookings extends Component<myProps, myStates> {
                 });
             }
         } catch (error) {
-            console.log(error);
+       
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -343,48 +343,11 @@ class MyBookings extends Component<myProps, myStates> {
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-                        <View style={{
-                            marginBottom:10,
-                            flexDirection: 'row',
-                            width: '100%'
-                        }} >
 
-                            <View style={{ backgroundColor: 'transparent', flex: 0.5, alignItems: 'flex-start', marginStart: 10 }} >
 
-                                <TouchableOpacity
-                                    style={{
-                                        alignItems: 'center',
-                                    }}
-                                    onPress={async () => {
-                                        const MID = await AsyncStorage.getItem('MID');
-                                        this.navigation.navigate('MenuScreen', { 'PlayerID': MID });
-                                    }}
-                                >
-                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
-                                </TouchableOpacity>
+                        <TopNav navigation={this.props.navigation} titel={'MY BOOKING'} />
 
-                            </View>
 
-                            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{
-                                    color: 'white',
-                                    fontSize: 20,
-                                    textAlign: 'center'
-                                }}>MY BOOKING</Text>
-                            </View>
-
-                            <View style={{ flex: 0.5, alignItems: 'flex-end', backgroundColor: 'transparent', marginEnd: 10 }} >
-
-                                <TouchableOpacity
-                                    style={{
-                                        alignItems: 'center',
-                                    }}>
-                                    <Image source={require('../images/svgtopng/MESSAGE.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
-                                </TouchableOpacity>
-
-                            </View>
-
-                        </View>
                         <ScrollView style={styles.container}>
 
                             <View style={{ alignItems: 'center' }}>
@@ -440,7 +403,6 @@ class MyBookings extends Component<myProps, myStates> {
                                     marginEnd: 10,
                                 }}
                                     onPress={() => {
-                                        console.log('kkk');
 
                                         this.setState({ openDatePicker: true, picker: 1 });
                                     }}
@@ -470,7 +432,6 @@ class MyBookings extends Component<myProps, myStates> {
                                     marginTop: 20,
                                 }}
                                     onPress={() => {
-                                        console.log('kkk');
 
                                         this.setState({ openDatePicker: true, picker: 2 });
                                     }}
@@ -544,9 +505,9 @@ class MyBookings extends Component<myProps, myStates> {
                             </View> */}
 
 
-                            <View style={{ margin: 20, justifyContent: 'center' }}>
+                            <View style={{ margin: 20, justifyContent: 'center', alignItems: 'center' }}>
                                 <GradientButtonWithBorder
-                                    title="SUBMIT                              "
+                                    title="SUBMIT"
                                     onPress={() => { }}
                                     colors={['transparent', 'transparent', 'transparent']}
                                     buttonStyle={{}}
@@ -710,7 +671,6 @@ class MyBookings extends Component<myProps, myStates> {
                                     this.setState({ openDatePicker: false });
                                 }}
                                 onDone={(data: string): void => {
-                                    console.log(data);
                                     if (this.state.picker === 1) {
                                         this.setState({ openDatePicker: false, arrival: data });
                                     } else {

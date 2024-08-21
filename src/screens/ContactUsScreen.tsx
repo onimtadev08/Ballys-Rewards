@@ -111,7 +111,6 @@ class ContactUsScreen extends Component<myProps, myStates> {
             PaxValue: '',
         };
 
-        console.log(props.route.params);
 
 
     }
@@ -158,7 +157,6 @@ class ContactUsScreen extends Component<myProps, myStates> {
 
 
             const result: any = await GetEvents();
-            console.log('val : ', result);
             if (result.strRturnRes) {
 
                 let img: string[] = [];
@@ -183,7 +181,6 @@ class ContactUsScreen extends Component<myProps, myStates> {
                 });
             }
         } catch (error) {
-            console.log(error);
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -516,7 +513,6 @@ class ContactUsScreen extends Component<myProps, myStates> {
                                     this.setState({ openDatePicker: false });
                                 }}
                                 onDone={(data: string): void => {
-                                    console.log(data);
                                     if (this.state.picker === 1) {
                                         this.setState({ openDatePicker: false, arrival: data });
                                     } else {

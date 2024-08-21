@@ -78,7 +78,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
         this.setState({ isLoading: true });
         try {
             const result = await VaidateOTP(this.state.PlayerID, otp);
-            console.log(result);
+      
             if (result.strRturnRes) {
 
                 this.setState({
@@ -97,7 +97,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                 });
             }
         } catch (error) {
-            console.log(error);
+           
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -130,13 +130,12 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                 this.setState({ showError: true, isLoading: false });
             }
 
-            console.log(!this.state.showError, this.state.PlayerID !== '', this.state.PIN !== '');
-
+           
             if (!this.state.showError && (this.state.PlayerID !== '' && this.state.PIN !== '')) {
 
                 try {
                     const result = await TempLogin(this.state.PlayerID, this.state.PIN, this.state.Token, this.state.Method);
-                    console.log(result);
+          
                     if (result.strRturnRes) {
 
                         AsyncStorage.setItem('Token', result.strToken.access_token);
@@ -160,7 +159,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                         });
                     }
                 } catch (error) {
-                    console.log(error);
+                
                     this.setState({
                         isLoading: false,
                         showApiError: true,
@@ -191,7 +190,6 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                 });
             }
         } catch (error) {
-            console.log(error);
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -276,7 +274,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
 
                                 <View style={{ margin: 20, justifyContent: 'center', width: '100%' }}>
                                     <GradientButtonWithBorder
-                                        title="SIGN INn"
+                                        title="SIGN IN"
                                         onPress={() => { this.Login(); }}
                                         colors={['transparent', 'transparent', 'transparent']}
                                         borderColor="#FFCE6C"
@@ -313,14 +311,13 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                             onPressCancel={() => {
                                 this.setState({ showOtpMsg: false });
                             }} onReturnOtp={(otp: string): void => {
-                                console.log(otp);
                                 if (otp !== '') {
                                     this.VaidateOTP(otp);
                                 }
                             }} onResendOtp={(): void => {
                                 this.ResendOtp();
                             }} onPressDone={function (otp: string): void {
-                                console.log(otp);
+                      
                             }} />
                         : null}
                     {this.state.openDatePicker ?
@@ -334,7 +331,6 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                             onPressCancel={(): void => {
                                 this.setState({ openDatePicker: false });
                             }} onDone={(data: string): void => {
-                                console.log(data);
                                 this.setState({ openDatePicker: false, PIN: data });
                             }} />
                         : null}

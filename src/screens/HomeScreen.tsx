@@ -32,6 +32,7 @@ import FeedBack from '../images/svgs/FeedBack.js';
 import MyRide from '../images/svgs/MyRide.js';
 import ButtomNav from '../components/ButtomNav.tsx';
 import Spa from '../images/svgs/Spa.js';
+import TopNav from '../components/TopNav.tsx';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -90,8 +91,7 @@ class HomeScreen extends Component<myProps, myStates> {
             Images: [],
         };
 
-        console.log(props.route.params);
-
+        
 
     }
 
@@ -135,7 +135,6 @@ class HomeScreen extends Component<myProps, myStates> {
         this.setState({ isLoading: true });
         try {
             const result: any = await Home(this.state.PlayerID);
-            console.log('val : ', result);
             if (result.strRturnRes) {
 
                 let img: string[] = [];
@@ -160,7 +159,6 @@ class HomeScreen extends Component<myProps, myStates> {
                 });
             }
         } catch (error) {
-            console.log(error);
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -202,6 +200,8 @@ class HomeScreen extends Component<myProps, myStates> {
                 flex: 1,
             },
             container: {
+                flexDirection: 'column',
+                backgroundColor: 'red',
                 flex: 1,
                 width: screenWidth,
             },
@@ -304,55 +304,9 @@ class HomeScreen extends Component<myProps, myStates> {
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-                        <View style={{
-                            flexDirection: 'row',
-                            width: '100%',
-                        }} >
-
-                            <View style={{ marginStart: 10, flex: 1 }} >
-
-                                <TouchableOpacity
-                                    style={{
-
-                                        borderRadius: 40,
-                                        width: '40%',
-                                        alignItems: 'center',
-                                    }}
-                                    onPress={() => {
-                                        this.navigation.navigate('MenuScreen', { 'PlayerID': this.state.PlayerID });
-                                    }}
-                                >
-                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
-                                </TouchableOpacity>
-
-                            </View                                                                                                                                                                                               >
-
-                            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{
-                                    color: 'white',
-                                    fontSize: 20,
-                                    textAlign: 'center'
-                                }}>HOME</Text>
-                            </View>
-
-
-                            <View style={{ marginEnd: 10, flex: 1, alignItems: 'flex-end' }} >
-
-                                <TouchableOpacity
-                                    style={{
-
-                                        borderRadius: 40,
-                                        width: '40%',
-                                        alignItems: 'center',
-                                    }}>
-                                    <Image source={require('../images/svgtopng/MESSAGE.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
-                                </TouchableOpacity>
-
-                            </View>
-
-                        </View>
-                        <ScrollView style={styles.container}>
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <TopNav navigation={this.props.navigation} titel={'HOME'} />
+                        <ScrollView style={{}}>
+                            <View style={{ flexDirection: 'row'}}>
 
                                 <CardView style={{ flex: 1, flexDirection: 'column', borderRadius: 20, margin: 10 }}
                                     cardElevation={20}
@@ -397,7 +351,7 @@ class HomeScreen extends Component<myProps, myStates> {
                             </View>
 
                             <View style={{
-                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around', marginTop: -15
+                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around', flex: 1
                             }}>
 
 
@@ -405,7 +359,6 @@ class HomeScreen extends Component<myProps, myStates> {
                                 <MainMenuButton Url={require('../images/svgtopng/MyWalletPng.png')} title={'My WALLET'}
                                     onPress={async () => {
                                         const MID = await AsyncStorage.getItem('MID');
-                                        console.log('MID : ' + MID);
                                         this.props.navigation.navigate('MyWallet', { 'PlayerID': MID });
 
                                     }} />
@@ -413,7 +366,6 @@ class HomeScreen extends Component<myProps, myStates> {
                                 <MainMenuButton Url={require('../images/svgtopng/MyOfferPng.png')} title={'My Offer'}
                                     onPress={async () => {
                                         const MID = await AsyncStorage.getItem('MID');
-                                        console.log('MID : ' + MID);
                                         this.props.navigation.navigate('MyOfferScreen', { 'PlayerID': MID });
 
                                     }}
@@ -425,7 +377,7 @@ class HomeScreen extends Component<myProps, myStates> {
 
 
                             <View style={{
-                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
+                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around', flex: 1
                             }}>
 
                                 <MainMenuButton Url={require('../images/svgtopng/MyTaxiPng.png')} title={'MY TAXI'} />
@@ -439,42 +391,6 @@ class HomeScreen extends Component<myProps, myStates> {
                                 <MainMenuButton Url={require('../images/svgtopng/ONLINE.png')} title={'Online'} />
 
                             </View>
-
-
-                            {/* <View style={{
-                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
-                            }}>
-
-                                <MainMenuButton svg={<Packages width={'100%'} height={'100%'} />} title={'Packages'}
-                                    onPress={() => (
-                                        this.navigation.navigate('PackagesScreen')
-                                    )}
-                                />
-
-                                <MainMenuButton svg={<Rewards width={'100%'} height={'100%'} />} title={'Rewards Circle'} />
-
-                                <MainMenuButton svg={<ContactUs width={'100%'} height={'100%'} />} title={'Contact Us'}
-                                    onPress={() => {
-                                        this.navigation.navigate('ContactUsScreen');
-                                    }} />
-
-                            </View>
-
-
-                            <View style={{
-                                flexDirection: 'row',
-                                width: screenWidth,
-                                alignItems: 'center',
-                                justifyContent: 'space-around'
-                            }}>
-
-                                {/* <MainMenuButton svg={<MyMassage width={'100%'} height={'100%'} />} title={'Messaging\n \n '} /> */}
-
-                            {/* <MainMenuButton svg={<FeedBack width={'100%'} height={'100%'} />} title={'Feedback &\nFollow Us \n '} />
-
-                                <MainMenuButton svg={<MyRide width={'100%'} height={'100%'} />} title={'My Ride\n \n '} /> */}
-
-                            {/* </View> */}
 
 
                         </ScrollView>

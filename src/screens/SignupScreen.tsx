@@ -87,8 +87,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
         }
 
-        console.log(props.route.params);
-
+      
     }
 
     async componentDidMount() {
@@ -108,9 +107,9 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
     handleResponse = (response: any) => {
         if (response.didCancel) {
-            console.log('User cancelled image picker');
+     
         } else if (response.error) {
-            console.log('Image picker error: ', response.error);
+   
         } else {
             let imageUri = response.uri || response.assets?.[0]?.uri;
 
@@ -136,7 +135,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
         this.setState({ isLoading: true });
         try {
             const result = await VaidateOTP(this.state.PlayerID, otp);
-            console.log(result);
+        
             if (result.strRturnRes) {
 
                 if (result.strToken.access_token !== undefined) {
@@ -161,7 +160,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                 });
             }
         } catch (error) {
-            console.log(error);
+           
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -241,7 +240,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                 }
 
             } catch (error) {
-                console.log(error);
+                
                 this.setState({
                     isLoading: false,
                     showApiError: true,
@@ -270,7 +269,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
         this.setState({ isLoading: true });
         try {
             const result = await getOtp(this.state.PlayerID, '');
-            console.log(result);
+            
             if (result.strRturnRes) {
 
                 this.setState({
@@ -286,7 +285,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                 });
             }
         } catch (error) {
-            console.log(error);
+           
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -299,57 +298,9 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
 
 
 
-    //     const myHeaders = new Headers();
-    //     myHeaders.append("Content-Type", "application/json");
-
-    //     const raw: string = JSON.stringify({
-    //         strMID: this.state.PlayerID,
-    //         strClientID: '',
-    //     });
-
-    //     const requestOptions: RequestInit = {
-    //         method: "POST",
-    //         headers: myHeaders,
-    //         body: raw,
-    //         redirect: "follow",
-    //     };
-
-    //     fetch(Domain + '/api/Ballys/GetOTP', requestOptions)
-    //         .then((response) => {
-    //             return response.json();
-    //         })
-    //         .then((result) => {
-    //             console.log(result);
-    //             if (result.strRturnRes) {
-
-    //                 this.setState({
-    //                     isLoading: false,
-    //                     showOtpMsg: true,
-    //                 });
-
-    //             } else {
-    //                 this.setState({
-    //                     isLoading: false,
-    //                     showApiError: true,
-    //                     showApiErrorMsg: 'Please try again'
-    //                 });
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //             this.setState({
-    //                 isLoading: false,
-    //                 showApiError: true,
-    //                 showApiErrorMsg: 'Error in Login'
-    //             });
-    //         });
-
-    //     //    this.handleNavigate();
-    // }
 
     refresh({ Img, ImgApi }: { Img: string, ImgApi: string }) {
-        console.log("ININI", Img);
-
+      
         this.setState({ selectedImage: Img, base64Image: ImgApi })
     }
 
@@ -400,8 +351,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                 <TouchableOpacity
                                     style={{ flex: 0.6 }}
                                     onPress={() => {
-                                        console.log('kk');
-
+                           
                                         this.setState({ CountryPicker: true });
                                     }}
                                 >
@@ -424,8 +374,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                                             initialState='+94'
                                             show={this.state.CountryPicker}
                                             pickerButtonOnPress={(item: CountryItem) => {
-                                                console.log(item.flag);
-
+                                       
                                                 this.setState({
                                                     ShowCountryCode: item.flag + ' ' + item.code + ' ' + item.dial_code,
                                                     CountryCode: item.dial_code
@@ -539,8 +488,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                         }} onResendOtp={(): void => {
                             this.getOtp();
                         }} onPressDone={(otp: string): void => {
-                            console.log(otp);
-                            this.setState({ showOtpMsg: false });
+                             this.setState({ showOtpMsg: false });
                         }} />
                     : null}
                 {this.state.isLoading ? (
@@ -567,8 +515,7 @@ class SignupScreen extends React.PureComponent<myProps, BallysLoginState> {
                         onPressCancel={(): void => {
                             this.setState({ openDatePicker: false });
                         }} onDone={(data: string): void => {
-                            console.log(data);
-                            this.setState({ openDatePicker: false, PIN: data });
+                             this.setState({ openDatePicker: false, PIN: data });
                         }} />
                     : null}
             </LinearGradient >

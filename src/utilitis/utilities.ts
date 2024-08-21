@@ -67,8 +67,7 @@ export async function getBase64ImageFromUrl(imageUrl: string) {
 
 export function ThousandSeparator(value: string) {
 
-  console.log(value);
-  if (value !== undefined) {
+   if (value !== undefined) {
 
     const number = parseFloat(value.toString().replace(/,/g, '')); // Remove existing commas
     if (isNaN(number)) return '';

@@ -129,7 +129,6 @@ class PackagesScreen extends React.PureComponent<myProps, myStates> {
                             borderRadius: 50,
                         }}
                         onPress={() => {
-                            console.log('test');
                             this.props.navigation.goBack();
                         }}>
                         <Entypo name="chevron-thin-left" color={'black'} size={25} />

@@ -20,8 +20,7 @@ const MainMenuButton: React.FC<myProps> = ({
     svg,
     onPress,
 }) => {
-    console.log(Url)
-
+   
 
     React.useEffect(() => {
         //     Font.loadAsync({
@@ -32,25 +31,8 @@ const MainMenuButton: React.FC<myProps> = ({
     }, []);
 
     return (
-        <View style={{ height: '90%', alignItems: 'center', marginBottom: -15 }}>
-            {/* <AwesomeButton
-           //     onPress={() => { console.log('onPress') }}
-                onPressIn={() => { console.log('onPressIn') }}
-                onPressOut={() => { console.log('onPressOut') }}
-                onPressedIn={() => { console.log('onPressedIn') }}
-                onProgressStart={() => { console.log('onProgressStart') }}
-                onProgressEnd={() => { console.log('onProgressEnd') }}
-                onPress={()=>{
-                    console.log('onPress');
-                    onPress;
-                }}
-                backgroundColor='transparent'
-               
-                raiseLevel={15}
-                backgroundDarker='transparent'
-                backgroundShadow='transparent'
-                backgroundActive='transparent'
-            > */}
+        <View style={{ height: '100%', alignItems: 'center', marginBottom: -15 }}>
+          
             <TouchableOpacity style={{
                 width: (screenWidth / 100) * 33,
                 height: (screenWidth / 100) * 43,

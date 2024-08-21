@@ -31,13 +31,13 @@ const LoginScreen = ({ }) => {
     const CheckLogin = async () => {
         const Token = await AsyncStorage.getItem('Token');
 
-        console.log('Token : ', Token);
+  
 
 
         if (Token !== null && (Token !== '' && Token !== undefined)) {
             const MID = await AsyncStorage.getItem('MID');
 
-            console.log('MID : ' + MID);
+          
 
 
             navigation.navigate('Home',
@@ -65,7 +65,7 @@ const LoginScreen = ({ }) => {
 
     const handleLogin2 = (val: any) => {
         const checkPassword = checkPasswordValidity(password);
-        console.log(val);
+   
 
         navigation.navigate('Signin', {
             "Method": val,
@@ -97,7 +97,7 @@ const LoginScreen = ({ }) => {
                             />
                         </View>
 
-                        <View style={{ marginStart: 10,marginTop:-30 }}>
+                        <View style={{ marginStart: 10, marginTop: -30 }}>
                             <Text style={[styles.buttonText2, { fontSize: 30 }]}>
                                 BALLY'S MEMBER
                             </Text>
@@ -166,7 +166,7 @@ const LoginScreen = ({ }) => {
                         colors={['transparent', 'transparent', 'transparent']}
                         borderColor="#FFCE6C"
                         buttonStyle={{}}
-                        textStyle={styles.buttonText}
+                        textStyle={styles.buttonText4}
                     />
                 </View>
 
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
         width: width * 0.9,
     },
     image: {
-        marginTop:20,
+        marginTop: 20,
         width: wp('55%'),
         height: hp('35%'),
         resizeMode: 'contain',
@@ -226,11 +226,15 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'Helvetica',
     },
-
-    buttonText: {
+    buttonText4: {
         fontWeight: 'bold',
         color: '#000000',
-        fontSize: 14,
+        fontSize: 16,
+        textAlign: 'center',
+    }, buttonText: {
+        fontWeight: 'bold',
+        color: '#000000',
+        fontSize: 18,
         textAlign: 'center',
     },
     errorText: {

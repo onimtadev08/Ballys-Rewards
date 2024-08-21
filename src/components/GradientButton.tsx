@@ -32,7 +32,7 @@ const GradientButtonWithBorder: React.FC<GradientButtonProps> = ({
 
         //     </LinearGradient> */}
         // </TouchableOpacity>
-        <TouchableOpacity style={{ height: 55, width: '100%', justifyContent: 'center'  }} onPress={onPress}>
+        <TouchableOpacity style={{ height: 55, width: '100%', justifyContent: 'center' }} onPress={onPress}>
             <Image source={require('../images/svgtopng/Button.png')}
                 style={{ width: '100%', height: '100%' }} resizeMode='contain' />
             <Text style={[styles.buttonText, textStyle]}>{title}</Text>
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     },
 
     buttonText: {
+        fontSize: 20,
         width: '100%',
         justifyContent: 'center',
         position: 'absolute',

@@ -24,7 +24,6 @@ function EyeDetect(props) {
 
   useEffect(() => {
     if (yotiFaceCaptureRef.current) {
-      console.log('cam start');
       yotiFaceCaptureRef.current.startCamera();
       yotiFaceCaptureRef.current.startAnalyzing();
     }
@@ -73,9 +72,7 @@ function EyeDetect(props) {
                 onPress={() => {
 
 
-                  console.log('start 1');
                   if (yotiFaceCaptureRef.current) {
-                    console.log('start');
                     yotiFaceCaptureRef.current.startCamera();
                     yotiFaceCaptureRef.current.startAnalyzing();
                   }
@@ -121,7 +118,6 @@ function EyeDetect(props) {
                 onFaceCaptureAnalyzedImage={(result) => {
                   const { croppedImage } = result;
                   const uri = `data:image/jpg;base64,${croppedImage}`;
-                  console.log(uri);
 
                   setDetected(true);
                   setbase64Icon(uri);
@@ -132,8 +128,6 @@ function EyeDetect(props) {
 
                 }}
                 onFaceCaptureImageAnalysisFailed={({ cause }) => {
-                  console.log(`Failed - ${cause}`);
-
                   switch (cause) {
                     case 'FaceCaptureAnalysisErrorNoFaceDetected':
                       setDetection('Face not Detected');
@@ -151,7 +145,6 @@ function EyeDetect(props) {
 
                 }}
                 onFaceCaptureStateChanged={(state) => {
-                  console.log('onFaceCaptureStateChanged : ', state);
 
                   if (state === 'FaceCaptureStateCameraReady') {
                     yotiFaceCaptureRef.current.startAnalyzing();
@@ -159,7 +152,7 @@ function EyeDetect(props) {
 
                 }}
                 onFaceCaptureStateFailed={(reason) => {
-                  console.log('onFaceCaptureStateFailed : ', reason);
+
                 }}
               />
             </View>

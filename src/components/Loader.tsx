@@ -18,23 +18,25 @@ const Loader: React.FC = ({ }) => {
             <View
                 style={{
                     position: 'absolute',
-                    width: 120,
-                    height: 100,
+                    width: 200,
+                    height: 200,
+                    overflow: 'hidden',
                     backgroundColor: 'rgba(0,0,0,0.4)',
+                    // backgroundColor:'red',
                     justifyContent: 'center',
                     alignItems: 'center',
                     top: '30%',
-                    bottom: 0,
+
                     // left: '36%',
                     borderRadius: 10,
                 }}>
                 <ActivityIndicator
                     animating={true}
                     size={'large'}
-                    color={'white'}
-                    style={{ top: 20 }}
+                    color={'gold'}
+                    style={{ top: 20, height: 100, width: 100 }}
                 />
-                <Text style={{ marginTop: 20, color: 'white' }}>
+                <Text style={{ marginTop: 20, color: 'white', fontSize: 20 }}>
                     Please wait
                 </Text>
             </View>
