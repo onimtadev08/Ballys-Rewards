@@ -36,7 +36,7 @@ const TopNav: React.FC<propsData> = ({
                     <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
                 </TouchableOpacity>
 
-            </View                                                                                                                                                                                               >
+            </View>
 
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{

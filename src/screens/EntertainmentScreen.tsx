@@ -5,8 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import { interpolate } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
-import Entypo from 'react-native-vector-icons/Entypo'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
 import ErrorMsg from '../components/errorMsg.tsx';
@@ -80,7 +79,7 @@ class EntertainmentScreen extends Component<myProps, myStates> {
             Images: [],
         };
 
-    
+
 
     }
 
@@ -346,23 +345,26 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                             width: '100%'
                         }} >
 
-                            <View style={{ backgroundColor: 'transparent', flex: 0.5, alignItems: 'flex-start', marginStart: 10 }} >
+                            <View style={{ marginStart: 20 }} >
 
                                 <TouchableOpacity
                                     style={{
+
+                                        borderRadius: 40,
+                                        width: '40%',
                                         alignItems: 'center',
                                     }}
                                     onPress={async () => {
                                         const MID = await AsyncStorage.getItem('MID');
-                                        this.navigation.navigate('MenuScreen', { 'PlayerID': MID });
+                                        this.props.navigation.navigate('MenuScreen', { 'PlayerID': MID });
                                     }}
                                 >
-                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
+                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
                                 </TouchableOpacity>
 
                             </View>
 
-                            <View style={{ flex: 2, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={{ marginStart: 10, marginEnd: 10, flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' }}>
                                 <Marquee>
 
                                     <View style={{ flexDirection: 'row' }}>
@@ -371,7 +373,7 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                                             <Text
                                                 key={index}
                                                 style={{
-                                                    color: 'white',
+                                                    color: 'gold',
                                                     fontSize: 25,
                                                     fontFamily: 'SFPRODISPLAYREGULAR',
                                                     fontWeight: 'bold',
@@ -382,13 +384,21 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                                 </Marquee>
                             </View>
 
-                            <View style={{ flex: 0.5, alignItems: 'flex-end', backgroundColor: 'transparent', marginEnd: 10 }} >
+                            <View style={{ marginEnd: 20, alignItems: 'flex-end' }} >
 
                                 <TouchableOpacity
                                     style={{
+
+                                        borderRadius: 40,
+                                        width: '40%',
                                         alignItems: 'center',
-                                    }}>
-                                    <Image source={require('../images/svgtopng/MESSAGE.png')} style={{ width: 30, height: 30 }} resizeMode='center'></Image>
+                                    }}
+                                    onPress={async () => {
+                                        const MID = await AsyncStorage.getItem('MID');
+                                        this.props.navigation.navigate('NotificationScreen', { 'PlayerID': MID });
+                                    }}
+                                >
+                                    <Image source={require('../images/svgtopng/NOTIFICATION.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
                                 </TouchableOpacity>
 
                             </View>

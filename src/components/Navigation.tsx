@@ -28,6 +28,7 @@ import ContactUsScreen from '../screens/ContactUsScreen';
 import { ColorFirst } from '../data/data';
 import MyOfferScreen from '../screens/MyOfferScreen';
 import NotificationScreen from '../screens/NotificationScreen';
+import TransactionHistoryScreen from '../screens/TransactionHistoryScreen';
 
 type RootStack = {
     Login: undefined
@@ -117,7 +118,7 @@ const Navigation = () => {
                             <TouchableOpacity
                                 style={{ marginLeft: 20, marginRight: 10 }}
                                 onPress={() => {
-                                   navigation.goBack();
+                                    navigation.goBack();
                                 }}>
                                 <Entypo name="chevron-thin-left" color={'white'} size={25} />
                             </TouchableOpacity>
@@ -208,6 +209,12 @@ const Navigation = () => {
                     name='NotificationScreen'
                     options={{ headerShown: false }}
                     component={NotificationScreen}
+                />
+
+                <Stack.Screen
+                    name='TransactionHistoryScreen'
+                    options={{ headerShown: false }}
+                    component={TransactionHistoryScreen}
                 />
 
             </Stack.Navigator>

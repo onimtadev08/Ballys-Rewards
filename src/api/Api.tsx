@@ -17,6 +17,8 @@ const PlayerStatusUrl = Domain + '/api/Ballys/PlayerStatus';
 const GetEventsUrl = Domain + '/api/Ballys/GetEvents';
 
 const NotificatioMassageUrl = Domain + '/api/Ballys/MemberMessage';
+
+const getTransactionHistoryUrl = Domain + '/api/Ballys/getTransactionHistory';
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
 
@@ -308,4 +310,40 @@ export async function PlayerStatus(MID: string) {
             });
     })
 
-}             
+}  
+
+
+export async function getTransactionHistory(MID: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + Token);
+
+        const raw = JSON.stringify({
+            "strMID": MID
+        });
+
+        const requestOptions: any = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+     
+        fetch(getTransactionHistoryUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+              
+                resolve(result);
+            })
+            .catch((error) => {
+              
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}

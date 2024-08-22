@@ -44,7 +44,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
         super(props);
         this.state = {
             currentIndex: 0,
-            isLoading: true,
+            isLoading: false,
             showApiError: false,
             showApiErrorMsg: '',
             showApiInfo: false,
@@ -86,13 +86,13 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
 
         //      this.setState({result:});
 
-    
+
 
     }
 
     componentDidMount(): void {
 
-    //    this.getPlayerStatus();
+        this.getPlayerStatus();
     }
 
 
@@ -103,9 +103,9 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
         const MID = await AsyncStorage.getItem('MID');
         this.setState({ isLoading: true, PlayerID: MID === null ? '' : MID });
         try {
-         
+
             const result: any = await PlayerStatus(this.state.PlayerID);
-        
+
             if (result.strRturnRes) {
 
 
@@ -125,7 +125,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                 });
             }
         } catch (error) {
-           
+
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -196,7 +196,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                                         height={(screenHeight / 100) * 10}
                                         onPress={async () => {
                                             const MID = await AsyncStorage.getItem('MID');
-                                     
+
                                             this.props.navigation.navigate('MyWallet', { 'PlayerID': MID });
                                         }}
                                     >
