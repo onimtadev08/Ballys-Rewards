@@ -91,7 +91,7 @@ class HomeScreen extends Component<myProps, myStates> {
             Images: [],
         };
 
-        
+
 
     }
 
@@ -304,13 +304,13 @@ class HomeScreen extends Component<myProps, myStates> {
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-                        <TopNav navigation={this.props.navigation} titel={'HOME'} />
-                        <ScrollView style={{}}>
-                            <View style={{ flexDirection: 'row'}}>
+                        <View style={{ zIndex: 10 }}>
+                            <TopNav navigation={this.props.navigation} titel={'HOME'} />
+                        </View>
+                        <ScrollView style={{ zIndex: 1 }}>
+                            <View style={{ flexDirection: 'row' }}>
 
                                 <CardView style={{ flex: 1, flexDirection: 'column', borderRadius: 20, margin: 10 }}
-                                    cardElevation={20}
-                                    cardMaxElevation={10}
                                     cornerRadius={20}>
                                     <View style={{ flexDirection: 'column', borderRadius: 10 }}>
 
@@ -351,7 +351,12 @@ class HomeScreen extends Component<myProps, myStates> {
                             </View>
 
                             <View style={{
-                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around', flex: 1
+                                flexDirection: 'row',
+                                width: screenWidth,
+                                alignItems: 'center',
+                                justifyContent: 'space-around',
+                                flex: 1,
+                                zIndex: -1,
                             }}>
 
 
@@ -412,10 +417,21 @@ class HomeScreen extends Component<myProps, myStates> {
                         {this.state.isLoading ? (
                             <Loader />
                         ) : null}
+                        <View style={{
+                            zIndex: -1,
+                            left: 0,
+                            bottom: 0,
+                            right: 0
+                            , position: 'absolute',
+                            height:'12%',
+                            backgroundColor:'transparent'
+                        }}>
+                            <ButtomNav navigation={this.props.navigation}
+                            ></ButtomNav>
+                        </View>
                     </LinearGradient>
                 </SafeAreaView >
-                <ButtomNav navigation={this.props.navigation}
-                ></ButtomNav>
+
             </LinearGradient >
         );
     }

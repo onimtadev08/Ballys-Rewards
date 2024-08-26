@@ -163,7 +163,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
             }]
         };
 
-      
+
 
 
     }
@@ -210,7 +210,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
 
 
             const result: any = await GetEvents();
-       
+
             if (result.strRturnRes) {
 
                 let img: string[] = [];
@@ -433,11 +433,12 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-                     
-                     <TopNav navigation={this.props.navigation} titel={'MY WALLET'} />
 
+                        <View style={{ zIndex: 10 }}>
+                            <TopNav navigation={this.props.navigation} titel={'MY WALLET'} />
+                        </View>
 
-                           <ScrollView style={styles.container}>
+                        <ScrollView style={styles.container}>
 
                             <Text style={{
                                 marginTop: 20,
@@ -607,10 +608,21 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                         {this.state.isLoading ? (
                             <Loader />
                         ) : null}
+                        <View style={{
+                            zIndex: 1,
+                            left: 0,
+                            bottom: 0,
+                            right: 0
+                            , position: 'absolute',
+                            height: '12%',
+                            backgroundColor: ColorTherd
+                        }}>
+                            <ButtomNav navigation={this.props.navigation}
+                            ></ButtomNav>
+                        </View>
                     </LinearGradient>
                 </SafeAreaView >
-                <ButtomNav navigation={this.props.navigation}
-                ></ButtomNav>
+
             </LinearGradient >
         );
     }

@@ -87,7 +87,7 @@ class MyCard extends Component<myProps, myStates> {
             time: new Date().toLocaleString(),
         };
 
-      
+
     }
 
     componentWillUnmount() {
@@ -138,7 +138,7 @@ class MyCard extends Component<myProps, myStates> {
 
 
             const result: any = await GetEvents();
-        
+
             if (result.strRturnRes) {
 
                 let img: string[] = [];
@@ -163,7 +163,7 @@ class MyCard extends Component<myProps, myStates> {
                 });
             }
         } catch (error) {
-      
+
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -356,8 +356,9 @@ class MyCard extends Component<myProps, myStates> {
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
 
-                        <TopNav navigation={this.props.navigation} titel={'MY CARD'} />
-
+                        <View style={{ zIndex: 10 }}>
+                            <TopNav navigation={this.props.navigation} titel={'MY CARD'} />
+                        </View>
 
                         <ScrollView style={styles.container}>
                             <View style={{ alignItems: 'center' }}>
@@ -458,10 +459,20 @@ class MyCard extends Component<myProps, myStates> {
                         {this.state.isLoading ? (
                             <Loader />
                         ) : null}
+                        <View style={{
+                            zIndex: 1,
+                            left: 0,
+                            bottom: 0,
+                            right: 0
+                            , position: 'absolute',
+                            height: '12%',
+                            backgroundColor: ColorTherd
+                        }}>
+                            <ButtomNav navigation={this.props.navigation}
+                            ></ButtomNav>
+                        </View>
                     </LinearGradient>
                 </SafeAreaView >
-                <ButtomNav navigation={this.props.navigation}
-                ></ButtomNav>
             </LinearGradient >
         );
     }

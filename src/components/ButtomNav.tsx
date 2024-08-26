@@ -15,9 +15,9 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
     navigation
 }) => {
     return (
-        <View style={{ height: '12%', flexDirection: 'row', marginBottom: 10, alignItems: 'center',backgroundColor:'transparent' }}>
+        <View style={{ zIndex: -1, flexDirection: 'row', alignItems: 'center', backgroundColor: 'transparent' }}>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 15, alignItems: 'center' }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 5, alignItems: 'center' }}>
 
                 <AwesomeButton
                     backgroundColor='transparent'
@@ -51,7 +51,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                 </AwesomeButton>
             </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 15, alignItems: 'center' }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 5, alignItems: 'center' }}>
                 <AwesomeButton
                     backgroundColor='transparent'
                     raiseLevel={15}
@@ -84,9 +84,9 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                 </AwesomeButton>
             </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', paddingTop: 20, alignItems: 'center', }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', paddingTop: 10, alignItems: 'center', }}>
                 <AwesomeButton
-                style={{top:-5}}
+                    style={{ top: -5 }}
                     backgroundColor='transparent'
                     raiseLevel={15}
                     backgroundDarker='transparent'
@@ -102,12 +102,10 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                     <View style={{
                         flexDirection: 'column',
                         backgroundColor: 'transparent',
-                        paddingBottom: 10,
-                        marginTop: 20,
                         alignItems: 'center'
                     }}>
                         {/* <MyWallet /> */}
-                        <Image source={require('../images/svgtopng/MyWalletPng.png')} resizeMode='contain' style={{ height: 70, width: 70,marginTop:10 }} />
+                        <Image source={require('../images/svgtopng/MyWalletPng.png')} resizeMode='contain' style={{ height: 70, width: 70, marginTop: 10 }} />
                         <Text
                             style={{
                                 backgroundColor: 'transparent',
@@ -117,14 +115,14 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                                 color: 'white',
                                 fontFamily: 'SFPRODISPLAYBOLD',
                                 marginTop: 5,
-                                marginBottom:20
+                                marginBottom: 20
                             }}
                         >MY WALLET</Text>
                     </View>
                 </AwesomeButton>
             </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 15, alignItems: 'center' }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 5, alignItems: 'center' }}>
                 <AwesomeButton
                     backgroundColor='transparent'
                     raiseLevel={15}
@@ -135,7 +133,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                     height={(screenHeight / 100) * 10}
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
-                      
+
                         navigation.navigate('MyBookings', { 'PlayerID': MID });
                     }}
                 >
@@ -167,7 +165,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                 </AwesomeButton>
             </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 15, alignItems: 'center' }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 5, alignItems: 'center' }}>
                 <AwesomeButton
                     backgroundColor='transparent'
                     raiseLevel={15}
@@ -205,7 +203,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                 </AwesomeButton>
             </View>
 
-           
+
         </View >
     );
 };
