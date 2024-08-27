@@ -418,13 +418,13 @@ class HomeScreen extends Component<myProps, myStates> {
                             <Loader />
                         ) : null}
                         <View style={{
-                            zIndex: -1,
+                            zIndex: 1,
                             left: 0,
                             bottom: 0,
                             right: 0
                             , position: 'absolute',
-                            height:'12%',
-                            backgroundColor:'transparent'
+                            height: '12%',
+                            backgroundColor: 'transparent'
                         }}>
                             <ButtomNav navigation={this.props.navigation}
                             ></ButtomNav>

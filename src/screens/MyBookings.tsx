@@ -124,7 +124,7 @@ class MyBookings extends Component<myProps, myStates> {
             PaxValue: '',
         };
 
-       
+
 
     }
 
@@ -170,7 +170,7 @@ class MyBookings extends Component<myProps, myStates> {
 
 
             const result: any = await GetEvents();
-         
+
             if (result.strRturnRes) {
 
                 let img: string[] = [];
@@ -195,7 +195,7 @@ class MyBookings extends Component<myProps, myStates> {
                 });
             }
         } catch (error) {
-       
+
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -345,7 +345,9 @@ class MyBookings extends Component<myProps, myStates> {
                         style={styles.container}>
 
 
-                        <TopNav navigation={this.props.navigation} titel={'MY BOOKING'} />
+                        <View style={{ zIndex: 10 }}>
+                            <TopNav navigation={this.props.navigation} titel={'MY BOOKING'} />
+                        </View>
 
 
                         <ScrollView style={styles.container}>
@@ -697,10 +699,21 @@ class MyBookings extends Component<myProps, myStates> {
                         {this.state.isLoading ? (
                             <Loader />
                         ) : null}
+                        <View style={{
+                            zIndex: 1,
+                            left: 0,
+                            bottom: 0,
+                            right: 0
+                            , position: 'absolute',
+                            height: '12%',
+                            backgroundColor: ColorTherd
+                        }}>
+                            <ButtomNav navigation={this.props.navigation}
+                            ></ButtomNav>
+                        </View>
                     </LinearGradient>
                 </SafeAreaView >
-                <ButtomNav navigation={this.props.navigation}
-                ></ButtomNav>
+
             </LinearGradient >
         );
     }

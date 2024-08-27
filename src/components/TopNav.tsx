@@ -2,18 +2,26 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { View, TouchableOpacity, Image, Text, Animated, Easing, Dimensions } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BlurView } from '@react-native-community/blur';
+import DrawerMenu from './DrawerMenu';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Marquee } from '@animatereactnative/marquee';
 
 interface propsData {
     navigation: any;
     titel: string;
-    //  openCard: boolean;
+    BackButton?: boolean;
+    isMarquee?: boolean;
+    Tags?: any[];
+
 }
 
 
 const TopNav: React.FC<propsData> = ({
     navigation,
     titel,
-    //   openCard,
+    BackButton,
+    isMarquee,
+    Tags,
 }) => {
 
     const { width: screenWidth } = Dimensions.get('window');
@@ -59,8 +67,6 @@ const TopNav: React.FC<propsData> = ({
 
                     <BlurView style={{
                         zIndex: 3,
-                        alignItems: 'center',
-                        justifyContent: 'center',
                         position: 'absolute',
                         width: '100%',
                         height: '100%',
@@ -69,40 +75,24 @@ const TopNav: React.FC<propsData> = ({
                         blurType='dark'
                         reducedTransparencyFallbackColor='white'
                     >
-                        <View
-                            style={{
-                                position: 'absolute',
-                                width: screenWidth,
-                                height: screenHeight,
-                                overflow: 'hidden',
-                                backgroundColor: 'rgba(0,0,0,0.0)',
-                                // backgroundColor: 'red',
-                                justifyContent: 'center',
-                                alignItems: 'center',
 
-                                // left: '36%',
-                                borderRadius: 10,
-                            }}>
-                            <TouchableOpacity
-                                style={{ width: 100, height: 100, backgroundColor: 'black' }}
-                                onPress={() => {
-                                    if (openCard) {
-                                        setopenCard(false);
-                                    } else {
-                                        setopenCard(true);
-                                    }
-                                }}
-                            ></TouchableOpacity>
-                            <Text style={{ marginTop: 20, color: 'white', fontSize: 20 }}>
-                                Please wait
-                            </Text>
-                        </View>
+
+                        <DrawerMenu
+                            navigation={navigation}
+                            onPress={() => {
+                                if (openCard) {
+                                    setopenCard(false);
+                                } else {
+                                    setopenCard(true);
+                                }
+                            }} />
+
                     </BlurView >
 
                 </Animated.View> : null
                 }
 
-                <View style={{ marginStart: openCard ? 30 : 10, flex: 1, zIndex: 2 }} >
+                <View style={{ marginStart: openCard ? 30 : 20, zIndex: 2 }} >
 
                     <TouchableOpacity
                         style={{
@@ -115,29 +105,64 @@ const TopNav: React.FC<propsData> = ({
                             // const MID = await AsyncStorage.getItem('MID');
                             // navigation.navigate('MenuScreen', { 'PlayerID': MID });
 
-                            if (openCard) {
-                                setopenCard(false);
+                            if (BackButton) {
+                                navigation.goBack();
                             } else {
-                                setopenCard(true);
-                            }
 
+                                if (openCard) {
+                                    setopenCard(false);
+                                } else {
+                                    setopenCard(true);
+                                }
+                            }
                         }}
                     >
-                        <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
+                        {BackButton ?
+                            <Ionicons name='chevron-back-outline' size={40} color={'#f8d888'} />
+                            :
+                            <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
+                        }
                     </TouchableOpacity>
 
                 </View>
 
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{
-                        color: 'white',
-                        fontSize: 20,
-                        textAlign: 'center'
-                    }}>{titel}</Text>
-                </View>
+                {isMarquee ?
+
+                    <View style={{ marginStart: 10, marginEnd: 10, flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' }}>
+                        <Marquee>
+
+                            <View style={{ flexDirection: 'row' }}>
+                                {Tags?.map((tag, index) => (
+
+                                    <Text
+                                        key={index}
+                                        style={{
+                                            color: 'gold',
+                                            fontSize: 25,
+                                            fontFamily: 'SFPRODISPLAYREGULAR',
+                                            fontWeight: 'bold',
+                                        }}> {tag} | </Text>
+
+                                ))}
+                            </View>
+                        </Marquee>
+                    </View>
+
+                    :
+
+                    <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+                        <Text style={{
+                            color: 'white',
+                            fontSize: 20,
+                            textAlign: 'center'
+                        }}>{titel}</Text>
+                    </View>
+                }
 
 
-                <View style={{ marginEnd: 10, flex: 1, alignItems: 'flex-end' }} >
+
+
+                <View style={{ marginEnd: 20, alignItems: 'flex-end' }} >
 
                     <TouchableOpacity
                         style={{

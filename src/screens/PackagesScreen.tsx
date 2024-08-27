@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking,Animated, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, processColor } from 'react-native';
+import { Linking, Animated, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, processColor } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -197,7 +197,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
             fadeAnim: new Animated.Value(1),
         };
         this.fadeAnim = this.state.fadeAnim;
-     
+
 
     }
 
@@ -484,8 +484,11 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-                       
-                       <TopNav navigation={this.props.navigation} titel={'PACKAGES'} />
+
+                        <View style={{ zIndex: 10 }}>
+                            <TopNav navigation={this.props.navigation} titel={'PACKAGES'} BackButton={true} />
+                        </View>
+
 
 
                         <ScrollView style={styles.container}>
@@ -564,7 +567,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
                             </View>
 
-                            <View style={{ flexDirection: 'row', flex: 1 ,marginTop:20}}>
+                            <View style={{ flexDirection: 'row', flex: 1, marginTop: 20 }}>
                                 <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
                                     <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
                                     <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>
@@ -647,10 +650,21 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                         {this.state.isLoading ? (
                             <Loader />
                         ) : null}
+                        <View style={{
+                            zIndex: 1,
+                            left: 0,
+                            bottom: 0,
+                            right: 0
+                            , position: 'absolute',
+                            height: '12%',
+                            backgroundColor: ColorTherd
+                        }}>
+                            <ButtomNav navigation={this.props.navigation}
+                            ></ButtomNav>
+                        </View>
                     </LinearGradient>
                 </SafeAreaView >
-                <ButtomNav navigation={this.props.navigation}
-                ></ButtomNav>
+
             </LinearGradient >
         );
     }

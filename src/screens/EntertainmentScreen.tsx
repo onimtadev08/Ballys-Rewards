@@ -16,6 +16,7 @@ import { GetEvents } from '../api/Api.tsx';
 
 import { Marquee } from '@animatereactnative/marquee';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
+import TopNav from '../components/TopNav.tsx';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -340,72 +341,15 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-                        <View style={{
-                            flexDirection: 'row',
-                            width: '100%'
-                        }} >
-
-                            <View style={{ marginStart: 20 }} >
-
-                                <TouchableOpacity
-                                    style={{
-
-                                        borderRadius: 40,
-                                        width: '40%',
-                                        alignItems: 'center',
-                                    }}
-                                    onPress={async () => {
-                                        const MID = await AsyncStorage.getItem('MID');
-                                        this.props.navigation.navigate('MenuScreen', { 'PlayerID': MID });
-                                    }}
-                                >
-                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
-                                </TouchableOpacity>
-
-                            </View>
-
-                            <View style={{ marginStart: 10, marginEnd: 10, flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' }}>
-                                <Marquee>
-
-                                    <View style={{ flexDirection: 'row' }}>
-                                        {this.state.Tags.map((tag, index) => (
-
-                                            <Text
-                                                key={index}
-                                                style={{
-                                                    color: 'gold',
-                                                    fontSize: 25,
-                                                    fontFamily: 'SFPRODISPLAYREGULAR',
-                                                    fontWeight: 'bold',
-                                                }}> {tag} | </Text>
-
-                                        ))}
-                                    </View>
-                                </Marquee>
-                            </View>
-
-                            <View style={{ marginEnd: 20, alignItems: 'flex-end' }} >
-
-                                <TouchableOpacity
-                                    style={{
-
-                                        borderRadius: 40,
-                                        width: '40%',
-                                        alignItems: 'center',
-                                    }}
-                                    onPress={async () => {
-                                        const MID = await AsyncStorage.getItem('MID');
-                                        this.props.navigation.navigate('NotificationScreen', { 'PlayerID': MID });
-                                    }}
-                                >
-                                    <Image source={require('../images/svgtopng/NOTIFICATION.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
-                                </TouchableOpacity>
-
-                            </View>
 
 
-
-
+                        <View style={{ zIndex: 10 }}>
+                            <TopNav
+                                navigation={this.props.navigation}
+                                titel={''}
+                                isMarquee={true}
+                                Tags={this.state.Tags}
+                            />
                         </View>
                         {/* <ScrollView style={styles.container}> */}
 
@@ -503,10 +447,21 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                         {this.state.isLoading ? (
                             <Loader />
                         ) : null}
+                        <View style={{
+                            zIndex: 1,
+                            left: 0,
+                            bottom: 0,
+                            right: 0
+                            , position: 'absolute',
+                            height: '12%',
+                            backgroundColor: ColorTherd
+                        }}>
+                            <ButtomNav navigation={this.props.navigation}
+                            ></ButtomNav>
+                        </View>
                     </LinearGradient>
                 </SafeAreaView >
-                <ButtomNav navigation={this.props.navigation}
-                ></ButtomNav>
+
             </LinearGradient >
         );
     }

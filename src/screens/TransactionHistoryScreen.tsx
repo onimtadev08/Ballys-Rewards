@@ -260,7 +260,10 @@ class TransactionHistoryScreen extends Component<myProps, myStates> {
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
 
-                        <TopNav navigation={this.props.navigation} titel={'TRANSACTION\nHISTORY'} />
+
+                        <View style={{ zIndex: 10 }}>
+                            <TopNav navigation={this.props.navigation} titel={'TRANSACTION\nHISTORY'} />
+                        </View>
 
 
                         {/* <ScrollView style={styles.container}> */}
@@ -288,10 +291,21 @@ class TransactionHistoryScreen extends Component<myProps, myStates> {
                         {this.state.isLoading ? (
                             <Loader />
                         ) : null}
+                        <View style={{
+                            zIndex: 1,
+                            left: 0,
+                            bottom: 0,
+                            right: 0
+                            , position: 'absolute',
+                            height: '12%',
+                            backgroundColor: ColorTherd
+                        }}>
+                            <ButtomNav navigation={this.props.navigation}
+                            ></ButtomNav>
+                        </View>
                     </LinearGradient>
                 </SafeAreaView >
-                <ButtomNav navigation={this.props.navigation}
-                ></ButtomNav>
+
             </LinearGradient >
         );
     }

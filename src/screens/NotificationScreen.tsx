@@ -73,7 +73,7 @@ class NotificationScreen extends Component<myProps, myStates> {
             Messages: [],
         };
 
-     
+
 
     }
 
@@ -195,7 +195,7 @@ class NotificationScreen extends Component<myProps, myStates> {
         return (
             <View style={{ alignItems: 'center', margin: 10, marginBottom: 10 }}>
                 <View style={{ borderWidth: 1, borderColor: 'gold', padding: 5, borderRadius: 5, width: '100%' }}>
-                    <Text style={{ color: 'white',fontSize:18 }}>{item.Message}</Text>
+                    <Text style={{ color: 'white', fontSize: 18 }}>{item.Message}</Text>
                 </View>
 
             </View>
@@ -342,8 +342,10 @@ class NotificationScreen extends Component<myProps, myStates> {
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
 
-                        <TopNav navigation={this.props.navigation} titel={'NOTIFICATION'} />
-
+               
+                        <View style={{ zIndex: 10 }}>
+                            <TopNav navigation={this.props.navigation} titel={'NOTIFICATION'} />
+                        </View>
 
                         {/* <ScrollView style={styles.container}> */}
 
@@ -370,10 +372,21 @@ class NotificationScreen extends Component<myProps, myStates> {
                         {this.state.isLoading ? (
                             <Loader />
                         ) : null}
+                        <View style={{
+                            zIndex: 1,
+                            left: 0,
+                            bottom: 0,
+                            right: 0
+                            , position: 'absolute',
+                            height: '12%',
+                            backgroundColor: ColorTherd
+                        }}>
+                            <ButtomNav navigation={this.props.navigation}
+                            ></ButtomNav>
+                        </View>
                     </LinearGradient>
                 </SafeAreaView >
-                <ButtomNav navigation={this.props.navigation}
-                ></ButtomNav>
+
             </LinearGradient >
         );
     }

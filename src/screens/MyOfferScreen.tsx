@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking,Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, processColor } from 'react-native';
+import { Linking, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, processColor } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -132,7 +132,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
             }]
         };
 
-      
+
 
     }
 
@@ -178,7 +178,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
 
             const result: any = await GetEvents();
-           
+
             if (result.strRturnRes) {
 
                 let img: string[] = [];
@@ -203,7 +203,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                 });
             }
         } catch (error) {
-           
+
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -402,9 +402,10 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-                     
-                     <TopNav navigation={this.props.navigation} titel={'MY OFFER'} />
 
+                        <View style={{ zIndex: 10 }}>
+                            <TopNav navigation={this.props.navigation} titel={'MY OFFER'} />
+                        </View>
 
                         <ScrollView style={styles.container}>
                             <View style={{ marginBottom: -50, marginTop: 20 }}>
@@ -467,7 +468,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
                                 <MainManuButton Url={require('../images/svgtopng/spa.png')} title={"SPA'S"}
                                     onPress={() => {
-                                    //    this.props.navigation.navigate('EntertainmentScreen');
+                                        //    this.props.navigation.navigate('EntertainmentScreen');
                                     }}
                                 />
 
@@ -484,7 +485,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                                 start={{ x: 0, y: 0 }}
                                 end={{ x: 1, y: 0 }}
                                 colors={[ColorFirst, 'white', ColorFirst]}
-                                style={{ width: '100%', height: 2,top:40,marginBottom:30 }} />
+                                style={{ width: '100%', height: 2, top: 40, marginBottom: 30 }} />
 
 
                             <View>
@@ -627,10 +628,21 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                         {this.state.isLoading ? (
                             <Loader />
                         ) : null}
+                        <View style={{
+                            zIndex: 1,
+                            left: 0,
+                            bottom: 0,
+                            right: 0
+                            , position: 'absolute',
+                            height: '12%',
+                            backgroundColor: ColorTherd
+                        }}>
+                            <ButtomNav navigation={this.props.navigation}
+                            ></ButtomNav>
+                        </View>
                     </LinearGradient>
                 </SafeAreaView >
-                <ButtomNav navigation={this.props.navigation}
-                ></ButtomNav>
+
             </LinearGradient >
         );
     }
