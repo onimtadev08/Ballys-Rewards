@@ -407,17 +407,17 @@ class MyHost extends Component<myProps, myStates> {
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
 
-         
-                        <View style={{ zIndex: 10 }}>
+
+                        <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
                             <TopNav navigation={this.props.navigation} titel={'MY HOST'} />
                         </View>
+                        <View style={{ marginBottom: 130 }}>
+                            {/* <ScrollView style={styles.container}> */}
 
-                        {/* <ScrollView style={styles.container}> */}
-
-                        <FlatList
-                            data={this.state.HostData}
-                            renderItem={this.renderItem} />
-
+                            <FlatList
+                                data={this.state.HostData}
+                                renderItem={this.renderItem} />
+                        </View>
                         {/* </ScrollView> */}
                         {this.state.showApiSuccsess ?
                             <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {

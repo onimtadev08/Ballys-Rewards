@@ -78,7 +78,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
         this.setState({ isLoading: true });
         try {
             const result = await VaidateOTP(this.state.PlayerID, otp);
-      
+
             if (result.strRturnRes) {
 
                 this.setState({
@@ -97,7 +97,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                 });
             }
         } catch (error) {
-           
+
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -130,16 +130,21 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                 this.setState({ showError: true, isLoading: false });
             }
 
-           
+
             if (!this.state.showError && (this.state.PlayerID !== '' && this.state.PIN !== '')) {
 
                 try {
                     const result = await TempLogin(this.state.PlayerID, this.state.PIN, this.state.Token, this.state.Method);
-          
+
+               //     console.log(result);
+
                     if (result.strRturnRes) {
 
                         AsyncStorage.setItem('Token', result.strToken.access_token);
                         AsyncStorage.setItem('MID', this.state.PlayerID);
+                        AsyncStorage.setItem('strMName', result.strMName);
+
+
 
                         this.setState({
                             isLoading: false,
@@ -159,7 +164,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                         });
                     }
                 } catch (error) {
-                
+
                     this.setState({
                         isLoading: false,
                         showApiError: true,
@@ -317,7 +322,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                             }} onResendOtp={(): void => {
                                 this.ResendOtp();
                             }} onPressDone={function (otp: string): void {
-                      
+
                             }} />
                         : null}
                     {this.state.openDatePicker ?

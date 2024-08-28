@@ -342,7 +342,7 @@ class NotificationScreen extends Component<myProps, myStates> {
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
 
-               
+
                         <View style={{ zIndex: 10 }}>
                             <TopNav navigation={this.props.navigation} titel={'NOTIFICATION'} />
                         </View>
@@ -350,6 +350,7 @@ class NotificationScreen extends Component<myProps, myStates> {
                         {/* <ScrollView style={styles.container}> */}
 
                         <FlatList
+                            style={{ marginBottom: 90 }}
                             data={this.state.Messages}
                             renderItem={this.renderItem} />
 

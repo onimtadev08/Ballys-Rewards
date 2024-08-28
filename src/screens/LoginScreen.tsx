@@ -24,28 +24,11 @@ const LoginScreen = ({ }) => {
     React.useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => true);
 
-        CheckLogin();
+  //      CheckLogin();
 
     });
 
-    const CheckLogin = async () => {
-        const Token = await AsyncStorage.getItem('Token');
-
-  
-
-
-        if (Token !== null && (Token !== '' && Token !== undefined)) {
-            const MID = await AsyncStorage.getItem('MID');
-
-          
-
-
-            navigation.navigate('Home',
-                { 'PlayerID': String | MID });
-
-        }
-
-    }
+   
 
     const checkPasswordValidity = (value: any) => {
         const isNonWhiteSpace = /^\S*$/;

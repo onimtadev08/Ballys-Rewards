@@ -447,9 +447,9 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                                 textAlign: 'center'
                             }}>ACCOUNT SUMMARY</Text>
 
-                            {this.state.Accounts.map((item) => {
+                            {this.state.Accounts.map((item, index) => {
                                 return (
-                                    <View>
+                                    <View key={index}>
                                         <View style={{ borderWidth: 2, borderColor: 'white', marginTop: 30, marginBottom: 50, margin: 20, borderRadius: 20, alignItems: 'center' }}>
 
                                             <View style={{ backgroundColor: 'white', borderRadius: 10, height: 50, justifyContent: 'center', top: -20 }}>
@@ -560,7 +560,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                             </View>
 
 
-                            <View style={{ marginTop: 20 }}>
+                            <View style={{ marginTop: 20, marginBottom: 80 }}>
                                 <View style={{ borderWidth: 2, borderColor: 'white', marginTop: 30, marginBottom: 50, margin: 20, borderRadius: 20, alignItems: 'center' }}>
 
                                     <Image source={require('../images/svgtopng/SILVER.png')} style={{ width: 80, height: 80, top: -40 }} />

@@ -141,7 +141,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
         const handleLogin = (): void => {
 
             AsyncStorage.removeItem('Token', () => {
-                this.props.navigation.navigate('Login');
+                this.props.navigation.navigate('SplashScreen');
             });
 
         }

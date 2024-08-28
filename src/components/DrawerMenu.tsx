@@ -4,10 +4,12 @@ import MenuButton from '../components/MenuButton'
 import { ColorFirst, ColorSecond, ColorTherd } from "../data/data";
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
 interface propsData {
     navigation: any;
     onPress: () => void;
+    onClose: () => void;
 }
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -16,7 +18,8 @@ const { width: screenHeight } = Dimensions.get('window');
 
 const DrawerMenu: React.FC<propsData> = ({
     navigation,
-    onPress
+    onPress,
+    onClose,
 }) => {
 
     const styles = StyleSheet.create({
@@ -28,15 +31,46 @@ const DrawerMenu: React.FC<propsData> = ({
     });
 
 
+
+    //  const Mname = await AsyncStorage.getItem('strMName');
+
+
+
     return (
-        <View style={{ flex: 1, marginTop: 850 }}>
+        <View style={{ flex: 1, marginTop: 850, flexDirection: 'column' }}>
+
+            <View style={{ height: '20%', alignItems: 'flex-end' }}>
+
+                <Image
+                    source={require('../images/profileHader.png')}
+                    resizeMode='contain' style={{ height: '100%', width: '100%' }}>
+                </Image>
+
+                <Text style={{
+                    color: 'white',
+                    position: 'absolute',
+                    width: '100%',
+                    fontSize: 25,
+                    marginTop: 100,
+                    fontWeight: 'bold',
+                    left: 30
+                }}>Premier Packages</Text>
+
+                <TouchableOpacity style={{ position: 'absolute', top: 10, end: 10 }}
+                    onPress={onClose}
+                >
+                    <AntDesign name='closecircle' size={40} color={'#f8d888'} />
+                </TouchableOpacity>
+
+            </View>
 
             <SafeAreaView style={{ height: '87%', width: '80%', backgroundColor: 'blue' }}>
                 <LinearGradient
                     colors={[ColorFirst, ColorSecond, ColorTherd]}
                     style={styles.container}>
+
                     <ScrollView style={styles.container}>
-                        <View style={{ height: '100%', width: '100%', flexDirection: 'column' }}>
+                        <View style={{ height: '100%', width: '100%', flexDirection: 'column', marginBottom: 200 }}>
 
                             <MenuButton
                                 Titel={"Gaming"}

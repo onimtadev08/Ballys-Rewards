@@ -29,6 +29,7 @@ import { ColorFirst } from '../data/data';
 import MyOfferScreen from '../screens/MyOfferScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import TransactionHistoryScreen from '../screens/TransactionHistoryScreen';
+import SplashScreen from '../screens/SplashScreen';
 
 type RootStack = {
     Login: undefined
@@ -51,9 +52,14 @@ const Navigation = () => {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen
+                    name='SplashScreen'
+                    options={{ headerShown: false }}
+                    component={SplashScreen} />
+                <Stack.Screen
                     name='Login'
                     options={{ headerShown: false }}
                     component={LoginScreen} />
+
                 <Stack.Screen
                     name='Home'
                     options={{ headerShown: false, gestureEnabled: false }}

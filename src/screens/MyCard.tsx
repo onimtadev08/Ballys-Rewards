@@ -361,7 +361,7 @@ class MyCard extends Component<myProps, myStates> {
                         </View>
 
                         <ScrollView style={styles.container}>
-                            <View style={{ alignItems: 'center' }}>
+                            <View style={{ alignItems: 'center' ,marginBottom:90}}>
                                 <View style={{
                                     borderCurve: 'continuous',
                                     borderRadius: 20,

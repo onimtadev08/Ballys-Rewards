@@ -12,9 +12,9 @@ interface propsData {
     BackButton?: boolean;
     isMarquee?: boolean;
     Tags?: any[];
-
 }
 
+//const Mname = await AsyncStorage.getItem('strMName');
 
 const TopNav: React.FC<propsData> = ({
     navigation,
@@ -28,12 +28,22 @@ const TopNav: React.FC<propsData> = ({
     const { height: screenHeight } = Dimensions.get('window');
 
     const [openCard, setopenCard] = useState<boolean>(false);
+    const [showCard, setshowCard] = useState<boolean>(false);
 
+    const [Mname, setMname] = useState<string>('');
 
     const animationRef = useRef(new Animated.Value(openCard ? 0 : -screenWidth)).current;
 
     useEffect(() => {
         // Defining the target value for the animation based on the ‘openCard’ prop
+        //     const Mname = AsyncStorage.getItem('strMName');
+
+        // async function name() {
+        //     const Mname = await AsyncStorage.getItem('strMName');
+        //     return Mname;
+        // }
+
+   //     setMname(name());
 
         const targetValue = openCard ? 0 : -screenWidth;
         // Choosing the easing function for the animation based on the ‘openCard’ prop
@@ -63,33 +73,49 @@ const TopNav: React.FC<propsData> = ({
                 alignItems: 'center'
             }} >
 
-                {openCard ? <Animated.View style={{ transform: [{ translateX: animationRef }], width: screenWidth, height: screenHeight * 2 }}>
+                {showCard ?
+                    <Animated.View style={{ transform: [{ translateX: animationRef }], width: screenWidth, height: screenHeight * 2 }}>
 
-                    <BlurView style={{
-                        zIndex: 3,
-                        position: 'absolute',
-                        width: '100%',
-                        height: '100%',
-                    }}
-                        blurAmount={5}
-                        blurType='dark'
-                        reducedTransparencyFallbackColor='white'
-                    >
+                        <BlurView style={{
+                            zIndex: 3,
+                            position: 'absolute',
+                            width: '100%',
+                            height: '100%',
+                        }}
+                            blurAmount={5}
+                            blurType='dark'
+                            reducedTransparencyFallbackColor='white'
+                        >
 
+                            <Text>{Mname}</Text>
 
-                        <DrawerMenu
-                            navigation={navigation}
-                            onPress={() => {
-                                if (openCard) {
+                            <DrawerMenu
+                                navigation={navigation}
+                                onPress={() => {
+                                    if (showCard) {
+                                        setopenCard(false);
+                                        setshowCard(false)
+                                    } else {
+                                        setopenCard(true);
+                                        setshowCard(true);
+                                    }
+                                }}
+                                onClose={() => {
+
                                     setopenCard(false);
-                                } else {
-                                    setopenCard(true);
-                                }
-                            }} />
+                                    setTimeout(() => {
+                                        setshowCard(false);
+                                    }, 500);
 
-                    </BlurView >
+                                    //          setshowCard(false);
+                                    //           setopenCard(true);
 
-                </Animated.View> : null
+                                }}
+                            />
+
+                        </BlurView >
+
+                    </Animated.View> : null
                 }
 
                 <View style={{ marginStart: openCard ? 30 : 20, zIndex: 2 }} >
@@ -109,16 +135,17 @@ const TopNav: React.FC<propsData> = ({
                                 navigation.goBack();
                             } else {
 
-                                if (openCard) {
-                                    setopenCard(false);
-                                } else {
-                                    setopenCard(true);
-                                }
+                                // if (showCard) {
+                                //     setopenCard(false);
+                                // } else {
+                                setopenCard(true);
+                                setshowCard(true);
+                                // }
                             }
                         }}
                     >
                         {BackButton ?
-                            <Ionicons name='chevron-back-outline' size={40} color={'#f8d888'} />
+                            <Ionicons name='chevron-back-outline' size={40} color={'#f8d888'} style={{ width: 30 }} />
                             :
                             <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
                         }
