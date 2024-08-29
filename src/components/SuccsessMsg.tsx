@@ -14,6 +14,7 @@ const SuccsessMsg: React.FC<errorMsgProps> = ({
 }) => {
     return (
         <View style={{
+            zIndex:3,
             backgroundColor: 'rgba(0,0,0,0.4)',
             alignItems: 'center',
             justifyContent: 'center',

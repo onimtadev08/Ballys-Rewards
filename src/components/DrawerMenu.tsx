@@ -39,14 +39,14 @@ const DrawerMenu: React.FC<propsData> = ({
     return (
         <View style={{ flex: 1, marginTop: 850, flexDirection: 'column' }}>
 
-            <View style={{ height: '20%', alignItems: 'flex-end' }}>
+            <View style={{ height: '15%', alignItems: 'flex-end', backgroundColor: ColorFirst }}>
 
                 <Image
-                    source={require('../images/profileHader.png')}
+                    source={require('../images/svgtopng/blogo.png')}
                     resizeMode='contain' style={{ height: '100%', width: '100%' }}>
                 </Image>
 
-                <Text style={{
+                {/* <Text style={{
                     color: 'white',
                     position: 'absolute',
                     width: '100%',
@@ -54,12 +54,12 @@ const DrawerMenu: React.FC<propsData> = ({
                     marginTop: 100,
                     fontWeight: 'bold',
                     left: 30
-                }}>Premier Packages</Text>
+                }}>Premier Packages</Text> */}
 
-                <TouchableOpacity style={{ position: 'absolute', top: 10, end: 10 }}
+                <TouchableOpacity style={{ position: 'absolute', top: -20, end: 10 }}
                     onPress={onClose}
                 >
-                    <AntDesign name='closecircle' size={40} color={'#f8d888'} />
+                    <AntDesign name='closecircle' size={30} color={'#f8d888'} />
                 </TouchableOpacity>
 
             </View>
@@ -70,7 +70,7 @@ const DrawerMenu: React.FC<propsData> = ({
                     style={styles.container}>
 
                     <ScrollView style={styles.container}>
-                        <View style={{ height: '100%', width: '100%', flexDirection: 'column', marginBottom: 200 }}>
+                        <View style={{ height: '100%', width: '100%', flexDirection: 'column', marginBottom: 150 }}>
 
                             <MenuButton
                                 Titel={"Gaming"}

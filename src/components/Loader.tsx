@@ -5,6 +5,7 @@ import { BlurView } from "@react-native-community/blur";
 const Loader: React.FC = ({ }) => {
     return (
         <BlurView style={{
+            zIndex:5,
             alignItems: 'center',
             justifyContent: 'center',
             position: 'absolute',

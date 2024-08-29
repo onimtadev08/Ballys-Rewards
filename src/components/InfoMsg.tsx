@@ -14,6 +14,7 @@ const InfoMsg: React.FC<errorMsgProps> = ({
 }) => {
     return (
         <View style={{
+            zIndex: 4,
             backgroundColor: 'rgba(0,0,0,0.4)',
             alignItems: 'center',
             justifyContent: 'center',

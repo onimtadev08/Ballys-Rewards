@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { BackHandler, StyleSheet, Dimensions, View, Text } from 'react-native';
+import { BackHandler, StyleSheet, Dimensions, View, Text, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
@@ -47,7 +48,7 @@ class SplashScreen extends Component<myProps, myStates> {
 
         setTimeout(() => {
             this.CheckLogin();
-        }, 1000);
+        }, 3000);
 
     }
 
@@ -86,11 +87,10 @@ class SplashScreen extends Component<myProps, myStates> {
 
                 <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
 
-                    <Text style={{
-                        color: 'white',
-                        textAlign: 'center',
-                        fontSize: 30,
-                    }}>REWARDS</Text>
+                    <Image
+                        source={require('../images/svgtopng/blogo.png')}
+                        resizeMode='contain' style={{ height: '100%', width: '100%' }}>
+                    </Image>
 
                 </View>
 
