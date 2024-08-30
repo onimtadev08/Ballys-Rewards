@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { FlatList, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView } from 'react-native';
+import { BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Text, TouchableOpacity, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
 import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
 import ButtomNav from '../components/ButtomNav.tsx';
-import { getNotification } from '../api/Api.tsx';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
+import AntDesign from 'react-native-vector-icons/AntDesign.js'
+import GradientButtonWithBorder from '../components/GradientButton.tsx';
 
 const { width: screenWidth } = Dimensions.get('window');
 interface myStates {
@@ -29,11 +29,8 @@ interface myProps {
     router: any;
 }
 
-const scale = 0.8;
-const PAGE_WIDTH = screenWidth * scale;
-const PAGE_HEIGHT = 240 * scale;
 
-class NotificationScreen extends Component<myProps, myStates> {
+class TaxiScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
@@ -70,7 +67,6 @@ class NotificationScreen extends Component<myProps, myStates> {
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
 
 
-        this.notifyApiCall();
     }
 
     handleBackPress
@@ -79,57 +75,6 @@ class NotificationScreen extends Component<myProps, myStates> {
             return true; // Prevent default back behavior
         };
 
-    async notifyApiCall() {
-
-        this.setState({ isLoading: true });
-        try {
-
-            const MID = await AsyncStorage.getItem('MID') as string;
-            const result: any = await getNotification(MID);
-            if (result.strRturnRes) {
-
-                this.setState({
-                    isLoading: false,
-                    Messages: result.Messages,
-                });
-
-
-            } else {
-                Keyboard.dismiss();
-                this.setState({
-                    isLoading: false,
-                    showApiError: true,
-                    showApiErrorMsg: 'Please try again'
-                });
-            }
-        } catch (error) {
-            this.setState({
-                isLoading: false,
-                showApiError: true,
-                showApiErrorMsg: 'Server Connection error',
-            });
-        } finally {
-
-        }
-
-    }
-
-
-
-
-
-
-
-    renderItem = ({ item }: { item: any }) => {
-        return (
-            <View style={{ alignItems: 'center', margin: 10, marginBottom: 10 }}>
-                <View style={{ borderWidth: 1, borderColor: 'gold', padding: 5, borderRadius: 5, width: '100%' }}>
-                    <Text style={{ color: 'white', fontSize: 18 }}>{item.Message}</Text>
-                </View>
-
-            </View>
-        );
-    }
 
     render(): React.ReactNode {
 
@@ -141,6 +86,20 @@ class NotificationScreen extends Component<myProps, myStates> {
             container: {
                 flex: 1,
                 width: screenWidth,
+            }, card: {
+                backgroundColor: '#fff',
+                borderRadius: 8,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.2,
+                shadowRadius: 4,
+                elevation: 3,
+                marginBottom: 20,
+            }, buttonText: {
+                fontWeight: 'bold',
+                color: '#000000',
+                fontSize: 18,
+                textAlign: 'center',
             }
         });
 
@@ -160,15 +119,58 @@ class NotificationScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10 }}>
-                            <TopNav navigation={this.props.navigation} titel={'NOTIFICATION'} />
+                            <TopNav navigation={this.props.navigation} titel={'MY TAXI'} />
                         </View>
 
                         {/* <ScrollView style={styles.container}> */}
 
-                        <FlatList
-                            style={{ marginBottom: 90 }}
-                            data={this.state.Messages}
-                            renderItem={this.renderItem} />
+                        <View style={{ flex: 1, flexDirection: 'column' }}>
+
+                            <View style={{ flex: 2, backgroundColor: 'white' }}></View>
+
+                            <View style={{ flex: 1, backgroundColor: ColorTherd, alignItems: 'center' }}>
+
+                                <View style={[
+                                    styles.card,
+                                    {
+                                        width: '85%',
+                                        height: '50%',
+                                        alignItems: 'center',
+                                        backgroundColor: 'white',
+                                        top: -80,
+                                        flexDirection: 'column'
+                                    }]}>
+                                    <View style={{ flexDirection: 'row', flex: 1, width: '90%', marginTop: 10, marginBottom: 10, alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 18, flex: 1, color: 'blue', textAlign: 'center' }}>PICK UP</Text>
+                                        <Text style={{ fontSize: 18, flex: 3, textAlign: 'center' }}>YOUR LOCATION</Text>
+                                        <AntDesign style={{}} name='plus' size={30} color={'black'} />
+                                    </View>
+
+                                    <View style={{ width: '80%', height: 1, backgroundColor: 'gray' }} />
+
+                                    <View style={{ flexDirection: 'row', flex: 1, width: '90%', marginTop: 10, marginBottom: 10, alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 18, flex: 1, color: 'red', textAlign: 'center' }}>DROP</Text>
+                                        <Text style={{ fontSize: 18, flex: 3, textAlign: 'center' }}>DROP LOCATION</Text>
+                                        <AntDesign style={{}} name='plus' size={30} color={'black'} />
+                                    </View>
+
+                                </View>
+
+
+                                <View style={{ top: -70, height: '20%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                                    <TouchableOpacity style={{ height: 55, width: '100%', justifyContent: 'center' }} onPress={() => { 
+                                        this.props.navigation.navigate('TaxiDetailsScreen');
+                                    }}>
+                                        <Image source={require('../images/svgtopng/Button.png')}
+                                            style={{ width: '100%', height: '100%' }} resizeMode='contain' />
+                                        <Text style={{ position: 'absolute', textAlign: 'center', width: '100%', fontSize: 20 }}>BOOK NOW</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+
+                            </View>
+                        </View>
+
 
                         {/* </ScrollView> */}
                         {this.state.showApiSuccsess ?
@@ -212,4 +214,4 @@ class NotificationScreen extends Component<myProps, myStates> {
 
 
 
-export default NotificationScreen;
+export default TaxiScreen;

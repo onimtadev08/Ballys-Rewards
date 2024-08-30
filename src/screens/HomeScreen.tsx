@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Keyboard, BackHandler, View, Text, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, ImageBackground, TouchableHighlight } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Assuming you're using a class-based navigation solution
+import { Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView } from 'react-native';
 import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
 import MainMenuButton from '../components/MainManuButton'
@@ -13,37 +12,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { interpolate } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
-import TAnimationStyle from "react-native-reanimated-carousel"
-import Entypo from 'react-native-vector-icons/Entypo'
-import { SvgUri } from 'react-native-svg';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 
-import MyAccount from '../images/svgs/MyAccount.js'
-import MyOffer from '../images/svgs/MyOffer.js'
-import Tournament from '../images/svgs/Tournament.js';
-import Dining from '../images/svgs/Dining.js';
-import Entertainment from '../images/svgs/Entertainment.js';
-import BallysBet from '../images/svgs/BallysBet.js';
-import Packages from '../images/svgs/Packages.js';
-import Rewards from '../images/svgs/Rewards.js';
-import ContactUs from '../images/svgs/ContactUs.js';
-import MyMassage from '../images/svgs/MyMassage.js';
-import FeedBack from '../images/svgs/FeedBack.js';
-import MyRide from '../images/svgs/MyRide.js';
 import ButtomNav from '../components/ButtomNav.tsx';
-import Spa from '../images/svgs/Spa.js';
 import TopNav from '../components/TopNav.tsx';
 
 const { width: screenWidth } = Dimensions.get('window');
-
-// const images = [
-//     require('../images/ballys.png'),
-//     require('../images/wha.jpg'),
-//     require('../images/meg.jpg'),
-//     require('../images/sms.jpg'),
-//     require('../images/pon.jpg'),
-//     // Add more local image paths as needed
-// ];
 interface myStates {
     currentIndex: number;
     isLoading: boolean;
@@ -276,20 +250,7 @@ class HomeScreen extends Component<myProps, myStates> {
                 opacity: 0.9,
                 alignItems: 'center',
                 justifyContent: 'center',
-            },
-            buttonSelected: {
-                opacity: 1,
-                color: 'red',
-            },
-            customSlide: {
-                backgroundColor: 'green',
-                alignItems: 'center',
-                justifyContent: 'center',
-            },
-            customImage: {
-                width: 100,
-                height: 100,
-            },
+            }
 
         });
 
@@ -385,8 +346,12 @@ class HomeScreen extends Component<myProps, myStates> {
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around', flex: 1
                             }}>
 
-                                <MainMenuButton Url={require('../images/svgtopng/MyTaxiPng.png')} title={'MY TAXI'} />
-
+                                <MainMenuButton Url={require('../images/svgtopng/MyTaxiPng.png')} title={'MY TAXI'}
+                                    onPress={() => {
+                                        this.props.navigation.navigate('TaxiScreen');
+                                    }}
+                                />
+                                
                                 <MainMenuButton Url={require('../images/svgtopng/ENTERTAINMENT.png')} title={'Entertainment'}
                                     onPress={() => {
                                         this.props.navigation.navigate('EntertainmentScreen');

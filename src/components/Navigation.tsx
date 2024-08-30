@@ -30,6 +30,8 @@ import MyOfferScreen from '../screens/MyOfferScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import TransactionHistoryScreen from '../screens/TransactionHistoryScreen';
 import SplashScreen from '../screens/SplashScreen';
+import TaxiScreen from '../screens/TaxiScreen';
+import TaxiDetailsScreen from '../screens/TaxiDetailsScreen';
 
 type RootStack = {
     Login: undefined
@@ -221,6 +223,18 @@ const Navigation = () => {
                     name='TransactionHistoryScreen'
                     options={{ headerShown: false }}
                     component={TransactionHistoryScreen}
+                />
+
+                <Stack.Screen
+                    name='TaxiScreen'
+                    options={{ headerShown: false }}
+                    component={TaxiScreen}
+                />
+
+                <Stack.Screen
+                    name='TaxiDetailsScreen'
+                    options={{ headerShown: false }}
+                    component={TaxiDetailsScreen}
                 />
 
             </Stack.Navigator>

@@ -24,7 +24,7 @@ const DrawerMenu: React.FC<propsData> = ({
 
     const styles = StyleSheet.create({
 
-        container: {
+        container: {   
             height: '100%',
             width: '100%',
         }
@@ -39,12 +39,14 @@ const DrawerMenu: React.FC<propsData> = ({
     return (
         <View style={{ flex: 1, marginTop: 850, flexDirection: 'column' }}>
 
-            <View style={{ height: '15%', alignItems: 'flex-end', backgroundColor: ColorFirst }}>
+            <View style={{ height: '15%', alignItems: 'flex-end' }}>
+                <View style={{ width: '100%', height: '100%' }}>
 
-                <Image
-                    source={require('../images/svgtopng/blogo.png')}
-                    resizeMode='contain' style={{ height: '100%', width: '100%' }}>
-                </Image>
+                    <Image
+                        source={require('../images/svgtopng/blogo.png')}
+                        resizeMode='contain' style={{ height: '100%', width: '80%', backgroundColor: ColorFirst }}>
+                    </Image>
+                </View>
 
                 {/* <Text style={{
                     color: 'white',
@@ -59,124 +61,126 @@ const DrawerMenu: React.FC<propsData> = ({
                 <TouchableOpacity style={{ position: 'absolute', top: -20, end: 10 }}
                     onPress={onClose}
                 >
-                    <AntDesign name='closecircle' size={30} color={'#f8d888'} />
+                    <AntDesign name='closecircle' size={30} color={'#EFAE4D'} />
                 </TouchableOpacity>
 
             </View>
 
-            <SafeAreaView style={{ height: '87%', width: '80%', backgroundColor: 'blue' }}>
-                <LinearGradient
-                    colors={[ColorFirst, ColorSecond, ColorTherd]}
-                    style={styles.container}>
-
-                    <ScrollView style={styles.container}>
-                        <View style={{ height: '100%', width: '100%', flexDirection: 'column', marginBottom: 150 }}>
-
-                            <MenuButton
-                                Titel={"Gaming"}
-                                Icon2="casino"
-                                onPress={(): void => {
-                                    onPress();
-                                }}
-                            />
+            <SafeAreaView style={{ height: '87%', width: '80%', backgroundColor: 'white' }}>
 
 
-                            <MenuButton
-                                Titel={"Table Limits"}
-                                Icon2="table-bar"
-                                onPress={(): void => {
-                                    onPress();
-                                }}
-                            />
+                <ScrollView style={styles.container}>
+
+                    <Text style={{ paddingStart: 40, paddingTop: 20, paddingBottom: 10, marginBottom: 20, color: '#EFAE4D', fontWeight: 'bold', fontSize: 20, backgroundColor: ColorFirst }}>GENERAL</Text>
+
+                    <View style={{ height: '100%', width: '100%', flexDirection: 'column', marginBottom: 150 }}>
+
+                        <MenuButton
+                            Titel={"Gaming"}
+                            Icon2="casino"
+                            onPress={(): void => {
+                                onPress();
+                            }}
+                        />
 
 
-                            <MenuButton
-                                Titel={"Responsible Gaming"}
-                                Icon="game-controller"
-                                onPress={(): void => {
-                                    onPress();
-                                }}
-                            />
-
-                            <MenuButton
-                                Titel={"Term & Conditions"}
-                                Icon3="document"
-                                onPress={(): void => {
-                                    onPress();
-                                }}
-                            />
+                        <MenuButton
+                            Titel={"Table Limits"}
+                            Icon2="table-bar"
+                            onPress={(): void => {
+                                onPress();
+                            }}
+                        />
 
 
-                            <MenuButton
-                                Titel={"My Profile"}
-                                Icon2='account-circle'
-                                onPress={async (): Promise<void> => {
-                                    const MID = await AsyncStorage.getItem('MID');
-                                    navigation.navigate('Profile', { 'PlayerID': MID });
-                                    onPress();
-                                }}
-                            />
+                        <MenuButton
+                            Titel={"Responsible Gaming"}
+                            Icon="game-controller"
+                            onPress={(): void => {
+                                onPress();
+                            }}
+                        />
+
+                        <MenuButton
+                            Titel={"Term & Conditions"}
+                            Icon3="document"
+                            onPress={(): void => {
+                                onPress();
+                            }}
+                        />
+
+                        <Text style={{ paddingTop: 10, paddingBottom: 10, paddingStart: 40, marginTop: 20, marginBottom: 20, color: '#EFAE4D', fontWeight: 'bold', fontSize: 20, backgroundColor: ColorFirst }}>ACCOUNT</Text>
 
 
-                            <MenuButton
-                                Titel={"Account Settings"}
-                                Icon2="manage-accounts"
-                                onPress={(): void => {
-                                    onPress();
-                                }}
-                            />
-
-                            <MenuButton
-                                Titel={"Transaction History"}
-                                Icon2="work-history"
-                                onPress={async (): Promise<void> => {
-                                    const MID = await AsyncStorage.getItem('MID');
-                                    navigation.navigate('TransactionHistoryScreen', { 'PlayerID': MID });
-                                    onPress();
-                                }}
-                            />
+                        <MenuButton
+                            Titel={"My Profile"}
+                            Icon2='account-circle'
+                            onPress={async (): Promise<void> => {
+                                const MID = await AsyncStorage.getItem('MID');
+                                navigation.navigate('Profile', { 'PlayerID': MID });
+                                onPress();
+                            }}
+                        />
 
 
-                            <MenuButton
-                                Titel={"Membership Benifits"}
-                                Icon2="card-membership"
-                                onPress={(): void => {
-                                    onPress();
-                                }}
-                            />
+                        <MenuButton
+                            Titel={"Account Settings"}
+                            Icon2="manage-accounts"
+                            onPress={(): void => {
+                                onPress();
+                            }}
+                        />
+
+                        <MenuButton
+                            Titel={"Transaction History"}
+                            Icon2="work-history"
+                            onPress={async (): Promise<void> => {
+                                const MID = await AsyncStorage.getItem('MID');
+                                navigation.navigate('TransactionHistoryScreen', { 'PlayerID': MID });
+                                onPress();
+                            }}
+                        />
 
 
-                            <MenuButton
-                                Titel={"Ballys Rewards & Loyalty"}
-                                Icon2="loyalty"
-                                onPress={(): void => {
-                                    onPress();
-                                }}
-                            />
-
-                            <MenuButton
-                                Titel={"How to Redeem Ballys Coins"}
-                                Icon4="coins"
-                                onPress={(): void => {
-                                    onPress();
-                                }}
-                            />
+                        <MenuButton
+                            Titel={"Membership Benifits"}
+                            Icon2="card-membership"
+                            onPress={(): void => {
+                                onPress();
+                            }}
+                        />
 
 
-                            <MenuButton
-                                Titel='Where to Redeem'
-                                Icon2="redeem"
-                                onPress={(): void => {
-                                    onPress();
-                                }}
-                            />
+                        <MenuButton
+                            Titel={"Ballys Rewards & Loyalty"}
+                            Icon2="loyalty"
+                            onPress={(): void => {
+                                onPress();
+                            }}
+                        />
+
+                        <MenuButton
+                            Titel={"How to Redeem Ballys Coins"}
+                            Icon4="coins"
+                            onPress={(): void => {
+                                onPress();
+                            }}
+                        />
+
+
+                        <MenuButton
+                            Titel='Where to Redeem'
+                            Icon2="redeem"
+                            onPress={(): void => {
+                                onPress();
+                            }}
+                        />
 
 
 
 
-                        </View>
-                    </ScrollView>
-                </LinearGradient>
+                    </View>
+                </ScrollView>
             </SafeAreaView>
 
 
