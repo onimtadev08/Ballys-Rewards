@@ -3,6 +3,7 @@ import { Text, View, Dimensions, Image } from 'react-native';
 import MyCard from '../images/svgs/MyCard.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AwesomeButton from 'react-native-really-awesome-button';
+import { ColorTherd } from '../data/data.js';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -17,186 +18,209 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
     return (
         <View style={{ zIndex: -1, flexDirection: 'row', alignItems: 'center', backgroundColor: 'transparent' }}>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 5, alignItems: 'center' }}>
 
+            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10 }}>
                 <AwesomeButton
+                    paddingHorizontal={0}
+                    paddingBottom={0}
+                    paddingTop={0}
                     backgroundColor='transparent'
                     raiseLevel={15}
                     backgroundDarker='transparent'
                     backgroundShadow='transparent'
                     backgroundActive='transparent'
-                    width={(screenWidth / 100) * 24}
-                    height={(screenHeight / 100) * 10}
+                    height={parseInt('100%', 10)}
+                    width={parseInt('100%', 10)}
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
+
                         navigation.navigate('Home', { 'PlayerID': MID });
                     }}
                 >
-                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', paddingBottom: 10, marginTop: 10 }}>
+                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', height: '100%', width: '100%', alignItems: 'center' }}>
 
-                        <Image source={require('../images/svgtopng/HOME.png')} resizeMode='contain' style={{ height: 50, width: 50 }} />
+
+
+                        <Image source={require('../images/svgtopng/HOME.png')} resizeMode='contain' style={{ height: '50%', width: '50%' }} />
+
 
                         <Text
                             style={{
+                                backgroundColor: 'transparent',
                                 width: '100%',
                                 fontWeight: 'bold',
                                 textAlign: 'center',
                                 fontSize: 10,
                                 color: 'white',
                                 fontFamily: 'SFPRODISPLAYBOLD',
-                                marginTop: 5,
                             }}
                         >HOME</Text>
                     </View>
                 </AwesomeButton>
             </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 5, alignItems: 'center' }}>
+
+
+
+            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10 }}>
                 <AwesomeButton
+                    paddingHorizontal={0}
+                    paddingBottom={0}
+                    paddingTop={0}
                     backgroundColor='transparent'
                     raiseLevel={15}
                     backgroundDarker='transparent'
                     backgroundShadow='transparent'
                     backgroundActive='transparent'
-                    width={(screenWidth / 100) * 24}
-                    height={(screenHeight / 100) * 10}
+                    height={parseInt('100%', 10)}
+                    width={parseInt('100%', 10)}
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
-                        navigation.navigate('MyCard', { 'PlayerID': MID });
-                    }}
-                >
-                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', paddingBottom: 10, marginTop: 10 }}>
 
-                        <Image source={require('../images/svgtopng/myCard.png')} resizeMode='contain' style={{ height: 50, width: 50 }} />
-
-
-                        <Text
-                            style={{
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                                fontSize: 10,
-                                color: 'white',
-                                fontFamily: 'SFPRODISPLAYBOLD',
-                                marginTop: 5,
-                            }}
-                        >MY CARD</Text>
-                    </View>
-                </AwesomeButton>
-            </View>
-
-            <View style={{ flex: 1, backgroundColor: 'transparent', paddingTop: 10, alignItems: 'center', }}>
-                <AwesomeButton
-                    style={{ top: -5 }}
-                    backgroundColor='transparent'
-                    raiseLevel={15}
-                    backgroundDarker='transparent'
-                    backgroundShadow='transparent'
-                    backgroundActive='transparent'
-                    width={(screenWidth / 100) * 24}
-                    height={(screenHeight / 100) * 13}
-                    onPress={async () => {
-                        const MID = await AsyncStorage.getItem('MID');
                         navigation.navigate('MyWallet', { 'PlayerID': MID });
                     }}
                 >
-                    <View style={{
-                        flexDirection: 'column',
-                        backgroundColor: 'transparent',
-                        alignItems: 'center'
-                    }}>
-                        {/* <MyWallet /> */}
-                        <Image source={require('../images/svgtopng/MyWalletPng.png')} resizeMode='contain' style={{ height: 70, width: 70, marginTop: 10 }} />
+                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', height: '100%', width: '100%', alignItems: 'center' }}>
+
+
+
+                        <Image source={require('../images/svgtopng/MyWalletPng.png')} resizeMode='contain' style={{ height: '50%', width: '50%' }} />
+
+
                         <Text
                             style={{
                                 backgroundColor: 'transparent',
+                                width: '100%',
                                 fontWeight: 'bold',
                                 textAlign: 'center',
                                 fontSize: 10,
                                 color: 'white',
                                 fontFamily: 'SFPRODISPLAYBOLD',
-                                marginTop: 5,
-                                marginBottom: 20
                             }}
                         >MY WALLET</Text>
                     </View>
                 </AwesomeButton>
             </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 5, alignItems: 'center' }}>
+
+
+            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%' , marginTop: 10}}>
                 <AwesomeButton
+                    paddingHorizontal={0}
+                    paddingBottom={0}
+                    paddingTop={0}
                     backgroundColor='transparent'
                     raiseLevel={15}
                     backgroundDarker='transparent'
                     backgroundShadow='transparent'
                     backgroundActive='transparent'
-                    width={(screenWidth / 100) * 24}
-                    height={(screenHeight / 100) * 10}
+                    height={parseInt('100%', 10)}
+                    width={parseInt('100%', 10)}
+                    onPress={async () => {
+                        const MID = await AsyncStorage.getItem('MID');
+
+                        navigation.navigate('MyCard', { 'PlayerID': MID });
+                    }}
+                >
+                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', height: '100%', width: '100%', alignItems: 'center' }}>
+
+
+
+                        <Image source={require('../images/svgtopng/myCard.png')} resizeMode='contain' style={{ height: '60%', width: '60%' }} />
+
+
+                        <Text
+                            style={{
+                                backgroundColor: 'transparent',
+                                width: '100%',
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                fontSize: 10,
+                                color: 'white',
+                                fontFamily: 'SFPRODISPLAYBOLD',
+                            }}
+                        >MY CARD</Text>
+                    </View>
+                </AwesomeButton>
+            </View>
+
+
+            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10 }}>
+                <AwesomeButton
+                    paddingHorizontal={0}
+                    paddingBottom={0}
+                    paddingTop={0}
+                    backgroundColor='transparent'
+                    raiseLevel={15}
+                    backgroundDarker='transparent'
+                    backgroundShadow='transparent'
+                    backgroundActive='transparent'
+                    height={parseInt('100%', 10)}
+                    width={parseInt('100%', 10)}
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
 
                         navigation.navigate('MyBookings', { 'PlayerID': MID });
                     }}
                 >
-                    <View style={{
-                        flexDirection: 'column',
-                        backgroundColor: 'transparent',
-                        paddingBottom: 10,
-                        marginTop: 10,
-                        alignItems: 'center'
-                    }}>
-                        {/* <MyBookings /> */}
+                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', height: '100%', width: '100%', alignItems: 'center' }}>
 
-                        <Image source={require('../images/svgtopng/MyBookingPng.png')} resizeMode='contain' style={{ height: 50, width: 50 }} />
+
+
+                        <Image source={require('../images/svgtopng/MyBookingPng.png')} resizeMode='contain' style={{ height: '50%', width: '50%' }} />
 
 
                         <Text
                             style={{
                                 backgroundColor: 'transparent',
+                                width: '100%',
                                 fontWeight: 'bold',
                                 textAlign: 'center',
                                 fontSize: 10,
                                 color: 'white',
                                 fontFamily: 'SFPRODISPLAYBOLD',
-                                marginTop: 5,
-                                width: '100%'
                             }}
                         >MY BOOKING</Text>
                     </View>
                 </AwesomeButton>
             </View>
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', marginTop: 5, alignItems: 'center' }}>
+
+
+            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10 }}>
                 <AwesomeButton
+                    paddingHorizontal={0}
+                    paddingBottom={0}
+                    paddingTop={0}
                     backgroundColor='transparent'
                     raiseLevel={15}
                     backgroundDarker='transparent'
                     backgroundShadow='transparent'
                     backgroundActive='transparent'
-                    width={(screenWidth / 100) * 24}
-                    height={(screenHeight / 100) * 10}
+                    height={parseInt('100%', 10)}
+                    width={parseInt('100%', 10)}
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
+
                         navigation.navigate('MyHost', { 'PlayerID': MID });
                     }}
                 >
-                    <View style={{
-                        flexDirection: 'column',
-                        backgroundColor: 'transparent',
-                        paddingBottom: 10,
-                        marginTop: 10,
-                    }}>
-                        {/* <MyHost /> */}
-                        <Image source={require('../images/svgtopng/MyHost.png')} resizeMode='contain' style={{ height: 50, width: 50 }} />
+                    <View style={{ flexDirection: 'column', backgroundColor: 'transparent', height: '100%', width: '100%', alignItems: 'center' }}>
+
+
+
+                        <Image source={require('../images/svgtopng/MyHost.png')} resizeMode='contain' style={{ height: '50%', width: '50%' }} />
+
 
                         <Text
                             style={{
                                 backgroundColor: 'transparent',
+                                width: '100%',
                                 fontWeight: 'bold',
                                 textAlign: 'center',
                                 fontSize: 10,
                                 color: 'white',
                                 fontFamily: 'SFPRODISPLAYBOLD',
-                                marginTop: 5,
                             }}
                         >MY HOST</Text>
                     </View>

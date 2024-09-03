@@ -1,14 +1,11 @@
 //import liraries
-import React, { Component, useContext, useState } from 'react';
-import { BackHandler, View, Text, StyleSheet, TextInput, Button, Touchable, TouchableOpacity, Alert, ImageBackground, Image, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { BackHandler, View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import LinearGradient from 'react-native-linear-gradient';
 import GradientButtonWithBorder from '../components/GradientButton';
-import GradientButton from '../components/GradientButtonfull';
 const { width, height } = Dimensions.get('window');
-import LottieView from 'lottie-react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data'
 
 // create a component
@@ -24,11 +21,11 @@ const LoginScreen = ({ }) => {
     React.useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => true);
 
-  //      CheckLogin();
+        //      CheckLogin();
 
     });
 
-   
+
 
     const checkPasswordValidity = (value: any) => {
         const isNonWhiteSpace = /^\S*$/;
@@ -48,7 +45,7 @@ const LoginScreen = ({ }) => {
 
     const handleLogin2 = (val: any) => {
         const checkPassword = checkPasswordValidity(password);
-   
+
 
         navigation.navigate('Signin', {
             "Method": val,
@@ -67,93 +64,98 @@ const LoginScreen = ({ }) => {
             colors={[ColorFirst, ColorSecond, ColorTherd]}
         >
 
-            <View style={{ flexDirection: 'column', flex: 1 }}>
+            <ScrollView style={{ flex: 1 }}>
 
-                <View >
+                <View style={{ flexDirection: 'column', flex: 1 }}>
+
                     <View >
-
-                        <View style={{ alignItems: 'center' }} >
-                            <Image
-                                source={require('../images/logo.png')}
-                                style={styles.image}
-                                resizeMode="contain"
-                            />
-                        </View>
-
-                        <View style={{ marginStart: 10, marginTop: -30 }}>
-                            <Text style={[styles.buttonText2, { fontSize: 30 }]}>
-                                BALLY'S MEMBER
-                            </Text>
-                            <Text style={[styles.buttonText2, { fontSize: 30 }]} >
-                                LOGIN
-                            </Text>
-                        </View>
-
                         <View >
-                            <Text style={styles.buttonText3} >
-                                Now you can enjoy all the
-                            </Text>
-                            <Text style={styles.buttonText3} >
-                                excitement of the casino right at
-                            </Text>
-                            <Text style={styles.buttonText3} >
-                                your fingertips.
-                            </Text>
-                        </View>
 
+                            <View style={{ alignItems: 'center' }} >
+                                <Image
+                                    source={require('../images/logo.png')}
+                                    style={styles.image}
+                                    resizeMode="contain"
+                                />
+                            </View>
+
+                            <View style={{ marginStart: 10, marginTop: -30 }}>
+                                <Text style={[styles.buttonText2, { fontSize: 30 }]}>
+                                    BALLY'S MEMBER
+                                </Text>
+                                <Text style={[styles.buttonText2, { fontSize: 30 }]} >
+                                    LOGIN
+                                </Text>
+                            </View>
+
+                            <View >
+                                <Text style={styles.buttonText3} >
+                                    Now you can enjoy all the
+                                </Text>
+                                <Text style={styles.buttonText3} >
+                                    excitement of the casino right at
+                                </Text>
+                                <Text style={styles.buttonText3} >
+                                    your fingertips.
+                                </Text>
+                            </View>
+
+
+                        </View>
+                    </View>
+
+                    <View style={{ margin: 20, justifyContent: 'center' }}>
+                        <GradientButtonWithBorder
+                            title="SIGN IN"
+                            onPress={() => handleLogin2('SIGN')}
+                            colors={['transparent', 'transparent', 'transparent']}
+                            borderColor="#FFCE6C"
+                            buttonStyle={{}}
+                            textStyle={styles.buttonText}
+                        />
+                    </View>
+
+
+
+                    <View style={{ width: '100%', alignItems: 'center' }}>
+
+                        <Text style={{ textAlign: 'center', color: 'white', fontSize: 20, fontWeight: 'bold' }}>NEW MEMBER LOGIN</Text>
+                        <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>If you are a first time user, please go through the sign up process</Text>
+                    </View>
+                    <View style={{ margin: 20, justifyContent: 'center' }}>
+                        <GradientButtonWithBorder
+                            title="SIGN UP"
+                            onPress={handleLogin}
+                            colors={['transparent', 'transparent', 'transparent']}
+                            borderColor="#FFCE6C"
+                            buttonStyle={{}}
+                            textStyle={styles.buttonText}
+                        />
+                    </View>
+
+                    <View style={{ alignItems: 'center' }}>
+
+                        <Text style={{ textAlign: 'center', color: 'white', fontSize: 20, fontWeight: 'bold' }}>OR</Text>
+                        <Text style={{ textAlign: 'center', fontSize: 18, color: 'white', }}>If you are with a temporary ID, sign in here</Text>
 
                     </View>
-                </View>
-
-                <View style={{ margin: 20, justifyContent: 'center' }}>
-                    <GradientButtonWithBorder
-                        title="SIGN IN"
-                        onPress={() => handleLogin2('SIGN')}
-                        colors={['transparent', 'transparent', 'transparent']}
-                        borderColor="#FFCE6C"
-                        buttonStyle={{}}
-                        textStyle={styles.buttonText}
-                    />
-                </View>
 
 
-
-                <View style={{ width: '100%', alignItems: 'center' }}>
-
-                    <Text style={{ textAlign: 'center', color: 'white', fontSize: 20, fontWeight: 'bold' }}>NEW MEMBER LOGIN</Text>
-                    <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>If you are a first time user, please go through the sign up process</Text>
-                </View>
-                <View style={{ margin: 20, justifyContent: 'center' }}>
-                    <GradientButtonWithBorder
-                        title="SIGN UP"
-                        onPress={handleLogin}
-                        colors={['transparent', 'transparent', 'transparent']}
-                        borderColor="#FFCE6C"
-                        buttonStyle={{}}
-                        textStyle={styles.buttonText}
-                    />
-                </View>
-
-                <View style={{ alignItems: 'center' }}>
-
-                    <Text style={{ textAlign: 'center', color: 'white', fontSize: 20, fontWeight: 'bold' }}>OR</Text>
-                    <Text style={{ textAlign: 'center', fontSize: 18, color: 'white', }}>If you are with a temporary ID, sign in here</Text>
+                    <View style={{ margin: 20, justifyContent: 'center' }}>
+                        <GradientButtonWithBorder
+                            title={'TEMPORARY\nSIGN IN'}
+                            onPress={() => handleLogin2('TEMP')}
+                            colors={['transparent', 'transparent', 'transparent']}
+                            borderColor="#FFCE6C"
+                            buttonStyle={{}}
+                            textStyle={styles.buttonText4}
+                        />
+                    </View>
 
                 </View>
 
+            </ScrollView>
 
-                <View style={{ margin: 20, justifyContent: 'center' }}>
-                    <GradientButtonWithBorder
-                        title={'TEMPORARY\nSIGN IN'}
-                        onPress={() => handleLogin2('TEMP')}
-                        colors={['transparent', 'transparent', 'transparent']}
-                        borderColor="#FFCE6C"
-                        buttonStyle={{}}
-                        textStyle={styles.buttonText4}
-                    />
-                </View>
-
-            </View>
         </LinearGradient>
     );
 };

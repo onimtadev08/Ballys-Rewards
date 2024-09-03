@@ -221,7 +221,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                                 <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>Sign in</Text>
                                 <Image
                                     source={require('../images/logo.png')}
-                                    style={{ width: width / 1.2, height: width / 1.2 }}
+                                    style={{ width: width / 1.2, height: width / 1.5 }}
                                     resizeMode="contain"
                                 />
                             </View>

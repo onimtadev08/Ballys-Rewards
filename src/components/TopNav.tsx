@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { View, TouchableOpacity, Image, Text, Animated, Easing, Dimensions } from 'react-native';
+import { BackHandler, View, TouchableOpacity, Image, Text, Animated, Easing, Dimensions } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BlurView } from '@react-native-community/blur';
 import DrawerMenu from './DrawerMenu';
@@ -34,7 +34,24 @@ const TopNav: React.FC<propsData> = ({
 
     const animationRef = useRef(new Animated.Value(openCard ? 0 : -screenWidth)).current;
 
+
+    const handleBackPress
+        = () => {
+            // Handle back button press logic here
+            if (showCard) {
+                setopenCard(false);
+                setTimeout(() => {
+                    setshowCard(false);
+                }, 500);
+            }
+            return true; // Prevent default back behavior
+        };
+
+
     useEffect(() => {
+
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
         // Defining the target value for the animation based on the ‘openCard’ prop
         //     const Mname = AsyncStorage.getItem('strMName');
 
@@ -43,7 +60,7 @@ const TopNav: React.FC<propsData> = ({
         //     return Mname;
         // }
 
-   //     setMname(name());
+        //     setMname(name());
 
         const targetValue = openCard ? 0 : -screenWidth;
         // Choosing the easing function for the animation based on the ‘openCard’ prop

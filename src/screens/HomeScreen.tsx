@@ -269,6 +269,8 @@ class HomeScreen extends Component<myProps, myStates> {
                             <TopNav navigation={this.props.navigation} titel={'HOME'} />
                         </View>
                         <ScrollView style={{ zIndex: 1 }}>
+
+
                             <View style={{ flexDirection: 'row' }}>
 
                                 <CardView style={{ flex: 1, flexDirection: 'column', borderRadius: 20, margin: 10 }}
@@ -312,6 +314,7 @@ class HomeScreen extends Component<myProps, myStates> {
                             </View>
 
                             <View style={{
+                                marginTop: -20,
                                 flexDirection: 'row',
                                 width: screenWidth,
                                 alignItems: 'center',
@@ -351,7 +354,7 @@ class HomeScreen extends Component<myProps, myStates> {
                                         this.props.navigation.navigate('TaxiScreen');
                                     }}
                                 />
-                                
+
                                 <MainMenuButton Url={require('../images/svgtopng/ENTERTAINMENT.png')} title={'Entertainment'}
                                     onPress={() => {
                                         this.props.navigation.navigate('EntertainmentScreen');
@@ -384,11 +387,11 @@ class HomeScreen extends Component<myProps, myStates> {
                         ) : null}
                         <View style={{
                             zIndex: 1,
-                            left: 0,
-                            bottom: 0,
-                            right: 0
-                            , position: 'absolute',
-                            height: '12%',
+                            // left: 0,
+                            // bottom: 0,
+                            // right: 0,
+                            // position: 'absolute',
+                            height: '11%',
                             backgroundColor: 'transparent'
                         }}>
                             <ButtomNav navigation={this.props.navigation}
