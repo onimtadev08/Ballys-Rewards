@@ -28,7 +28,7 @@ const DrawerMenu: React.FC<propsData> = ({
             flex: 1,
             backgroundColor: 'white',
             height: '100%',
-            width: '100%',
+            width: '70%',
         }
     });
 
@@ -39,18 +39,32 @@ const DrawerMenu: React.FC<propsData> = ({
 
 
     return (
-        <View style={{ flex: 1, flexDirection: 'column', width: '70%' }}>
+        <View style={{ flex: 1, flexDirection: 'column', width: '100%', height: '100%' }}>
 
-            <View style={{ alignItems: 'flex-end',marginTop:500 }}>
-                <View style={{ width: '100%' }}>
+            <View style={{ alignItems: 'flex-end', height: '10%' }}>
 
+                <Image
+                    source={require('../images/svgtopng/blogo.png')}
+                    resizeMode='contain'
+                    style={{
+                        top: 10,
+                        backgroundColor: ColorFirst,
+                        width: '100%',
+                        height: '100%'
+                    }}>
+                </Image>
+
+                {/* <View style={{ width: '100%', height: '100%', backgroundColor: 'blue' }}>
                     <Image
                         source={require('../images/svgtopng/blogo.png')}
-                        resizeMode='contain' style={{ height: '100%', width: '100%', backgroundColor: ColorFirst }}>
+                        resizeMode='center'
+                        style={{
+                            backgroundColor: 'red'
+                        }}>
                     </Image>
-                </View>
+                </View> */}
 
-                <TouchableOpacity style={{ position: 'absolute', top: -20, end: 10 }}
+                <TouchableOpacity style={{ position: 'absolute', top: 10, end: 10 }}
                     onPress={onClose}
                 >
                     <AntDesign name='closecircle' size={30} color={'#EFAE4D'} />
@@ -189,6 +203,7 @@ const DrawerMenu: React.FC<propsData> = ({
 
                 </View>
             </ScrollView>
+
             {/* </SafeAreaView> */}
 
 

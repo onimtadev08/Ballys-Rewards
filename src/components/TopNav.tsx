@@ -84,27 +84,30 @@ const TopNav: React.FC<propsData> = ({
         <View style={{ zIndex: 1 }}>
 
             <View style={{
+                backgroundColor: 'transparent',
                 flexDirection: 'row',
                 width: '100%',
                 height: 50,
-                alignItems: 'center'
+                alignItems: 'center',
             }} >
 
                 {showCard ?
-                    <Animated.View style={{ transform: [{ translateX: animationRef }], width: screenWidth, height: screenHeight * 2 }}>
+                    <Animated.View style={{
+                        transform: [{ translateX: animationRef }],
+                        width: screenWidth,
+                        height: '100%',
+                    }}>
 
                         <BlurView style={{
                             zIndex: 3,
                             position: 'absolute',
-                            width: '100%',
-                            height: '100%',
+                            width: screenWidth,
+                            height: screenWidth * 1.9,
                         }}
                             blurAmount={5}
                             blurType='dark'
                             reducedTransparencyFallbackColor='white'
                         >
-
-                            <Text>{Mname}</Text>
 
                             <DrawerMenu
                                 navigation={navigation}
@@ -139,7 +142,6 @@ const TopNav: React.FC<propsData> = ({
 
                     <TouchableOpacity
                         style={{
-
                             borderRadius: 40,
                             width: '40%',
                             alignItems: 'center',
