@@ -545,7 +545,7 @@ class ContactUsScreen extends Component<myProps, myStates> {
                             bottom: 0,
                             right: 0
                             , position: 'absolute',
-                            height: '12%',
+                            height: '15%',
                             backgroundColor: ColorTherd
                         }}>
                             <ButtomNav navigation={this.props.navigation}

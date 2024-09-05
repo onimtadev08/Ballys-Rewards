@@ -17,10 +17,10 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
     navigation
 }) => {
     return (
-        <View style={{ zIndex: -1, flexDirection: 'row', alignItems: 'center', backgroundColor: 'transparent' }}>
+        <View style={{ zIndex: -1, flexDirection: 'row', alignItems: 'center' }}>
 
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 30 }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10 }}>
                 <AwesomeButton
                     paddingHorizontal={0}
                     paddingBottom={0}
@@ -42,7 +42,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-                        <Image source={require('../images/svgtopng/HOME.png')} resizeMode='contain' style={{ height: '50%', width: '50%' }} />
+                        <Image source={require('../images/svgtopng/HOME.png')} resizeMode='contain' style={{ height: '80%', width: '80%' }} />
 
 
                         <Text
@@ -63,7 +63,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 30 }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10, marginLeft: -10 }}>
                 <AwesomeButton
                     paddingHorizontal={0}
                     paddingBottom={0}
@@ -85,7 +85,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-                        <Image source={require('../images/svgtopng/myCard.png')} resizeMode='contain' style={{ height: '50%', width: '50%' }} />
+                        <Image source={require('../images/svgtopng/myCard.png')} resizeMode='contain' style={{ height: '80%', width: '80%' }} />
 
 
                         <Text
@@ -105,7 +105,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
             </View>
 
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10 }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: parseInt('100%', 10) + 30, marginTop: -10 }}>
                 <AwesomeButton
                     paddingHorizontal={0}
                     paddingBottom={0}
@@ -115,7 +115,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                     backgroundDarker='transparent'
                     backgroundShadow='transparent'
                     backgroundActive='transparent'
-                    height={parseInt('100%', 10)}
+                    height={parseInt('100%', 10) + 30}
                     width={parseInt('100%', 10)}
                     onPress={async () => {
                         const MID = await AsyncStorage.getItem('MID');
@@ -127,12 +127,13 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-                        <Image source={require('../images/svgtopng/MyWalletPng.png')} resizeMode='contain' style={{ height: '70%', width: '70%' }} />
+                        <Image source={require('../images/svgtopng/MyWalletPng.png')} resizeMode='contain' style={{ height: '85%', width: '85%' }} />
 
 
                         <Text
                             style={{
-                                marginTop: 5,
+                                marginTop: 0,
+                                marginBottom: 5,
                                 backgroundColor: 'transparent',
                                 width: '100%',
                                 fontWeight: 'bold',
@@ -148,7 +149,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 30 }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10, marginRight: -10 }}>
                 <AwesomeButton
                     paddingHorizontal={0}
                     paddingBottom={0}
@@ -170,7 +171,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-                        <Image source={require('../images/svgtopng/MyBookingPng.png')} resizeMode='contain' style={{ height: '50%', width: '50%' }} />
+                        <Image source={require('../images/svgtopng/MyBookingPng.png')} resizeMode='contain' style={{ height: '80%', width: '80%' }} />
 
 
                         <Text
@@ -191,7 +192,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 30 }}>
+            <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10 }}>
                 <AwesomeButton
                     paddingHorizontal={0}
                     paddingBottom={0}
@@ -213,7 +214,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-                        <Image source={require('../images/svgtopng/MyHost.png')} resizeMode='contain' style={{ height: '50%', width: '50%' }} />
+                        <Image source={require('../images/svgtopng/MyHost.png')} resizeMode='contain' style={{ height: '80%', width: '80%' }} />
 
 
                         <Text

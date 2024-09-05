@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator, View, Text, StyleSheet } from 'react-native'
+import { ActivityIndicator, View, Text, StyleSheet, Image, ImageBackground } from 'react-native'
 import { BlurView } from "@react-native-community/blur";
 
 const Loader: React.FC = ({ }) => {
@@ -20,22 +20,42 @@ const Loader: React.FC = ({ }) => {
 
 
 
-        <BlurView style={{
-            zIndex: 5,
+        // <BlurView style={{
+        //     zIndex: 5,
+        //     alignItems: 'center',
+        //     justifyContent: 'center',
+        //     position: 'absolute',
+        //     width: '100%',
+        //     height: '100%',
+        //     overflow: 'hidden'
+        // }}
+        //     overlayColor='transparent'
+        //     blurAmount={5}
+        //     blurType='dark'
+        // // reducedTransparencyFallbackColor='white'
+        // >
+
+        <View style={{
+            zIndex: 50,
             alignItems: 'center',
             justifyContent: 'center',
-            position: 'absolute',
             width: '100%',
             height: '100%',
-        }}
-            blurAmount={5}
-            blurType='dark'
-            reducedTransparencyFallbackColor='white'
-        >
+            position: 'absolute',
+            backgroundColor: 'rgba(0,0,0,0.4)',
+            overflow: 'hidden',
+        }}>
 
+            <ImageBackground source={require('../images/meg.jpg')}
+                blurRadius={100}
+                resizeMode='stretch'
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    opacity: 1,
+                }}>
 
-
-
+            </ImageBackground>
 
             <View
                 style={{
@@ -63,9 +83,14 @@ const Loader: React.FC = ({ }) => {
                 </Text>
             </View>
 
+        </View>
 
 
-        </BlurView>
+
+
+
+
+        //       </BlurView>
 
     );
 }

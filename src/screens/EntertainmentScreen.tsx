@@ -17,6 +17,7 @@ import { GetEvents } from '../api/Api.tsx';
 import { Marquee } from '@animatereactnative/marquee';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
+import { color } from '@rneui/themed/dist/config/index';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -213,7 +214,9 @@ class EntertainmentScreen extends Component<myProps, myStates> {
             },
             container: {
                 flex: 1,
-                width: screenWidth,
+                width: '100%',
+                height: '100%',
+                backgroundColor: ColorFirst,
             },
             scrollView: {
                 width: screenWidth,
@@ -239,7 +242,7 @@ class EntertainmentScreen extends Component<myProps, myStates> {
 
                 resizeMode: 'contain',
                 backgroundColor: 'rgba(0,0,0,0)',
-                width: screenWidth,
+                width: '100%',
                 height: '100%',
                 // top:50,
                 // bottom: 70,
@@ -361,7 +364,7 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                                 cardElevation={20}
                                 cardMaxElevation={10}
                                 cornerRadius={20}>
-                                <View style={{ flexDirection: 'column', borderRadius: 10 }}>
+                                <View style={{ flexDirection: 'column', borderRadius: 10, height: '100%', width: '100%' }}>
 
                                     <Carousel
                                         autoPlay={true}
@@ -369,9 +372,8 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                                         // loop
                                         style={{
                                             left: -10,
-                                            width: screenWidth,
-                                            height: screenHeight - 160,
                                             borderRadius: 3,
+                                            backgroundColor: 'transparent'
                                         }}
                                         width={screenWidth}
                                         height={screenHeight - 160}
@@ -453,7 +455,7 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                             bottom: 0,
                             right: 0
                             , position: 'absolute',
-                            height: '12%',
+                            height: '15%',
                             backgroundColor: ColorTherd
                         }}>
                             <ButtomNav navigation={this.props.navigation}

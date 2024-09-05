@@ -346,7 +346,13 @@ class HomeScreen extends Component<myProps, myStates> {
 
 
                             <View style={{
-                                flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around', flex: 1
+                                flexDirection: 'row',
+                                 width: screenWidth, 
+                                 alignItems: 'center', 
+                                 justifyContent: 'space-around', 
+                                 flex: 1,
+                                 marginBottom:30,
+                                 marginTop:-5
                             }}>
 
                                 <MainMenuButton Url={require('../images/svgtopng/MyTaxiPng.png')} title={'MY TAXI'}
@@ -391,7 +397,7 @@ class HomeScreen extends Component<myProps, myStates> {
                             // bottom: 0,
                             // right: 0,
                             // position: 'absolute',
-                            height: '11%',
+                            height: '15%',
                             backgroundColor: 'transparent'
                         }}>
                             <ButtomNav navigation={this.props.navigation}

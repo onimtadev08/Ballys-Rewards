@@ -25,9 +25,7 @@ const DrawerMenu: React.FC<propsData> = ({
     const styles = StyleSheet.create({
 
         container: {
-            flex: 1,
             backgroundColor: 'white',
-            height: '100%',
             width: '70%',
         }
     });
@@ -39,16 +37,20 @@ const DrawerMenu: React.FC<propsData> = ({
 
 
     return (
-        <View style={{ flex: 1, flexDirection: 'column', width: '100%', height: '100%' }}>
+        <View style={{ flex: 1, flexDirection: 'column', width: '100%',height:'100%' }}>
 
-            <View style={{ alignItems: 'flex-end', height: '10%' }}>
+            <View style={{
+                alignItems: 'flex-end',
+                height: '20%',
+                backgroundColor: ColorFirst,
+                paddingBottom: 20,
+                paddingTop: 20
+            }}>
 
                 <Image
                     source={require('../images/svgtopng/blogo.png')}
                     resizeMode='contain'
                     style={{
-                        top: 10,
-                        backgroundColor: ColorFirst,
                         width: '100%',
                         height: '100%'
                     }}>
@@ -94,7 +96,8 @@ const DrawerMenu: React.FC<propsData> = ({
                 <View style={{
                     height: '100%',
                     width: '100%',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
+                    marginBottom:100,
                 }}>
 
                     <MenuButton

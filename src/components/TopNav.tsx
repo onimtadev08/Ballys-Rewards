@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { BackHandler, View, TouchableOpacity, Image, Text, Animated, Easing, Dimensions } from 'react-native';
+import { ImageBackground, BackHandler, View, TouchableOpacity, Image, Text, Animated, Easing, Dimensions } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BlurView } from '@react-native-community/blur';
 import DrawerMenu from './DrawerMenu';
@@ -42,7 +42,7 @@ const TopNav: React.FC<propsData> = ({
                 setopenCard(false);
                 setTimeout(() => {
                     setshowCard(false);
-                }, 500);
+                }, 300);
             }
             return true; // Prevent default back behavior
         };
@@ -70,7 +70,7 @@ const TopNav: React.FC<propsData> = ({
 
         Animated.timing(animationRef, {
             toValue: targetValue, // Setting the target value for the animation
-            duration: 500, // Setting the duration of the animation in milliseconds
+            duration: 300, // Setting the duration of the animation in milliseconds
             easing: easingFunction, // Applying the chosen easing function
             useNativeDriver: true, // Using the native driver for improved performance
         }).start(); // Starting the animation
@@ -83,22 +83,17 @@ const TopNav: React.FC<propsData> = ({
     return (
         <View style={{ zIndex: 1 }}>
 
-            <View style={{
-                backgroundColor: 'transparent',
-                flexDirection: 'row',
-                width: '100%',
-                height: 50,
-                alignItems: 'center',
-            }} >
 
-                {showCard ?
-                    <Animated.View style={{
-                        transform: [{ translateX: animationRef }],
-                        width: screenWidth,
-                        height: '100%',
-                    }}>
+            {showCard ?
+                <Animated.View style={{
+                    zIndex:3,
+                    transform: [{ translateX: animationRef }],
+                    width: screenWidth,
+                    height: '100%',
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                }}>
 
-                        <BlurView style={{
+                    {/* <BlurView style={{
                             zIndex: 3,
                             position: 'absolute',
                             width: screenWidth,
@@ -107,36 +102,59 @@ const TopNav: React.FC<propsData> = ({
                             blurAmount={5}
                             blurType='dark'
                             reducedTransparencyFallbackColor='white'
-                        >
+                        > */}
 
-                            <DrawerMenu
-                                navigation={navigation}
-                                onPress={() => {
-                                    if (showCard) {
-                                        setopenCard(false);
-                                        setshowCard(false)
-                                    } else {
-                                        setopenCard(true);
-                                        setshowCard(true);
-                                    }
-                                }}
-                                onClose={() => {
+                    <ImageBackground source={require('../images/meg.jpg')}
+                        blurRadius={100}
+                        resizeMode='stretch'
+                        style={{
+                            zIndex: 3,
+                            width: '100%',
+                            height: '100%',
+                            opacity: 1,
+                        }}>
 
+                        <DrawerMenu
+                            navigation={navigation}
+                            onPress={() => {
+                                if (showCard) {
                                     setopenCard(false);
-                                    setTimeout(() => {
-                                        setshowCard(false);
-                                    }, 500);
+                                    setshowCard(false)
+                                } else {
+                                    setopenCard(true);
+                                    setshowCard(true);
+                                }
+                            }}
+                            onClose={() => {
 
-                                    //          setshowCard(false);
-                                    //           setopenCard(true);
+                                setopenCard(false);
+                                setTimeout(() => {
+                                    setshowCard(false);
+                                }, 300);
 
-                                }}
-                            />
+                                //          setshowCard(false);
+                                //           setopenCard(true);
 
-                        </BlurView >
+                            }}
+                        />
 
-                    </Animated.View> : null
-                }
+                    </ImageBackground>
+
+
+
+                    {/* </BlurView > */}
+
+                </Animated.View> : null
+            }
+
+            <View style={{
+                flexDirection: 'row',
+                width: '100%',
+                height: 50,
+                alignItems: 'center',
+            }} >
+
+
 
                 <View style={{ marginStart: openCard ? 30 : 20, zIndex: 2 }} >
 
@@ -206,8 +224,6 @@ const TopNav: React.FC<propsData> = ({
                 }
 
 
-
-
                 <View style={{ marginEnd: 20, alignItems: 'flex-end' }} >
 
                     <TouchableOpacity
@@ -228,6 +244,7 @@ const TopNav: React.FC<propsData> = ({
                 </View>
 
             </View>
+            
         </View >
     );
 };
