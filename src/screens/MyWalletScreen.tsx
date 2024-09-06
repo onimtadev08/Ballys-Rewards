@@ -309,7 +309,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                             </View>
 
 
-                            <View style={{ marginTop: 20, marginBottom: 80 }}>
+                            <View style={{ marginTop: 20, marginBottom: 100 }}>
                                 <View style={{ borderWidth: 2, borderColor: 'white', marginTop: 30, marginBottom: 50, margin: 20, borderRadius: 20, alignItems: 'center' }}>
 
                                     <Image source={require('../images/svgtopng/SILVER.png')} style={{ width: 80, height: 80, top: -40 }} />

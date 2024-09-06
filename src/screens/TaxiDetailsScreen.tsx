@@ -297,7 +297,7 @@ class TaxiDetailsScreen extends Component<myProps, myStates> {
 
                             </View>
 
-                            <View style={{ marginTop: 30, marginBottom: 100, flexDirection: 'column', alignItems: 'center' }}>
+                            <View style={{ marginTop: 30, marginBottom: 130, flexDirection: 'column', alignItems: 'center' }}>
                                 <Text style={{ color: 'white', fontSize: 18 }}>ANY ASSISTANCE</Text>
                                 <Text style={{ marginTop: 10, color: 'white', fontSize: 20, fontWeight: 'bold' }}>MOBILE : +94774771234</Text>
 

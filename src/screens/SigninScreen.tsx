@@ -58,7 +58,7 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
             showApiErrorMsg: '',
             showApiInfo: false,
             showApiInfoMsg: '',
-            showOtpMsg: false,
+            showOtpMsg: true,
             openDatePicker: false,
             TempPIN: new Date(),
             VerifyOTP: '',

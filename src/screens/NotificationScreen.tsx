@@ -166,7 +166,7 @@ class NotificationScreen extends Component<myProps, myStates> {
                         {/* <ScrollView style={styles.container}> */}
 
                         <FlatList
-                            style={{ marginBottom: 90 }}
+                            style={{ marginBottom: 130 }}
                             data={this.state.Messages}
                             renderItem={this.renderItem} />
 

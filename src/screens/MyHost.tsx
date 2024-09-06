@@ -411,7 +411,7 @@ class MyHost extends Component<myProps, myStates> {
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
                             <TopNav navigation={this.props.navigation} titel={'MY HOST'} />
                         </View>
-                        <View style={{ marginBottom: 130 }}>
+                        <View style={{ marginBottom: 170 }}>
                             {/* <ScrollView style={styles.container}> */}
 
                             <FlatList

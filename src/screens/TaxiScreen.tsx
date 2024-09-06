@@ -157,7 +157,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                                 </View>
 
 
-                                <View style={{ top: -70, height: '20%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                                <View style={{ top: -80, height: '20%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
                                     <TouchableOpacity style={{ height: 55, width: '100%', justifyContent: 'center' }} onPress={() => { 
                                         this.props.navigation.navigate('TaxiDetailsScreen');
                                     }}>

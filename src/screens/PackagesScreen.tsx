@@ -567,7 +567,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
                             </View>
 
-                            <View style={{ flexDirection: 'row', flex: 1, marginTop: 20, marginBottom: 90 }}>
+                            <View style={{ flexDirection: 'row', flex: 1, marginTop: 20, marginBottom: 130 }}>
                                 <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
                                     <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
                                     <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>

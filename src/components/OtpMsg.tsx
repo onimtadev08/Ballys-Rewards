@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, TextInput, Keyboard } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, TextInput, Keyboard,ImageBackground } from 'react-native';
 import AntDesing from 'react-native-vector-icons/AntDesign'
 import { ColorTherd } from '../data/data';
 import { BlurView } from '@react-native-community/blur';
@@ -76,17 +76,27 @@ const OtpMsg: React.FC<errorMsgProps> = ({
     }, [Text4]);
 
     return (
-        <BlurView style={{
+        <View style={{
+            zIndex: 50,
             alignItems: 'center',
             justifyContent: 'center',
-            position: 'absolute',
             width: '100%',
             height: '100%',
-        }}
-            blurAmount={5}
-            blurType='dark'
-            reducedTransparencyFallbackColor='white'
-        >
+            position: 'absolute',
+            backgroundColor: 'rgba(0,0,0,0.4)',
+            overflow: 'hidden',
+        }}>
+
+            <ImageBackground source={require('../images/meg.jpg')}
+                blurRadius={100}
+                resizeMode='stretch'
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    opacity: 1,
+                }}>
+
+            </ImageBackground>
             <View
                 style={{
                     backgroundColor: ColorTherd,
@@ -125,7 +135,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                color:'white',
+                                color: 'white',
                                 borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
@@ -147,7 +157,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                color:'white',
+                                color: 'white',
                                 borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
@@ -169,7 +179,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                color:'white',
+                                color: 'white',
                                 borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
@@ -191,7 +201,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <TextInput
                             keyboardType='number-pad'
                             style={{
-                                color:'white',
+                                color: 'white',
                                 borderColor: 'gold',
                                 borderWidth: 1,
                                 width: 50,
@@ -297,7 +307,7 @@ const OtpMsg: React.FC<errorMsgProps> = ({
 
                 </View>
             </View>
-        </BlurView>
+        </View>
     );
 }
 export default OtpMsg;                                            
