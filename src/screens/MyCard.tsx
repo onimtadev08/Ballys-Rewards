@@ -20,6 +20,8 @@ import { Marquee } from '@animatereactnative/marquee';
 
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
+import GlowAroundView from '../components/AnimatedBorderBox.tsx';
+import AnimatedBorderBox from '../components/AnimatedBorderBox.tsx';
 
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -361,7 +363,14 @@ class MyCard extends Component<myProps, myStates> {
                         </View>
 
                         <ScrollView style={styles.container}>
-                            <View style={{ alignItems: 'center' ,marginBottom:120}}>
+                            <View style={{ alignItems: 'center', marginBottom: 520, flexDirection: 'column' }}>
+
+
+
+
+
+
+
                                 <View style={{
                                     borderCurve: 'continuous',
                                     borderRadius: 20,
@@ -378,6 +387,8 @@ class MyCard extends Component<myProps, myStates> {
                                         }}
                                         resizeMode='stretch' />
                                 </View>
+
+
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <View>
@@ -438,6 +449,12 @@ class MyCard extends Component<myProps, myStates> {
                                 >
                                     <Text style={{ color: 'white', marginBottom: 20, fontSize: 20, fontWeight: 'bold' }}>+94 112 460 460</Text>
                                 </TouchableOpacity>
+
+
+
+                                <AnimatedBorderBox></AnimatedBorderBox>
+
+
 
                             </View>
                         </ScrollView>
