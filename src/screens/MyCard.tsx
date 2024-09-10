@@ -391,9 +391,9 @@ class MyCard extends Component<myProps, myStates> {
 
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <View>
 
-                                            <Image
+
+                                        {/* <Image
                                                 source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/026/164/709/small_2x/businessman-portrait-elegant-man-in-business-suit-employee-of-business-institution-in-uniform-man-office-worker-business-avatar-profile-picture-illustration-vector.jpg' }}
                                                 style={{
                                                     height: 180,
@@ -402,9 +402,14 @@ class MyCard extends Component<myProps, myStates> {
                                                     borderColor: 'gold',
                                                     borderWidth: 5,
                                                 }}
-                                            />
-                                        </View>
-                                        <View style={{ flexDirection: 'column', width: '55%', backgroundColor: 'white', height: 100, borderEndEndRadius: 20, borderTopEndRadius: 20 }}>
+                                            /> */}
+
+
+                                        <AnimatedBorderBox></AnimatedBorderBox>
+
+
+
+                                        {/* <View style={{ flexDirection: 'column', width: '55%', backgroundColor: 'white', height: 100, borderEndEndRadius: 20, borderTopEndRadius: 20 }}>
                                             <Text style={{ marginStart: 10, fontSize: 18, marginTop: 10 }}>BALLYS MEMBER</Text>
                                             <View style={{ borderWidth: 1, borderColor: 'red', marginStart: 10, marginEnd: 20 }}></View>
 
@@ -422,7 +427,9 @@ class MyCard extends Component<myProps, myStates> {
                                                 <Text style={{ flex: 1, fontSize: 16 }}>CARD TIER : </Text>
                                                 <Text style={{ flex: 1, fontSize: 16 }}>INFINITY</Text>
                                             </View>
-                                        </View>
+                                        </View> */}
+
+
                                     </View>
                                 </View>
 
@@ -452,7 +459,7 @@ class MyCard extends Component<myProps, myStates> {
 
 
 
-                                <AnimatedBorderBox></AnimatedBorderBox>
+                                {/* <AnimatedBorderBox></AnimatedBorderBox> */}
 
 
 
