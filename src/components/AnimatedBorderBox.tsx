@@ -20,19 +20,19 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = () => {
 
 
             <View style={{
-                left: 143,
+                left: 142,
                 width: 250,
-                height: 41,
+                height: 48,
                 backgroundColor: ColorSecond,
                 position: 'absolute'
 
             }}></View>
 
             <View style={{
-                top: 156,
-                left: 143,
+                top: 148,
+                left: 142,
                 width: 250,
-                height: 40,
+                height: 50,
                 backgroundColor: ColorSecond,
                 position: 'absolute'
 
@@ -47,14 +47,52 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = () => {
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
 
+                    <View style={{
+                        top: -18,
+                        position: 'absolute',
+                        flexDirection: 'column',
+                        width: 130,
+                        backgroundColor: 'transparent',
+                        height: 50,
+                        left: 11,
+                        marginLeft: 5,
+                        borderTopEndRadius: 30,
+                        borderLeftColor: 'transparent',
+                        borderRightColor: ColorSecond,
+                        borderTopColor: ColorSecond,
+                        borderBottomColor: 'transparent',
+                        borderWidth: 10,
+                        borderCurve: 'continuous',
+
+                    }} />
+
+
+                    <View style={{
+                        top: 145,
+                        position: 'absolute',
+                        flexDirection: 'column',
+                        width: 130,
+                        backgroundColor: 'transparent',
+                        height: 50,
+                        left: 12,
+                        marginLeft: 5,
+                        borderBottomEndRadius: 30,
+                        borderLeftColor: 'transparent',
+                        borderRightColor: ColorSecond,
+                        borderTopColor: 'transparent',
+                        borderBottomColor: ColorSecond,
+                        borderWidth: 10,
+                        borderCurve: 'continuous',
+
+                    }} />
+
+
                     <Image
                         source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/026/164/709/small_2x/businessman-portrait-elegant-man-in-business-suit-employee-of-business-institution-in-uniform-man-office-worker-business-avatar-profile-picture-illustration-vector.jpg' }}
                         style={{
                             height: 180,
                             width: 130,
                             borderRadius: 20,
-                            borderColor: 'gold',
-                            borderWidth: 5,
                         }}
                     />
 
