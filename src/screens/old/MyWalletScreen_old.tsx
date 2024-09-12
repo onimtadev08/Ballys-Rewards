@@ -7,19 +7,19 @@ import { interpolate } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
 import Entypo from 'react-native-vector-icons/Entypo'
 
-import SuccsessMsg from '../components/SuccsessMsg.tsx';
-import InfoMsg from '../components/InfoMsg.tsx';
-import ErrorMsg from '../components/errorMsg.tsx';
-import Loader from '../components/Loader.tsx';
+import SuccsessMsg from '../../components/SuccsessMsg.tsx';
+import InfoMsg from '../../components/InfoMsg.tsx';
+import ErrorMsg from '../../components/errorMsg.tsx';
+import Loader from '../../components/Loader.tsx';
 
-import ButtomNav from '../components/ButtomNav.tsx';
-import { GetEvents } from '../api/Api.tsx';
+import ButtomNav from '../../components/ButtomNav.tsx';
+import { GetEvents } from '../../api/Api.tsx';
 
 import { Marquee } from '@animatereactnative/marquee';
-import MyWallet from '../images/svgs/MyWallet.js';
+import MyWallet from '../../images/svgs/MyWallet.js';
 import AwesomeButton from 'react-native-really-awesome-button';
 
-import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
+import { ColorFirst, ColorSecond, ColorTherd } from '../../data/data.tsx';
 import { PieChart } from 'react-native-charts-wrapper';
 
 const { width: screenWidth } = Dimensions.get('window');

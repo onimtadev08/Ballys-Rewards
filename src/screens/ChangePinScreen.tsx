@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
-import { Linking, Image, FlatList, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Text, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-
-import Ionicons from 'react-native-vector-icons/Ionicons'
-
-
+import GradientButton from '../components/GradientButton.tsx';
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
 import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
-
 import ButtomNav from '../components/ButtomNav.tsx';
-import { getHostApi } from '../api/Api.tsx';
-
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
-
+import TextInput from '../components/TextInput';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -33,6 +27,10 @@ interface myStates {
     showApiSuccsessMsg: string;
     Images: string[];
     HostData: Hosts[];
+    showError: string;
+    PIN: string;
+    RetypeNewPassord: string;
+    newPassord: string;
 }
 interface myProps {
     navigation: any;
@@ -47,7 +45,7 @@ interface Hosts {
 }
 
 
-class MyHost extends Component<myProps, myStates> {
+class ChangePinScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
@@ -67,6 +65,10 @@ class MyHost extends Component<myProps, myStates> {
             showApiSuccsessMsg: '',
             Images: [],
             HostData: [],
+            showError: '',
+            PIN: '',
+            RetypeNewPassord: '',
+            newPassord: '',
         };
 
 
@@ -80,7 +82,6 @@ class MyHost extends Component<myProps, myStates> {
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
-        this.getHost();
     }
 
     handleBackPress
@@ -88,78 +89,6 @@ class MyHost extends Component<myProps, myStates> {
             return true;
         };
 
-    async getHost() {
-
-        this.setState({ isLoading: true });
-        try {
-
-
-            const result: any = await getHostApi();
-
-            if (result.strRturnRes) {
-
-                console.log(result.data);
-
-                this.setState({
-                    isLoading: false,
-                    HostData: result.data,
-                });
-
-
-            } else {
-                Keyboard.dismiss();
-                this.setState({
-                    isLoading: false,
-                    showApiError: true,
-                    showApiErrorMsg: 'Please try again'
-                });
-            }
-        } catch (error) {
-
-            this.setState({
-                isLoading: false,
-                showApiError: true,
-                showApiErrorMsg: 'Server Connection error',
-            });
-        } finally {
-
-        }
-
-    }
-
-    renderItem = ({ item }: { item: Hosts }) => {
-        return (
-            <View style={{ alignItems: 'center', margin: 10, marginBottom: 20 }}>
-                <Image source={{ uri: item.Img_Url }} style={{ height: 200, width: 200, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
-                <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{item.M_Name}</Text>
-                <Text style={{ color: 'white', fontSize: 16 }}>{item.M_Language}</Text>
-                <Text style={{ color: 'white', marginBottom: 10, fontSize: 20 }}>MOBILE : {item.M_Mobile}</Text>
-                <View style={{ flexDirection: "row", flex: 1 }}>
-                    <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                Linking.openURL('whatsapp://send?text=&phone={' + item.M_Mobile + '}');
-                            }}
-                        >
-                            <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                Linking.openURL('tel:${' + item.M_Mobile + '}');
-                            }}
-                        >
-                            <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />
-                        </TouchableOpacity>
-                    </View>
-
-                </View>
-                {/* <View style={{ borderWidth: 2, borderColor: 'white', width: '90%', marginTop: 20 }} /> */}
-            </View>
-        );
-    }
 
     render(): React.ReactNode {
 
@@ -187,14 +116,66 @@ class MyHost extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav navigation={this.props.navigation} titel={'MY HOST'} />
+                            <TopNav navigation={this.props.navigation} BackButton={true} titel={'CHANGE PIN'} />
                         </View>
                         <View style={{ marginBottom: 170 }}>
                             {/* <ScrollView style={styles.container}> */}
 
-                            <FlatList
-                                data={this.state.HostData}
-                                renderItem={this.renderItem} />
+
+
+
+                            <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+
+                                <Text style={{ color: 'white', fontSize: 20 }}>RESET PIN</Text>
+
+                                <TextInput
+                                    keyboardType={'number-pad'}
+                                    value={this.state.PIN}
+                                    onChangeText={(text: string) => {
+                                        this.setState({ PIN: text });
+                                    }}
+                                    showError={this.state.PIN === '' && this.state.showError}
+                                    fieldName={'Type Your Pin No.(4 digits)'}
+                                    fieldErrorMsg={'Field empty'}
+                                />
+
+
+                                <TextInput
+                                    value={this.state.newPassord}
+                                    onChangeText={(text: string) => {
+                                        this.setState({ newPassord: text });
+                                    }}
+                                    showError={this.state.newPassord === '' && this.state.showError}
+                                    fieldName={'Entet New Password'}
+                                    fieldErrorMsg={'Field empty'}
+                                />
+
+
+                                <TextInput
+                                    value={this.state.RetypeNewPassord}
+                                    onChangeText={(text: string) => {
+                                        this.setState({ RetypeNewPassord: text });
+                                    }}
+                                    showError={this.state.RetypeNewPassord === '' && this.state.showError}
+                                    fieldName={'Retype New Password'}
+                                    fieldErrorMsg={'Field empty'}
+                                />
+
+                                <Text style={{ color: 'white', fontSize: 20, textAlign: 'center', marginStart: 20, marginEnd: 20 }}>A NEW PIN WILL BE SENT TO YOUR EMAIL THAT YOU REGISTERED WITH US. ACCEPT IT TO ACTIVE YOUR NEW PIN(#)</Text>
+
+                                <View style={{ margin: 20, justifyContent: 'center', width: '100%' }}>
+                                    <GradientButton
+                                        title="SUBMIT"
+                                        onPress={() => { }}
+                                        colors={['transparent', 'transparent', 'transparent']}
+                                        buttonStyle={{}}
+                                        textStyle={{ fontSize: 18 }} borderColor={''} />
+                                </View>
+
+                            </View>
+
+
+
                         </View>
                         {/* </ScrollView> */}
                         {this.state.showApiSuccsess ?
@@ -236,4 +217,4 @@ class MyHost extends Component<myProps, myStates> {
 
 }
 
-export default MyHost;
+export default ChangePinScreen;

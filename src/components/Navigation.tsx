@@ -17,7 +17,7 @@ import AntDesing from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ProfileScreen from '../screens/ProfileScreen';
 import PackagesScreen from '../screens/PackagesScreen';
-import MenuScreen from '../screens/MenuScreen'
+import MenuScreen from '../screens/old/MenuScreen'
 import EntertainmentScreen from '../screens/EntertainmentScreen'
 import MyBooking from '../screens/MyBookings';
 import MyHost from '../screens/MyHost';
@@ -32,6 +32,10 @@ import TransactionHistoryScreen from '../screens/TransactionHistoryScreen';
 import SplashScreen from '../screens/SplashScreen';
 import TaxiScreen from '../screens/TaxiScreen';
 import TaxiDetailsScreen from '../screens/TaxiDetailsScreen';
+import AccountSettingsScreen from '../screens/AccountSettingsScreen';
+import ChangePinScreen from '../screens/ChangePinScreen';
+import ChangeEmailScreen from '../screens/ChangeEmailScreen';
+import SinglePageDetailsScreen from '../screens/SinglePageDetailsScreen';
 
 type RootStack = {
     Login: undefined
@@ -235,6 +239,30 @@ const Navigation = () => {
                     name='TaxiDetailsScreen'
                     options={{ headerShown: false }}
                     component={TaxiDetailsScreen}
+                />
+
+                <Stack.Screen
+                    name='AccountSettingsScreen'
+                    options={{ headerShown: false }}
+                    component={AccountSettingsScreen}
+                />
+
+                <Stack.Screen
+                    name='ChangePinScreen'
+                    options={{ headerShown: false }}
+                    component={ChangePinScreen}
+                />
+
+                <Stack.Screen
+                    name='ChangeEmailScreen'
+                    options={{ headerShown: false }}
+                    component={ChangeEmailScreen}
+                />
+
+                <Stack.Screen
+                    name='SinglePageDetailsScreen'
+                    options={{ headerShown: false }}
+                    component={SinglePageDetailsScreen}
                 />
 
             </Stack.Navigator>

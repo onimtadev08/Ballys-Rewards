@@ -37,7 +37,7 @@ const DrawerMenu: React.FC<propsData> = ({
 
 
     return (
-        <View style={{ flex: 1, flexDirection: 'column', width: '100%',height:'100%' }}>
+        <View style={{ flex: 1, flexDirection: 'column', width: '100%', height: '100%' }}>
 
             <View style={{
                 alignItems: 'flex-end',
@@ -97,7 +97,7 @@ const DrawerMenu: React.FC<propsData> = ({
                     height: '100%',
                     width: '100%',
                     flexDirection: 'column',
-                    marginBottom:100,
+                    marginBottom: 100,
                 }}>
 
                     <MenuButton
@@ -121,15 +121,20 @@ const DrawerMenu: React.FC<propsData> = ({
                     <MenuButton
                         Titel={"Responsible Gaming"}
                         Icon="game-controller"
-                        onPress={(): void => {
+                        onPress={async (): Promise<void> => {
+                            const MID = await AsyncStorage.getItem('MID');
+                            navigation.navigate('SinglePageDetailsScreen', { 'PlayerID': MID, 'Page': 1 });
                             onPress();
+
                         }}
                     />
 
                     <MenuButton
                         Titel={"Term & Conditions"}
                         Icon3="document"
-                        onPress={(): void => {
+                        onPress={async (): Promise<void> => {
+                            const MID = await AsyncStorage.getItem('MID');
+                            navigation.navigate('SinglePageDetailsScreen', { 'PlayerID': MID, 'Page': 2 });
                             onPress();
                         }}
                     />
@@ -151,7 +156,9 @@ const DrawerMenu: React.FC<propsData> = ({
                     <MenuButton
                         Titel={"Account Settings"}
                         Icon2="manage-accounts"
-                        onPress={(): void => {
+                        onPress={async (): Promise<void> => {
+                            const MID = await AsyncStorage.getItem('MID');
+                            navigation.navigate('AccountSettingsScreen', { 'PlayerID': MID });
                             onPress();
                         }}
                     />

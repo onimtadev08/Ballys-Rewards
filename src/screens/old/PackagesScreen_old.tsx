@@ -2,7 +2,7 @@ import React from "react";
 import { Image, SafeAreaView, View, TouchableOpacity, Text, ScrollView, StyleSheet, Dimensions } from "react-native";
 import Entypo from 'react-native-vector-icons/Entypo'
 import LinearGradient from 'react-native-linear-gradient';
-import PackageDetailsCard from '../components/PackageDetailsCard'
+import PackageDetailsCard from '../../components/PackageDetailsCard'
 
 interface myStates {
     isLoading: boolean;

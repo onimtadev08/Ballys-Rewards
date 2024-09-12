@@ -2,9 +2,9 @@ import React from "react";
 import { Image, SafeAreaView, View, TouchableOpacity, Text, ScrollView, StyleSheet, Dimensions } from "react-native";
 import Entypo from 'react-native-vector-icons/Entypo'
 import LinearGradient from 'react-native-linear-gradient';
-import PackageDetailsCard from '../components/PackageDetailsCard'
-import MenuButton from '../components/MenuButton'
-import { ColorFirst, ColorSecond, ColorTherd } from "../data/data";
+import PackageDetailsCard from '../../components/PackageDetailsCard'
+import MenuButton from '../../components/MenuButton'
+import { ColorFirst, ColorSecond, ColorTherd } from "../../data/data";
 
 interface myProps {
     navigation: any;
@@ -41,7 +41,7 @@ class ManuScreen extends React.PureComponent<myProps> {
         return (
             <View style={{ flex: 1, backgroundColor: ColorFirst }}>
                 <View style={{ height: '20%' }}>
-                    <Image source={require('../images/profileHader.png')} resizeMode='repeat'></Image>
+                    {/* <Image source={require('')} resizeMode='repeat'></Image> */}
                     <Text style={{ color: 'white', position: 'absolute', fontSize: 25, marginLeft: 20, marginTop: 100, fontWeight: 'bold' }}>Premier Packages</Text>
                 </View>
 
@@ -100,7 +100,9 @@ class ManuScreen extends React.PureComponent<myProps> {
                                     Titel={"Account Settings"}
                                     Icon2="manage-accounts"
                                     onPress={(): void => {
-                                        this.props.navigation.goBack();
+                                        console.log('lll');
+                                        
+                                        this.props.navigation.navigate('AccountSettingsScreen', { 'PlayerID': this.props.route.params.PlayerID });
                                     }}
                                 />
 

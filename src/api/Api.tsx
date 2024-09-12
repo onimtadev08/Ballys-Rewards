@@ -19,6 +19,11 @@ const GetEventsUrl = Domain + '/api/Ballys/GetEvents';
 const NotificatioMassageUrl = Domain + '/api/Ballys/MemberMessage';
 
 const getTransactionHistoryUrl = Domain + '/api/Ballys/getTransactionHistory';
+
+const getHostUrl = Domain + '/api/Ballys/Contact';
+
+const getSinglePageDetailsApiUrl = Domain + '/api/Ballys/get_single_page_details';
+
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
 
@@ -63,7 +68,7 @@ export async function TempLogin(PlayerID: string, PIN: string, Token: string, Me
         strToken: ''
     });
 
-   
+
     const requestOptions: RequestInit = {
         method: "POST",
         headers: myHeaders,
@@ -120,7 +125,7 @@ export async function ResendOTP(PlayerID: string) {
         strMID: PlayerID,
     });
 
-  
+
     const requestOptions: RequestInit = {
         method: "POST",
         headers: myHeaders,
@@ -132,7 +137,7 @@ export async function ResendOTP(PlayerID: string) {
     if (!response.ok) {
         throw new Error('Server Connection error');
     }
-  
+
     return response.json();
 }
 // PlayerAccountSave
@@ -163,7 +168,7 @@ export async function FirstTimeSignIn(
             Image: Image,
         });
 
-      
+
 
 
         const requestOptions: RequestInit = {
@@ -205,12 +210,12 @@ export async function Home(MID: string) {
             redirect: "follow"
         };
 
-        
+
 
         fetch(HomeUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-              
+
                 resolve(result);
             })
             .catch((error) => {
@@ -240,15 +245,15 @@ export async function getNotification(MID: string) {
             redirect: "follow"
         };
 
-     
+
         fetch(NotificatioMassageUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-              
+
                 resolve(result);
             })
             .catch((error) => {
-              
+
                 reject(error);
                 throw new Error('Server Connection error');
             });
@@ -291,7 +296,7 @@ export async function PlayerStatus(MID: string) {
             "strToken": ''
         });
 
-      
+
         const requestOptions: any = {
             method: "POST",
             headers: myHeaders,
@@ -305,12 +310,12 @@ export async function PlayerStatus(MID: string) {
                 resolve(result);
             })
             .catch((error) => {
-               reject(error);
+                reject(error);
                 throw new Error('Server Connection error');
             });
     })
 
-}  
+}
 
 
 export async function getTransactionHistory(MID: string) {
@@ -332,15 +337,71 @@ export async function getTransactionHistory(MID: string) {
             redirect: "follow"
         };
 
-     
+
         fetch(getTransactionHistoryUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-              
+
                 resolve(result);
             })
             .catch((error) => {
-              
+
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}
+
+
+export async function getHostApi() {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+
+        const requestOptions: RequestInit = {
+            method: "GET",
+            redirect: "follow"
+        };
+
+
+        fetch(getHostUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+
+                resolve(result);
+            })
+            .catch((error) => {
+
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}
+
+export async function getSinglePageDetailsApi(Page: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+
+        const requestOptions: RequestInit = {
+            method: "GET",
+            redirect: "follow"
+        };
+
+        console.log(getSinglePageDetailsApiUrl + '/' + Page);
+
+
+        fetch(getSinglePageDetailsApiUrl + '/' + Page, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(result);
+
+                resolve(result);
+            })
+            .catch((error) => {
+
                 reject(error);
                 throw new Error('Server Connection error');
             });
