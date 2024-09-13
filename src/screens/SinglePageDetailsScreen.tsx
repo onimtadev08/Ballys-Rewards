@@ -66,16 +66,10 @@ class SinglePageDetailsScreen extends Component<myProps, myStates> {
     }
 
     componentWillUnmount() {
-        console.log('llll');
-
-
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
     }
 
     componentDidMount() {
-
-        console.log('kkkk');
-
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
         this.getSinglePageDetails();
@@ -154,7 +148,7 @@ class SinglePageDetailsScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav navigation={this.props.navigation} titel={this.state.page_title.toUpperCase()} />
+                            <TopNav navigation={this.props.navigation} BackButtonNew={this.props.route.params.back ? true : false} titel={this.state.page_title.toUpperCase()} />
                         </View>
                         <View style={{ marginBottom: 130, flex: 1 }}>
                             {/* <Image source={{ uri: this.state.banner_img }} style={{ width: '100%', height: '80%' }} resizeMode='center' /> */}

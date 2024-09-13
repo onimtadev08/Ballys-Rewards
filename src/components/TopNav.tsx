@@ -12,6 +12,7 @@ interface propsData {
     BackButton?: boolean;
     isMarquee?: boolean;
     Tags?: any[];
+    BackButtonNew?: boolean;
 }
 
 //const Mname = await AsyncStorage.getItem('strMName');
@@ -22,6 +23,7 @@ const TopNav: React.FC<propsData> = ({
     BackButton,
     isMarquee,
     Tags,
+    BackButtonNew,
 }) => {
 
     const { width: screenWidth } = Dimensions.get('window');
@@ -86,7 +88,7 @@ const TopNav: React.FC<propsData> = ({
 
             {showCard ?
                 <Animated.View style={{
-                    zIndex:3,
+                    zIndex: 3,
                     transform: [{ translateX: animationRef }],
                     width: screenWidth,
                     height: '100%',
@@ -167,25 +169,49 @@ const TopNav: React.FC<propsData> = ({
                         onPress={async () => {
                             // const MID = await AsyncStorage.getItem('MID');
                             // navigation.navigate('MenuScreen', { 'PlayerID': MID });
+                            if (BackButtonNew) {
+                                const MID = await AsyncStorage.getItem('MID');
+                                navigation.replace('GamingScreen', { 'PlayerID': MID });
 
-                            if (BackButton) {
-                                navigation.goBack();
+                                if (BackButton) {
+                                    navigation.goBack();
+                                } else {
+
+                                    // if (showCard) {
+                                    //     setopenCard(false);
+                                    // } else {
+                                    setopenCard(true);
+                                    setshowCard(true);
+                                    // }
+                                }
                             } else {
+                                if (BackButton) {
+                                    navigation.goBack();
+                                } else {
 
-                                // if (showCard) {
-                                //     setopenCard(false);
-                                // } else {
-                                setopenCard(true);
-                                setshowCard(true);
-                                // }
+                                    // if (showCard) {
+                                    //     setopenCard(false);
+                                    // } else {
+                                    setopenCard(true);
+                                    setshowCard(true);
+                                    // }
+                                }
                             }
                         }}
                     >
-                        {BackButton ?
+
+                        {BackButtonNew ?
                             <Ionicons name='chevron-back-outline' size={40} color={'#f8d888'} style={{ width: 30 }} />
-                            :
-                            <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
+                            : BackButton ?
+                                <Ionicons name='chevron-back-outline' size={40} color={'#f8d888'} style={{ width: 30 }} />
+                                :
+                                <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
                         }
+
+
+
+
+
                     </TouchableOpacity>
 
                 </View>
@@ -244,7 +270,7 @@ const TopNav: React.FC<propsData> = ({
                 </View>
 
             </View>
-            
+
         </View >
     );
 };

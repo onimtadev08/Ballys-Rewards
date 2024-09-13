@@ -36,6 +36,7 @@ import AccountSettingsScreen from '../screens/AccountSettingsScreen';
 import ChangePinScreen from '../screens/ChangePinScreen';
 import ChangeEmailScreen from '../screens/ChangeEmailScreen';
 import SinglePageDetailsScreen from '../screens/SinglePageDetailsScreen';
+import GamingScreen from '../screens/GamingScreen';
 
 type RootStack = {
     Login: undefined
@@ -263,6 +264,12 @@ const Navigation = () => {
                     name='SinglePageDetailsScreen'
                     options={{ headerShown: false }}
                     component={SinglePageDetailsScreen}
+                />
+
+                <Stack.Screen
+                    name='GamingScreen'
+                    options={{ headerShown: false }}
+                    component={GamingScreen}
                 />
 
             </Stack.Navigator>

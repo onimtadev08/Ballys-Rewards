@@ -103,7 +103,9 @@ const DrawerMenu: React.FC<propsData> = ({
                     <MenuButton
                         Titel={"Gaming"}
                         Icon2="casino"
-                        onPress={(): void => {
+                        onPress={async (): Promise<void> => {
+                            const MID = await AsyncStorage.getItem('MID');
+                            navigation.replace('GamingScreen', { 'PlayerID': MID });
                             onPress();
                         }}
                     />
@@ -123,7 +125,7 @@ const DrawerMenu: React.FC<propsData> = ({
                         Icon="game-controller"
                         onPress={async (): Promise<void> => {
                             const MID = await AsyncStorage.getItem('MID');
-                            navigation.navigate('SinglePageDetailsScreen', { 'PlayerID': MID, 'Page': 1 });
+                            navigation.replace('SinglePageDetailsScreen', { 'PlayerID': MID, 'Page': 1 });
                             onPress();
 
                         }}
@@ -134,7 +136,7 @@ const DrawerMenu: React.FC<propsData> = ({
                         Icon3="document"
                         onPress={async (): Promise<void> => {
                             const MID = await AsyncStorage.getItem('MID');
-                            navigation.navigate('SinglePageDetailsScreen', { 'PlayerID': MID, 'Page': 2 });
+                            navigation.replace('SinglePageDetailsScreen', { 'PlayerID': MID, 'Page': 2 });
                             onPress();
                         }}
                     />
