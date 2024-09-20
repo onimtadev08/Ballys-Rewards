@@ -27,6 +27,7 @@ const getSinglePageDetailsApiUrl = Domain + '/api/Ballys/get_single_page_details
 
 const WhereToRedeemUrl = Domain + '/api/Ballys/ShoppingCreditLocation';
 
+const UpgradeDowngradeMessageUrl = Domain + '/api/Ballys/UpgradeDowngradeMessage';
 
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
@@ -422,6 +423,9 @@ export async function getWhereToRedeem(MID: string) {
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + Token);
 
+        console.log(Token);
+
+
         const raw = JSON.stringify({
             "strMID": MID,
             "strToken": Token
@@ -436,6 +440,45 @@ export async function getWhereToRedeem(MID: string) {
 
 
         fetch(WhereToRedeemUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+
+                resolve(result);
+            })
+            .catch((error) => {
+
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}
+
+
+export async function fetchUpgradeDowngradeMessage(MID: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + Token);
+
+        console.log(Token);
+
+
+        const raw = JSON.stringify({
+            "strMID": MID
+        });
+
+        const requestOptions: any = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+
+        fetch(UpgradeDowngradeMessageUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
 

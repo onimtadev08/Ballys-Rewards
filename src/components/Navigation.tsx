@@ -39,6 +39,7 @@ import SinglePageDetailsScreen from '../screens/SinglePageDetailsScreen';
 import GamingScreen from '../screens/GamingScreen';
 import WhereToRedeemScreen from '../screens/WhereToRedeemScreen';
 import HowToRedeemScreen from '../screens/HowToRedeemScreen';
+import RewardLoyalityScreen from '../screens/RewardLoyalityScreen';
 
 type RootStack = {
     Login: undefined
@@ -284,6 +285,12 @@ const Navigation = () => {
                     name='HowToRedeemScreen'
                     options={{ headerShown: false }}
                     component={HowToRedeemScreen}
+                />
+
+                <Stack.Screen
+                    name='RewardLoyalityScreen'
+                    options={{ headerShown: false }}
+                    component={RewardLoyalityScreen}
                 />
 
             </Stack.Navigator>

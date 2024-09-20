@@ -188,7 +188,9 @@ const DrawerMenu: React.FC<propsData> = ({
                     <MenuButton
                         Titel={"Ballys Rewards & Loyalty"}
                         Icon2="loyalty"
-                        onPress={(): void => {
+                        onPress={async (): Promise<void> => {
+                            const MID = await AsyncStorage.getItem('MID');
+                            navigation.navigate('RewardLoyalityScreen', { 'PlayerID': MID });
                             onPress();
                         }}
                     />
