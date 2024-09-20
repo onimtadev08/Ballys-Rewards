@@ -87,26 +87,42 @@ class WhereToRedeemScreen extends Component<myProps, myStates> {
     }
 
 
-    async whereToRedeem() {
+    /**
+     * Fetches and processes the preferred partners data for redemption.
+     *
+     * @remarks
+     * This function is responsible for making an API call to retrieve the preferred partners data,
+     * handling the response, and updating the component's state accordingly.
+     *
+     * @returns {Promise<void>} - A promise that resolves when the operation is complete.
+     */
+    async whereToRedeem(): Promise<void> {
 
+        // Set loading state to true to display the loading indicator
         this.setState({ isLoading: true });
-        try {
 
+        try {
+            // Retrieve the MID from AsyncStorage
             const MID = await AsyncStorage.getItem('MID') as string;
+
+            // Make the API call to fetch the preferred partners data
             const result: any = await getWhereToRedeem(MID);
+
+            // Check if the API call was successful
             if (result.strRturnRes) {
 
+                // Log the result to the console
                 console.log(result);
 
-
+                // Update the component's state with the retrieved data
                 this.setState({
                     isLoading: false,
                     ShoppingCredit: result.ShoppingCredit,
                     Partners: result.Locations,
                 });
 
-
             } else {
+                // If the API call was not successful, dismiss the keyboard and show an error message
                 Keyboard.dismiss();
                 this.setState({
                     isLoading: false,
@@ -115,15 +131,15 @@ class WhereToRedeemScreen extends Component<myProps, myStates> {
                 });
             }
         } catch (error) {
+            // If there was an error during the API call, update the component's state with an error message
             this.setState({
                 isLoading: false,
                 showApiError: true,
                 showApiErrorMsg: 'Server Connection error',
             });
         } finally {
-
+            // This block will always execute, regardless of whether an error occurred or not
         }
-
     }
 
 
