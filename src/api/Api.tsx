@@ -1,6 +1,7 @@
 
 import { Domain } from "../data/data";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import WhereToRedeemScreen from "../screens/WhereToRedeemScreen";
 
 const getOtpUrl = Domain + '/api/Ballys/GetOTP';
 
@@ -23,6 +24,9 @@ const getTransactionHistoryUrl = Domain + '/api/Ballys/getTransactionHistory';
 const getHostUrl = Domain + '/api/Ballys/Contact';
 
 const getSinglePageDetailsApiUrl = Domain + '/api/Ballys/get_single_page_details';
+
+const WhereToRedeemUrl = Domain + '/api/Ballys/ShoppingCreditLocation';
+
 
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
@@ -397,6 +401,43 @@ export async function getSinglePageDetailsApi(Page: string) {
             .then((response) => response.json())
             .then((result) => {
                 console.log(result);
+
+                resolve(result);
+            })
+            .catch((error) => {
+
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}
+
+
+export async function getWhereToRedeem(MID: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + Token);
+
+        const raw = JSON.stringify({
+            "strMID": MID,
+            "strToken": Token
+        });
+
+        const requestOptions: any = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+
+        fetch(WhereToRedeemUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
 
                 resolve(result);
             })

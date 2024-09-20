@@ -196,7 +196,9 @@ const DrawerMenu: React.FC<propsData> = ({
                     <MenuButton
                         Titel={"How to Redeem Ballys Coins"}
                         Icon4="coins"
-                        onPress={(): void => {
+                        onPress={async (): Promise<void> => {
+                            const MID = await AsyncStorage.getItem('MID');
+                            navigation.navigate('HowToRedeemScreen', { 'PlayerID': MID });
                             onPress();
                         }}
                     />
@@ -205,7 +207,9 @@ const DrawerMenu: React.FC<propsData> = ({
                     <MenuButton
                         Titel='Where to Redeem'
                         Icon2="redeem"
-                        onPress={(): void => {
+                        onPress={async (): Promise<void> => {
+                            const MID = await AsyncStorage.getItem('MID');
+                            navigation.navigate('WhereToRedeemScreen', { 'PlayerID': MID });
                             onPress();
                         }}
                     />

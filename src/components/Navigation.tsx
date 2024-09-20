@@ -37,6 +37,8 @@ import ChangePinScreen from '../screens/ChangePinScreen';
 import ChangeEmailScreen from '../screens/ChangeEmailScreen';
 import SinglePageDetailsScreen from '../screens/SinglePageDetailsScreen';
 import GamingScreen from '../screens/GamingScreen';
+import WhereToRedeemScreen from '../screens/WhereToRedeemScreen';
+import HowToRedeemScreen from '../screens/HowToRedeemScreen';
 
 type RootStack = {
     Login: undefined
@@ -270,6 +272,18 @@ const Navigation = () => {
                     name='GamingScreen'
                     options={{ headerShown: false }}
                     component={GamingScreen}
+                />
+
+                <Stack.Screen
+                    name='WhereToRedeemScreen'
+                    options={{ headerShown: false }}
+                    component={WhereToRedeemScreen}
+                />
+
+                <Stack.Screen
+                    name='HowToRedeemScreen'
+                    options={{ headerShown: false }}
+                    component={HowToRedeemScreen}
                 />
 
             </Stack.Navigator>
