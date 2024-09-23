@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { FlatList, BackHandler, Linking, Keyboard, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity, Text, Image } from 'react-native';
+import { FlatList, BackHandler, Keyboard, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Text, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import GradientButton from '../components/GradientButton.tsx';
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
 import ErrorMsg from '../components/errorMsg.tsx';
@@ -9,8 +8,7 @@ import Loader from '../components/Loader.tsx';
 import ButtomNav from '../components/ButtomNav.tsx'
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
-import { getSinglePageDetailsApi, getWhereToRedeem } from '../api/Api.tsx';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { getWhereToRedeem } from '../api/Api.tsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
