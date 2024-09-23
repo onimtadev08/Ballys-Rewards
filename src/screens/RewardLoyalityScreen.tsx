@@ -178,15 +178,12 @@ class RewardLoyalityScreen extends Component<myProps, myStates> {
 
             const result: any = await fetchUpgradeDowngradeMessage(MID);
 
-
             if (result.strRturnRes) {
-
 
                 this.setState({
                     isLoading: false,
                     UpgradeDowngradeMessage: result,
                 });
-
 
             } else {
                 Keyboard.dismiss();
@@ -197,7 +194,6 @@ class RewardLoyalityScreen extends Component<myProps, myStates> {
                 });
             }
         } catch (error) {
-
             this.setState({
                 isLoading: false,
                 showApiError: true,
