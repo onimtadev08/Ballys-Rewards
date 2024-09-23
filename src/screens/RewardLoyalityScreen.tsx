@@ -275,7 +275,7 @@ class RewardLoyalityScreen extends Component<myProps, myStates> {
                                         style={{ width: '100%', height: 1, alignSelf: 'center', marginBottom: 10, marginTop: 10 }} />
 
 
-                                    { }{this.state.Cards.map((data, index) => (
+                                   {this.state.Cards.map((data, index) => (
                                         <View key={index} style={{ width: '100%' }}>
 
                                             <View style={{ flexDirection: 'row' }}>

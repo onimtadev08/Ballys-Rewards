@@ -40,6 +40,8 @@ import GamingScreen from '../screens/GamingScreen';
 import WhereToRedeemScreen from '../screens/WhereToRedeemScreen';
 import HowToRedeemScreen from '../screens/HowToRedeemScreen';
 import RewardLoyalityScreen from '../screens/RewardLoyalityScreen';
+import TableLimitsScreen from '../screens/TableLimitsScreen';
+import MemberBenifitScreen from '../screens/MemberBenifitsScreen';
 
 type RootStack = {
     Login: undefined
@@ -291,6 +293,18 @@ const Navigation = () => {
                     name='RewardLoyalityScreen'
                     options={{ headerShown: false }}
                     component={RewardLoyalityScreen}
+                />
+
+                <Stack.Screen
+                    name='TableLimitsScreen'
+                    options={{ headerShown: false }}
+                    component={TableLimitsScreen}
+                />
+
+                <Stack.Screen
+                    name='MemberBenifitScreen'
+                    options={{ headerShown: false }}
+                    component={MemberBenifitScreen}
                 />
 
             </Stack.Navigator>

@@ -114,7 +114,9 @@ const DrawerMenu: React.FC<propsData> = ({
                     <MenuButton
                         Titel={"Table Limits"}
                         Icon2="table-bar"
-                        onPress={(): void => {
+                        onPress={async (): Promise<void> => {
+                            const MID = await AsyncStorage.getItem('MID');
+                            navigation.replace('TableLimitsScreen', { 'PlayerID': MID });
                             onPress();
                         }}
                     />
@@ -179,7 +181,9 @@ const DrawerMenu: React.FC<propsData> = ({
                     <MenuButton
                         Titel={"Membership Benifits"}
                         Icon2="card-membership"
-                        onPress={(): void => {
+                        onPress={async (): Promise<void> => {
+                            const MID = await AsyncStorage.getItem('MID');
+                            navigation.navigate('MemberBenifitScreen', { 'PlayerID': MID });
                             onPress();
                         }}
                     />
