@@ -42,6 +42,7 @@ import HowToRedeemScreen from '../screens/HowToRedeemScreen';
 import RewardLoyalityScreen from '../screens/RewardLoyalityScreen';
 import TableLimitsScreen from '../screens/TableLimitsScreen';
 import MemberBenifitScreen from '../screens/MemberBenifitsScreen';
+import QrScanerScreen from '../screens/QrScanerScreen';
 
 type RootStack = {
     Login: undefined
@@ -305,6 +306,12 @@ const Navigation = () => {
                     name='MemberBenifitScreen'
                     options={{ headerShown: false }}
                     component={MemberBenifitScreen}
+                />
+
+                <Stack.Screen
+                    name='QrScanerScreen'
+                    options={{ headerShown: false }}
+                    component={QrScanerScreen}
                 />
 
             </Stack.Navigator>

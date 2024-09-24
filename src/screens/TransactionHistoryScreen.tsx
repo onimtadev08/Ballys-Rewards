@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView } from 'react-native';
+import { Platform, FlatList, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import moment from "moment";
 import { interpolate } from "react-native-reanimated";
@@ -269,7 +269,7 @@ class TransactionHistoryScreen extends Component<myProps, myStates> {
                         {/* <ScrollView style={styles.container}> */}
 
                         <FlatList
-                            style={{ marginBottom: 130 }}
+                            style={{ marginBottom: Platform.OS === 'ios' ? 120 : 150 }}
                             data={this.state.History}
                             renderItem={this.renderItem} />
 

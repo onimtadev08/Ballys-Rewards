@@ -17,7 +17,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
     navigation
 }) => {
     return (
-        <View style={{ zIndex: -1, flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ zIndex: -1, flexDirection: 'row', alignItems: 'center',paddingTop:10}}>
 
 
             <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10 }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, processColor } from 'react-native';
+import { Platform, Text, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, processColor } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 
@@ -137,7 +137,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
 
 
-     
+
     }
 
     handleBackPress
@@ -146,7 +146,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
             return true; // Prevent default back behavior
         };
 
-   
+
 
 
     // Handles login button press and navigates to 'SignUp' screen
@@ -309,7 +309,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                             </View>
 
 
-                            <View style={{ marginTop: 20, marginBottom: 100 }}>
+                            <View style={{ marginTop: 20, marginBottom: Platform.OS === 'ios' ? 90 : 120 }}>
                                 <View style={{ borderWidth: 2, borderColor: 'white', marginTop: 30, marginBottom: 50, margin: 20, borderRadius: 20, alignItems: 'center' }}>
 
                                     <Image source={require('../images/svgtopng/SILVER.png')} style={{ width: 80, height: 80, top: -40 }} />

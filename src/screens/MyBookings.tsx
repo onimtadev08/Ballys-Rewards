@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Linking, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Platform,Linking, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity } from 'react-native';
 import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
 import TextInput from '../components/TextInput';
@@ -597,7 +597,7 @@ class MyBookings extends Component<myProps, myStates> {
                                 </View>
 
                             </View>
-                            <View style={{ flexDirection: 'row', flex: 1, marginBottom: 120 }}>
+                            <View style={{ flexDirection: 'row', flex: 1, marginBottom: Platform.OS === 'ios' ? 110 : 150 }}>
                                 <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
                                     <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
                                     <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>

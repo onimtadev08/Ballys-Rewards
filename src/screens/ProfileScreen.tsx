@@ -197,7 +197,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                                         onPress={async () => {
                                             const MID = await AsyncStorage.getItem('MID');
 
-                                            this.props.navigation.navigate('MyWallet', { 'PlayerID': MID });
+                                            this.props.navigation.navigate('QrScanerScreen', { 'PlayerID': MID });
                                         }}
                                     >
                                         <View style={{

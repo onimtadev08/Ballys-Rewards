@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Platform, Linking, Image, FlatList, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
+import { BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-
-import Ionicons from 'react-native-vector-icons/Ionicons'
-
 
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
@@ -11,10 +8,12 @@ import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
 
 import ButtomNav from '../components/ButtomNav.tsx';
-import { getHostApi } from '../api/Api.tsx';
 
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
+import { Linking } from 'react-native';
+import { RNCamera } from 'react-native-camera';
+import QRCodeScanner from 'react-native-qrcode-scanner';
 
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -31,26 +30,21 @@ interface myStates {
     showOtpMsg: boolean;
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
-    Images: string[];
-    HostData: Hosts[];
 }
 interface myProps {
     navigation: any;
     router: any;
 }
 
-interface Hosts {
-    M_Name: string;
-    M_Mobile: string;
-    M_Language: string;
-    Img_Url: string;
-}
+const scale = 0.8;
+const PAGE_WIDTH = screenWidth * scale;
+const PAGE_HEIGHT = 240 * scale;
 
-
-class MyHost extends Component<myProps, myStates> {
+class QrScanerScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
+
 
     constructor(props: any) {
         super(props)
@@ -65,8 +59,6 @@ class MyHost extends Component<myProps, myStates> {
             showOtpMsg: false,
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
-            Images: [],
-            HostData: [],
         };
 
 
@@ -77,89 +69,22 @@ class MyHost extends Component<myProps, myStates> {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
     }
 
+    // Fetches navigation reference and sets up interval on mount
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
-        this.getHost();
     }
 
     handleBackPress
         = () => {
-            return true;
+            // Handle back button press logic here
+            return true; // Prevent default back behavior
         };
 
-    async getHost() {
+    handleLogin = () => {
+        this.navigation.navigate('SignUp');
+    };
 
-        this.setState({ isLoading: true });
-        try {
-
-
-            const result: any = await getHostApi();
-
-            if (result.strRturnRes) {
-
-                console.log(result.data);
-
-                this.setState({
-                    isLoading: false,
-                    HostData: result.data,
-                });
-
-
-            } else {
-                Keyboard.dismiss();
-                this.setState({
-                    isLoading: false,
-                    showApiError: true,
-                    showApiErrorMsg: 'Please try again'
-                });
-            }
-        } catch (error) {
-
-            this.setState({
-                isLoading: false,
-                showApiError: true,
-                showApiErrorMsg: 'Server Connection error',
-            });
-        } finally {
-
-        }
-
-    }
-
-    renderItem = ({ item }: { item: Hosts }) => {
-        return (
-            <View style={{ alignItems: 'center', margin: 10, marginBottom: 20 }}>
-                <Image source={{ uri: item.Img_Url }} style={{ height: 200, width: 200, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
-                <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{item.M_Name}</Text>
-                <Text style={{ color: 'white', fontSize: 16 }}>{item.M_Language}</Text>
-                <Text style={{ color: 'white', marginBottom: 10, fontSize: 20 }}>MOBILE : {item.M_Mobile}</Text>
-                <View style={{ flexDirection: "row", flex: 1 }}>
-                    <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                Linking.openURL('whatsapp://send?text=&phone={' + item.M_Mobile + '}');
-                            }}
-                        >
-                            <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                Linking.openURL('tel:${' + item.M_Mobile + '}');
-                            }}
-                        >
-                            <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />
-                        </TouchableOpacity>
-                    </View>
-
-                </View>
-                {/* <View style={{ borderWidth: 2, borderColor: 'white', width: '90%', marginTop: 20 }} /> */}
-            </View>
-        );
-    }
 
     render(): React.ReactNode {
 
@@ -171,8 +96,31 @@ class MyHost extends Component<myProps, myStates> {
             container: {
                 flex: 1,
                 width: screenWidth,
+            }, centerText: {
+                flex: 1,
+                fontSize: 18,
+                padding: 32,
+                color: '#777'
+            },
+            textBold: {
+                fontWeight: '500',
+                color: '#000'
+            },
+            buttonText: {
+                fontSize: 21,
+                color: 'rgb(0,122,255)'
+            },
+            buttonTouchable: {
+                padding: 16
             }
         });
+
+        const onSuccess = (e: { data: string; }) => {
+            Linking.openURL(e.data).catch(err =>
+                console.error('An error occured', err)
+            );
+        };
+
 
         return (
             <LinearGradient
@@ -186,16 +134,33 @@ class MyHost extends Component<myProps, myStates> {
                         style={styles.container}>
 
 
-                        <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav navigation={this.props.navigation} titel={'MY HOST'} />
+                        <View style={{ zIndex: 10 }}>
+                            <TopNav navigation={this.props.navigation} titel={'QR SCANNER'} />
                         </View>
-                        <View style={{ marginBottom: Platform.OS === 'ios' ? 110 : 150, flex: 1 }}>
-                            {/* <ScrollView style={styles.container}> */}
 
-                            <FlatList
-                                data={this.state.HostData}
-                                renderItem={this.renderItem} />
-                        </View>
+
+                        {/* <ScrollView style={styles.container}> */}
+
+                        <QRCodeScanner
+                            onRead={onSuccess}
+                            flashMode={RNCamera.Constants.FlashMode.torch}
+                            topContent={
+                                <Text style={styles.centerText}>
+                                    Go to{' '}
+                                    <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on
+                                    your computer and scan the QR code.
+                                </Text>
+                            }
+                            bottomContent={
+                                <TouchableOpacity style={styles.buttonTouchable}>
+                                    <Text style={styles.buttonText}>OK. Got it!</Text>
+                                </TouchableOpacity>
+                            }
+                        />
+
+
+
+
                         {/* </ScrollView> */}
                         {this.state.showApiSuccsess ?
                             <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
@@ -236,4 +201,6 @@ class MyHost extends Component<myProps, myStates> {
 
 }
 
-export default MyHost;
+
+
+export default QrScanerScreen;

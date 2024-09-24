@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView } from 'react-native';
+import { Platform, FlatList, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
@@ -166,7 +166,7 @@ class NotificationScreen extends Component<myProps, myStates> {
                         {/* <ScrollView style={styles.container}> */}
 
                         <FlatList
-                            style={{ marginBottom: 130 }}
+                            style={{ marginBottom: Platform.OS === 'ios' ? 110 : 150 }}
                             data={this.state.Messages}
                             renderItem={this.renderItem} />
 

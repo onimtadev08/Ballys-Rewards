@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Text } from 'react-native';
+import { Platform, BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
@@ -228,7 +228,7 @@ class MemberBenifitScreen extends Component<myProps, myStates> {
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
                             <TopNav navigation={this.props.navigation} titel={'MEMBERSHIP BENEFITS'} />
                         </View>
-                        <View style={{ marginBottom: 130, flex: 1 }}>
+                        <View style={{ marginBottom: Platform.OS === 'ios' ? 110 : 150, flex: 1 }}>
 
                             <LinearGradient
                                 start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
@@ -369,7 +369,7 @@ class MemberBenifitScreen extends Component<myProps, myStates> {
                             <LinearGradient
                                 start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                                 colors={[ColorFirst, 'gold', ColorFirst]}
-                                style={{ width: '100%', height: 1, alignSelf: 'center', marginBottom: 5, marginTop: 5 }} />
+                                style={{ width: '100%', height: 1, alignSelf: 'center', marginBottom: 10 }} />
 
 
                         </View>

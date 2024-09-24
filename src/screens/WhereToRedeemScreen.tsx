@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, BackHandler, Keyboard, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Text, Image } from 'react-native';
+import { Platform, FlatList, BackHandler, Keyboard, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Text, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
@@ -192,7 +192,7 @@ class WhereToRedeemScreen extends Component<myProps, myStates> {
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
                             <TopNav navigation={this.props.navigation} titel={'PREFERED PARTNERS'} />
                         </View>
-                        <View style={{ marginBottom: 130, flex: 1 }}>
+                        <View style={{ marginBottom: Platform.OS === 'ios' ? 110 : 150, flex: 1 }}>
 
 
                             <LinearGradient
@@ -207,7 +207,7 @@ class WhereToRedeemScreen extends Component<myProps, myStates> {
                             <LinearGradient
                                 start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                                 colors={[ColorFirst, 'gold', ColorFirst]}
-                                style={{ width: '90%', height: 1, alignSelf: 'center', marginTop: 10,marginBottom: 10 }} />
+                                style={{ width: '90%', height: 1, alignSelf: 'center', marginTop: 10, marginBottom: 10 }} />
 
 
                             <FlatList
