@@ -83,7 +83,7 @@ const TopNav: React.FC<propsData> = ({
 
 
     return (
-        <View style={{ zIndex: 1 }}>
+        <View style={{ zIndex: 1,marginTop:10 }}>
 
 
             {showCard ?

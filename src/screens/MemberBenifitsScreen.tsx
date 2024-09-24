@@ -230,20 +230,54 @@ class MemberBenifitScreen extends Component<myProps, myStates> {
                         </View>
                         <View style={{ marginBottom: 130, flex: 1 }}>
 
+                            <LinearGradient
+                                start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={[ColorFirst, 'gold', ColorFirst]}
+                                style={{ width: '100%', height: 1, alignSelf: 'center', marginBottom: 10, marginTop: 20 }} />
+
+
                             <View style={{ flexDirection: 'row', height: 100, alignItems: 'center' }}>
 
-                                <Text style={{ color: 'white', marginStart: 5 }}>MEMBER BENEFITS</Text>
+                                <Text style={{ color: 'white', marginStart: 5, flex: 1 }}>MEMBER BENEFITS</Text>
 
-                                <View style={{ flexDirection: 'row', flex: 1, height: '100%', left: 40 }}>
-                                    <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -5 }}>CLASSIC</Text>
-                                    <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -15 }}>SILVER</Text>
+                                <View style={{ flexDirection: 'row', flex: 2, height: '100%' }}>
+
+
+
+                                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                        <Text numberOfLines={1} style={{ width: 95, textAlign: 'center', color: 'white', transform: [{ rotate: '270deg' }] }}>CLASSIC</Text>
+                                    </View>
+                                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                        <Text numberOfLines={1} style={{ width: 95, textAlign: 'center', color: 'white', transform: [{ rotate: '270deg' }] }}>SILVER</Text>
+                                    </View>
+                                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                        <Text numberOfLines={1} style={{ width: 95, textAlign: 'center', color: 'white', transform: [{ rotate: '270deg' }] }}>GOLD</Text>
+                                    </View>
+                                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                        <Text numberOfLines={1} style={{ width: 95, textAlign: 'center', color: 'white', transform: [{ rotate: '270deg' }] }}>PLATINUM</Text>
+                                    </View>
+                                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                        <Text numberOfLines={1} style={{ width: 95, textAlign: 'center', color: 'white', transform: [{ rotate: '270deg' }] }}>DIAMOND</Text>
+                                    </View>
+                                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                        <Text numberOfLines={1} style={{ width: 95, textAlign: 'center', color: 'white', transform: [{ rotate: '270deg' }] }}>INFINITY</Text>
+                                    </View>
+
+
+                                    {/* <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -15 }}>SILVER</Text>
                                     <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -13 }}>GOLD</Text>
                                     <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -23 }}>PLATINUM</Text>
                                     <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -45 }}>DIAMOND</Text>
-                                    <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -65 }}>INFINITY</Text>
+                                    <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -65 }}>INFINITY</Text> */}
                                 </View>
 
                             </View>
+
+                            <LinearGradient
+                                start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={[ColorFirst, 'gold', ColorFirst]}
+                                style={{ width: '100%', height: 1, alignSelf: 'center', marginBottom: 10, marginTop: 10 }} />
+
 
                             <View style={{ flexDirection: 'row', width: '100%' }}>
 
@@ -283,7 +317,13 @@ class MemberBenifitScreen extends Component<myProps, myStates> {
 
                             </View>
 
-                            <ScrollView style={{ flex: 1 }}>
+                            <LinearGradient
+                                start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={[ColorFirst, 'gold', ColorFirst]}
+                                style={{ width: '100%', height: 1, alignSelf: 'center', marginBottom: 10, marginTop: 10 }} />
+
+
+                            <ScrollView style={{ flex: 1, marginBottom: 10 }}>
 
                                 {this.state.Benefits.map((Benefit, index) => (
 
@@ -325,6 +365,12 @@ class MemberBenifitScreen extends Component<myProps, myStates> {
                                 ))}
 
                             </ScrollView>
+
+                            <LinearGradient
+                                start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                                colors={[ColorFirst, 'gold', ColorFirst]}
+                                style={{ width: '100%', height: 1, alignSelf: 'center', marginBottom: 5, marginTop: 5 }} />
+
 
                         </View>
                         {this.state.showApiSuccsess ?
