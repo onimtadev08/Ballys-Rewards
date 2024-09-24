@@ -119,6 +119,62 @@ class MemberBenifitScreen extends Component<myProps, myStates> {
                 platinum: true,
                 diamond: true,
                 infinite: true,
+            }, {
+                Name: 'Bonus Entries For Select Promotions',
+                classic: false,
+                silver: false,
+                gold: true,
+                platinum: true,
+                diamond: true,
+                infinite: true,
+            }, {
+                Name: 'Complimentary Buffet Lunch / Dinner at Bally\'s Restaurant',
+                classic: false,
+                silver: false,
+                gold: true,
+                platinum: true,
+                diamond: true,
+                infinite: true,
+            }, {
+                Name: 'VIP Transport Service',
+                classic: false,
+                silver: false,
+                gold: false,
+                platinum: false,
+                diamond: true,
+                infinite: true,
+            }, {
+                Name: 'Best Table Avaliable Top of the World',
+                classic: false,
+                silver: false,
+                gold: false,
+                platinum: false,
+                diamond: true,
+                infinite: true,
+            }, {
+                Name: 'Access to VIP Services',
+                classic: false,
+                silver: false,
+                gold: false,
+                platinum: false,
+                diamond: false,
+                infinite: true,
+            }, {
+                Name: 'Full day Transport By VVIP Luxury Limousine',
+                classic: false,
+                silver: false,
+                gold: false,
+                platinum: false,
+                diamond: false,
+                infinite: true,
+            }, {
+                Name: 'Round Trip Limo Service to Airport',
+                classic: false,
+                silver: false,
+                gold: false,
+                platinum: false,
+                diamond: false,
+                infinite: true,
             }
             ]
         };
@@ -174,25 +230,20 @@ class MemberBenifitScreen extends Component<myProps, myStates> {
                         </View>
                         <View style={{ marginBottom: 130, flex: 1 }}>
 
-
-
-
                             <View style={{ flexDirection: 'row', height: 100, alignItems: 'center' }}>
 
                                 <Text style={{ color: 'white', marginStart: 5 }}>MEMBER BENEFITS</Text>
 
                                 <View style={{ flexDirection: 'row', flex: 1, height: '100%', left: 40 }}>
                                     <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -5 }}>CLASSIC</Text>
-                                    <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -15, }}>SILVER</Text>
+                                    <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -15 }}>SILVER</Text>
                                     <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -13 }}>GOLD</Text>
                                     <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -23 }}>PLATINUM</Text>
                                     <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -45 }}>DIAMOND</Text>
                                     <Text numberOfLines={1} style={{ color: 'white', transform: [{ rotate: '270deg' }], left: -65 }}>INFINITY</Text>
                                 </View>
 
-
                             </View>
-
 
                             <View style={{ flexDirection: 'row', width: '100%' }}>
 
