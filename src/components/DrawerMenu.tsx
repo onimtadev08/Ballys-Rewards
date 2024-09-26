@@ -42,20 +42,19 @@ const DrawerMenu: React.FC<propsData> = ({
             <View style={{
                 alignItems: 'flex-end',
                 height: '20%',
-                backgroundColor: ColorFirst,
-                paddingBottom: 20,
-                paddingTop: 20
             }}>
-
-                <Image
-                    source={require('../images/svgtopng/blogo.png')}
-                    resizeMode='contain'
-                    style={{
-                        width: '100%',
-                        height: '100%'
-                    }}>
-                </Image>
-
+                <View style={{ width: '100%', height: '100%' }}>
+                    <View style={{ width: '70%', height: '100%', backgroundColor: ColorFirst,alignItems:'center',justifyContent:'center' }}>
+                        <Image
+                            source={require('../images/svgtopng/blogo.png')}
+                            resizeMode='contain'
+                            style={{
+                                width: '70%',
+                                height: '80%'
+                            }}>
+                        </Image>
+                    </View>
+                </View>
                 {/* <View style={{ width: '100%', height: '100%', backgroundColor: 'blue' }}>
                     <Image
                         source={require('../images/svgtopng/blogo.png')}

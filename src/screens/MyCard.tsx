@@ -17,8 +17,7 @@ import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
 
 import AnimatedBorderBox from '../components/AnimatedBorderBox.tsx';
-
-import AnimatedBorderView from 'react-native-animated-border-view';
+import AnimatedBorderViewCus from '../components/AnimatedBorderViewCus.tsx';
 
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -149,7 +148,7 @@ class MyCard extends Component<myProps, myStates> {
     handleLogin = () => {
         this.navigation.navigate('SignUp');
     };
-    
+
 
     render(): React.ReactNode {
 
@@ -294,7 +293,7 @@ class MyCard extends Component<myProps, myStates> {
                         </View>
 
                         <ScrollView style={styles.container}>
-                            <View style={{ alignItems: 'center', marginBottom: 520, flexDirection: 'column' }}>
+                            <View style={{ alignItems: 'center', marginBottom: 110, flexDirection: 'column' }}>
 
 
 
@@ -307,16 +306,30 @@ class MyCard extends Component<myProps, myStates> {
                                     borderRadius: 20,
                                     marginTop: 20,
                                     marginBottom: 20,
-                                    borderColor: 'rgba(0,0,0,0.3)',
+                                    borderColor: 'rgba(0,0,0,0.0)',
                                     borderWidth: 10
                                 }}>
-                                    <Image
-                                        source={{ uri: 'https://i.imgur.com/G2nHqSr.png' }}
-                                        style={{
-                                            height: 180,
-                                            width: 300,
-                                        }}
-                                        resizeMode='stretch' />
+
+                                    <AnimatedBorderViewCus
+                                        width={310}
+                                        height={190}
+                                        borderRadius={20}
+                                        sliderWidth={100}
+                                        sliderHeight={5}
+                                        delayInAnimation={3500}
+                                        pathColor='trasparent' // Light Steel Blue
+                                        sliderColor='#FFD700' // Deep Sky Blue
+                                        innerContainerColor={ColorSecond}
+                                    >
+
+                                        <Image
+                                            source={{ uri: 'https://i.imgur.com/G2nHqSr.png' }}
+                                            style={{
+                                                height: 180,
+                                                width: 300,
+                                            }}
+                                            resizeMode='stretch' />
+                                    </AnimatedBorderViewCus>
                                 </View>
 
 
@@ -339,11 +352,11 @@ class MyCard extends Component<myProps, myStates> {
                                         <AnimatedBorderBox></AnimatedBorderBox>
 
 
-<AnimatedBorderView width={100}></AnimatedBorderView>
+                                        {/* <AnimatedBorderView width={100}></AnimatedBorderView> */}
 
                                         {/* 
-                                        <CardViewGlow>
-                                        </CardViewGlow> */}
+                                        <CardViewGlow> */}
+                                        {/* </CardViewGlow>  */}
 
                                         {/* <AnimatedBorderView></AnimatedBorderView> */}
 
