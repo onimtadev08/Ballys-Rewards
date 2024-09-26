@@ -28,6 +28,7 @@
     "moment": "^2.30.1",
     "react": "18.2.0",
     "react-native": "^0.73.8",
+    "react-native-animated-border-view": "^0.0.2",
     "react-native-camera": "^4.2.1",
     "react-native-cardview": "^2.0.5",
     "react-native-charts-wrapper": "^0.6.0",

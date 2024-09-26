@@ -1,7 +1,6 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import { ImageBackground, BackHandler, View, TouchableOpacity, Image, Text, Animated, Easing, Dimensions } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Platform, ImageBackground, BackHandler, View, TouchableOpacity, Image, Text, Animated, Easing, Dimensions } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BlurView } from '@react-native-community/blur';
 import DrawerMenu from './DrawerMenu';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Marquee } from '@animatereactnative/marquee';
@@ -83,7 +82,7 @@ const TopNav: React.FC<propsData> = ({
 
 
     return (
-        <View style={{ zIndex: 1,marginTop:10 }}>
+        <View style={{ zIndex: 1, marginTop: Platform.OS === 'ios' ? 0 : 10 }}>
 
 
             {showCard ?

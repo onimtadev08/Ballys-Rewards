@@ -1,40 +1,30 @@
 import React, { Component } from 'react';
 import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, Linking } from 'react-native';
-import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { interpolate } from "react-native-reanimated";
-import Carousel from "react-native-reanimated-carousel";
-import Entypo from 'react-native-vector-icons/Entypo'
 
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
 import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import ButtomNav from '../components/ButtomNav.tsx';
 import { GetEvents } from '../api/Api.tsx';
 
-import { Marquee } from '@animatereactnative/marquee';
 
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
-import GlowAroundView from '../components/AnimatedBorderBox.tsx';
+
 import AnimatedBorderBox from '../components/AnimatedBorderBox.tsx';
+
+import AnimatedBorderView from 'react-native-animated-border-view';
 
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
 
-// const images = [
-//     require('../images/ballys.png'),
-//     require('../images/wha.jpg'),
-//     require('../images/meg.jpg'),
-//     require('../images/sms.jpg'),
-//     require('../images/pon.jpg'),
-//     // Add more local image paths as needed
-// ];∆
+
 interface myStates {
     currentIndex: number;
     isLoading: boolean;
@@ -54,12 +44,6 @@ interface myProps {
     router: any;
 }
 
-interface CustomSlideProps {
-    index: number;
-    item: string;
-    style: any; // Replace with appropriate type if known
-    width: number;
-}
 
 const scale = 0.8;
 const PAGE_WIDTH = screenWidth * scale;
@@ -103,23 +87,6 @@ class MyCard extends Component<myProps, myStates> {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
-
-
-        // this.navigation.addListener('beforeRemove', (e: any) => {
-        //     e.preventDefault();
-        // });
-
-        // const interval = setInterval(() => {
-        //     const nextIndex = (this.state.currentIndex + 1) % this.state.Images.length;
-        //     if (this.scrollRef) {
-        //         this.scrollRef.current?.scrollTo({ x: nextIndex * screenWidth, animated: true });
-        //     }
-        //     this.setState({ currentIndex: nextIndex });
-        // }, 2000);
-
-        //    this.MainHomeLoad();
-
-        // return () => clearInterval(interval);
 
         this.IntervalID = setInterval(() => {
             this.setState({ time: new Date().toLocaleString() })
@@ -182,43 +149,7 @@ class MyCard extends Component<myProps, myStates> {
     handleLogin = () => {
         this.navigation.navigate('SignUp');
     };
-
-
-    // animationStyle: TAnimationStyle = (value: number) => {
-    //     "worklet";
-
-    //     const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30]);
-    //     const scale = interpolate(value, [-1, 0, 1], [1.25, 1, 0.25]);
-    //     const opacity = interpolate(value, [-0.75, 0, 1], [0, 1, 0]);
-
-    //     return {
-    //         transform: [{ scale }],
-    //         zIndex,
-    //         opacity,
-    //     };
-    // };
-
-
-    animationStyle: TAnimationStyle = (value: number) => {
-        "worklet";
-
-        const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30]);
-        const rotateZ = `${interpolate(
-            value,
-            [-1, 0, 1],
-            [-45, 0, 45],
-        )}deg`;
-        const translateX = interpolate(
-            value,
-            [-1, 0, 1],
-            [-screenWidth, 0, screenWidth + 100],
-        );
-
-        return {
-            transform: [{ rotateZ }, { translateX }],
-            zIndex,
-        };
-    }
+    
 
     render(): React.ReactNode {
 
@@ -408,9 +339,35 @@ class MyCard extends Component<myProps, myStates> {
                                         <AnimatedBorderBox></AnimatedBorderBox>
 
 
+<AnimatedBorderView width={100}></AnimatedBorderView>
+
+                                        {/* 
+                                        <CardViewGlow>
+                                        </CardViewGlow> */}
+
+                                        {/* <AnimatedBorderView></AnimatedBorderView> */}
+
+                                        {/* <AnimatedBorderView
+                                            width={150}
+                                            height={150} 
+                                            // borderRadius={75}
+                                            // sliderWidth={60}
+                                            // sliderHeight={6}
+                                            // delayInAnimation={5000}
+                                            // pathColor='#B0E0E6' // Light Steel Blue
+                                            // sliderColor='#FF4500' // Deep Sky Blue
+                                            // innerContainerColor='#4682B4' // Steel Blue
+                                        >
+                                            {/* <View style={{ width: '100%', height: '100%' }}>
+                                                <Text style={{ color: 'red' }}>asd</Text>
+                                            </View> */}
+                                        {/* </AnimatedBorderView> */}
+
+
+
 
                                         {/* <View style={{ flexDirection: 'column', width: '55%', backgroundColor: 'white', height: 100, borderEndEndRadius: 20, borderTopEndRadius: 20 }}>
-                                            <Text style={{ marginStart: 10, fontSize: 18, marginTop: 10 }}>BALLYS MEMBER</Text>
+                                            <Text style={{ marginStart: 10k, fontSize: 18, marginTop: 10 }}>BALLYS MEMBER</Text>
                                             <View style={{ borderWidth: 1, borderColor: 'red', marginStart: 10, marginEnd: 20 }}></View>
 
                                             <View style={{ flexDirection: 'row', marginStart: 10, flex: 1 }}>
