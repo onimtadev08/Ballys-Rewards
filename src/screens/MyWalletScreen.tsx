@@ -184,7 +184,7 @@ class MyWalletScreen extends React.Component<myProps, myStates> {
                         style={styles.container}>
 
                         <View style={{ zIndex: 10 }}>
-                            <TopNav navigation={this.props.navigation} titel={'MY WALLET'} />
+                            <TopNav navigation={this.props.navigation} BackButton={true} titel={'MY WALLET'} />
                         </View>
 
                         <ScrollView style={styles.container}>

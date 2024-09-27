@@ -404,7 +404,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                         style={styles.container}>
 
                         <View style={{ zIndex: 10 }}>
-                            <TopNav navigation={this.props.navigation} titel={'MY OFFER'} />
+                            <TopNav navigation={this.props.navigation} BackButton={true} titel={'MY OFFER'} />
                         </View>
 
                         <ScrollView style={styles.container}>

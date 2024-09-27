@@ -190,7 +190,7 @@ class WhereToRedeemScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav navigation={this.props.navigation} titel={'PREFERED PARTNERS'} />
+                            <TopNav navigation={this.props.navigation} BackToHome={true} titel={'PREFERED PARTNERS'} />
                         </View>
                         <View style={{ marginBottom: Platform.OS === 'ios' ? 110 : 150, flex: 1 }}>
 

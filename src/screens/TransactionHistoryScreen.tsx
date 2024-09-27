@@ -262,7 +262,7 @@ class TransactionHistoryScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10 }}>
-                            <TopNav navigation={this.props.navigation} titel={'TRANSACTION\nHISTORY'} />
+                            <TopNav navigation={this.props.navigation} BackToHome={true} titel={'TRANSACTION\nHISTORY'} />
                         </View>
 
 

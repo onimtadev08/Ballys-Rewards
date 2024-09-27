@@ -135,7 +135,7 @@ class QrScanerScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10 }}>
-                            <TopNav navigation={this.props.navigation} titel={'QR SCANNER'} />
+                            <TopNav navigation={this.props.navigation} BackButton={true} titel={'QR SCANNER'} />
                         </View>
 
 

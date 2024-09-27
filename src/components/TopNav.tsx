@@ -12,6 +12,7 @@ interface propsData {
     isMarquee?: boolean;
     Tags?: any[];
     BackButtonNew?: boolean;
+    BackToHome?: boolean;
 }
 
 //const Mname = await AsyncStorage.getItem('strMName');
@@ -23,6 +24,7 @@ const TopNav: React.FC<propsData> = ({
     isMarquee,
     Tags,
     BackButtonNew,
+    BackToHome,
 }) => {
 
     const { width: screenWidth } = Dimensions.get('window');
@@ -168,32 +170,40 @@ const TopNav: React.FC<propsData> = ({
                         onPress={async () => {
                             // const MID = await AsyncStorage.getItem('MID');
                             // navigation.navigate('MenuScreen', { 'PlayerID': MID });
-                            if (BackButtonNew) {
+
+                            if (BackToHome) {
                                 const MID = await AsyncStorage.getItem('MID');
-                                navigation.replace('GamingScreen', { 'PlayerID': MID });
-
-                                if (BackButton) {
-                                    navigation.goBack();
-                                } else {
-
-                                    // if (showCard) {
-                                    //     setopenCard(false);
-                                    // } else {
-                                    setopenCard(true);
-                                    setshowCard(true);
-                                    // }
-                                }
+                                navigation.navigate('Home', { 'PlayerID': MID });
                             } else {
-                                if (BackButton) {
-                                    navigation.goBack();
+                                if (BackButtonNew) {
+                             
+                                    if (BackButton) {
+                                        navigation.goBack();
+                                    } else {
+                                        const MID = await AsyncStorage.getItem('MID');
+                                        navigation.replace('GamingScreen', { 'PlayerID': MID });
+    
+                                        // if (showCard) {
+                                        //     setopenCard(false);
+                                        // } else {
+                                        setopenCard(true);
+                                        setshowCard(true);
+                                        // }
+                                    }
                                 } else {
+                                    if (BackButton) {
+                                        console.log('aaa');
 
-                                    // if (showCard) {
-                                    //     setopenCard(false);
-                                    // } else {
-                                    setopenCard(true);
-                                    setshowCard(true);
-                                    // }
+                                        navigation.goBack();
+                                    } else {
+
+                                        // if (showCard) {
+                                        //     setopenCard(false);
+                                        // } else {
+                                        setopenCard(true);
+                                        setshowCard(true);
+                                        // }
+                                    }
                                 }
                             }
                         }}
@@ -204,7 +214,10 @@ const TopNav: React.FC<propsData> = ({
                             : BackButton ?
                                 <Ionicons name='chevron-back-outline' size={40} color={'#f8d888'} style={{ width: 30 }} />
                                 :
-                                <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
+                                BackToHome ?
+                                    <Ionicons name='chevron-back-outline' size={40} color={'#f8d888'} style={{ width: 30 }} />
+                                    :
+                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
                         }
 
 

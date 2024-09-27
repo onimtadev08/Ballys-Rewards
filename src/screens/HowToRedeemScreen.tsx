@@ -116,7 +116,7 @@ class HowToRedeemScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav navigation={this.props.navigation} titel={'HOW TO REDEEM'} />
+                            <TopNav navigation={this.props.navigation} BackToHome={true} titel={'HOW TO REDEEM'} />
                         </View>
                         <View style={{ marginBottom: 130, flex: 1 }}>
 

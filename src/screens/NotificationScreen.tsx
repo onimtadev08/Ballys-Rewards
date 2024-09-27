@@ -160,7 +160,7 @@ class NotificationScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10 }}>
-                            <TopNav navigation={this.props.navigation} titel={'NOTIFICATION'} />
+                            <TopNav navigation={this.props.navigation} BackButton={true} titel={'NOTIFICATION'} />
                         </View>
 
                         {/* <ScrollView style={styles.container}> */}

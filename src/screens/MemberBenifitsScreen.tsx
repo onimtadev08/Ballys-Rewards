@@ -226,7 +226,7 @@ class MemberBenifitScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav navigation={this.props.navigation} titel={'MEMBERSHIP BENEFITS'} />
+                            <TopNav navigation={this.props.navigation} BackToHome={true} titel={'MEMBERSHIP BENEFITS'} />
                         </View>
                         <View style={{ marginBottom: Platform.OS === 'ios' ? 110 : 150, flex: 1 }}>
 

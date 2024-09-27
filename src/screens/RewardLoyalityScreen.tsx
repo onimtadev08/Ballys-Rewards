@@ -236,7 +236,7 @@ class RewardLoyalityScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav navigation={this.props.navigation} titel={'REWARDS AND LOYALTY'} />
+                            <TopNav navigation={this.props.navigation} BackButton={true} titel={'REWARDS AND LOYALTY'} />
                         </View>
                         <View style={{ marginBottom: 130, flex: 1 }}>
 

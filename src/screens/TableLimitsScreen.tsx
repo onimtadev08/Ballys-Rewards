@@ -153,7 +153,7 @@ class TableLimitsScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav navigation={this.props.navigation} titel={'TABLE LIMITS'} />
+                            <TopNav navigation={this.props.navigation} BackToHome={true} titel={'TABLE LIMITS'} />
                         </View>
                         <View style={{ marginBottom: 130, flex: 1 }}>
 
@@ -205,7 +205,7 @@ class TableLimitsScreen extends Component<myProps, myStates> {
 
 
 
-<LinearGradient
+                                <LinearGradient
                                     start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                                     colors={[ColorFirst, 'gold', ColorFirst]}
                                     style={{ width: '100%', height: 1, alignSelf: 'center', marginBottom: 10, marginTop: 10 }} />

@@ -350,6 +350,7 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                             <TopNav
                                 navigation={this.props.navigation}
                                 titel={''}
+                                BackButton={true}
                                 isMarquee={true}
                                 Tags={this.state.Tags}
                             />

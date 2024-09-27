@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import { Platform,Linking, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity } from 'react-native';
-import CardView from 'react-native-cardview';
+import { Platform, Linking, Text, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import TextInput from '../components/TextInput';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyDatePicker from '../components/MyDatePicker';
 
-import { interpolate } from "react-native-reanimated";
-import Carousel from "react-native-reanimated-carousel";
-import Entypo from 'react-native-vector-icons/Entypo'
-import AntDesign from 'react-native-vector-icons/AntDesign'
 import Evillcons from 'react-native-vector-icons/EvilIcons.js'
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
@@ -18,25 +11,14 @@ import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
 import GradientButtonWithBorder from '../components/GradientButton.tsx'
 import ButtomNav from '../components/ButtomNav.tsx';
-import { GetEvents } from '../api/Api.tsx';
 
-import { Marquee } from '@animatereactnative/marquee';
-import { Dropdown } from 'react-native-element-dropdown';
-import GradientButton from '../components/GradientButtonfull.tsx';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
+import AnimatedBorderBox from '../components/AnimatedBorderBox.tsx';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
 
-// const images = [
-//     require('../images/ballys.png'),
-//     require('../images/wha.jpg'),
-//     require('../images/meg.jpg'),
-//     require('../images/sms.jpg'),
-//     require('../images/pon.jpg'),
-//     // Add more local image paths as needed
-// ];∆
 interface myStates {
     currentIndex: number;
     isLoading: boolean;
@@ -47,17 +29,12 @@ interface myStates {
     showOtpMsg: boolean;
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
-    Tags: string[];
     Images: string[];
     openDatePicker: boolean;
     arrival: string;
     depatcher: string;
     TempPIN: Date;
     picker: number;
-    packeageData: packages[];
-    PaxData: Paxs[];
-    PackeageValue: string,
-    PaxValue: string;
 }
 
 interface packages {
@@ -103,25 +80,12 @@ class MyBookings extends Component<myProps, myStates> {
             showOtpMsg: false,
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
-            Tags: ["European dancing", "Belly dancing", "Pole dancing", "Body building show", "Traditional dancing"],
             Images: [],
             arrival: '',
             depatcher: '',
             openDatePicker: false,
             TempPIN: new Date(),
             picker: 0,
-            packeageData: [
-                { label: 'Package 1', value: '1' },
-                { label: 'Package 2', value: '2' },
-                { label: 'Package 3', value: '3' }
-            ],
-            PaxData: [
-                { label: 'Pax 1', value: '1' },
-                { label: 'Pax 2', value: '2' },
-                { label: 'Pax 3', value: '3' }
-            ],
-            PackeageValue: '',
-            PaxValue: '',
         };
 
 
@@ -139,22 +103,6 @@ class MyBookings extends Component<myProps, myStates> {
 
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
 
-
-        // this.navigation.addListener('beforeRemove', (e: any) => {
-        //     e.preventDefault();
-        // });
-
-        // const interval = setInterval(() => {
-        //     const nextIndex = (this.state.currentIndex + 1) % this.state.Images.length;
-        //     if (this.scrollRef) {
-        //         this.scrollRef.current?.scrollTo({ x: nextIndex * screenWidth, animated: true });
-        //     }
-        //     this.setState({ currentIndex: nextIndex });
-        // }, 2000);
-
-        //      this.MainHomeLoad();
-
-        // return () => clearInterval(interval);
     }
 
     handleBackPress
@@ -162,93 +110,12 @@ class MyBookings extends Component<myProps, myStates> {
             // Handle back button press logic here
             return true; // Prevent default back behavior
         };
-
-    async MainHomeLoad() {
-
-        this.setState({ isLoading: true });
-        try {
-
-
-            const result: any = await GetEvents();
-
-            if (result.strRturnRes) {
-
-                let img: string[] = [];
-
-                for (let index = 0; index < result.data.length; index++) {
-                    const element = result.data[index].Url;
-                    img.push(element);
-                }
-
-                this.setState({
-                    isLoading: false,
-                    Images: img,
-                });
-
-
-            } else {
-                Keyboard.dismiss();
-                this.setState({
-                    isLoading: false,
-                    showApiError: true,
-                    showApiErrorMsg: 'Please try again'
-                });
-            }
-        } catch (error) {
-
-            this.setState({
-                isLoading: false,
-                showApiError: true,
-                showApiErrorMsg: 'Server Connection error',
-            });
-        } finally {
-
-        }
-
-    }
-
-
-    // Handles login button press and navigates to 'SignUp' screen
     handleLogin = () => {
         this.navigation.navigate('SignUp');
     };
 
 
-    // animationStyle: TAnimationStyle = (value: number) => {
-    //     "worklet";
 
-    //     const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30]);
-    //     const scale = interpolate(value, [-1, 0, 1], [1.25, 1, 0.25]);
-    //     const opacity = interpolate(value, [-0.75, 0, 1], [0, 1, 0]);
-
-    //     return {
-    //         transform: [{ scale }],
-    //         zIndex,
-    //         opacity,
-    //     };
-    // };
-
-
-    animationStyle: TAnimationStyle = (value: number) => {
-        "worklet";
-
-        const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30]);
-        const rotateZ = `${interpolate(
-            value,
-            [-1, 0, 1],
-            [-45, 0, 45],
-        )}deg`;
-        const translateX = interpolate(
-            value,
-            [-1, 0, 1],
-            [-screenWidth, 0, screenWidth + 100],
-        );
-
-        return {
-            transform: [{ rotateZ }, { translateX }],
-            zIndex,
-        };
-    }
 
     render(): React.ReactNode {
 
@@ -260,78 +127,9 @@ class MyBookings extends Component<myProps, myStates> {
             container: {
                 flex: 1,
                 width: screenWidth,
-            },
-            placeholderStyle: {
-                fontSize: 16,
-            },
-            selectedTextStyle: {
-                fontSize: 16,
-            },
-            iconStyle: {
-                width: 20,
-                height: 20,
-            },
-            inputSearchStyle: {
-                height: 40,
-                fontSize: 16,
-            },
-            dropdown: {
-                marginTop: 20,
-                margin: 10,
-                height: 50,
-                backgroundColor: '#FFCE6C',
-                borderRadius: 5,
-                padding: 12,
-                shadowColor: '#000',
-                shadowOffset: {
-                    width: 0,
-                    height: 1,
-                },
-                shadowOpacity: 0.2,
-                shadowRadius: 1.41,
-                borderWidth: 1,
-                borderColor: 'black',
-                elevation: 2,
-            },
-            icon: {
-                marginRight: 5,
-            },
-            item: {
-                padding: 17,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-            },
-            textItem: {
-                fontSize: 16,
-            },
-            customButton: {
-                width: '100%'
-            },
-            buttonText: {
-                fontWeight: 'bold',
-                color: '#000000',
-                fontSize: 20,
-                textAlign: 'center',
-            },
+            }
         });
 
-
-        const renderItem = (item: { label: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; value: any; }) => {
-            return (
-                <View style={styles.item}>
-                    <Text style={styles.textItem}>{item.label}</Text>
-                    {item.value === this.state.PackeageValue && (
-                        <AntDesign
-                            style={styles.icon}
-                            color="black"
-                            name="Safety"
-                            size={20}
-                        />
-                    )}
-                </View>
-            );
-        };
 
         return (
             <LinearGradient
@@ -346,13 +144,13 @@ class MyBookings extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10 }}>
-                            <TopNav navigation={this.props.navigation} titel={'MY BOOKING'} />
+                            <TopNav navigation={this.props.navigation} BackButton={true} titel={'MY BOOKING'} />
                         </View>
 
 
                         <ScrollView style={styles.container}>
 
-                            <View style={{ alignItems: 'center' }}>
+                            {/* <View style={{ alignItems: 'center' }}>
                                 <View style={{ flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                                     <View style={{ backgroundColor: 'gold', borderTopRightRadius: 20, borderTopLeftRadius: 20 }}>
 
@@ -391,6 +189,12 @@ class MyBookings extends Component<myProps, myStates> {
                                         </View>
                                     </View>
                                 </View>
+                            </View> */}
+
+                            <View style={{ marginTop: 20 }}>
+
+                                <AnimatedBorderBox></AnimatedBorderBox>
+
                             </View>
 
 
@@ -454,59 +258,6 @@ class MyBookings extends Component<myProps, myStates> {
                                 </TouchableOpacity>
                             </View>
 
-
-                            {/* <View>
-
-                                <Dropdown
-                                    style={styles.dropdown}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={this.state.packeageData}
-                                    search
-                                    maxHeight={300}
-                                    labelField="label"
-                                    valueField="value"
-                                    placeholder="Select Package"
-                                    searchPlaceholder="Search..."
-                                    value={this.state.PackeageValue}
-                                    onChange={item => {
-                                        this.setState({ PaxValue: item.label })
-                                    }}
-                                    renderLeftIcon={() => (
-                                        <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-                                    )}
-                                    renderItem={renderItem}
-                                />
-
-
-                                <Dropdown
-                                    style={styles.dropdown}
-                                    placeholderStyle={styles.placeholderStyle}
-                                    selectedTextStyle={styles.selectedTextStyle}
-                                    inputSearchStyle={styles.inputSearchStyle}
-                                    iconStyle={styles.iconStyle}
-                                    data={this.state.PaxData}
-                                    search
-                                    maxHeight={300}
-                                    labelField="label"
-                                    valueField="value"
-                                    placeholder="Select Pax"
-                                    searchPlaceholder="Search..."
-                                    value={this.state.PaxValue}
-                                    onChange={item => {
-                                        this.setState({ PaxValue: item.label })
-                                    }}
-                                    renderLeftIcon={() => (
-                                        <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-                                    )}
-                                    renderItem={renderItem}
-                                />
-
-                            </View> */}
-
-
                             <View style={{ margin: 20, justifyContent: 'center', alignItems: 'center' }}>
                                 <GradientButtonWithBorder
                                     title="SUBMIT"
@@ -515,8 +266,6 @@ class MyBookings extends Component<myProps, myStates> {
                                     buttonStyle={{}}
                                     textStyle={{}} borderColor={''} />
                             </View>
-
-
 
                             <View style={{ borderColor: 'white', borderWidth: 1, margin: 20, borderRadius: 10 }}>
 

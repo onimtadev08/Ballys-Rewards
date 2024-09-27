@@ -195,7 +195,7 @@ class GamingScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav navigation={this.props.navigation} titel={'GAMING'} />
+                            <TopNav navigation={this.props.navigation} BackToHome={true} titel={'GAMING'} />
                         </View>
                         <View style={{ marginBottom: 130, flex: 1 }}>
 

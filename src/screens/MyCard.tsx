@@ -289,7 +289,7 @@ class MyCard extends Component<myProps, myStates> {
                         style={styles.container}>
 
                         <View style={{ zIndex: 10 }}>
-                            <TopNav navigation={this.props.navigation} titel={'MY CARD'} />
+                            <TopNav navigation={this.props.navigation} BackButton={true} titel={'MY CARD'} />
                         </View>
 
                         <ScrollView style={styles.container}>
