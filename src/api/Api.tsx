@@ -29,6 +29,10 @@ const WhereToRedeemUrl = Domain + '/api/Ballys/ShoppingCreditLocation';
 
 const UpgradeDowngradeMessageUrl = Domain + '/api/Ballys/UpgradeDowngradeMessage';
 
+const fetchGiftAndGoodWillUrl = Domain + '/api/Ballys/MyOffers';
+
+const MyCardUrl = Domain + '/api/Ballys/MyCard';
+
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
 
@@ -58,7 +62,7 @@ export async function getOtp(PlayerID: string, ClientID: string) {
 }
 
 // sign in temp and original
-export async function TempLogin(PlayerID: string, PIN: string, Token: string, Method: string) {
+export async function TempLogin(PlayerID: string, PIN: string, Method: string) {
 
     let method = Method === 'TEMP' ? 'FirstTimeSignIn' : 'SignIn';
     let Url = Domain + '/api/Ballys/' + method;
@@ -479,6 +483,86 @@ export async function fetchUpgradeDowngradeMessage(MID: string) {
 
 
         fetch(UpgradeDowngradeMessageUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+
+                resolve(result);
+            })
+            .catch((error) => {
+
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}
+
+
+
+
+export async function fetchGiftAndGoodWill(MID: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + Token);
+
+        console.log(Token);
+
+
+        const raw = JSON.stringify({
+            "MID": MID
+        });
+
+        const requestOptions: any = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+
+        fetch(fetchGiftAndGoodWillUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+
+                resolve(result);
+            })
+            .catch((error) => {
+
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}
+
+
+export async function fetchMyCard(MID: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + Token);
+
+        console.log(Token);
+
+
+        const raw = JSON.stringify({
+            "MID": MID
+        });
+
+        const requestOptions: any = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+
+        fetch(MyCardUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
 

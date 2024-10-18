@@ -1,4 +1,4 @@
-import React, {  } from 'react';
+import React, { } from 'react';
 import { Image, View, Text, Dimensions } from 'react-native';
 import { ColorSecond } from '../data/data';
 import AnimatedBorderViewCus from './AnimatedBorderViewCus';
@@ -7,10 +7,19 @@ const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
 
 interface GlowBorderProps {
-    // Add any custom properties here if needed
+    CardImg: string;
+    MemberImg: string;
+    CardTier: string;
+    MemberName: string;
+    ExpireData: string;
 }
 
-const AnimatedBorderBox: React.FC<GlowBorderProps> = () => {
+const AnimatedBorderBox: React.FC<GlowBorderProps> = ({
+    MemberImg,
+    CardTier,
+    MemberName,
+    ExpireData,
+}) => {
 
     return (
         <View style={{ marginTop: 40, width: "100%", alignItems: 'center', justifyContent: 'center', height: 300, backgroundColor: 'transparent', flexDirection: 'column' }}>
@@ -28,7 +37,9 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = () => {
             >
 
                 <Image
-                    source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/026/164/709/small_2x/businessman-portrait-elegant-man-in-business-suit-employee-of-business-institution-in-uniform-man-office-worker-business-avatar-profile-picture-illustration-vector.jpg' }}
+                    source={{
+                        uri: MemberImg === '' ? '' : MemberImg
+                    }}
                     style={{
                         zIndex: 2,
                         height: 180,
@@ -39,18 +50,8 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = () => {
             </AnimatedBorderViewCus>
 
 
-            <View style={{ marginTop: -10, marginBottom: 20, justifyContent: 'center', alignItems: 'center', zIndex: -1, width: '100%' }}>
-                {/* <AnimatedBorderViewCus
-                    width={(screenWidth / 100) * 63}
-                    height={120}
-                    borderRadius={20}
-                    sliderWidth={100}
-                    sliderHeight={10}
-                    delayInAnimation={3500}
-                    pathColor='trasparent' // Light Steel Blue
-                    sliderColor='#FFD700' // Deep Sky Blue
-                    innerContainerColor={ColorSecond}
-                > */}
+            <View style={{ marginTop: 10, marginBottom: 20, justifyContent: 'center', alignItems: 'center', zIndex: -1, width: '100%' }}>
+
                 <View style={{
                     borderWidth: 3,
                     borderColor: 'gold',
@@ -59,26 +60,25 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = () => {
                     flexDirection: 'column',
                     width: '60%',
                     backgroundColor: 'white',
-                    height: '65%'
 
 
                 }}>
                     <Text style={{ fontSize: 18, marginTop: 10 }}>BALLYS MEMBER</Text>
                     <View style={{ borderWidth: 1, borderColor: 'red', marginStart: 10, marginEnd: 20 }}></View>
 
-                    <View style={{ flexDirection: 'row', flex: 1 }}>
+                    <View style={{ flexDirection: 'row', width: '100%' }}>
                         <Text style={{ flex: 1, fontSize: 16 }}>MEMBER # : </Text>
-                        <Text style={{ flex: 1, fontSize: 16 }}>BM15125</Text>
+                        <Text style={{ flex: 1, fontSize: 16, overflowWrap: 'break-word' }}>{MemberName}</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', flex: 1 }}>
+                    <View style={{ flexDirection: 'row', width:'100%' }}>
                         <Text style={{ flex: 1, fontSize: 16 }}>EXPIRES : </Text>
-                        <Text style={{ flex: 1, fontSize: 16 }}>2024-12-31</Text>
+                        <Text style={{ flex: 1, fontSize: 16 }}>{ExpireData}</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', flex: 1, marginBottom: 10 }}>
+                    <View style={{ flexDirection: 'row', width:'100%', marginBottom: 10 }}>
                         <Text style={{ flex: 1, fontSize: 16 }}>CARD TIER : </Text>
-                        <Text style={{ flex: 1, fontSize: 16 }}>INFINITY</Text>
+                        <Text style={{ flex: 1, fontSize: 16 }}>{CardTier}</Text>
                     </View>
                 </View>
 

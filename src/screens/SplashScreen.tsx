@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BackHandler, StyleSheet, Dimensions, View, Text, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { TempLogin } from '../api/Api.tsx';
 
 
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
@@ -58,16 +58,60 @@ class SplashScreen extends Component<myProps, myStates> {
         };
 
     CheckLogin = async () => {
-        const Token = await AsyncStorage.getItem('Token');
+
+        const MID = await AsyncStorage.getItem('MID') as string;
+        const PIN = await AsyncStorage.getItem('PIN') as string;
+
+        try {
+
+            if (!MID || !PIN) {
+                this.navigation.replace('Login');
+
+            } else {
+
+                const result = await TempLogin(MID, PIN, 'F');
+
+                //     console.log(result);
+
+                if (result.strRturnRes) {
+
+                    AsyncStorage.setItem('Token', result.strToken.access_token);
+                    AsyncStorage.setItem('MID', MID);
+                    AsyncStorage.setItem('strMName', result.strMName);
+                    AsyncStorage.setItem('PIN', PIN);
 
 
-        if (Token !== null && (Token !== '' && Token !== undefined)) {
-            const MID = await AsyncStorage.getItem('MID');
-            this.navigation.replace('Home', { 'PlayerID': MID });
 
-        } else {
-            this.navigation.replace('Login');
+                    this.setState({
+                        isLoading: false,
+                    });
+
+
+                    this.navigation.replace('Home', { 'PlayerID': MID });
+
+
+                } else {
+                    this.navigation.replace('Login');
+                    this.setState({
+                        isLoading: false,
+                        showApiError: true,
+                        showApiErrorMsg: 'Invalid Credentials, Please try again'
+                    });
+                }
+            }
+        } catch (error) {
+
+            this.setState({
+                isLoading: false,
+                showApiError: true,
+                showApiErrorMsg: 'Server Connection error'
+            });
+        } finally {
+
         }
+
+
+
 
     }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, Linking } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { interpolate } from "react-native-reanimated";
 
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
@@ -18,7 +18,8 @@ import TopNav from '../components/TopNav.tsx';
 
 import AnimatedBorderBox from '../components/AnimatedBorderBox.tsx';
 import AnimatedBorderViewCus from '../components/AnimatedBorderViewCus.tsx';
-
+import { fetchMyCard } from '../api/Api.tsx';
+import moment from 'moment';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -34,9 +35,12 @@ interface myStates {
     showOtpMsg: boolean;
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
-    Tags: string[];
-    Images: string[];
     time: string;
+    CardImg: string;
+    MemberImg: string;
+    CardTier: string;
+    MemberName: string;
+    ExpireData: string;
 }
 interface myProps {
     navigation: any;
@@ -67,9 +71,12 @@ class MyCard extends Component<myProps, myStates> {
             showOtpMsg: false,
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
-            Tags: ["European dancing", "Belly dancing", "Pole dancing", "Body building show", "Traditional dancing"],
-            Images: [],
             time: new Date().toLocaleString(),
+            CardImg: '',
+            MemberImg: '',
+            CardTier: '',
+            MemberName: '',
+            ExpireData: '',
         };
 
 
@@ -91,47 +98,36 @@ class MyCard extends Component<myProps, myStates> {
             this.setState({ time: new Date().toLocaleString() })
         }, 1000);
 
+        this.getMyCard();
+
     }
-
-    handleBackPress
-        = () => {
-            // Handle back button press logic here
-            return true; // Prevent default back behavior
-        };
-
-    async MainHomeLoad() {
-
-        this.setState({ isLoading: true });
+    async getMyCard() {
         try {
 
+            this.setState({ isLoading: true });
 
-            const result: any = await GetEvents();
+            const MID = await AsyncStorage.getItem('MID') as string;
+
+            const result: any = await fetchMyCard(MID);
+
+            console.log(result);
+
 
             if (result.strRturnRes) {
 
-                let img: string[] = [];
-
-                for (let index = 0; index < result.data.length; index++) {
-                    const element = result.data[index].Url;
-                    img.push(element);
-                }
-
                 this.setState({
                     isLoading: false,
-                    Images: img,
-                });
+                    CardTier: result.Current_R,
+                    ExpireData: moment(result.Exp).format('DD/MM/YYYY'),
+                    MemberImg: result.MImage === '' ? 'https://i.sstatic.net/y9DpT.jpg' : result.MImage,
+                    CardImg: result.CImage,
+                    MemberName: await AsyncStorage.getItem('strMName') as string,
+                })
 
 
-            } else {
-                Keyboard.dismiss();
-                this.setState({
-                    isLoading: false,
-                    showApiError: true,
-                    showApiErrorMsg: 'Please try again'
-                });
             }
         } catch (error) {
-
+            console.error(error);
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -140,8 +136,13 @@ class MyCard extends Component<myProps, myStates> {
         } finally {
 
         }
-
     }
+
+    handleBackPress
+        = () => {
+            // Handle back button press logic here
+            return true; // Prevent default back behavior
+        };
 
 
     // Handles login button press and navigates to 'SignUp' screen
@@ -161,119 +162,6 @@ class MyCard extends Component<myProps, myStates> {
                 flex: 1,
                 width: screenWidth,
             },
-            scrollView: {
-                width: screenWidth,
-            },
-            image: {
-                width: screenWidth,
-                height: screenWidth * 1.1,
-                resizeMode: 'cover',
-            },
-            backgroundContainer: {
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-            },
-            overlay: {
-                opacity: 1,
-                // top: 60,
-                // right: 29,
-            },
-            logo: {
-
-                resizeMode: 'stretch',
-                backgroundColor: 'rgba(0,0,0,0)',
-                width: screenWidth,
-                height: '100%',
-                // top:50,
-                // bottom: 70,
-            },
-            backdrop: {
-                height: screenHeight,
-                width: screenWidth,
-                resizeMode: 'cover',
-            },
-            headline: {
-                fontSize: 18,
-                textAlign: 'center',
-                backgroundColor: 'black',
-                color: 'white'
-            },
-            slider: { backgroundColor: '#000', height: 350 },
-            content1: {
-                width: '100%',
-                height: 50,
-                marginBottom: 10,
-                backgroundColor: '#000',
-                justifyContent: 'center',
-                alignItems: 'center',
-            },
-            content2: {
-                width: '100%',
-                height: 100,
-                marginTop: 10,
-                backgroundColor: '#000',
-                justifyContent: 'center',
-                alignItems: 'center',
-            },
-            contentText: { color: '#fff' },
-            buttons: {
-                zIndex: 1,
-                height: 15,
-                marginTop: -25,
-                marginBottom: 10,
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'row',
-            },
-            button: {
-                margin: 3,
-                width: 15,
-                height: 15,
-                opacity: 0.9,
-                alignItems: 'center',
-                justifyContent: 'center',
-            },
-            buttonSelected: {
-                opacity: 1,
-                color: 'red',
-            },
-            customSlide: {
-                backgroundColor: 'green',
-                alignItems: 'center',
-                justifyContent: 'center',
-            },
-            customImage: {
-                width: 100,
-                height: 100,
-            },
-            tagContainer: {
-                marginStart: 20,
-                marginEnd: 20,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                marginBottom: 10,
-            },
-            tagWrapper: {
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginVertical: 5,
-                marginRight: 5,
-            },
-            tag: {
-                backgroundColor: '#FFCE6C',
-                borderRadius: 20,
-                paddingHorizontal: 10,
-                paddingVertical: 5,
-            },
-            tagText: {
-                color: 'black',
-                fontSize: 16,
-                margin: 10,
-                fontFamily: 'SFPRODISPLAYREGULAR'
-            }
         });
 
 
@@ -293,7 +181,7 @@ class MyCard extends Component<myProps, myStates> {
                         </View>
 
                         <ScrollView style={styles.container}>
-                            <View style={{ alignItems: 'center', marginBottom: 110, flexDirection: 'column' }}>
+                            <View style={{ alignItems: 'center', marginBottom: 130, flexDirection: 'column' }}>
 
 
 
@@ -323,82 +211,26 @@ class MyCard extends Component<myProps, myStates> {
                                     >
 
                                         <Image
-                                            source={{ uri: 'https://i.imgur.com/G2nHqSr.png' }}
+                                            source={require('../images/Cards/diamond.png')}
                                             style={{
                                                 height: 180,
                                                 width: 300,
                                             }}
-                                            resizeMode='stretch' />
+                                            resizeMode='cover' />
                                     </AnimatedBorderViewCus>
                                 </View>
 
 
-                                <View style={{ alignItems: 'center' }}>
+                                <View style={{ alignItems: 'center' ,marginBottom: 30}}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-
-                                        {/* <Image
-                                                source={{ uri: 'https://static.vecteezy.com/system/resources/thumbnails/026/164/709/small_2x/businessman-portrait-elegant-man-in-business-suit-employee-of-business-institution-in-uniform-man-office-worker-business-avatar-profile-picture-illustration-vector.jpg' }}
-                                                style={{
-                                                    height: 180,
-                                                    width: 130,
-                                                    borderRadius: 20,
-                                                    borderColor: 'gold',
-                                                    borderWidth: 5,
-                                                }}
-                                            /> */}
-
-
-                                        <AnimatedBorderBox></AnimatedBorderBox>
-
-
-                                        {/* <AnimatedBorderView width={100}></AnimatedBorderView> */}
-
-                                        {/* 
-                                        <CardViewGlow> */}
-                                        {/* </CardViewGlow>  */}
-
-                                        {/* <AnimatedBorderView></AnimatedBorderView> */}
-
-                                        {/* <AnimatedBorderView
-                                            width={150}
-                                            height={150} 
-                                            // borderRadius={75}
-                                            // sliderWidth={60}
-                                            // sliderHeight={6}
-                                            // delayInAnimation={5000}
-                                            // pathColor='#B0E0E6' // Light Steel Blue
-                                            // sliderColor='#FF4500' // Deep Sky Blue
-                                            // innerContainerColor='#4682B4' // Steel Blue
-                                        >
-                                            {/* <View style={{ width: '100%', height: '100%' }}>
-                                                <Text style={{ color: 'red' }}>asd</Text>
-                                            </View> */}
-                                        {/* </AnimatedBorderView> */}
-
-
-
-
-                                        {/* <View style={{ flexDirection: 'column', width: '55%', backgroundColor: 'white', height: 100, borderEndEndRadius: 20, borderTopEndRadius: 20 }}>
-                                            <Text style={{ marginStart: 10k, fontSize: 18, marginTop: 10 }}>BALLYS MEMBER</Text>
-                                            <View style={{ borderWidth: 1, borderColor: 'red', marginStart: 10, marginEnd: 20 }}></View>
-
-                                            <View style={{ flexDirection: 'row', marginStart: 10, flex: 1 }}>
-                                                <Text style={{ flex: 1, fontSize: 16 }}>MEMBER # : </Text>
-                                                <Text style={{ flex: 1, fontSize: 16 }}>BM15125</Text>
-                                            </View>
-
-                                            <View style={{ flexDirection: 'row', flex: 1, marginStart: 10 }}>
-                                                <Text style={{ flex: 1, fontSize: 16 }}>EXPIRES : </Text>
-                                                <Text style={{ flex: 1, fontSize: 16 }}>2024-12-31</Text>
-                                            </View>
-
-                                            <View style={{ flexDirection: 'row', flex: 1, marginStart: 10, marginBottom: 10 }}>
-                                                <Text style={{ flex: 1, fontSize: 16 }}>CARD TIER : </Text>
-                                                <Text style={{ flex: 1, fontSize: 16 }}>INFINITY</Text>
-                                            </View>
-                                        </View> */}
-
+                                        <AnimatedBorderBox
+                                            CardImg={this.state.CardImg}
+                                            MemberImg={this.state.MemberImg}
+                                            CardTier={this.state.CardTier}
+                                            MemberName={this.state.MemberName}
+                                            ExpireData={this.state.ExpireData}
+                                        />
 
                                     </View>
                                 </View>
@@ -426,10 +258,6 @@ class MyCard extends Component<myProps, myStates> {
                                 >
                                     <Text style={{ color: 'white', marginBottom: 20, fontSize: 20, fontWeight: 'bold' }}>+94 112 460 460</Text>
                                 </TouchableOpacity>
-
-
-
-                                {/* <AnimatedBorderBox></AnimatedBorderBox> */}
 
 
 
