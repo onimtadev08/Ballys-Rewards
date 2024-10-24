@@ -33,6 +33,8 @@ const fetchGiftAndGoodWillUrl = Domain + '/api/Ballys/MyOffers';
 
 const MyCardUrl = Domain + '/api/Ballys/MyCard';
 
+const MyBookingUrl = Domain + '/api/Ballys/MyBooking';
+
 // get otp
 export async function getOtp(PlayerID: string, ClientID: string) {
 
@@ -563,6 +565,44 @@ export async function fetchMyCard(MID: string) {
 
 
         fetch(MyCardUrl, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+
+                resolve(result);
+            })
+            .catch((error) => {
+
+                reject(error);
+                throw new Error('Server Connection error');
+            });
+    })
+
+}
+
+export async function fetchMyBooking(MID: string) {
+    const Token = await AsyncStorage.getItem('Token');
+
+    return new Promise((resolve, reject) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + Token);
+
+        console.log(Token);
+
+
+        const raw = JSON.stringify({
+            "MID": MID
+        });
+
+        const requestOptions: any = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+
+        fetch(MyBookingUrl, requestOptions)
             .then((response) => response.json())
             .then((result) => {
 

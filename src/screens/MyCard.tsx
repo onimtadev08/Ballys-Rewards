@@ -36,7 +36,7 @@ interface myStates {
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
     time: string;
-    CardImg: string;
+    CardImg: any;
     MemberImg: string;
     CardTier: string;
     MemberName: string;
@@ -72,7 +72,7 @@ class MyCard extends Component<myProps, myStates> {
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
             time: new Date().toLocaleString(),
-            CardImg: '',
+            CardImg: require('../images/Cards/gold.png'),
             MemberImg: '',
             CardTier: '',
             MemberName: '',
@@ -108,23 +108,55 @@ class MyCard extends Component<myProps, myStates> {
 
             const MID = await AsyncStorage.getItem('MID') as string;
 
+            console.log(MID);
+
             const result: any = await fetchMyCard(MID);
 
-            console.log(result);
+            console.log('vv : ', result.MImage, ' : img');
 
 
             if (result.strRturnRes) {
+
+                let crdImg = '';
+                if (result.Current_R.toLowerCase() === 'infinity') {
+                    crdImg = require('../images/Cards/infinity.png');
+                } else if (result.Current_R.toLowerCase() === 'gold') {
+                    crdImg = require('../images/Cards/gold.png');
+                } else if (result.Current_R.toLowerCase() === 'platinum') {
+                    crdImg = require('../images/Cards/plat.png');
+                } else if (result.Current_R.toLowerCase() === 'diamond') {
+                    crdImg = require('../images/Cards/diamond.png');
+                } else if (result.Current_R.toLowerCase() === 'classic') {
+                    crdImg = require('../images/Cards/classic.png');
+                } else if (result.Current_R.toLowerCase() === 'silver') {
+                    crdImg = require('../images/Cards/silver.png');
+                }
+
+
+
+
+
+
+
 
                 this.setState({
                     isLoading: false,
                     CardTier: result.Current_R,
                     ExpireData: moment(result.Exp).format('DD/MM/YYYY'),
-                    MemberImg: result.MImage === '' ? 'https://i.sstatic.net/y9DpT.jpg' : result.MImage,
-                    CardImg: result.CImage,
+                    MemberImg: result.MImage === '' ? 'https://i.sstatic.net/y9DpT.jpg' : `data:image/png;base64,${result.MImage}`,
+                    CardImg: crdImg,
                     MemberName: await AsyncStorage.getItem('strMName') as string,
+                }, () => {
+                    console.log('img : ', this.state.MemberImg);
                 })
 
 
+            } else {
+                this.setState({
+                    isLoading: false,
+                    showApiError: true,
+                    showApiErrorMsg: 'Server Connection error',
+                });
             }
         } catch (error) {
             console.error(error);
@@ -211,7 +243,7 @@ class MyCard extends Component<myProps, myStates> {
                                     >
 
                                         <Image
-                                            source={require('../images/Cards/diamond.png')}
+                                            source={this.state.CardImg}
                                             style={{
                                                 height: 180,
                                                 width: 300,
@@ -221,11 +253,10 @@ class MyCard extends Component<myProps, myStates> {
                                 </View>
 
 
-                                <View style={{ alignItems: 'center' ,marginBottom: 30}}>
+                                <View style={{ alignItems: 'center', marginBottom: 30 }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
                                         <AnimatedBorderBox
-                                            CardImg={this.state.CardImg}
                                             MemberImg={this.state.MemberImg}
                                             CardTier={this.state.CardTier}
                                             MemberName={this.state.MemberName}

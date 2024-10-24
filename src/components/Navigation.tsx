@@ -43,6 +43,7 @@ import RewardLoyalityScreen from '../screens/RewardLoyalityScreen';
 import TableLimitsScreen from '../screens/TableLimitsScreen';
 import MemberBenifitScreen from '../screens/MemberBenifitsScreen';
 import QrScanerScreen from '../screens/QrScanerScreen';
+import SpaScreen from '../screens/SpaScreen';
 
 type RootStack = {
     Login: undefined
@@ -54,6 +55,34 @@ type RootStack = {
         onGoBack: (Img: string, ImgApi: string) => void
     }
     EyeDetectScreen: undefined
+    SplashScreen: SplashScreen;
+    MenuScreen: MenuScreen
+    MyBooking: undefined
+    MyHost: undefined
+    EntertainmentScreen: undefined
+    MyWalletScreen: undefined
+    MyCard: undefined
+    ContactUsScreen: undefined
+    MyOfferScreen: undefined
+    NotificationScreen: undefined
+    TransactionHistoryScreen: undefined
+    TaxiScreen: undefined
+    TaxiDetailsScreen: undefined
+    AccountSettingsScreen: undefined
+    ChangePinScreen: undefined
+    ChangeEmailScreen: undefined
+    SinglePageDetailsScreen: undefined
+    GamingScreen: undefined
+    WhereToRedeemScreen: undefined
+    HowToRedeemScreen: undefined
+    RewardLoyalityScreen: undefined
+    TableLimitsScreen: undefined
+    MemberBenifitScreen: undefined
+    QrScanerScreen: undefined
+    MyBookings: undefined
+    MyHosts: undefined
+    MyWallet: undefined
+    SpaScreen: undefined
 
 }
 
@@ -93,7 +122,7 @@ const Navigation = () => {
                                     const MID = await AsyncStorage.getItem('MID');
 
                                     navigation.navigate('Home',
-                                        { 'PlayerID': String | MID });
+                                        { 'PlayerID': MID });
                                 }}>
                                 <Entypo name="chevron-thin-left" color={'white'} size={25} />
                             </TouchableOpacity>
@@ -312,6 +341,12 @@ const Navigation = () => {
                     name='QrScanerScreen'
                     options={{ headerShown: false }}
                     component={QrScanerScreen}
+                />
+
+                <Stack.Screen
+                    name='SpaScreen'
+                    options={{ headerShown: false }}
+                    component={SpaScreen}
                 />
 
             </Stack.Navigator>

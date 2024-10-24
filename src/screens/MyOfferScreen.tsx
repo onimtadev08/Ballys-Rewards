@@ -43,6 +43,14 @@ interface myStates {
     showApiSuccsessMsg: string;
     Gift: string;
     Birthday: string;
+    Img_Url_1: string;
+    Img_Url_2: string;
+    M_Name_1: string;
+    M_Language_1: string;
+    M_Mobile_1: string;
+    M_Name_2: string;
+    M_Language_2: string;
+    M_Mobile_2: string;
 }
 
 interface datas {
@@ -78,6 +86,14 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
             showApiSuccsessMsg: '',
             Gift: '0',
             Birthday: '0',
+            Img_Url_1: '',
+            Img_Url_2: '',
+            M_Name_1: '',
+            M_Language_1: '',
+            M_Mobile_1: '',
+            M_Name_2: '',
+            M_Language_2: '',
+            M_Mobile_2: '',
         };
 
     }
@@ -99,6 +115,9 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
             const MID = await AsyncStorage.getItem('MID') as string;
 
+            console.log(MID);
+
+
             const result: any = await fetchGiftAndGoodWill(MID);
 
             console.log(result);
@@ -107,12 +126,26 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
             if (result.strRturnRes) {
 
                 this.setState({
-                    Gift: result.BDay,
-                    Birthday: result.BDayAmount,
+                    Gift: result.GiftandGoodwill,
+                    Birthday: result.BirthdayAmount,
                     isLoading: false,
+                    Img_Url_1: result.Img_Url_1,
+                    Img_Url_2: result.Img_Url_2,
+                    M_Name_1: result.M_Name_1,
+                    M_Language_1: result.M_Language_1,
+                    M_Mobile_1: result.M_Mobile_1,
+                    M_Name_2: result.M_Name_2,
+                    M_Language_2: result.M_Language_2,
+                    M_Mobile_2: result.M_Mobile_2,
                 })
 
 
+            } else {
+                this.setState({
+                    isLoading: false,
+                    showApiError: true,
+                    showApiErrorMsg: 'Server Connection error',
+                });
             }
         } catch (error) {
             console.error(error);
@@ -228,7 +261,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
                                 <MainManuButton Url={require('../images/svgtopng/spa.png')} title={"SPA'S"}
                                     onPress={() => {
-                                        //    this.props.navigation.navigate('EntertainmentScreen');
+                                        this.props.navigation.navigate('SpaScreen');
                                     }}
                                 />
 
@@ -305,17 +338,19 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                                 </View>
 
                             </View>
+
                             <View style={{ flexDirection: 'row', flex: 1, marginBottom: Platform.OS === 'ios' ? 110 : 150 }}>
                                 <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
-                                    <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
-                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>
+                                    <Image source={{ uri: this.state.Img_Url_1 }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
+                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{this.state.M_Name_1}</Text>
                                     <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>MARKETING MANAGER INTERNATIONAL</Text>
-                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE : 94774771234</Text>
+                                    <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>{this.state.M_Language_1}</Text>
+                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE :{'\n'}{this.state.M_Mobile_1}</Text>
                                     <View style={{ flexDirection: "row", flex: 1 }}>
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('whatsapp://send?text=&phone={94774771234}');
+                                                    Linking.openURL(`whatsapp://send?text=&phone={${this.state.M_Mobile_1}}`);
                                                 }}
                                             >
                                                 <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
@@ -325,7 +360,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('tel:${94774771234}');
+                                                    Linking.openURL(`tel:${this.state.M_Mobile_1}`);
                                                 }}
                                             >
                                                 <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />
@@ -339,15 +374,16 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
 
                                 <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
-                                    <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
-                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>
+                                    <Image source={{ uri: this.state.Img_Url_2 }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
+                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{this.state.M_Name_2}</Text>
                                     <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>MARKETING MANAGER INTERNATIONAL</Text>
-                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE : 94774771234</Text>
+                                    <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>{this.state.M_Language_2}</Text>
+                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE :{'\n'}{this.state.M_Mobile_2}</Text>
                                     <View style={{ flexDirection: "row", flex: 1 }}>
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('whatsapp://send?text=&phone={94774771234}');
+                                                    Linking.openURL(`whatsapp://send?text=&phone={${this.state.M_Mobile_2}}`);
                                                 }}
                                             >
                                                 <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
@@ -357,7 +393,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('tel:${94774771234}');
+                                                    Linking.openURL(`tel:${this.state.M_Mobile_2}`);
                                                 }}
                                             >
                                                 <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />

@@ -3,7 +3,7 @@ import { Platform, Linking, Text, BackHandler, View, StyleSheet, ScrollView, Dim
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MyDatePicker from '../components/MyDatePicker';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Evillcons from 'react-native-vector-icons/EvilIcons.js'
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
@@ -11,10 +11,12 @@ import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
 import GradientButtonWithBorder from '../components/GradientButton.tsx'
 import ButtomNav from '../components/ButtomNav.tsx';
-
+import moment from 'moment';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
 import AnimatedBorderBox from '../components/AnimatedBorderBox.tsx';
+
+import { fetchMyBooking } from '../api/Api.tsx';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -35,6 +37,18 @@ interface myStates {
     depatcher: string;
     TempPIN: Date;
     picker: number;
+    MemberImg: string;
+    CardTier: string;
+    MemberName: string;
+    ExpireData: string;
+    Img_Url_1: string;
+    Img_Url_2: string;
+    M_Name_1: string;
+    M_Language_1: string;
+    M_Mobile_1: string;
+    M_Name_2: string;
+    M_Language_2: string;
+    M_Mobile_2: string;
 }
 
 interface packages {
@@ -86,6 +100,18 @@ class MyBookings extends Component<myProps, myStates> {
             openDatePicker: false,
             TempPIN: new Date(),
             picker: 0,
+            MemberImg: '',
+            CardTier: '',
+            MemberName: '',
+            ExpireData: '',
+            Img_Url_1: '',
+            Img_Url_2: '',
+            M_Name_1: '',
+            M_Language_1: '',
+            M_Mobile_1: '',
+            M_Name_2: '',
+            M_Language_2: '',
+            M_Mobile_2: '',
         };
 
 
@@ -100,8 +126,8 @@ class MyBookings extends Component<myProps, myStates> {
     componentDidMount() {
 
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
+        this.getMyBooking();
 
     }
 
@@ -114,7 +140,48 @@ class MyBookings extends Component<myProps, myStates> {
         this.navigation.navigate('SignUp');
     };
 
+    async getMyBooking() {
+        try {
 
+            this.setState({ isLoading: true });
+
+            const MID = await AsyncStorage.getItem('MID') as string;
+
+            const result: any = await fetchMyBooking(MID);
+
+            console.log(result);
+
+
+            if (result.strRturnRes) {
+
+                this.setState({
+                    isLoading: false,
+                    ExpireData: moment(result.Exp).format('DD/MM/YYYY'),
+                    MemberImg: result.MImage === '' ? 'https://i.sstatic.net/y9DpT.jpg' : `data:image/png;base64,${result.MImage}`,
+                    MemberName: await AsyncStorage.getItem('strMName') as string,
+                    CardTier: result.Current_R,
+                    Img_Url_1: result.Img_Url_1,
+                    Img_Url_2: result.Img_Url_2,
+                    M_Name_1: result.M_Name_1,
+                    M_Language_1: result.M_Language_1,
+                    M_Mobile_1: result.M_Mobile_1,
+                    M_Name_2: result.M_Name_2,
+                    M_Language_2: result.M_Language_2,
+                    M_Mobile_2: result.M_Mobile_2,
+                })
+
+            }
+        } catch (error) {
+            console.error(error);
+            this.setState({
+                isLoading: false,
+                showApiError: true,
+                showApiErrorMsg: 'Server Connection error',
+            });
+        } finally {
+
+        }
+    }
 
 
     render(): React.ReactNode {
@@ -191,10 +258,17 @@ class MyBookings extends Component<myProps, myStates> {
                                 </View>
                             </View> */}
 
-                            <View style={{ marginTop: 20 }}>
+                            <View style={{ alignItems: 'center', marginBottom: 30, marginTop: 20 }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                                <AnimatedBorderBox></AnimatedBorderBox>
+                                    <AnimatedBorderBox
+                                        MemberImg={this.state.MemberImg}
+                                        CardTier={this.state.CardTier}
+                                        MemberName={this.state.MemberName}
+                                        ExpireData={this.state.ExpireData}
+                                    />
 
+                                </View>
                             </View>
 
 
@@ -348,15 +422,16 @@ class MyBookings extends Component<myProps, myStates> {
                             </View>
                             <View style={{ flexDirection: 'row', flex: 1, marginBottom: Platform.OS === 'ios' ? 110 : 150 }}>
                                 <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
-                                    <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
-                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>
+                                    <Image source={{ uri: this.state.Img_Url_1 }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
+                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{this.state.M_Name_1}</Text>
                                     <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>MARKETING MANAGER INTERNATIONAL</Text>
-                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE : 94774771234</Text>
+                                    <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>{this.state.M_Language_1}</Text>
+                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE :{'\n'}{this.state.M_Mobile_1}</Text>
                                     <View style={{ flexDirection: "row", flex: 1 }}>
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('whatsapp://send?text=&phone={94774771234}');
+                                                    Linking.openURL(`whatsapp://send?text=&phone={${this.state.M_Mobile_1}}`);
                                                 }}
                                             >
                                                 <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
@@ -366,7 +441,7 @@ class MyBookings extends Component<myProps, myStates> {
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('tel:${94774771234}');
+                                                    Linking.openURL(`tel:${this.state.M_Mobile_1}`);
                                                 }}
                                             >
                                                 <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />
@@ -380,15 +455,16 @@ class MyBookings extends Component<myProps, myStates> {
 
 
                                 <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
-                                    <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
-                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>
+                                    <Image source={{ uri: this.state.Img_Url_2 }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
+                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{this.state.M_Name_2}</Text>
                                     <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>MARKETING MANAGER INTERNATIONAL</Text>
-                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE : 94774771234</Text>
+                                    <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>{this.state.M_Language_2}</Text>
+                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE :{'\n'}{this.state.M_Mobile_2}</Text>
                                     <View style={{ flexDirection: "row", flex: 1 }}>
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('whatsapp://send?text=&phone={94774771234}');
+                                                    Linking.openURL(`whatsapp://send?text=&phone={${this.state.M_Mobile_2}}`);
                                                 }}
                                             >
                                                 <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
@@ -398,7 +474,7 @@ class MyBookings extends Component<myProps, myStates> {
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('tel:${94774771234}');
+                                                    Linking.openURL(`tel:${this.state.M_Mobile_2}`);
                                                 }}
                                             >
                                                 <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />

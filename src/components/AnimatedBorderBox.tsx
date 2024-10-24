@@ -7,7 +7,6 @@ const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
 
 interface GlowBorderProps {
-    CardImg: string;
     MemberImg: string;
     CardTier: string;
     MemberName: string;
@@ -37,6 +36,7 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = ({
             >
 
                 <Image
+                    resizeMode='contain'
                     source={{
                         uri: MemberImg === '' ? '' : MemberImg
                     }}
@@ -71,12 +71,12 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = ({
                         <Text style={{ flex: 1, fontSize: 16, overflowWrap: 'break-word' }}>{MemberName}</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', width:'100%' }}>
+                    <View style={{ flexDirection: 'row', width: '100%' }}>
                         <Text style={{ flex: 1, fontSize: 16 }}>EXPIRES : </Text>
                         <Text style={{ flex: 1, fontSize: 16 }}>{ExpireData}</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', width:'100%', marginBottom: 10 }}>
+                    <View style={{ flexDirection: 'row', width: '100%', marginBottom: 10 }}>
                         <Text style={{ flex: 1, fontSize: 16 }}>CARD TIER : </Text>
                         <Text style={{ flex: 1, fontSize: 16 }}>{CardTier}</Text>
                     </View>

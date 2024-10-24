@@ -136,12 +136,12 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                 try {
                     const result = await TempLogin(this.state.PlayerID, this.state.PIN, this.state.Method);
 
-               //     console.log(result);
+                    console.log(result);
 
                     if (result.strRturnRes) {
 
                         AsyncStorage.setItem('Token', result.strToken.access_token);
-                        AsyncStorage.setItem('MID', this.state.PlayerID);
+                        AsyncStorage.setItem('MID', result.strReturnMID);
                         AsyncStorage.setItem('strMName', result.strMName);
                         AsyncStorage.setItem('PIN', this.state.PIN);
 

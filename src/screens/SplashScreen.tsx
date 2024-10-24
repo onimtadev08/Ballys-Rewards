@@ -71,14 +71,15 @@ class SplashScreen extends Component<myProps, myStates> {
 
                 const result = await TempLogin(MID, PIN, 'F');
 
-                //     console.log(result);
+                console.log(result);
 
                 if (result.strRturnRes) {
 
                     AsyncStorage.setItem('Token', result.strToken.access_token);
-                    AsyncStorage.setItem('MID', MID);
+                    AsyncStorage.setItem('MID', result.strReturnMID);
                     AsyncStorage.setItem('strMName', result.strMName);
                     AsyncStorage.setItem('PIN', PIN);
+
 
 
 

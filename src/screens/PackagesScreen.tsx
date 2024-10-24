@@ -533,7 +533,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
                                         <View style={{ borderWidth: 1, borderColor: 'white' }}>
                                             <View style={{ width: '100%', height: 300 }}>
-                                                <Image source={{ uri: PackageData[this.state.Val].ImgUrl }} style={{ width: '100%', height: '100%', objectFit: 'cover' }} resizeMode={'center'} />
+                                                <Image source={{ uri: PackageData[this.state.Val].ImgUrl }} style={{ width: '100%', height: '100%', objectFit: 'cover' }} resizeMode={'contain'} />
                                             </View>
 
 
