@@ -85,32 +85,32 @@ class RewardLoyalityScreen extends Component<myProps, myStates> {
             UpgradeDowngradeMessage: [],
             Cards: [{
                 Name: 'CLASSIC',
-                ImgUrl: 'https://i.imgur.com/G2nHqSr.png',
+                ImgUrl: require('../images/Cards/classic.png'),
                 Points: '(0-1,499 POINTS)',
                 Number: '01',
             }, {
                 Name: 'SILVER',
-                ImgUrl: 'https://i.imgur.com/G2nHqSr.png',
+                ImgUrl: require('../images/Cards/silver.png'),
                 Points: '(1,500-4,999 POINTS)',
                 Number: '02',
             }, {
                 Name: 'GOLD',
-                ImgUrl: 'https://i.imgur.com/G2nHqSr.png',
+                ImgUrl: require('../images/Cards/gold.png'),
                 Points: '(6,000-24,999 POINTS)',
                 Number: '03',
             }, {
                 Name: 'PLATINUM',
-                ImgUrl: 'https://i.imgur.com/G2nHqSr.png',
+                ImgUrl: require('../images/Cards/plat.png'),
                 Points: '25,000-74,999 POINTS)',
                 Number: '04',
             }, {
                 Name: 'DIAMOND',
-                ImgUrl: 'https://i.imgur.com/G2nHqSr.png',
+                ImgUrl: require('../images/Cards/diamond.png'),
                 Points: '(75,000-49,999 POINTS)',
                 Number: '05',
             }, {
                 Name: 'INFINITY',
-                ImgUrl: 'https://i.imgur.com/G2nHqSr.png',
+                ImgUrl: require('../images/Cards/infinity.png'),
                 Points: '(500,000 POINTS & ABOVE)',
                 Number: '06',
             }
@@ -275,7 +275,7 @@ class RewardLoyalityScreen extends Component<myProps, myStates> {
                                         style={{ width: '100%', height: 1, alignSelf: 'center', marginBottom: 10, marginTop: 10 }} />
 
 
-                                   {this.state.Cards.map((data, index) => (
+                                    {this.state.Cards.map((data, index) => (
                                         <View key={index} style={{ width: '100%' }}>
 
                                             <View style={{ flexDirection: 'row' }}>
@@ -286,12 +286,12 @@ class RewardLoyalityScreen extends Component<myProps, myStates> {
                                                         fontWeight: 'bold',
                                                         textAlign: 'center',
                                                     }}>{data.Number}</Text>
-                                                </View> 
-                                                <Text style={{ color: 'white', fontSize: 16,marginEnd:20 }}>{data.Name}</Text>
+                                                </View>
+                                                <Text style={{ color: 'white', fontSize: 16, marginEnd: 20 }}>{data.Name}</Text>
                                                 <Text style={{ color: 'white', fontSize: 16 }}>{data.Points}</Text>
 
                                             </View>
-                                            <Image key={index} source={{ uri: data.ImgUrl }} style={{ width: '100%', height: 100, alignItems: 'center' }} resizeMode='contain' />
+                                            <Image key={index} source={data.ImgUrl} style={{ width: '100%', height: 100, alignItems: 'center' }} resizeMode='contain' />
 
                                             <LinearGradient
                                                 start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}

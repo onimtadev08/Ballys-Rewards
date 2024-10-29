@@ -3,6 +3,7 @@ import { BackHandler, StyleSheet, Dimensions, View, Text, Image } from 'react-na
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TempLogin } from '../api/Api.tsx';
+import * as Progress from 'react-native-progress';
 
 
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
@@ -20,7 +21,11 @@ const { height: screenHeight } = Dimensions.get('window');
 //     // Add more local image paths as needed
 // ];∆
 interface myStates {
-
+    indeterminate: boolean;
+    progress: number;
+    isLoading: boolean;
+    showApiError: boolean;
+    showApiErrorMsg: string;
 }
 interface myProps {
     navigation: any;
@@ -36,6 +41,13 @@ class SplashScreen extends Component<myProps, myStates> {
     navigation: any;
     constructor(props: any) {
         super(props)
+        this.state = {
+            indeterminate: true,
+            progress: 0,
+            isLoading: false,
+            showApiError: false,
+            showApiErrorMsg: '',
+        }
     }
 
     componentWillUnmount() {
@@ -46,10 +58,34 @@ class SplashScreen extends Component<myProps, myStates> {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
         this.navigation = this.props.navigation;
 
-        setTimeout(() => {
-            this.CheckLogin();
-        }, 3000);
+        // setTimeout(() => {
+        //     this.CheckLogin();
+        // }, 3000);
 
+        this.progressBar();
+
+    }
+    progressBar() {
+        let interval: ReturnType<typeof setInterval>;
+        const timer = setTimeout(() => {
+            this.setState({ indeterminate: false });
+            interval = setInterval(() => {
+                this.setState(prevProgress => ({ progress: Math.min(1, prevProgress.progress + Math.random() / 5) }), () => {
+                    console.log('clear : ', this.state.progress);
+                    if (this.state.progress === 1) {
+                        clearTimeout(timer);
+                        clearInterval(interval);
+                        this.CheckLogin();
+                    }
+                });
+
+
+            }, 500);
+        }, 3000);
+        return () => {
+            clearTimeout(timer);
+            clearInterval(interval);
+        };
     }
 
     handleBackPress
@@ -122,6 +158,10 @@ class SplashScreen extends Component<myProps, myStates> {
             container: {
                 flex: 1,
                 width: screenWidth,
+            },
+            progress: {
+                margin: 10,
+
             }
         });
 
@@ -134,9 +174,18 @@ class SplashScreen extends Component<myProps, myStates> {
 
                     <Image
                         source={require('../images/svgtopng/blogo.png')}
-                        resizeMode='contain' style={{ height: '100%', width: '100%' }}>
+                        resizeMode='contain' style={{ width: '70%', marginBottom: 200 }}>
                     </Image>
-
+                    <Progress.Bar
+                        animationConfig={{ bounciness: 100 }}
+                        borderColor='white'
+                        width={200}
+                        color={ColorTherd}
+                        unfilledColor='orange'
+                        style={styles.progress}
+                        progress={this.state.progress}
+                        indeterminate={this.state.indeterminate}
+                    />
                 </View>
 
 

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, Linking } from 'react-native';
+import { Animated, LayoutChangeEvent, Text, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, Linking } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { interpolate } from "react-native-reanimated";
-
+import ImageModal from 'react-native-image-modal'
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
 import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
 
 import ButtomNav from '../components/ButtomNav.tsx';
-import { GetEvents } from '../api/Api.tsx';
 
 
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
@@ -41,6 +39,9 @@ interface myStates {
     CardTier: string;
     MemberName: string;
     ExpireData: string;
+    ImgWidth: number;
+    MemberID: string;
+    modalVisible: boolean;
 }
 interface myProps {
     navigation: any;
@@ -53,13 +54,16 @@ const PAGE_WIDTH = screenWidth * scale;
 const PAGE_HEIGHT = 240 * scale;
 
 class MyCard extends Component<myProps, myStates> {
-    // Assuming navigation is passed as a prop
+
+    private anim: Animated.Value;
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
     IntervalID: any;
 
     constructor(props: any) {
         super(props)
+
+        this.anim = new Animated.Value(0);
         this.scrollRef = React.createRef<ScrollView>();
         this.state = {
             currentIndex: 0,
@@ -77,6 +81,9 @@ class MyCard extends Component<myProps, myStates> {
             CardTier: '',
             MemberName: '',
             ExpireData: '',
+            ImgWidth: 0,
+            MemberID: '',
+            modalVisible: false,
         };
 
 
@@ -94,9 +101,7 @@ class MyCard extends Component<myProps, myStates> {
 
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
 
-        this.IntervalID = setInterval(() => {
-            this.setState({ time: new Date().toLocaleString() })
-        }, 1000);
+
 
         this.getMyCard();
 
@@ -140,6 +145,7 @@ class MyCard extends Component<myProps, myStates> {
 
 
                 this.setState({
+                    MemberID: MID,
                     isLoading: false,
                     CardTier: result.Current_R,
                     ExpireData: moment(result.Exp).format('DD/MM/YYYY'),
@@ -166,7 +172,9 @@ class MyCard extends Component<myProps, myStates> {
                 showApiErrorMsg: 'Server Connection error',
             });
         } finally {
-
+            // this.IntervalID = setInterval(() => {
+            //     this.setState({ time: new Date().toLocaleString() })
+            // }, 1000);
         }
     }
 
@@ -180,6 +188,31 @@ class MyCard extends Component<myProps, myStates> {
     // Handles login button press and navigates to 'SignUp' screen
     handleLogin = () => {
         this.navigation.navigate('SignUp');
+    };
+
+
+
+    shake = () => {
+        Animated.loop(
+            Animated.sequence([
+                Animated.timing(this.anim, {
+                    toValue: -5,
+                    duration: 50,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(this.anim, {
+                    toValue: 5,
+                    duration: 50,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(this.anim, {
+                    toValue: 0,
+                    duration: 50,
+                    useNativeDriver: true,
+                }),
+            ]),
+            { iterations: 2 }
+        ).start();
     };
 
 
@@ -215,45 +248,7 @@ class MyCard extends Component<myProps, myStates> {
                         <ScrollView style={styles.container}>
                             <View style={{ alignItems: 'center', marginBottom: 130, flexDirection: 'column' }}>
 
-
-
-
-
-
-
-                                <View style={{
-                                    borderCurve: 'continuous',
-                                    borderRadius: 20,
-                                    marginTop: 20,
-                                    marginBottom: 20,
-                                    borderColor: 'rgba(0,0,0,0.0)',
-                                    borderWidth: 10
-                                }}>
-
-                                    <AnimatedBorderViewCus
-                                        width={310}
-                                        height={190}
-                                        borderRadius={20}
-                                        sliderWidth={100}
-                                        sliderHeight={5}
-                                        delayInAnimation={3500}
-                                        pathColor='trasparent' // Light Steel Blue
-                                        sliderColor='#FFD700' // Deep Sky Blue
-                                        innerContainerColor={ColorSecond}
-                                    >
-
-                                        <Image
-                                            source={this.state.CardImg}
-                                            style={{
-                                                height: 180,
-                                                width: 300,
-                                            }}
-                                            resizeMode='cover' />
-                                    </AnimatedBorderViewCus>
-                                </View>
-
-
-                                <View style={{ alignItems: 'center', marginBottom: 30 }}>
+                                <View style={{ alignItems: 'center', marginBottom: 10, marginTop: 30 }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
                                         <AnimatedBorderBox
@@ -266,8 +261,113 @@ class MyCard extends Component<myProps, myStates> {
                                     </View>
                                 </View>
 
+                                <View style={{
+                                    borderRadius: 20,
+                                    marginTop: 20,
+                                    marginBottom: 20,
+                                    borderColor: 'rgba(0,0,0,0.0)',
+                                    borderWidth: 10
+                                }}
+                                    onLayout={(event: LayoutChangeEvent) => {
+                                        this.setState({ ImgWidth: event.nativeEvent.layout.width });
+                                    }}>
 
-                                <Text
+
+                                    <AnimatedBorderViewCus
+                                        width={310}
+                                        height={190}
+                                        borderRadius={20}
+                                        sliderWidth={100}
+                                        sliderHeight={5}
+                                        delayInAnimation={3500}
+                                        pathColor='trasparent' // Light Steel Blue
+                                        sliderColor='#FFD700' // Deep Sky Blue
+                                        innerContainerColor={ColorSecond}
+                                    >
+                                        <ImageModal
+                                            onTap={this.shake}
+                                            onOpen={() => {
+                                                this.setState({ modalVisible: true });
+                                            }}
+                                            onClose={() => {
+                                                this.setState({ modalVisible: false });
+                                            }}
+                                            modalImageStyle={{ maxWidth: '80%' }}
+                                            overlayBackgroundColor="rgba(0,0,0,0.8)"
+                                            modalImageResizeMode='contain'
+                                            swipeToDismiss={true}
+                                            resizeMode="cover"
+                                            imageBackgroundColor="rgba(0,0,0,0.0)"
+                                            style={{
+                                                height: 180,
+                                                width: 300,
+                                            }}
+                                            source={this.state.CardImg}
+                                            renderImageComponent={({ source, resizeMode, style }) => (
+                                                <Animated.View style={{ transform: [{ translateX: this.anim }] }}>
+                                                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+
+                                                        <Image
+                                                            source={source}
+                                                            style={style}
+                                                            resizeMode={resizeMode} />
+                                                        {this.state.modalVisible ?
+                                                            <View style={{
+                                                                width: '100%',
+                                                                height: '100%',
+                                                                position: 'absolute',
+                                                                alignItems: 'flex-end',
+                                                                justifyContent: 'center',
+                                                            }}>
+
+                                                                <Text
+                                                                    style={{
+                                                                        marginBottom: -140,
+                                                                        marginEnd: 60,
+                                                                        color: 'white',
+                                                                        fontSize: 18,
+                                                                        fontFamily: 'SFPRODISPLAYREGULAR',
+                                                                        fontWeight: 'bold'
+                                                                    }}>{this.state.MemberID}</Text>
+
+                                                            </View>
+                                                            :
+                                                            <View style={{
+                                                                width: '100%',
+                                                                height: '100%',
+                                                                position: 'absolute',
+                                                                alignItems: 'flex-end',
+                                                                justifyContent: 'flex-end',
+                                                            }}>
+
+                                                                <Text
+                                                                    style={{
+                                                                        marginBottom: 20,
+                                                                        marginEnd: 20,
+                                                                        color: 'white',
+                                                                        fontSize: 18,
+                                                                        fontFamily: 'SFPRODISPLAYREGULAR',
+                                                                        fontWeight: 'bold'
+                                                                    }}>{this.state.MemberID}</Text>
+
+                                                            </View>
+                                                        }
+
+                                                    </View>
+                                                </Animated.View>
+                                            )}
+                                        />
+                                        {/* <Image
+                                            source={this.state.CardImg}
+                                            style={{
+                                                height: 180,
+                                                width: 300,
+                                            }}
+                                            resizeMode='cover' /> */}
+                                    </AnimatedBorderViewCus>
+                                </View>
+
+                                {/* <Text
                                     style={{
                                         color: 'white',
                                         fontSize: 18,
@@ -275,7 +375,7 @@ class MyCard extends Component<myProps, myStates> {
                                         marginTop: 20,
                                         fontWeight: 'bold'
                                     }}
-                                >{this.state.time}</Text>
+                                >{this.state.time}</Text> */}
 
 
                                 <Image style={{ height: 200, width: 200, marginTop: 20 }} source={require('../images/whatAppMsg.png')}></Image>

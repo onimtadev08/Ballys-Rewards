@@ -80,22 +80,7 @@ class HomeScreen extends Component<myProps, myStates> {
 
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
 
-
-        // this.navigation.addListener('beforeRemove', (e: any) => {
-        //     e.preventDefault();
-        // });
-
-        // const interval = setInterval(() => {
-        //     const nextIndex = (this.state.currentIndex + 1) % this.state.Images.length;
-        //     if (this.scrollRef) {
-        //         this.scrollRef.current?.scrollTo({ x: nextIndex * screenWidth, animated: true });
-        //     }
-        //     this.setState({ currentIndex: nextIndex });
-        // }, 2000);
-
-        this.MainHomeLoad();
-
-        // return () => clearInterval(interval);
+       this.MainHomeLoad();
     }
 
     handleBackPress

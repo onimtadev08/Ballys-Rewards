@@ -24,8 +24,8 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = ({
         <View style={{ marginTop: 40, width: "100%", alignItems: 'center', justifyContent: 'center', height: 300, backgroundColor: 'transparent', flexDirection: 'column' }}>
 
             <AnimatedBorderViewCus
-                width={140}
-                height={190}
+                width={200}
+                height={200}
                 borderRadius={20}
                 sliderWidth={100}
                 sliderHeight={5}
@@ -36,14 +36,15 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = ({
             >
 
                 <Image
-                    resizeMode='contain'
+                    resizeMode='center'
                     source={{
                         uri: MemberImg === '' ? '' : MemberImg
                     }}
                     style={{
+                        backgroundColor:'white',
                         zIndex: 2,
-                        height: 180,
-                        width: 130,
+                        height: 190,
+                        width: 190,
                         borderRadius: 20,
                     }}
                 />
@@ -58,7 +59,7 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = ({
                     borderRadius: 20,
                     paddingLeft: 20,
                     flexDirection: 'column',
-                    width: '60%',
+                    width: '75%',
                     backgroundColor: 'white',
 
 

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Linking, Animated, Text, Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity, processColor } from 'react-native';
+import { Platform, Linking, Animated, Text, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { interpolate } from "react-native-reanimated";
+import { fetchGiftAndGoodWill } from '../api/Api.tsx';
 
 import SuccsessMsg from '../components/SuccsessMsg.tsx';
 import InfoMsg from '../components/InfoMsg.tsx';
@@ -11,7 +10,6 @@ import ErrorMsg from '../components/errorMsg.tsx';
 import Loader from '../components/Loader.tsx';
 
 import ButtomNav from '../components/ButtomNav.tsx';
-import { GetEvents } from '../api/Api.tsx';
 import MainManuButton from '../components/MainManuButton.tsx';
 
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
@@ -41,13 +39,17 @@ interface myStates {
     showOtpMsg: boolean;
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
-    data: datas;
-    legend: any;
-    description: {};
-    highlights: any[];
-    Accounts: any[];
     Val: number;
     fadeAnim: Animated.Value;
+    type: string;
+    Img_Url_1: string;
+    Img_Url_2: string;
+    M_Name_1: string;
+    M_Language_1: string;
+    M_Mobile_1: string;
+    M_Name_2: string;
+    M_Language_2: string;
+    M_Mobile_2: string;
 
 }
 
@@ -69,7 +71,7 @@ const PackageData = [
         "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
         "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
         "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
-        "ImgUrl": 'https://live.staticflickr.com/2785/4355802963_650319e682_b.jpg',
+        "ImgUrl": 'https://upload.wikimedia.org/wikipedia/commons/b/bf/Lotus_tower_and_Beira_lake_at_night_2023.jpg',
         "Amount": 'INR 500,000',
 
     },
@@ -120,6 +122,64 @@ const PackageData = [
     },
 ];
 
+const PackageDataUsd = [
+    {
+        "Name": "QUTUB MINAR A",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://www.shutterstock.com/shutterstock/photos/2395557739/display_1500/stock-photo-bahirawakanda-sri-maha-bodhi-viharaya-is-a-theravada-buddhist-temple-in-kandy-sri-lanka-november-2395557739.jpg',
+        "Amount": 'USD 500,000',
+
+    },
+    {
+        "Name": "QUTUB MINAR B",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://www.planetware.com/wpimages/2020/01/sri-lanka-colombo-best-places-to-visit-gangaramaya-temple.jpg',
+        "Amount": 'USD 500,000',
+    },
+    {
+        "Name": "QUTUB MINAR C",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://nexttravelsrilanka.com/wp-content/uploads/2023/02/Badulla-1.jpg',
+        "Amount": 'USD 500,000',
+    },
+    {
+        "Name": "QUTUB MINAR D",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://www.placestostay.lk/wp-content/uploads/2023/12/Nine-Raches-Bridge-in-Ella-Sri-Lanka-1080x628.jpg',
+        "Amount": 'USD 500,000',
+    },
+    {
+        "Name": "QUTUB MINAR E",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://frugalfrolicker.com/wp-content/uploads/2023/11/sri-lanka-beautiful-places-8.jpg',
+        "Amount": 'USD 500,000',
+    },
+    {
+        "Name": "QUTUB MINAR F",
+        "1_value": "REQUIRED COUPONS 1500",
+        "2_value": "COMPLIMENTARY 3 NIGHT'S ACCOMMODATION AT 5 STAR HOTEL (STANDARD ROOM)",
+        "3_value": "AIR TICKET REIMBURSEMENT ON 3RD DAY - INR 25,000 NON-CASH CHIPS",
+        "4_value": "FOOD & BEVERAGES\N(FROM BALLY'S CASINO RESTAURANT)",
+        "ImgUrl": 'https://i0.wp.com/blog.worldholidayvibes.com/wp-content/uploads/2024/09/Mihintale-peakVavuniya-Tourist-Places-World-Holiday-Vibes-Blog.jpg?resize=1024%2C580&ssl=1',
+        "Amount": 'USD 500,000',
+    },
+];
+
 
 class MyOfferScreen extends React.Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
@@ -140,61 +200,17 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
             showOtpMsg: false,
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
-            legend: {
-                enabled: true,
-                textColor: processColor('white'),
-                textSize: 15,
-                form: 'CIRCLE',
-                horizontalAlignment: "CENTER",
-                verticalAlignment: "CENTER",
-                orientation: "VERTICAL",
-                wordWrapEnabled: true
-            },
-            data: {
-                dataSets: [{
-                    values: [
-                        { value: 45, label: 'ACCOUNT' },
-                        { value: 21, label: 'FIXED DEPOSIT' }],
-                    label: '',
-                    config: {
-                        colors: [processColor('#8CEAFF'), processColor('#FFF78C'), processColor('#FFD08C'), processColor('#8CEAFF'), processColor('#FF8C9D')],
-                        valueTextSize: 20,
-                        valueTextColor: processColor('transparent'),
-                        sliceSpace: 5,
-                        selectionShift: 13,
-                        // xValuePosition: "OUTSIDE_SLICE",
-                        // yValuePosition: "OUTSIDE_SLICE",
-                        valueFormatter: "#.#'%'",
-                        valueLineColor: processColor('transparent'),
-                        valueLinePart1Length: 0.5
-                    }
-                }],
-            },
-            highlights: [{ x: 2 }],
-            description: {
-                text: 'This is Pie chart description',
-                textSize: 15,
-                textColor: processColor('darkgray'),
-
-            },
-            Accounts: [{
-                Account: 'LKRc',
-                AccountValue: '1,000,000',
-                FixedDeposit: '100,000',
-                Total: '1,100,000'
-            }, {
-                Account: 'INRc',
-                AccountValue: '300,000',
-                FixedDeposit: '33,000',
-                Total: '333,000'
-            }, {
-                Account: 'USDc',
-                AccountValue: '3,000',
-                FixedDeposit: '300',
-                Total: '33,000'
-            }],
-            Val: 0,
             fadeAnim: new Animated.Value(1),
+            Val: 0,
+            type: 'INR',
+            Img_Url_1: '',
+            Img_Url_2: '',
+            M_Name_1: '',
+            M_Language_1: '',
+            M_Mobile_1: '',
+            M_Name_2: '',
+            M_Language_2: '',
+            M_Mobile_2: '',
         };
         this.fadeAnim = this.state.fadeAnim;
 
@@ -225,29 +241,13 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
     // Fetches navigation reference and sets up interval on mount
     componentDidMount() {
 
-
-
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
 
-
-        // this.navigation.addListener('beforeRemove', (e: any) => {
-        //     e.preventDefault();
-        // });
-
-        // const interval = setInterval(() => {
-        //     const nextIndex = (this.state.currentIndex + 1) % this.state.Images.length;
-        //     if (this.scrollRef) {
-        //         this.scrollRef.current?.scrollTo({ x: nextIndex * screenWidth, animated: true });
-        //     }
-        //     this.setState({ currentIndex: nextIndex });
-        // }, 2000);
-
-        //       this.MainHomeLoad();
-
-        // return () => clearInterval(interval);
+        this.getData();
     }
+
 
     handleBackPress
         = () => {
@@ -255,37 +255,51 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
             return true; // Prevent default back behavior
         };
 
-    async MainHomeLoad() {
 
-        this.setState({ isLoading: true });
+    // Handles login button press and navigates to 'SignUp' screen
+    handleLogin = () => {
+        this.navigation.navigate('SignUp');
+    };
+
+    async getData() {
         try {
 
+            this.setState({ isLoading: true });
 
-            const result: any = await GetEvents();
+            const MID = await AsyncStorage.getItem('MID') as string;
+
+            console.log(MID);
+
+
+            const result: any = await fetchGiftAndGoodWill(MID);
+
+            console.log(result);
+
+
             if (result.strRturnRes) {
-
-                let img: string[] = [];
-
-                for (let index = 0; index < result.data.length; index++) {
-                    const element = result.data[index].Url;
-                    img.push(element);
-                }
 
                 this.setState({
                     isLoading: false,
-                    Images: img,
-                });
+                    Img_Url_1: result.Img_Url_1,
+                    Img_Url_2: result.Img_Url_2,
+                    M_Name_1: result.M_Name_1,
+                    M_Language_1: result.M_Language_1,
+                    M_Mobile_1: result.M_Mobile_1,
+                    M_Name_2: result.M_Name_2,
+                    M_Language_2: result.M_Language_2,
+                    M_Mobile_2: result.M_Mobile_2,
+                })
 
 
             } else {
-                Keyboard.dismiss();
                 this.setState({
                     isLoading: false,
                     showApiError: true,
-                    showApiErrorMsg: 'Please try again'
+                    showApiErrorMsg: 'Server Connection error',
                 });
             }
         } catch (error) {
+            console.error(error);
             this.setState({
                 isLoading: false,
                 showApiError: true,
@@ -294,51 +308,8 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
         } finally {
 
         }
-
     }
 
-
-    // Handles login button press and navigates to 'SignUp' screen
-    handleLogin = () => {
-        this.navigation.navigate('SignUp');
-    };
-
-
-    // animationStyle: TAnimationStyle = (value: number) => {
-    //     "worklet";
-
-    //     const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30]);
-    //     const scale = interpolate(value, [-1, 0, 1], [1.25, 1, 0.25]);
-    //     const opacity = interpolate(value, [-0.75, 0, 1], [0, 1, 0]);
-
-    //     return {
-    //         transform: [{ scale }],
-    //         zIndex,
-    //         opacity,
-    //     };
-    // };
-
-
-    animationStyle: TAnimationStyle = (value: number) => {
-        "worklet";
-
-        const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30]);
-        const rotateZ = `${interpolate(
-            value,
-            [-1, 0, 1],
-            [-45, 0, 45],
-        )}deg`;
-        const translateX = interpolate(
-            value,
-            [-1, 0, 1],
-            [-screenWidth, 0, screenWidth + 100],
-        );
-
-        return {
-            transform: [{ rotateZ }, { translateX }],
-            zIndex,
-        };
-    }
 
     render(): React.ReactNode {
 
@@ -350,124 +321,6 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
             container: {
                 flex: 1,
                 width: screenWidth,
-            },
-            scrollView: {
-                width: screenWidth,
-            },
-            image: {
-                width: screenWidth,
-                height: screenWidth * 1.1,
-                resizeMode: 'cover',
-            },
-            backgroundContainer: {
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-            },
-            overlay: {
-                opacity: 1,
-                // top: 60,
-                // right: 29,
-            },
-            logo: {
-
-                resizeMode: 'stretch',
-                backgroundColor: 'rgba(0,0,0,0)',
-                width: screenWidth,
-                height: '100%',
-                // top:50,
-                // bottom: 70,
-            },
-            backdrop: {
-                height: screenHeight,
-                width: screenWidth,
-                resizeMode: 'cover',
-            },
-            headline: {
-                fontSize: 18,
-                textAlign: 'center',
-                backgroundColor: 'black',
-                color: 'white'
-            },
-            slider: { backgroundColor: '#000', height: 350 },
-            content1: {
-                width: '100%',
-                height: 50,
-                marginBottom: 10,
-                backgroundColor: '#000',
-                justifyContent: 'center',
-                alignItems: 'center',
-            },
-            content2: {
-                width: '100%',
-                height: 100,
-                marginTop: 10,
-                backgroundColor: '#000',
-                justifyContent: 'center',
-                alignItems: 'center',
-            },
-            contentText: { color: '#fff' },
-            buttons: {
-                zIndex: 1,
-                height: 15,
-                marginTop: -25,
-                marginBottom: 10,
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'row',
-            },
-            button: {
-                margin: 3,
-                width: 15,
-                height: 15,
-                opacity: 0.9,
-                alignItems: 'center',
-                justifyContent: 'center',
-            },
-            buttonSelected: {
-                opacity: 1,
-                color: 'red',
-            },
-            customSlide: {
-                backgroundColor: 'green',
-                alignItems: 'center',
-                justifyContent: 'center',
-            },
-            customImage: {
-                width: 100,
-                height: 100,
-            },
-            tagContainer: {
-                marginStart: 20,
-                marginEnd: 20,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                marginBottom: 10,
-            },
-            tagWrapper: {
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginVertical: 5,
-                marginRight: 5,
-            },
-            tag: {
-                backgroundColor: '#FFCE6C',
-                borderRadius: 20,
-                paddingHorizontal: 10,
-                paddingVertical: 5,
-            },
-            tagText: {
-                color: 'black',
-                fontSize: 16,
-                margin: 10,
-                fontFamily: 'SFPRODISPLAYREGULAR'
-            },
-            chart: {
-                flex: 1,
-                height: 300,
-                width: '100%'
             }
         });
 
@@ -498,12 +351,15 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
-                                <MainManuButton Url={require('../images/svgtopng/INR.png')} title={''} />
+                                <MainManuButton Url={require('../images/svgtopng/INR.png')} title={''}
+                                    onPress={() => {
+                                        this.setState({ type: 'INR' });
+                                    }} />
 
 
                                 <MainManuButton Url={require('../images/svgtopng/USD.png')} title={''}
                                     onPress={() => {
-                                        //   this.props.navigation.navigate('PackagesScreen');
+                                        this.setState({ type: 'USD' });
                                     }}
                                 />
 
@@ -531,23 +387,44 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                                         }}
                                     >
 
-                                        <View style={{ borderWidth: 1, borderColor: 'white' }}>
-                                            <View style={{ width: '100%', height: 300 }}>
-                                                <Image source={{ uri: PackageData[this.state.Val].ImgUrl }} style={{ width: '100%', height: '100%', objectFit: 'cover' }} resizeMode={'contain'} />
-                                            </View>
+                                        {
+                                            this.state.type === 'INR' ?
+                                                <View style={{ borderWidth: 1, borderColor: 'white' }}>
+                                                    <View style={{ width: '100%', height: 300 }}>
+                                                        <Image source={{ uri: PackageData[this.state.Val].ImgUrl }} style={{ width: '100%', height: '100%', objectFit: 'cover' }} resizeMode={'contain'} />
+                                                    </View>
 
 
-                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 20, marginTop: 20, fontWeight: 'bold' }}>{PackageData[this.state.Val].Name}</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 20, marginTop: 20, fontWeight: 'bold' }}>{PackageData[this.state.Val].Name}</Text>
 
-                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginTop: 20 }}>{'\u25cf '}{PackageData[this.state.Val]['1_value']}</Text>
-                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageData[this.state.Val]['2_value']}</Text>
-                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageData[this.state.Val]['3_value']}</Text>
-                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageData[this.state.Val]['4_value']}</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginTop: 20 }}>{'\u25cf '}{PackageData[this.state.Val]['1_value']}</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageData[this.state.Val]['2_value']}</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageData[this.state.Val]['3_value']}</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageData[this.state.Val]['4_value']}</Text>
 
-                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginTop: 20 }}>MINIMUM BUY-IN AMOUNT</Text>
-                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 30, fontWeight: 'bold' }}>{PackageData[this.state.Val]['Amount']}</Text>
-                                            <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginBottom: 20 }}>(PLAYING CHIPS ISSUED TO THE SAME VALUE)</Text>
-                                        </View>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginTop: 20 }}>MINIMUM BUY-IN AMOUNT</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 30, fontWeight: 'bold' }}>{PackageData[this.state.Val]['Amount']}</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginBottom: 20 }}>(PLAYING CHIPS ISSUED TO THE SAME VALUE)</Text>
+                                                </View>
+                                                :
+                                                <View style={{ borderWidth: 1, borderColor: 'white' }}>
+                                                    <View style={{ width: '100%', height: 300 }}>
+                                                        <Image source={{ uri: PackageDataUsd[this.state.Val].ImgUrl }} style={{ width: '100%', height: '100%', objectFit: 'cover' }} resizeMode={'contain'} />
+                                                    </View>
+
+
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 20, marginTop: 20, fontWeight: 'bold' }}>{PackageDataUsd[this.state.Val].Name}</Text>
+
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginTop: 20 }}>{'\u25cf '}{PackageDataUsd[this.state.Val]['1_value']}</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageDataUsd[this.state.Val]['2_value']}</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageDataUsd[this.state.Val]['3_value']}</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16 }}>{'\u25cf '}{PackageDataUsd[this.state.Val]['4_value']}</Text>
+
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginTop: 20 }}>MINIMUM BUY-IN AMOUNT</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 30, fontWeight: 'bold' }}>{PackageDataUsd[this.state.Val]['Amount']}</Text>
+                                                    <Text style={{ color: 'white', marginStart: 20, fontSize: 16, marginBottom: 20 }}>(PLAYING CHIPS ISSUED TO THE SAME VALUE)</Text>
+                                                </View>
+                                        }
                                     </Animated.View>
 
                                 </View>
@@ -567,17 +444,18 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
                             </View>
 
-                            <View style={{ flexDirection: 'row', flex: 1, marginTop: 20, marginBottom: 130 }}>
+                            <View style={{ flexDirection: 'row', flex: 1, marginBottom: Platform.OS === 'ios' ? 110 : 150, marginTop: 20 }}>
                                 <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
-                                    <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
-                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>
+                                    <Image source={{ uri: this.state.Img_Url_1 }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
+                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{this.state.M_Name_1}</Text>
                                     <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>MARKETING MANAGER INTERNATIONAL</Text>
-                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE : 94774771234</Text>
+                                    <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>{this.state.M_Language_1}</Text>
+                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE :{'\n'}{this.state.M_Mobile_1}</Text>
                                     <View style={{ flexDirection: "row", flex: 1 }}>
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('whatsapp://send?text=&phone={94774771234}');
+                                                    Linking.openURL(`whatsapp://send?text=&phone={${this.state.M_Mobile_1}}`);
                                                 }}
                                             >
                                                 <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
@@ -587,7 +465,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('tel:${94774771234}');
+                                                    Linking.openURL(`tel:${this.state.M_Mobile_1}`);
                                                 }}
                                             >
                                                 <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />
@@ -601,15 +479,16 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
 
                                 <View style={{ alignItems: 'center', margin: 10, marginBottom: 20, flex: 1 }}>
-                                    <Image source={{ uri: 'https://image.lexica.art/full_jpg/f9ad1af8-721b-4233-872f-194f54a22310' }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
-                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>TELLES LOY</Text>
+                                    <Image source={{ uri: this.state.Img_Url_2 }} style={{ height: 150, width: 150, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
+                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{this.state.M_Name_2}</Text>
                                     <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>MARKETING MANAGER INTERNATIONAL</Text>
-                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE : 94774771234</Text>
+                                    <Text style={{ color: 'white', fontSize: 16, textAlign: 'center' }}>{this.state.M_Language_2}</Text>
+                                    <Text style={{ color: 'white', marginBottom: 10, fontSize: 20, textAlign: 'center' }}>MOBILE :{'\n'}{this.state.M_Mobile_2}</Text>
                                     <View style={{ flexDirection: "row", flex: 1 }}>
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('whatsapp://send?text=&phone={94774771234}');
+                                                    Linking.openURL(`whatsapp://send?text=&phone={${this.state.M_Mobile_2}}`);
                                                 }}
                                             >
                                                 <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
@@ -619,7 +498,7 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                                         <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
                                             <TouchableOpacity
                                                 onPress={() => {
-                                                    Linking.openURL('tel:${94774771234}');
+                                                    Linking.openURL(`tel:${this.state.M_Mobile_2}`);
                                                 }}
                                             >
                                                 <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />

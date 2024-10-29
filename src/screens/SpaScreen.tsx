@@ -141,9 +141,16 @@ class SpaScreen extends React.Component<myProps, myStates> {
     renderSpaItem = ({ item, index }: { item: spa, index: number }) => {
         return (
             <View key={index} style={{ margin: 20 }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <Image source={item.Image} style={{ width: 120, height: 120 }} />
-                    <View style={{ borderWidth: 2, borderColor: 'white', flex: 1 }}>
+                <View style={{ flexDirection: 'row', borderRadius: 10, borderWidth: 2, borderColor: 'white' }}>
+                    <Image source={item.Image}
+                        style={{
+                            width: 120,
+                            height: 120,
+                            borderTopLeftRadius: 10,
+                            borderBottomLeftRadius: 10,
+                        }}
+                    />
+                    <View style={{ flex: 1 }}>
                         <Text style={{ color: item.NameColor, textAlign: 'center', marginTop: 10, fontSize: 18 }}>{item.Name}</Text>
                         <Text style={{ textAlign: 'center', color: 'white', marginTop: 10 }}>{item.Descripetion}</Text>
                     </View>

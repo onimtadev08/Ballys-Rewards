@@ -41,35 +41,30 @@ const DrawerMenu: React.FC<propsData> = ({
 
             <View style={{
                 alignItems: 'flex-end',
-                height: '20%',
+                height: '15%',
             }}>
                 <View style={{ width: '100%', height: '100%' }}>
-                    <View style={{ width: '70%', height: '100%', backgroundColor: ColorFirst,alignItems:'center',justifyContent:'center' }}>
+                    <View style={{ width: '70%', height: '100%', backgroundColor: ColorFirst, alignItems: 'center', justifyContent: 'center' }}>
                         <Image
                             source={require('../images/svgtopng/blogo.png')}
                             resizeMode='contain'
                             style={{
                                 width: '70%',
-                                height: '80%'
+                                height: '70%'
                             }}>
                         </Image>
-                    </View>
-                </View>
-                {/* <View style={{ width: '100%', height: '100%', backgroundColor: 'blue' }}>
-                    <Image
-                        source={require('../images/svgtopng/blogo.png')}
-                        resizeMode='center'
-                        style={{
-                            backgroundColor: 'red'
-                        }}>
-                    </Image>
-                </View> */}
 
-                <TouchableOpacity style={{ position: 'absolute', top: 10, end: 10 }}
-                    onPress={onClose}
-                >
-                    <AntDesign name='closecircle' size={30} color={'#EFAE4D'} />
-                </TouchableOpacity>
+                        <TouchableOpacity style={{ position: 'absolute', top: 10, end: 10 }}
+                            onPress={onClose}
+                        >
+                            <AntDesign name='closecircle' size={30} color={'#EFAE4D'} />
+                        </TouchableOpacity>
+
+                    </View>
+
+                </View>
+
+
 
             </View>
 
