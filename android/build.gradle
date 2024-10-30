@@ -1,10 +1,16 @@
 buildscript {
     ext {
+        LoaderKit_compileSdkVersion = 34
+        LoaderKit_minSdkVersion = 26
+        LoaderKit_targetSdkVersion = 34
+
+
         buildToolsVersion = "34.0.0"
-        minSdkVersion = 21
+        minSdkVersion = 26
         compileSdkVersion = 34
         targetSdkVersion = 34
-        kotlinVersion = "1.5.31"
+        ndkVersion = "26.1.10909125"
+        kotlinVersion = "1.9.24"
         
         if (System.properties['os.arch'] == "aarch64") {
             // For M1 Users we need to use the NDK 24 which added support for aarch64
