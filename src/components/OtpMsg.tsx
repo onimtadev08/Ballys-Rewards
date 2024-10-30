@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, TextInput, Keyboard,ImageBackground } from 'react-native';
-import AntDesing from 'react-native-vector-icons/AntDesign'
+import { View, Text, TouchableOpacity, Dimensions, TextInput, Keyboard, ImageBackground } from 'react-native';
 import { ColorTherd } from '../data/data';
-import { BlurView } from '@react-native-community/blur';
 
 const { width, height } = Dimensions.get('window');
 
@@ -146,9 +144,13 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                             }}
                             ref={ref_input1}
                             onChangeText={(val) => {
-                                if (val.length === 0) return;
-                                setText1(val);
-                                ref_input2.current?.focus();
+                                if (val.length > 0) {
+                                    setText1(val);
+                                    ref_input2.current?.focus();
+                                }else{
+                                    setText1('');
+                                }
+                               
                             }}
                             maxLength={1}
                             value={Text1}
@@ -168,9 +170,13 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                             }}
                             ref={ref_input2}
                             onChangeText={(val) => {
-                                if (val.length === 0) return;
-                                setText2(val);
-                                ref_input3.current?.focus();
+                                if (val.length > 0) {
+                                    setText2(val);
+                                    ref_input3.current?.focus();
+                                }else{
+                                    setText2('');
+                                    ref_input1.current?.focus();
+                                }
                             }}
                             maxLength={1}
                             value={Text2}
@@ -190,9 +196,13 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                             }}
                             ref={ref_input3}
                             onChangeText={(val) => {
-                                if (val.length === 0) return;
-                                setText3(val);
-                                ref_input4.current?.focus();
+                                if (val.length > 0) {
+                                    setText3(val);
+                                    ref_input4.current?.focus();
+                                }else{
+                                    setText3('');
+                                    ref_input2.current?.focus();
+                                }
                             }}
                             maxLength={1}
                             value={Text3}
@@ -212,8 +222,12 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                             }}
                             ref={ref_input4}
                             onChangeText={(val) => {
-                                if (val.length === 0) return;
-                                setText4(val);
+                                if (val.length > 0) {
+                                    setText4(val);
+                                }else{
+                                    setText4('');
+                                    ref_input3.current?.focus();
+                                }
                             }}
                             maxLength={1}
                             value={Text4}

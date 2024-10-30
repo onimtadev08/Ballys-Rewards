@@ -351,13 +351,15 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
                                 flexDirection: 'row', width: screenWidth, alignItems: 'center', justifyContent: 'space-around'
                             }}>
 
-                                <MainManuButton Url={require('../images/svgtopng/INR.png')} title={''}
+                                <MainManuButton Url={this.state.type === 'INR' ? require('../images/svgtopng/INR2.png') : require('../images/svgtopng/INR.png')} title={''}
                                     onPress={() => {
                                         this.setState({ type: 'INR' });
                                     }} />
 
 
-                                <MainManuButton Url={require('../images/svgtopng/USD.png')} title={''}
+                                <MainManuButton
+                                    Url={this.state.type === 'USD' ? require('../images/svgtopng/USD2.png') : require('../images/svgtopng/USD.png')}
+                                    title={''}
                                     onPress={() => {
                                         this.setState({ type: 'USD' });
                                     }}

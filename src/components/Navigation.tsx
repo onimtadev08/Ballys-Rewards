@@ -181,7 +181,7 @@ const Navigation = () => {
                     options={({ navigation }) => ({
                         title: '',
                         headerStyle: {
-                            backgroundColor: '#FF0024',
+                            backgroundColor: ColorFirst,
                         },
                         headerTintColor: 'black',
                         headerLeft: () => (

@@ -1,14 +1,9 @@
 //import liraries
-import React, { Component, useState } from 'react';
-import { ActivityIndicator, View, Text, StyleSheet, Image, Dimensions, Alert, BackHandler, TouchableOpacity, ScrollView, Keyboard } from 'react-native';
+import React, {  } from 'react';
+import { View, Text, Image, Dimensions, TouchableOpacity, ScrollView, Keyboard } from 'react-native';
 import GradientButtonWithBorder from '../components/GradientButton';
-import GradientButton from '../components/GradientButtonfull';
-import { useNavigation } from '@react-navigation/native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import TextInput from '../components/TextInput';
 import LinearGradient from 'react-native-linear-gradient';
-import Navigation from '../components/Navigation';
-import { Domain } from '../data/data';
 const { width, height } = Dimensions.get('window');
 import ErrorMsg from '../components/errorMsg';
 import Loader from '../components/Loader';
@@ -221,8 +216,8 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                             <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                                 <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>Sign in</Text>
                                 <Image
-                                    source={require('../images/logo.png')}
-                                    style={{ width: width / 1.2, height: width / 1.5 }}
+                                    source={require('../images/svgtopng/blogo.png')}
+                                    style={{ width: width / 1.5, height: width / 1.5 }}
                                     resizeMode="contain"
                                 />
                             </View>

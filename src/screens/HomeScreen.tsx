@@ -47,6 +47,7 @@ class HomeScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
+    unsubscribe: any;
 
     constructor(props: any) {
         super(props)
@@ -71,16 +72,22 @@ class HomeScreen extends Component<myProps, myStates> {
 
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+        this.unsubscribe();
     }
 
     // Fetches navigation reference and sets up interval on mount
     componentDidMount() {
 
+        this.unsubscribe = this.props.navigation.addListener('focus', () => {
+            console.log('focus');
+            this.MainHomeLoad();
+        });
+
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
 
-       this.MainHomeLoad();
+
     }
 
     handleBackPress
@@ -94,6 +101,8 @@ class HomeScreen extends Component<myProps, myStates> {
         this.setState({ isLoading: true });
         try {
             const result: any = await Home(this.state.PlayerID);
+            console.log(result);
+
             if (result.strRturnRes) {
 
                 let img: string[] = [];
@@ -332,12 +341,12 @@ class HomeScreen extends Component<myProps, myStates> {
 
                             <View style={{
                                 flexDirection: 'row',
-                                 width: screenWidth, 
-                                 alignItems: 'center', 
-                                 justifyContent: 'space-around', 
-                                 flex: 1,
-                                 marginBottom:30,
-                                 marginTop:-5
+                                width: screenWidth,
+                                alignItems: 'center',
+                                justifyContent: 'space-around',
+                                flex: 1,
+                                marginBottom: 30,
+                                marginTop: -5
                             }}>
 
                                 <MainMenuButton Url={require('../images/svgtopng/MyTaxiPng.png')} title={'MY TAXI'}

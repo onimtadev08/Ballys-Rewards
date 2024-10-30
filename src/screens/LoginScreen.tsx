@@ -73,19 +73,14 @@ const LoginScreen = ({ }) => {
 
                             <View style={{ alignItems: 'center' }} >
                                 <Image
-                                    source={require('../images/logo.png')}
+                                    source={require('../images/svgtopng/blogo.png')}
                                     style={styles.image}
                                     resizeMode="contain"
                                 />
                             </View>
 
-                            <View style={{ marginStart: 10, marginTop: -30 }}>
-                                <Text style={[styles.buttonText2, { fontSize: 30 }]}>
-                                    BALLY'S MEMBER
-                                </Text>
-                                <Text style={[styles.buttonText2, { fontSize: 30 }]} >
-                                    LOGIN
-                                </Text>
+                            <View style={{ marginStart: 10, marginTop: -20 }}>
+                                <Text style={[styles.buttonText2, { fontSize: 30 ,marginBottom:20}]}>MEMBER LOGIN</Text>
                             </View>
 
                             <View >

@@ -36,7 +36,7 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = ({
             >
 
                 <Image
-                    resizeMode='center'
+                    resizeMode='cover'
                     source={{
                         uri: MemberImg === '' ? '' : MemberImg
                     }}
@@ -51,7 +51,7 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = ({
             </AnimatedBorderViewCus>
 
 
-            <View style={{ marginTop: 10, marginBottom: 20, justifyContent: 'center', alignItems: 'center', zIndex: -1, width: '100%' }}>
+            <View style={{ marginTop: 20, marginBottom: 20, justifyContent: 'center', alignItems: 'center', zIndex: -1, width: '100%' }}>
 
                 <View style={{
                     borderWidth: 3,

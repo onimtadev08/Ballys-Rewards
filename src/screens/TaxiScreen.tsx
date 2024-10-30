@@ -9,7 +9,7 @@ import ButtomNav from '../components/ButtomNav.tsx';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
 import AntDesign from 'react-native-vector-icons/AntDesign.js'
-import GradientButtonWithBorder from '../components/GradientButton.tsx';
+
 
 const { width: screenWidth } = Dimensions.get('window');
 interface myStates {
@@ -126,7 +126,9 @@ class TaxiScreen extends Component<myProps, myStates> {
 
                         <View style={{ flex: 1, flexDirection: 'column' }}>
 
-                            <View style={{ flex: 2, backgroundColor: 'white' }}></View>
+                            <View style={{ flex: 2, backgroundColor: 'white' }}>
+                           
+                            </View>
 
                             <View style={{ flex: 1, backgroundColor: ColorTherd, alignItems: 'center' }}>
 
@@ -158,7 +160,7 @@ class TaxiScreen extends Component<myProps, myStates> {
 
 
                                 <View style={{ top: -80, height: '20%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                                    <TouchableOpacity style={{ height: 55, width: '100%', justifyContent: 'center' }} onPress={() => { 
+                                    <TouchableOpacity style={{ height: 55, width: '100%', justifyContent: 'center' }} onPress={() => {
                                         this.props.navigation.navigate('TaxiDetailsScreen');
                                     }}>
                                         <Image source={require('../images/svgtopng/Button.png')}

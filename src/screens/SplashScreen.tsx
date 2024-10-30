@@ -80,7 +80,7 @@ class SplashScreen extends Component<myProps, myStates> {
                 });
 
 
-            }, 500);
+            }, 100);
         }, 3000);
         return () => {
             clearTimeout(timer);
@@ -160,7 +160,7 @@ class SplashScreen extends Component<myProps, myStates> {
                 width: screenWidth,
             },
             progress: {
-                margin: 10,
+                marginTop: -120,
 
             }
         });
@@ -174,7 +174,7 @@ class SplashScreen extends Component<myProps, myStates> {
 
                     <Image
                         source={require('../images/svgtopng/blogo.png')}
-                        resizeMode='contain' style={{ width: '70%', marginBottom: 200 }}>
+                        resizeMode='contain' style={{ width: '50%', marginTop: -200 }}>
                     </Image>
                     <Progress.Bar
                         animationConfig={{ bounciness: 100 }}

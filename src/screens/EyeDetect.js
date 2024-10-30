@@ -3,6 +3,7 @@ import { Dimensions, View, Text, Image, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import GradientButton from '../components/GradientButtonfull';
 import GradientButtonWithBorder from '../components/GradientButton';
+import { ColorFirst, ColorSecond, ColorTherd } from '../data/data';
 // Image quality options
 import YotiFaceCapture, {
   IMAGE_QUALITY_LOW,
@@ -39,7 +40,7 @@ function EyeDetect(props) {
     <View style={{ flex: 1 }}>
       <LinearGradient
         style={{ flex: 1 }}
-        colors={['#fd0925', '#ff0909', '#ff6603']}>
+        colors={[ColorFirst, ColorSecond, ColorTherd]}>
         {isDetected ?
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
             <View style={{ width: windowWidth, alignItems: 'center' }}>
@@ -50,17 +51,17 @@ function EyeDetect(props) {
               />
             </View>
             <View style={{ width: '75%', marginTop: 20, marginBottom: 20 }}>
-              <GradientButton
+            <GradientButtonWithBorder
                 title="Apply"
                 onPress={() => {
                   NavigateToSignUp();
                 }}
-                colors={['#FF0024', '#FF0024', '#FF0024']}
+                colors={[ColorFirst, ColorSecond, ColorTherd]}
                 buttonStyle={{ width: '75%' }}
                 textStyle={{
                   fontWeight: 'bold',
                   color: '#000000',
-                  fontSize: 20,
+                  fontSize: 16,
                   textAlign: 'center',
                 }}
               />

@@ -59,6 +59,7 @@ class MyCard extends Component<myProps, myStates> {
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
     IntervalID: any;
+    popImageref: any;
 
     constructor(props: any) {
         super(props)
@@ -76,7 +77,7 @@ class MyCard extends Component<myProps, myStates> {
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
             time: new Date().toLocaleString(),
-            CardImg: require('../images/Cards/gold.png'),
+            CardImg: require('../images/Cards/classic.png'),
             MemberImg: '',
             CardTier: '',
             MemberName: '',
@@ -246,7 +247,7 @@ class MyCard extends Component<myProps, myStates> {
                         </View>
 
                         <ScrollView style={styles.container}>
-                            <View style={{ alignItems: 'center', marginBottom: 130, flexDirection: 'column' }}>
+                            <View style={{ alignItems: 'center', marginBottom: -50, flexDirection: 'column' }}>
 
                                 <View style={{ alignItems: 'center', marginBottom: 10, marginTop: 30 }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -263,8 +264,8 @@ class MyCard extends Component<myProps, myStates> {
 
                                 <View style={{
                                     borderRadius: 20,
-                                    marginTop: 20,
-                                    marginBottom: 20,
+                                    marginTop: 120,
+                                    marginBottom: 80,
                                     borderColor: 'rgba(0,0,0,0.0)',
                                     borderWidth: 10
                                 }}
@@ -273,7 +274,7 @@ class MyCard extends Component<myProps, myStates> {
                                     }}>
 
 
-                                    <AnimatedBorderViewCus
+                                    {/* <AnimatedBorderViewCus
                                         width={310}
                                         height={190}
                                         borderRadius={20}
@@ -283,88 +284,123 @@ class MyCard extends Component<myProps, myStates> {
                                         pathColor='trasparent' // Light Steel Blue
                                         sliderColor='#FFD700' // Deep Sky Blue
                                         innerContainerColor={ColorSecond}
-                                    >
-                                        <ImageModal
-                                            onTap={this.shake}
-                                            onOpen={() => {
-                                                this.setState({ modalVisible: true });
-                                            }}
-                                            onClose={() => {
-                                                this.setState({ modalVisible: false });
-                                            }}
-                                            modalImageStyle={{ maxWidth: '80%' }}
-                                            overlayBackgroundColor="rgba(0,0,0,0.8)"
-                                            modalImageResizeMode='contain'
-                                            swipeToDismiss={true}
-                                            resizeMode="cover"
-                                            imageBackgroundColor="rgba(0,0,0,0.0)"
-                                            style={{
-                                                height: 180,
-                                                width: 300,
-                                            }}
-                                            source={this.state.CardImg}
-                                            renderImageComponent={({ source, resizeMode, style }) => (
-                                                <Animated.View style={{ transform: [{ translateX: this.anim }] }}>
-                                                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                    > */}
+                                    <ImageModal
+                                        ref={(ref) => {
+                                            this.popImageref = ref;
+                                        }}
+                                        onTap={() => {
+                                            this.popImageref?.close();
+                                        }}
+                                        hideCloseButton={true}
+                                        onLongPress={this.shake}
+                                        onOpen={() => {
+                                            this.setState({ modalVisible: true });
+                                        }}
+                                        onClose={() => {
+                                            this.setState({ modalVisible: false });
+                                        }}
+                                        modalImageStyle={{
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            width: '100%',
+                                            height: '100%',
+                                        }}
+                                        overlayBackgroundColor="rgba(0,0,0,0.8)"
+                                        modalImageResizeMode='cover'
+                                        swipeToDismiss={true}
+                                        resizeMode="cover"
+                                        imageBackgroundColor="rgba(0,0,0,0.0)"
+                                        style={{
+                                            height: 180,
+                                            width: 300,
+                                        }}
+                                        source={this.state.CardImg}
+                                        renderImageComponent={({ source, resizeMode, style }) => (
+                                            <Animated.View style={{ transform: [{ translateX: this.anim }] }}>
+                                                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
 
-                                                        <Image
-                                                            source={source}
-                                                            style={style}
-                                                            resizeMode={resizeMode} />
-                                                        {this.state.modalVisible ?
-                                                            <View style={{
-                                                                width: '100%',
-                                                                height: '100%',
-                                                                position: 'absolute',
-                                                                alignItems: 'flex-end',
-                                                                justifyContent: 'center',
-                                                            }}>
+                                                    <View
+                                                        style={{
+                                                            width: this.state.modalVisible ? '100%' : '0%',
+                                                            height: this.state.modalVisible ? '100%' : '0%',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                        }}
+                                                    >
+                                                        <AnimatedBorderViewCus
+                                                            width={310}
+                                                            height={190}
+                                                            borderRadius={20}
+                                                            sliderWidth={100}
+                                                            sliderHeight={5}
+                                                            delayInAnimation={3500}
+                                                            pathColor='trasparent' // Light Steel Blue
+                                                            sliderColor='#FFD700' // Deep Sky Blue
+                                                            innerContainerColor='rgba(0,0,0,0.0)'
+                                                        >
+                                                            <Image
+                                                                source={source}
+                                                                style={style}
+                                                                resizeMode={resizeMode} />
+                                                        </AnimatedBorderViewCus>
+                                                    </View>
+                                                </View>
+                                                {this.state.modalVisible ?
+                                                    <View style={{
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        position: 'absolute',
+                                                        alignItems: 'flex-end',
+                                                        justifyContent: 'center',
+                                                    }}>
 
-                                                                <Text
-                                                                    style={{
-                                                                        marginBottom: -140,
-                                                                        marginEnd: 60,
-                                                                        color: 'white',
-                                                                        fontSize: 18,
-                                                                        fontFamily: 'SFPRODISPLAYREGULAR',
-                                                                        fontWeight: 'bold'
-                                                                    }}>{this.state.MemberID}</Text>
-
-                                                            </View>
-                                                            :
-                                                            <View style={{
-                                                                width: '100%',
-                                                                height: '100%',
-                                                                position: 'absolute',
-                                                                alignItems: 'flex-end',
-                                                                justifyContent: 'flex-end',
-                                                            }}>
-
-                                                                <Text
-                                                                    style={{
-                                                                        marginBottom: 20,
-                                                                        marginEnd: 20,
-                                                                        color: 'white',
-                                                                        fontSize: 18,
-                                                                        fontFamily: 'SFPRODISPLAYREGULAR',
-                                                                        fontWeight: 'bold'
-                                                                    }}>{this.state.MemberID}</Text>
-
-                                                            </View>
-                                                        }
+                                                        <Text
+                                                            style={{
+                                                                zIndex: 3,
+                                                                marginBottom: -140,
+                                                                marginEnd: 60,
+                                                                color: 'white',
+                                                                fontSize: 18,
+                                                                fontFamily: 'SFPRODISPLAYREGULAR',
+                                                                fontWeight: 'bold'
+                                                            }}>{this.state.MemberID}</Text>
 
                                                     </View>
-                                                </Animated.View>
-                                            )}
-                                        />
-                                        {/* <Image
+                                                    :
+                                                    <View style={{
+                                                        marginTop: 50,
+                                                        width: '100%',
+                                                        position: 'absolute',
+                                                        alignItems: 'flex-end',
+                                                        justifyContent: 'flex-end',
+                                                    }}>
+
+                                                        <Text
+                                                            style={{
+                                                                marginBottom: 20,
+                                                                marginEnd: 20,
+                                                                color: 'white',
+                                                                fontSize: 18,
+                                                                fontFamily: 'SFPRODISPLAYREGULAR',
+                                                                fontWeight: 'bold'
+                                                            }}>{this.state.MemberID}</Text>
+
+                                                    </View>
+                                                }
+
+
+                                            </Animated.View>
+                                        )}
+                                    />
+                                    {/* <Image
                                             source={this.state.CardImg}
                                             style={{
                                                 height: 180,
                                                 width: 300,
                                             }}
                                             resizeMode='cover' /> */}
-                                    </AnimatedBorderViewCus>
+                                    {/* </AnimatedBorderViewCus> */}
                                 </View>
 
                                 {/* <Text
