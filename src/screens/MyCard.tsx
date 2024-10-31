@@ -274,17 +274,7 @@ class MyCard extends Component<myProps, myStates> {
                                     }}>
 
 
-                                    {/* <AnimatedBorderViewCus
-                                        width={310}
-                                        height={190}
-                                        borderRadius={20}
-                                        sliderWidth={100}
-                                        sliderHeight={5}
-                                        delayInAnimation={3500}
-                                        pathColor='trasparent' // Light Steel Blue
-                                        sliderColor='#FFD700' // Deep Sky Blue
-                                        innerContainerColor={ColorSecond}
-                                    > */}
+
                                     <ImageModal
                                         ref={(ref) => {
                                             this.popImageref = ref;
@@ -301,10 +291,7 @@ class MyCard extends Component<myProps, myStates> {
                                             this.setState({ modalVisible: false });
                                         }}
                                         modalImageStyle={{
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            width: '100%',
-                                            height: '100%',
+
                                         }}
                                         overlayBackgroundColor="rgba(0,0,0,0.8)"
                                         modalImageResizeMode='cover'
@@ -348,18 +335,19 @@ class MyCard extends Component<myProps, myStates> {
                                                 </View>
                                                 {this.state.modalVisible ?
                                                     <View style={{
-                                                        width: '100%',
+                                                        width: (screenWidth / 100) * 80,
                                                         height: '100%',
                                                         position: 'absolute',
                                                         alignItems: 'flex-end',
                                                         justifyContent: 'center',
+                                                        backgroundColor:'blue'
                                                     }}>
 
                                                         <Text
                                                             style={{
-                                                                zIndex: 3,
+                                                                width: '100%',
+                                                                backgroundColor: 'red',
                                                                 marginBottom: -140,
-                                                                marginEnd: 60,
                                                                 color: 'white',
                                                                 fontSize: 18,
                                                                 fontFamily: 'SFPRODISPLAYREGULAR',
@@ -393,25 +381,8 @@ class MyCard extends Component<myProps, myStates> {
                                             </Animated.View>
                                         )}
                                     />
-                                    {/* <Image
-                                            source={this.state.CardImg}
-                                            style={{
-                                                height: 180,
-                                                width: 300,
-                                            }}
-                                            resizeMode='cover' /> */}
-                                    {/* </AnimatedBorderViewCus> */}
-                                </View>
 
-                                {/* <Text
-                                    style={{
-                                        color: 'white',
-                                        fontSize: 18,
-                                        fontFamily: 'SFPRODISPLAYREGULAR',
-                                        marginTop: 20,
-                                        fontWeight: 'bold'
-                                    }}
-                                >{this.state.time}</Text> */}
+                                </View>
 
 
                                 <Image style={{ height: 200, width: 200, marginTop: 20 }} source={require('../images/whatAppMsg.png')}></Image>

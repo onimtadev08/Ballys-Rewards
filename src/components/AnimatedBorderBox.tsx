@@ -64,7 +64,7 @@ const AnimatedBorderBox: React.FC<GlowBorderProps> = ({
 
 
                 }}>
-                    <Text style={{ fontSize: 18, marginTop: 10 }}>BALLYS MEMBER</Text>
+                    <Text style={{ fontSize: 18, marginTop: 10 }}>PREMIER REWARDS MEMBER</Text>
                     <View style={{ borderWidth: 1, borderColor: 'red', marginStart: 10, marginEnd: 20 }}></View>
 
                     <View style={{ flexDirection: 'row', width: '100%' }}>
