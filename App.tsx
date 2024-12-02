@@ -6,6 +6,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Navigation from './src/components/Navigation';
 import SplashScreen from 'react-native-splash-screen';
 
+// ios run ## npm run ios -- --udid="F27F732D-763A-407E-B054-5171302504A5"
 
 
 // create a component

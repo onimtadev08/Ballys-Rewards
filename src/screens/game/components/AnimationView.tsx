@@ -4,6 +4,7 @@ import {
   Animated,
   Dimensions,
   Easing,
+  Image,
   StyleSheet,
   Text,
   View,
@@ -84,11 +85,16 @@ const AnimationView: FC<AnimationViewProps> = (props) => {
   });
 
   return (
-    <View style={{ height: 250, backgroundColor: '#2f3046' }}>
-      <AnimatedLottieView
+    <View style={{ backgroundColor: '#2f3046' }}>
+      {/* <AnimatedLottieView
         ref={sky}
         source={require('../assets/sky.json')}
         style={styles.sky}
+      /> */}
+
+      <Image
+        style={styles.sky}
+        source={{ uri: 'https://i.gifer.com/WBVi.gif' }}
       />
 
       <Svg height={220} style={{ position: 'absolute', width: width }}>
@@ -97,7 +103,7 @@ const AnimationView: FC<AnimationViewProps> = (props) => {
           y1="217"
           x2={interpolateAnimateLineX}
           y2={interpolateAnimateLineY}
-          stroke={'#ede089'}
+          stroke={'orange'}
           strokeWidth={4}
           strokeLinecap={'round'}
           strokeDasharray={width}
@@ -105,24 +111,27 @@ const AnimationView: FC<AnimationViewProps> = (props) => {
         />
       </Svg>
 
-      <Text
-        style={{
-          color: '#ffff',
-          position: 'absolute',
-          right: 15,
-          bottom: 30,
-          fontWeight: 'bold',
-          fontSize: 30,
-        }}
-      >
-        {countNumber.toFixed(2)}x
-      </Text>
+      <View style={{ backgroundColor: 'red' }}>
+        <Text
+          style={{
+            backgroundColor: 'green',
+            color: '#ffff',
+            position: 'absolute',
+            right: 15,
+            bottom: 30,
+            fontWeight: 'bold',
+            fontSize: 30,
+          }}
+        >
+          {countNumber.toFixed(2)}x
+        </Text>
+      </View>
 
-      <View style={styles.measureLine}>
+      {/* <View style={styles.measureLine}>
         {Array.from([1, 2, 3, 4, 5]).map((_, i) => (
           <View key={i} style={styles.measureDots} />
         ))}
-      </View>
+      </View> */}
 
       <AnimatedLottieView
         autoPlay
