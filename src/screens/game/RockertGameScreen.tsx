@@ -10,6 +10,7 @@ import { ColorFirst, ColorSecond, ColorTherd } from '../../data/data';
 import { useNavigation } from '@react-navigation/native';
 import ResentWinsComponent from './components/ResentWinsComponent';
 import ButtomNav from '../../components/ButtomNav';
+import RockertBetingComponent from './components/RockertBetingComponent';
 
 // ...
 
@@ -77,7 +78,7 @@ export default function RockertGameScreen() {
 
 
                         <View style={{ flex: 1 }}>
-
+                            <RockertBetingComponent />
                         </View>
 
                     </View>

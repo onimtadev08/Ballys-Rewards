@@ -21,7 +21,7 @@ interface AnimationViewProps {
 const AnimatedLine = Animated.createAnimatedComponent(Line);
 const { width } = Dimensions.get('window');
 
-const AnimationView: FC<AnimationViewProps> = (props) => {
+const AnimationView: FC<AnimationViewProps> = props => {
   const animateX = useRef(new Animated.Value(0));
   const sky = useRef<LottieView>(null);
   const explord = useRef<LottieView>(null);
@@ -111,18 +111,17 @@ const AnimationView: FC<AnimationViewProps> = (props) => {
         />
       </Svg>
 
-      <View style={{ backgroundColor: 'red' }}>
+      <View style={{ position: 'absolute', width: '100%', height: '200%' }}>
         <Text
           style={{
-            backgroundColor: 'green',
+            margin: 10,
             color: '#ffff',
             position: 'absolute',
-            right: 15,
-            bottom: 30,
             fontWeight: 'bold',
             fontSize: 30,
-          }}
-        >
+            bottom: 0,
+            right: 0,
+          }}>
           {countNumber.toFixed(2)}x
         </Text>
       </View>

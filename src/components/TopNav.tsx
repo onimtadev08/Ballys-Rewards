@@ -84,7 +84,7 @@ const TopNav: React.FC<propsData> = ({
 
 
     return (
-        <View style={{ zIndex: 1, marginTop: Platform.OS === 'ios' ? 0 : 10 }}>
+        <View style={{ width: screenWidth, backgroundColor: 'rgba(0,0,0,0.8)', position: showCard ? 'absolute' : 'relative', marginTop: Platform.OS === 'ios' ? 0 : 10 }}>
 
 
             {showCard ?
@@ -93,7 +93,7 @@ const TopNav: React.FC<propsData> = ({
                     transform: [{ translateX: animationRef }],
                     width: screenWidth,
                     height: '100%',
-                    backgroundColor: 'rgba(0,0,0,0.4)',
+
                 }}>
 
                     {/* <BlurView style={{
@@ -107,7 +107,7 @@ const TopNav: React.FC<propsData> = ({
                             reducedTransparencyFallbackColor='white'
                         > */}
 
-                    <ImageBackground source={require('../images/meg.jpg')}
+                    {/* <ImageBackground source={require('../images/meg.jpg')}
                         blurRadius={100}
                         resizeMode='stretch'
                         style={{
@@ -115,33 +115,33 @@ const TopNav: React.FC<propsData> = ({
                             width: '100%',
                             height: '100%',
                             opacity: 1,
-                        }}>
+                        }}> */}
 
-                        <DrawerMenu
-                            navigation={navigation}
-                            onPress={() => {
-                                if (showCard) {
-                                    setopenCard(false);
-                                    setshowCard(false)
-                                } else {
-                                    setopenCard(true);
-                                    setshowCard(true);
-                                }
-                            }}
-                            onClose={() => {
-
+                    <DrawerMenu
+                        navigation={navigation}
+                        onPress={() => {
+                            if (showCard) {
                                 setopenCard(false);
-                                setTimeout(() => {
-                                    setshowCard(false);
-                                }, 300);
+                                setshowCard(false)
+                            } else {
+                                setopenCard(true);
+                                setshowCard(true);
+                            }
+                        }}
+                        onClose={() => {
 
-                                //          setshowCard(false);
-                                //           setopenCard(true);
+                            setopenCard(false);
+                            setTimeout(() => {
+                                setshowCard(false);
+                            }, 300);
 
-                            }}
-                        />
+                            //          setshowCard(false);
+                            //           setopenCard(true);
 
-                    </ImageBackground>
+                        }}
+                    />
+
+                    {/* </ImageBackground> */}
 
 
 
@@ -176,13 +176,13 @@ const TopNav: React.FC<propsData> = ({
                                 navigation.navigate('Home', { 'PlayerID': MID });
                             } else {
                                 if (BackButtonNew) {
-                             
+
                                     if (BackButton) {
                                         navigation.goBack();
                                     } else {
                                         const MID = await AsyncStorage.getItem('MID');
                                         navigation.replace('GamingScreen', { 'PlayerID': MID });
-    
+
                                         // if (showCard) {
                                         //     setopenCard(false);
                                         // } else {
