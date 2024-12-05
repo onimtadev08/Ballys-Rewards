@@ -85,17 +85,17 @@ const AnimationView: FC<AnimationViewProps> = props => {
   });
 
   return (
-    <View style={{ backgroundColor: '#2f3046' }}>
+    <View style={{}}>
       {/* <AnimatedLottieView
         ref={sky}
         source={require('../assets/sky.json')}
         style={styles.sky}
       /> */}
 
-      <Image
+      {/* <Image
         style={styles.sky}
         source={{ uri: 'https://i.gifer.com/WBVi.gif' }}
-      />
+      /> */}
 
       <Svg height={220} style={{ position: 'absolute', width: width }}>
         <AnimatedLine

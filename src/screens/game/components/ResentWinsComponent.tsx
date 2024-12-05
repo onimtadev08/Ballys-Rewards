@@ -2,16 +2,54 @@ import React from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Octicons from 'react-native-vector-icons/Octicons';
+import moment from 'moment';
+interface myProps {
+    count: number;
+}
 
-interface myProps { }
+interface recentCount {
+    id: number;
+    Val: number;
+    time: string;
+};
 
-const ResentWinsComponent: React.FC<myProps> = () => {
-    const renderItem = ({ item }: { item: { id: number; Val: number; time: string } }) => {
+let Recentdata: recentCount[] = [];
+let index: number = 0;
+const ResentWinsComponent: React.FC<myProps> = ({ count }) => {
+
+    const [Count, setCount] = React.useState<number>(0);
+
+    saveWins(count);
+
+    function saveWins(count: number) {
+
+        if (Count !== count) {
+
+            const StartTime = moment(new Date()).format('LTS')
+
+            const getRecent: recentCount = {
+                id: index,
+                Val: count,
+                time: StartTime,
+            }
+
+            Recentdata.push(getRecent);
+            index++;
+            setCount(count);
+        }
+
+    }
+
+    const renderItem = ({
+        item,
+    }: {
+        item: recentCount;
+    }) => {
         return (
             <View
                 style={{
                     flex: 1,
-                    marginBottom: 10
+                    marginBottom: 10,
                 }}>
                 <View
                     style={{
@@ -23,7 +61,14 @@ const ResentWinsComponent: React.FC<myProps> = () => {
                         marginEnd: 5,
                     }}>
                     <Text
-                        style={{ flex: 1, color: 'white', margin: 5, textAlign: 'center', fontSize: 12 }}>
+                        style={{
+                            flex: 1,
+                            color: 'white',
+                            margin: 5,
+                            textAlign: 'center',
+                            fontSize: 12,
+                            fontWeight: 'bold',
+                        }}>
                         {item.Val}x
                     </Text>
                 </View>
@@ -34,108 +79,6 @@ const ResentWinsComponent: React.FC<myProps> = () => {
             </View>
         );
     };
-
-    const data = [
-        {
-            id: 1,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 2,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 3,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 4,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 5,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 6,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 7,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 8,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 9,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 10,
-            Val: 1.54,
-            time: '2 s ago',
-        }, {
-            id: 11,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 12,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 13,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 14,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 15,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 16,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 17,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 18,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 19,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 20,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-    ];
 
     return (
         <View
@@ -179,7 +122,7 @@ const ResentWinsComponent: React.FC<myProps> = () => {
                 </TouchableOpacity>
             </View>
 
-            <FlatList data={data} renderItem={renderItem} numColumns={5} />
+            <FlatList data={Recentdata} renderItem={renderItem} numColumns={5} />
         </View>
     );
 };
@@ -189,3 +132,5 @@ const ResentWinsComponent: React.FC<myProps> = () => {
 // 36105A   3main
 
 export default ResentWinsComponent;
+
+

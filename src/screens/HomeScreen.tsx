@@ -337,7 +337,7 @@ class HomeScreen extends Component<myProps, myStates> {
                                 <MainMenuButton Url={require('../images/svgtopng/luckyGamePng.png')} title={'LUCKY GAME'}
                                     onPress={async () => {
                                         const MID = await AsyncStorage.getItem('MID');
-                                        this.props.navigation.navigate('RockertGameScreen', { 'PlayerID': MID });
+                                        this.props.navigation.navigate('GameHomeScreen', { 'PlayerID': MID });
 
                                     }}
                                 />

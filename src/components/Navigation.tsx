@@ -45,6 +45,7 @@ import MemberBenifitScreen from '../screens/MemberBenifitsScreen';
 import QrScanerScreen from '../screens/QrScanerScreen';
 import SpaScreen from '../screens/SpaScreen';
 import RockertGameScreen from '../screens/game/RockertGameScreen';
+import GameHomeScreen from '../screens/GameHomeScreen';
 
 type RootStack = {
     Login: undefined
@@ -85,6 +86,7 @@ type RootStack = {
     MyWallet: undefined
     SpaScreen: undefined
     RockertGameScreen: undefined
+    GameHomeScreen: undefined
 
 }
 
@@ -355,6 +357,12 @@ const Navigation = () => {
                     name='RockertGameScreen'
                     options={{ headerShown: false }}
                     component={RockertGameScreen}
+                />
+
+                <Stack.Screen
+                    name='GameHomeScreen'
+                    options={{ headerShown: false }}
+                    component={GameHomeScreen}
                 />
 
             </Stack.Navigator>

@@ -1,153 +1,160 @@
 import React from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Octicons from 'react-native-vector-icons/Octicons';
+import { ColorFirst, ColorSecond, ColorTherd } from '../../../data/data';
 
-interface myProps { }
+interface myProps {
+    isBet: boolean;
+}
 
-const RockertBetingComponent: React.FC<myProps> = () => {
-    const renderItem = ({ item }: { item: { id: number; Val: number; time: string } }) => {
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    marginBottom: 10
-                }}>
-                <View
-                    style={{
-                        flex: 1,
-                        borderRadius: 10,
-                        borderColor: '#7756B1',
-                        borderWidth: 1,
-                        marginStart: 5,
-                        marginEnd: 5,
-                    }}>
-                    <Text
-                        style={{ flex: 1, color: 'white', margin: 5, textAlign: 'center', fontSize: 12 }}>
-                        {item.Val}x
-                    </Text>
-                </View>
-                <Text
-                    style={{ flex: 1, color: 'white', textAlign: 'center', fontSize: 10 }}>
-                    {item.time}
-                </Text>
-            </View >
-        );
-    };
-
-    const data = [
-        {
-            id: 1,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 2,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 3,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 4,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 5,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 6,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 7,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 8,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 9,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 10,
-            Val: 1.54,
-            time: '2 s ago',
-        }, {
-            id: 11,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 12,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 13,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 14,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 15,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 16,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 17,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 18,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 19,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-        {
-            id: 20,
-            Val: 1.54,
-            time: '2 s ago',
-        },
-    ];
-
+const RockertBetingComponent: React.FC<myProps> = ({ isBet }) => {
     return (
         <View
             style={{
                 margin: 10,
                 borderWidth: 2,
-                borderColor: '#7756B1',
+                borderColor: '#240332',
                 borderRadius: 10,
-                backgroundColor: '#240332',
+                backgroundColor: '#7756B1',
                 height: '90%',
             }}>
+            <View style={{ flexDirection: 'row', flex: 1 }}>
+                <View style={{ flex: 1, margin: 5 }}>
+                    <View style={{ flexDirection: 'column', flex: 1 }}>
+                        <View
+                            style={{
+                                flex: 1,
+                                backgroundColor: '#240332',
+                                margin: 5,
+                                borderRadius: 5,
+                                flexDirection: 'row',
+                            }}>
+                            <TouchableOpacity
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#7756B1',
+                                    margin: 5,
+                                    borderRadius: 5,
+                                }}>
+                                <Text style={{ color: 'white', fontSize: 20 }}>-</Text>
+                            </TouchableOpacity>
 
+                            <Text style={{ flex: 1, color: 'white' }}></Text>
+
+                            <TouchableOpacity
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#7756B1',
+                                    margin: 5,
+                                    borderRadius: 5,
+                                }}>
+                                <Text style={{ color: 'white', fontSize: 20 }}>+</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View
+                            style={{
+                                flex: 1,
+                                backgroundColor: '#240332',
+                                margin: 5,
+                                borderRadius: 5,
+                                flexDirection: 'row',
+                            }}>
+                            <TouchableOpacity
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#7756B1',
+                                    margin: 5,
+                                    borderRadius: 5,
+                                }}>
+                                <Text style={{ color: 'white', fontSize: 12 }}>+1</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#7756B1',
+                                    margin: 5,
+                                    borderRadius: 5,
+                                }}>
+                                <Text style={{ color: 'white', fontSize: 12 }}>+2</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#7756B1',
+                                    margin: 5,
+                                    borderRadius: 5,
+                                }}>
+                                <Text style={{ color: 'white', fontSize: 12 }}>+3</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#7756B1',
+                                    margin: 5,
+                                    borderRadius: 5,
+                                }}>
+                                <Text style={{ color: 'white', fontSize: 12 }}>+4</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+                <View
+                    style={{
+                        flex: 1,
+                        backgroundColor: '#240332',
+                        margin: 10,
+                        borderRadius: 5,
+                    }}>
+                    <TouchableOpacity
+                        disabled={isBet}
+                        style={{
+                            flex: 1,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            margin: 5,
+                            borderRadius: 5,
+                            borderColor: ColorTherd,
+                            borderWidth: 10,
+                        }}>
+                        <LinearGradient
+                            colors={[ColorFirst, ColorSecond, ColorTherd]}
+                            style={{
+                                flex: 1,
+                                width: '100%',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}>
+                            <Text
+                                style={{
+                                    color: 'white',
+                                    fontSize: 20,
+                                    fontWeight: 'bold',
+                                    textAlign: 'center',
+                                }}>
+                                {!isBet ? 'Place your\nbet' : ' Wait for next\nround'}
+                            </Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
     );
 };
