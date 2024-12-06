@@ -1,0 +1,30 @@
+[
+  {
+    "text": "foo",
+    "color": "black",
+    "textStyle": {
+      "color": "yellow",
+      "fontFamily": "monospace",
+      "fontSize": 30,
+      "fontWeight": "bold"
+    }
+  },
+  {
+    "text": "bar"
+  },
+  {
+    "text": "baz"
+  },
+  {
+    "text": "qux"
+  },
+  {
+    "text": "quux"
+  },
+  {
+    "text": "corge"
+  },
+  {
+    "text": "grault"
+  }
+]

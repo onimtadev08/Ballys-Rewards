@@ -46,6 +46,7 @@ import QrScanerScreen from '../screens/QrScanerScreen';
 import SpaScreen from '../screens/SpaScreen';
 import RockertGameScreen from '../screens/game/RockertGameScreen';
 import GameHomeScreen from '../screens/GameHomeScreen';
+import LuckySpinGameScreen from '../screens/game/LuckySpinGameScreen';
 
 type RootStack = {
     Login: undefined
@@ -87,6 +88,7 @@ type RootStack = {
     SpaScreen: undefined
     RockertGameScreen: undefined
     GameHomeScreen: undefined
+    LuckySpinGameScreen: undefined
 
 }
 
@@ -363,6 +365,12 @@ const Navigation = () => {
                     name='GameHomeScreen'
                     options={{ headerShown: false }}
                     component={GameHomeScreen}
+                />
+
+                <Stack.Screen
+                    name='LuckySpinGameScreen'
+                    options={{ headerShown: false }}
+                    component={LuckySpinGameScreen}
                 />
 
             </Stack.Navigator>

@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import DrawerMenu from './DrawerMenu';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Marquee } from '@animatereactnative/marquee';
+import { ColorFirst } from '../data/data';
 
 interface propsData {
     navigation: any;
@@ -84,7 +85,7 @@ const TopNav: React.FC<propsData> = ({
 
 
     return (
-        <View style={{ width: screenWidth, backgroundColor: 'rgba(0,0,0,0.8)', position: showCard ? 'absolute' : 'relative', marginTop: Platform.OS === 'ios' ? 0 : 10 }}>
+        <View style={{ width: screenWidth, backgroundColor: ColorFirst, position: showCard ? 'absolute' : 'relative', marginTop: Platform.OS === 'ios' ? 0 : 10 }}>
 
 
             {showCard ?
