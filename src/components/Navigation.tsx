@@ -47,6 +47,7 @@ import SpaScreen from '../screens/SpaScreen';
 import RockertGameScreen from '../screens/game/RockertGameScreen';
 import GameHomeScreen from '../screens/GameHomeScreen';
 import LuckySpinGameScreen from '../screens/game/LuckySpinGameScreen';
+import LuckyBoxGameScreen from '../screens/game/LuckyBoxGameScreen';
 
 type RootStack = {
     Login: undefined
@@ -89,6 +90,7 @@ type RootStack = {
     RockertGameScreen: undefined
     GameHomeScreen: undefined
     LuckySpinGameScreen: undefined
+    LuckyBoxGameScreen: undefined
 
 }
 
@@ -371,6 +373,12 @@ const Navigation = () => {
                     name='LuckySpinGameScreen'
                     options={{ headerShown: false }}
                     component={LuckySpinGameScreen}
+                />
+
+                <Stack.Screen
+                    name='LuckyBoxGameScreen'
+                    options={{ headerShown: false }}
+                    component={LuckyBoxGameScreen}
                 />
 
             </Stack.Navigator>

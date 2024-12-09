@@ -80,7 +80,7 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav navigation={this.props.navigation} BackToHome={true} titel={'LUCKY SPIN'} />
+                            <TopNav navigation={this.props.navigation} BackToHome={false} BackButton={true} titel={'LUCKY SPIN'} />
                         </View>
                         <View style={{ flex: 1, marginBottom: 120, alignItems: 'center', justifyContent: 'center' }}>
 

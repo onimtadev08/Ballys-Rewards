@@ -46,7 +46,7 @@ export default function RockertGameScreen() {
                     colors={[ColorFirst, ColorSecond, ColorTherd]}
                     style={styles.container}>
                     <View style={{ zIndex: 10 }}>
-                        <TopNav navigation={navigation} BackToHome={true} titel={'LUCKY GAME'} />
+                        <TopNav navigation={navigation} BackToHome={false} BackButton={true} titel={'LUCKY ROCKERT'} />
                     </View>
                     <View
                         style={{ flex: 1, backgroundColor: '#36105A' }}

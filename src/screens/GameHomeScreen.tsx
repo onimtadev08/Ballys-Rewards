@@ -121,7 +121,11 @@ class GameHomeScreen extends Component<myProps, myStates> {
                                 }}>{'LUCKY ROCKET'.toUpperCase()}</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                            <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} onPress={async () => {
+                                const MID = await AsyncStorage.getItem('MID');
+                                this.props.navigation.navigate('LuckyBoxGameScreen', { 'PlayerID': MID });
+                            }}
+                            >
                                 <Image source={require('../images/svgtopng/L3.png')} style={{ width: 100, height: 100 }} />
                                 <Text style={{
                                     marginTop: 10,

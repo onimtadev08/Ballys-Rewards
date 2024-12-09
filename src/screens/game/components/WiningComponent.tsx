@@ -14,40 +14,65 @@ interface recentCount {
     id: number;
     Val: number;
     time: string;
-};
+}
 
 let Recentdata: recentCount[] = [];
 let index: number = 0;
-const WiningComponent: React.FC<myProps> = ({
-    WiningAmount,
-    onRetry
-}) => {
-
-
+const WiningComponent: React.FC<myProps> = ({ WiningAmount, onRetry }) => {
     return (
         <View
             style={{
                 width: '100%',
                 height: '100%',
                 position: 'absolute',
-                backgroundColor: 'rgba(0,0,0,0.5)',
+                backgroundColor: 'black',
+                alignItems: 'center',
+                justifyContent: 'center',
             }}>
+            <View style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', position: 'absolute' }}>
+                {/* <Image source={require('../assets/congratz.png')} resizeMode='contain' style={{ width: '100%', height: '50%' }} /> */}
+                {/* https://thumbs.dreamstime.com/b/congratulations-banner-game-ui-awards-red-ribbon-golden-stars-receiving-cartoon-achievement-game-screen-155291159.jpg */}
 
+                <Image
+                    source={{
+                        uri: 'https://thumbs.dreamstime.com/b/congratulations-banner-game-ui-awards-red-ribbon-golden-stars-receiving-cartoon-achievement-game-screen-155291159.jpg',
+                    }}
+                    resizeMode="contain"
+                    style={{ width: '100%', height: '100%', marginTop: -200 }}
+                />
 
-            <View style={{ width: '100%', height: '100%', position: 'absolute' }} >
+                <Image
+                    source={{
+                        uri: 'https://cdn.pixabay.com/animation/2024/05/02/07/43/07-43-00-535_512.gif',
+                    }}
+                    resizeMode='cover'
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'absolute',
+                        zIndex: 0,
+                    }}
+                />
 
-                <Image source={require('../assets/congratz.png')} resizeMode='contain' style={{ width: '100%', height: '50%' }} />
-
-
-                <View style={{ alignItems: 'center', justifyContent: 'center', marginBottom: 50 }}>
-                    <Image source={require('../assets/wining.png')} style={{ width: '100%', position: 'absolute' }} resizeMode='contain' />
-                    <Text style={{ color: 'white' }}>YOU WIN</Text>
-                    <Text style={{ color: 'white', fontWeight: 'bold' }}>{ThousandSeparator(WiningAmount.toString())}</Text>
-
-
-
+                <View
+                    style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginBottom: 50,
+                        marginTop: -150,
+                        zIndex: 2,
+                        width: '50%',
+                        backgroundColor: 'rgba(0,0,0,0.6)',
+                        padding: 10,
+                        borderRadius: 10,
+                        elevation: 10,
+                    }}>
+                    {/* <Image source={require('../assets/wining.png')} style={{ width: '100%', position: 'absolute' }} resizeMode='contain' /> */}
+                    <Text style={{ color: 'white', fontSize: 20 }}>YOU WIN</Text>
+                    <Text style={{ color: 'white', fontSize: 30, fontWeight: 'bold' }}>
+                        {ThousandSeparator(WiningAmount.toString())}
+                    </Text>
                 </View>
-
 
                 <GradientButton
                     title="RETRY"
@@ -56,18 +81,11 @@ const WiningComponent: React.FC<myProps> = ({
                     }}
                     colors={['transparent', 'transparent', 'transparent']}
                     buttonStyle={{}}
-                    textStyle={{ fontSize: 18 }} borderColor={''} />
-
-
+                    textStyle={{ fontSize: 18 }}
+                    borderColor={''}
+                />
             </View>
-
-
-
-
-
-
-
-        </View>
+        </View >
     );
 };
 
@@ -76,5 +94,3 @@ const WiningComponent: React.FC<myProps> = ({
 // 36105A   3main
 
 export default WiningComponent;
-
-
