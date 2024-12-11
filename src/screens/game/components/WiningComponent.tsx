@@ -43,7 +43,7 @@ const WiningComponent: React.FC<myProps> = ({ WiningAmount, onRetry }) => {
 
                 <Image
                     source={{
-                        uri: 'https://cdn.pixabay.com/animation/2024/05/02/07/43/07-43-00-535_512.gif',
+                        uri: 'https://cdn.pixabay.com/animation/2024/05/02/07/43/07-43-00-535_512.gizf',
                     }}
                     resizeMode='cover'
                     style={{

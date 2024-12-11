@@ -7,11 +7,19 @@ import { ThousandSeparator } from '../../../utilitis/utilities';
 import GradientButton from '../../../components/GradientButton.tsx';
 interface myProps {
     onPress: (Win: number, isWin: boolean) => void
+    type: string;
+    isDisabled: boolean;
+    winnings: boolean;
+    winningAmount: number;
 }
 
 
 const LuckyBoxComponent: React.FC<myProps> = ({
-    onPress
+    onPress,
+    type,
+    isDisabled,
+    winnings,
+    winningAmount,
 }) => {
 
     const [isWin, setisWin] = React.useState(false);
@@ -31,20 +39,26 @@ const LuckyBoxComponent: React.FC<myProps> = ({
             style={{
                 width: '100%',
                 height: '100%',
+                borderWidth: 2,
+                borderColor: 'gold',
+                borderRadius: 10,
             }}>
 
-            <TouchableOpacity disabled={isWin} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}
+            <TouchableOpacity disabled={isDisabled} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}
                 onPress={() => {
                     setisWin(!isWin);
-                    setTimeout(() => {
-                        onPress(1000, true);
-                    }, 2000)
+                    onPress(winningAmount, winnings);
                 }}
             >
-                <Image source={isWin ? require('../assets/gif/luckyBoxWin.gif') : require('../assets/gif/luckyBox.gif')} resizeMode='center' style={{ width: '150%', height: '150%' }} />
+                <Image source={
+                    type === '1' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard1.gif') : require('../assets/LuckyBox/png/luckBoxG.png') :
+                        type === '2' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard2.gif') : require('../assets/LuckyBox/png/luckyBoxB.png') :
+                            type === '3' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard3.gif') : require('../assets/LuckyBox/png/luckBoxR.png') :
+                                isWin ? require('../assets/LuckyBox/gif/luckyBoxCard4.gif') : require('../assets/LuckyBox/png/luckyBoxBlue.png')
+                } resizeMode='center' style={{ width: '80%', height: '80%' }} />
             </TouchableOpacity>
 
-            <Image source={require('../assets/luckyBoxBack.png')} resizeMode='center' style={{ width: '100%', height: '100%', position: 'absolute' }} />
+            {/* <Image source={require('../assets/luckyBoxBack.png')} resizeMode='center' style={{ width: '100%', height: '100%', position: 'absolute' }} /> */}
         </View>
     );
 };
