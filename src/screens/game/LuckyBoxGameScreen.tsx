@@ -71,14 +71,16 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
 
     render(): React.ReactNode {
         const handleDisableBoxPress = (Win: number, isWin: boolean): void => {
-            this.setState({ isDisabled: true });
-            setTimeout(() => {
-                if (isWin) {
-                    this.setState({ isWin: isWin, Wininnings: Number(Win), isDisabled: false });
-                } else {
-                    this.setState({ isDisabled: false });
-                }
-            }, 3000);
+            this.setState({ isDisabled: true }, () => {
+                setTimeout(() => {
+                    if (isWin) {
+                        this.setState({ isWin: isWin, Wininnings: Number(Win), isDisabled: false });
+                    } else {
+                        this.setState({ isDisabled: false });
+                    }
+                }, 3000);
+            });
+
         };
 
         return (

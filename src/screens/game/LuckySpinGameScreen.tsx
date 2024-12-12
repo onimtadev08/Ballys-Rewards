@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Button, Image, TouchableOpacity } from 'react-native';
+import { BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Button, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import ButtomNav from '../../components/ButtomNav.tsx'
 import { ColorFirst, ColorSecond, ColorTherd } from '../../data/data.tsx';
@@ -82,10 +82,14 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                         <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
                             <TopNav navigation={this.props.navigation} BackToHome={false} BackButton={true} titel={'LUCKY SPIN'} />
                         </View>
-                        <View style={{ flex: 1, marginBottom: 120, alignItems: 'center', justifyContent: 'center' }}>
+                        <ImageBackground source={require('./assets/LuckySpin/backGround.jpg')} resizeMode='cover' style={{ flex: 1, marginBottom: 120, alignItems: 'center', justifyContent: 'center' }}>
 
                             {!this.state.isShowWin ?
-                                <View>
+                                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+
+                                    <Image source={require('./assets/LuckySpin/spinBack.png')} resizeMode='contain' style={{ width: '90%', top: -80, alignItems: 'center', justifyContent: 'center', position: 'absolute' }} />
+
+
                                     <LuckyWheel
                                         ref={this.wheelRef}
                                         slices={
@@ -103,7 +107,7 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                         backgroundColorOptions={{ luminosity: 'orenge', hue: 'vibrant' }}
                                         size={300}
                                         // source={this.state.isImageMode ? require('./assets/wheel.png') : null}
-                                        source={this.state.isImageMode ? require('./assets/cc.png') : null}
+                                        source={this.state.isImageMode ? require('./assets/LuckySpin/spinAmount.png') : null}
                                         enableGesture
                                         minimumSpinVelocity={0.5} // 0.0 - 1.0
                                         winnerIndex={this.state.winnerIndex}
@@ -112,25 +116,25 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                         customKnob={() => {
                                             return (
                                                 <View >
-                                                    <Image source={require('./assets/knob.png')} style={{ width: 40, height: 40, margin: 10 }} resizeMode='contain' />
+                                                    <Image source={require('./assets/LuckySpin/mark.png')} style={{ width: 40, height: 40, margin: 10, marginBottom: -10, transform: [{ rotate: '180deg' }] }} resizeMode='contain' />
                                                 </View>
                                             );
                                         }}
                                     />
+
+                                    <Image source={require('./assets/LuckySpin/logomid.png')} resizeMode='contain' style={{ width: '10%', top: 95, alignItems: 'center', justifyContent: 'center', position: 'absolute', zIndex: 1 }} />
+
                                     <View style={styles.buttons}>
 
 
-                                        <GradientButton
-                                            title="SPIN"
+                                        <TouchableOpacity
+                                            style={{ width: '100%', height: 60 }}
                                             onPress={() => {
                                                 this.wheelRef?.current?.start();
                                             }}
-                                            colors={['transparent', 'transparent', 'transparent']}
-                                            buttonStyle={{}}
-                                            textStyle={{ fontSize: 18 }} borderColor={''} />
-
-
-
+                                        >
+                                            <Image source={require('./assets/LuckySpin/spinButton.png')} style={{ width: '100%', height: 60 }} resizeMode='contain' />
+                                        </TouchableOpacity>
 
                                     </View>
                                 </View>
@@ -143,7 +147,7 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                     }} />
                             }
 
-                        </View>
+                        </ImageBackground>
 
                         <View style={{
                             zIndex: 1,
@@ -178,7 +182,7 @@ const styles = StyleSheet.create({
     buttons: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 50,
+        marginTop: 100,
         flexWrap: 'wrap',
         justifyContent: 'center',
     },

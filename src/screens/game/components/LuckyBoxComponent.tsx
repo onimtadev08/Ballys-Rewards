@@ -1,10 +1,5 @@
 import React from 'react';
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import Octicons from 'react-native-vector-icons/Octicons';
-import moment from 'moment';
-import { ThousandSeparator } from '../../../utilitis/utilities';
-import GradientButton from '../../../components/GradientButton.tsx';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 interface myProps {
     onPress: (Win: number, isWin: boolean) => void
     type: string;
@@ -15,7 +10,7 @@ interface myProps {
 
 
 const LuckyBoxComponent: React.FC<myProps> = ({
-    onPress,
+    onPress, // Fix the typo here
     type,
     isDisabled,
     winnings,
@@ -26,6 +21,8 @@ const LuckyBoxComponent: React.FC<myProps> = ({
 
 
     React.useEffect(() => {
+        console.log(isWin);
+
         if (isWin) {
             setTimeout(() => {
                 setisWin(false);
@@ -33,29 +30,44 @@ const LuckyBoxComponent: React.FC<myProps> = ({
         }
     }, [isWin]);
 
+    const imageSource = type === '1' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard1.gif') : require('../assets/LuckyBox/png/luckBoxG.png') :
+        type === '2' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard2.gif') : require('../assets/LuckyBox/png/luckyBoxB.png') :
+            type === '3' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard3.gif') : require('../assets/LuckyBox/png/luckBoxR.png') :
+                isWin ? require('../assets/LuckyBox/gif/luckyBoxCard4.gif') : require('../assets/LuckyBox/png/luckyBoxBlue.png');
+
+    React.useEffect(() => {
+        console.log(imageSource);
+
+
+    }, [imageSource]);
+
 
     return (
         <View
             style={{
-                width: '100%',
                 height: '100%',
-                borderWidth: 2,
+                borderWidth: 1,
                 borderColor: 'gold',
                 borderRadius: 10,
+                alignItems: 'center',
+                justifyContent: 'center'
             }}>
-
             <TouchableOpacity disabled={isDisabled} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}
                 onPress={() => {
                     setisWin(!isWin);
                     onPress(winningAmount, winnings);
                 }}
             >
-                <Image source={
+                {/* <Image source={
                     type === '1' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard1.gif') : require('../assets/LuckyBox/png/luckBoxG.png') :
                         type === '2' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard2.gif') : require('../assets/LuckyBox/png/luckyBoxB.png') :
                             type === '3' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard3.gif') : require('../assets/LuckyBox/png/luckBoxR.png') :
                                 isWin ? require('../assets/LuckyBox/gif/luckyBoxCard4.gif') : require('../assets/LuckyBox/png/luckyBoxBlue.png')
-                } resizeMode='center' style={{ width: '80%', height: '80%' }} />
+                } resizeMode={isWin ? 'center' : 'contain'} style={{ width: '80%', height: '80%', }} /> */}
+
+
+                <Image key={imageSource} source={imageSource} resizeMode={isWin ? 'center' : 'contain'} style={{ width: '80%', height: '80%', }} />
+
             </TouchableOpacity>
 
             {/* <Image source={require('../assets/luckyBoxBack.png')} resizeMode='center' style={{ width: '100%', height: '100%', position: 'absolute' }} /> */}
