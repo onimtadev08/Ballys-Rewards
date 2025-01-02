@@ -10,7 +10,8 @@ import { ColorFirst, ColorSecond, ColorTherd } from '../../data/data.tsx';
 import TopNav from '../../components/TopNav.tsx';
 import AntDesign from 'react-native-vector-icons/AntDesign.js'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-
+import Geolocation from '@react-native-community/geolocation';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const { width: screenWidth } = Dimensions.get('window');
 interface myStates {
@@ -24,6 +25,8 @@ interface myStates {
     showApiSuccsess: boolean;
     showApiSuccsessMsg: string;
     Messages: any[];
+    latitude: number;
+    longitude: number;
 }
 interface myProps {
     navigation: any;
@@ -35,10 +38,12 @@ class TaxiScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>
+    mapRef: any
 
     constructor(props: any) {
         super(props)
         this.scrollRef = React.createRef<ScrollView>();
+        this.mapRef = React.createRef();
         this.state = {
             currentIndex: 0,
             isLoading: false,
@@ -50,6 +55,8 @@ class TaxiScreen extends Component<myProps, myStates> {
             showApiSuccsess: false,
             showApiSuccsessMsg: '',
             Messages: [],
+            latitude: 0,
+            longitude: 0,
         };
 
 
@@ -65,9 +72,39 @@ class TaxiScreen extends Component<myProps, myStates> {
 
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
-        this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
+        this.navigation = this.props.navigation;
 
+        this.getCurrentLocation();
 
+    }
+
+    getCurrentLocation() {
+        Geolocation.getCurrentPosition(
+            position => {
+                this.setState(
+                    {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    },
+                    () => {
+
+                        console.log('aaa');
+
+                        this.mapRef.current.animateToRegion({
+                            latitude: this.state.latitude,
+                            longitude: this.state.longitude,
+                            latitudeDelta: 0.0,
+                            longitudeDelta: 0.007,
+                        });
+
+                    },
+                );
+            },
+            error => {
+                console.error(error.message);
+            },
+            { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
+        );
     }
 
     handleBackPress
@@ -137,6 +174,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                                 >
 
                                     <MapView
+                                        ref={this.mapRef}
                                         zoomEnabled={true}
                                         zoomControlEnabled={true}
                                         zoomTapEnabled={true}
@@ -148,21 +186,22 @@ class TaxiScreen extends Component<myProps, myStates> {
                                         style={styles.map}
                                         showsCompass={true}
                                         showsUserLocation={true}
-                                        showsMyLocationButton={true}
+                                        //    showsMyLocationButton={true}
                                         mapType='standard'
-                                    // region={{
-                                    //     latitude: 37.78825,
-                                    //     longitude: -122.4324,
-                                    //     latitudeDelta: 0.015,
-                                    //     longitudeDelta: 0.0121,
-                                    // }}
+
                                     >
                                     </MapView>
 
                                 </View>
                             </View>
 
+
+
+
+
                             <View style={{ flex: 1, backgroundColor: ColorTherd, alignItems: 'center' }}>
+
+
 
                                 <View style={[
                                     styles.card,
@@ -175,6 +214,28 @@ class TaxiScreen extends Component<myProps, myStates> {
                                         flexDirection: 'column'
                                     }]}>
                                     <View style={{ flexDirection: 'row', flex: 1, width: '90%', marginTop: 10, marginBottom: 10, alignItems: 'center' }}>
+
+                                        <View
+                                            style={{
+                                                alignItems: 'flex-end',
+                                                justifyContent: 'flex-end',
+                                                position: 'absolute',
+                                                backgroundColor: 'white',
+                                                borderRadius: 10,
+                                                top: -70,
+                                                right: -30,
+                                            }}
+                                        >
+                                            <MaterialIcons
+                                                style={{ margin: 10 }}
+                                                size={30}
+                                                name="my-location"
+                                                onPress={() => {
+                                                    this.getCurrentLocation();
+                                                }}
+                                            />
+                                        </View>
+
                                         <Text style={{ fontSize: 18, flex: 1, color: 'blue', textAlign: 'center' }}>PICK UP</Text>
                                         <Text style={{ fontSize: 18, flex: 3, textAlign: 'center' }}>YOUR LOCATION</Text>
                                         <AntDesign style={{}} name='plus' size={30} color={'black'} />
