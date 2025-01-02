@@ -11,12 +11,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1EC78EB7B6B0F6F4AEF99EFB /* libPods-BallysRewards.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98226C78507213E3C1FD067B /* libPods-BallysRewards.a */; };
 		205299A6BC0D48E3A010BF8C /* SFPRODISPLAYBLACKITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 215C9A2D1D16481B8913BA08 /* SFPRODISPLAYBLACKITALIC.OTF */; };
 		248D6241568E475D907B9219 /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8996BC64323E44A29677DCEE /* Ubuntu-Italic.ttf */; };
 		3AFBEFF297314AE39DDD192F /* SFPRODISPLAYLIGHTITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = B80A6E727352400B8F56B8A6 /* SFPRODISPLAYLIGHTITALIC.OTF */; };
 		423D999EA64745D98D55C3A0 /* Ubuntu-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C41B616A04CF41D1AFE25078 /* Ubuntu-MediumItalic.ttf */; };
 		5749B5A9114B41E98FE7873B /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29C3878B73504C91860C8613 /* Ubuntu-LightItalic.ttf */; };
+		6ADC4714FFE5F8B683E9F0EF /* libPods-BallysRewards-BallysRewardsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A72D7B4B27624FB6F4C90A /* libPods-BallysRewards-BallysRewardsTests.a */; };
 		734CE05353E341879E593BA7 /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 570EF16BE4EB49D5B66AA42E /* Ubuntu-Medium.ttf */; };
 		74A77CC110E44545ABD5F504 /* SFPRODISPLAYREGULAR.OTF in Resources */ = {isa = PBXBuildFile; fileRef = C8EC300F2E4C4E09B1F91614 /* SFPRODISPLAYREGULAR.OTF */; };
 		7FF4957CC7DC4ADCACBDB00A /* SFPRODISPLAYMEDIUM.OTF in Resources */ = {isa = PBXBuildFile; fileRef = B886A1FF51094E2BBF51A857 /* SFPRODISPLAYMEDIUM.OTF */; };
@@ -25,12 +25,12 @@
 		912B6CB19604476FA016F940 /* SFPRODISPLAYBOLD.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 8A9EEFEEFCCD4C3CA4A46EE4 /* SFPRODISPLAYBOLD.OTF */; };
 		A46262A6EA5B42D1AFB5113A /* Satisfy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D8878AE54A643B4975419B6 /* Satisfy-Regular.ttf */; };
 		A8C78C6C7FBA43B288CC05E8 /* SFPRODISPLAYHEAVYITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = FD0F08E2D8C342CB8357A8E3 /* SFPRODISPLAYHEAVYITALIC.OTF */; };
-		AA04F0AF3C4576D68898E75C /* libPods-BallysRewards-BallysRewardsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EF85ED33C72FD71FAB7863F /* libPods-BallysRewards-BallysRewardsTests.a */; };
 		BD2AF6DD00D74536B89EA3D4 /* SFPRODISPLAYTHINITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 3FFC1977A6AF4FB4A0D549FA /* SFPRODISPLAYTHINITALIC.OTF */; };
 		C5C35C4B70344831A174A4C8 /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87A8AC3B73E346B08D7E02B0 /* Ubuntu-Bold.ttf */; };
 		C6563FA480F04CFB9B938706 /* SFPRODISPLAYSEMIBOLDITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 2E7D7204015648F8B5BAD630 /* SFPRODISPLAYSEMIBOLDITALIC.OTF */; };
 		DB4C5B7F107D4F5E89414492 /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2585B47D4A404B60AC2D75C3 /* Ubuntu-Light.ttf */; };
 		DEAC06AB7D544281B0A5BD31 /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3012B02C1594A99BB7C6A4E /* Ubuntu-BoldItalic.ttf */; };
+		E95CF7D4DDBCFFB1DBFDFFD5 /* libPods-BallysRewards.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20004866BBF75E8D9AD94FB7 /* libPods-BallysRewards.a */; };
 		F6AAC2CF737D8594124B276F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4DAEF17AA157318D07D561DF /* PrivacyInfo.xcprivacy */; };
 		F870DE9E8DD449E29C73D76D /* SFPRODISPLAYULTRALIGHTITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = B18985F345154AC4A664840B /* SFPRODISPLAYULTRALIGHTITALIC.OTF */; };
 /* End PBXBuildFile section */
@@ -55,33 +55,33 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BallysRewards/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BallysRewards/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BallysRewards/main.m; sourceTree = "<group>"; };
+		17694830D51D06164D066882 /* Pods-BallysRewards-BallysRewardsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards-BallysRewardsTests.debug.xcconfig"; path = "Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		20004866BBF75E8D9AD94FB7 /* libPods-BallysRewards.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BallysRewards.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		215C9A2D1D16481B8913BA08 /* SFPRODISPLAYBLACKITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYBLACKITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYBLACKITALIC.OTF; sourceTree = "<group>"; };
 		2585B47D4A404B60AC2D75C3 /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Light.ttf"; path = "../assets/fonts/Ubuntu-Light.ttf"; sourceTree = "<group>"; };
 		29C3878B73504C91860C8613 /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-LightItalic.ttf"; path = "../assets/fonts/Ubuntu-LightItalic.ttf"; sourceTree = "<group>"; };
 		2E7D7204015648F8B5BAD630 /* SFPRODISPLAYSEMIBOLDITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYSEMIBOLDITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYSEMIBOLDITALIC.OTF; sourceTree = "<group>"; };
+		35A72D7B4B27624FB6F4C90A /* libPods-BallysRewards-BallysRewardsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BallysRewards-BallysRewardsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FFC1977A6AF4FB4A0D549FA /* SFPRODISPLAYTHINITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYTHINITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYTHINITALIC.OTF; sourceTree = "<group>"; };
-		477954428716C9F5E824ECFC /* Pods-BallysRewards-BallysRewardsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards-BallysRewardsTests.release.xcconfig"; path = "Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests.release.xcconfig"; sourceTree = "<group>"; };
 		4DAEF17AA157318D07D561DF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = BallysRewards/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		570EF16BE4EB49D5B66AA42E /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Medium.ttf"; path = "../assets/fonts/Ubuntu-Medium.ttf"; sourceTree = "<group>"; };
+		74F2D1AF12E30963282C401A /* Pods-BallysRewards-BallysRewardsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards-BallysRewardsTests.release.xcconfig"; path = "Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests.release.xcconfig"; sourceTree = "<group>"; };
 		7D8878AE54A643B4975419B6 /* Satisfy-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Satisfy-Regular.ttf"; path = "../assets/fonts/Satisfy-Regular.ttf"; sourceTree = "<group>"; };
-		7EF85ED33C72FD71FAB7863F /* libPods-BallysRewards-BallysRewardsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BallysRewards-BallysRewardsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BallysRewards/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87A8AC3B73E346B08D7E02B0 /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Bold.ttf"; path = "../assets/fonts/Ubuntu-Bold.ttf"; sourceTree = "<group>"; };
 		8996BC64323E44A29677DCEE /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Italic.ttf"; path = "../assets/fonts/Ubuntu-Italic.ttf"; sourceTree = "<group>"; };
 		8A9EEFEEFCCD4C3CA4A46EE4 /* SFPRODISPLAYBOLD.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYBOLD.OTF; path = ../assets/fonts/SFPRODISPLAYBOLD.OTF; sourceTree = "<group>"; };
-		9413D9E07EBBE08DFCF5D2D8 /* Pods-BallysRewards.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards.release.xcconfig"; path = "Target Support Files/Pods-BallysRewards/Pods-BallysRewards.release.xcconfig"; sourceTree = "<group>"; };
-		98226C78507213E3C1FD067B /* libPods-BallysRewards.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BallysRewards.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3012B02C1594A99BB7C6A4E /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-BoldItalic.ttf"; path = "../assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; };
 		B18985F345154AC4A664840B /* SFPRODISPLAYULTRALIGHTITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYULTRALIGHTITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYULTRALIGHTITALIC.OTF; sourceTree = "<group>"; };
 		B80A6E727352400B8F56B8A6 /* SFPRODISPLAYLIGHTITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYLIGHTITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYLIGHTITALIC.OTF; sourceTree = "<group>"; };
 		B886A1FF51094E2BBF51A857 /* SFPRODISPLAYMEDIUM.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYMEDIUM.OTF; path = ../assets/fonts/SFPRODISPLAYMEDIUM.OTF; sourceTree = "<group>"; };
+		B996C0BCF21A4F34ED54641D /* Pods-BallysRewards.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards.release.xcconfig"; path = "Target Support Files/Pods-BallysRewards/Pods-BallysRewards.release.xcconfig"; sourceTree = "<group>"; };
 		C19DEDDE4EF34E4BA81DB633 /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Regular.ttf"; path = "../assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; };
 		C41B616A04CF41D1AFE25078 /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-MediumItalic.ttf"; path = "../assets/fonts/Ubuntu-MediumItalic.ttf"; sourceTree = "<group>"; };
 		C8EC300F2E4C4E09B1F91614 /* SFPRODISPLAYREGULAR.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYREGULAR.OTF; path = ../assets/fonts/SFPRODISPLAYREGULAR.OTF; sourceTree = "<group>"; };
-		CA20C7045AC024856FE4D477 /* Pods-BallysRewards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards.debug.xcconfig"; path = "Target Support Files/Pods-BallysRewards/Pods-BallysRewards.debug.xcconfig"; sourceTree = "<group>"; };
+		E15EB88360554A59E234EC34 /* Pods-BallysRewards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards.debug.xcconfig"; path = "Target Support Files/Pods-BallysRewards/Pods-BallysRewards.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FD0F08E2D8C342CB8357A8E3 /* SFPRODISPLAYHEAVYITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYHEAVYITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYHEAVYITALIC.OTF; sourceTree = "<group>"; };
-		FEC32DA60EE108CEDBD896E9 /* Pods-BallysRewards-BallysRewardsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards-BallysRewardsTests.debug.xcconfig"; path = "Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA04F0AF3C4576D68898E75C /* libPods-BallysRewards-BallysRewardsTests.a in Frameworks */,
+				6ADC4714FFE5F8B683E9F0EF /* libPods-BallysRewards-BallysRewardsTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EC78EB7B6B0F6F4AEF99EFB /* libPods-BallysRewards.a in Frameworks */,
+				E95CF7D4DDBCFFB1DBFDFFD5 /* libPods-BallysRewards.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,8 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				98226C78507213E3C1FD067B /* libPods-BallysRewards.a */,
-				7EF85ED33C72FD71FAB7863F /* libPods-BallysRewards-BallysRewardsTests.a */,
+				20004866BBF75E8D9AD94FB7 /* libPods-BallysRewards.a */,
+				35A72D7B4B27624FB6F4C90A /* libPods-BallysRewards-BallysRewardsTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -205,10 +205,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CA20C7045AC024856FE4D477 /* Pods-BallysRewards.debug.xcconfig */,
-				9413D9E07EBBE08DFCF5D2D8 /* Pods-BallysRewards.release.xcconfig */,
-				FEC32DA60EE108CEDBD896E9 /* Pods-BallysRewards-BallysRewardsTests.debug.xcconfig */,
-				477954428716C9F5E824ECFC /* Pods-BallysRewards-BallysRewardsTests.release.xcconfig */,
+				E15EB88360554A59E234EC34 /* Pods-BallysRewards.debug.xcconfig */,
+				B996C0BCF21A4F34ED54641D /* Pods-BallysRewards.release.xcconfig */,
+				17694830D51D06164D066882 /* Pods-BallysRewards-BallysRewardsTests.debug.xcconfig */,
+				74F2D1AF12E30963282C401A /* Pods-BallysRewards-BallysRewardsTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -220,12 +220,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BallysRewardsTests" */;
 			buildPhases = (
-				23C538FF64E8BCE6F284822A /* [CP] Check Pods Manifest.lock */,
+				94B70C19E511810196D2592F /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				3593A6E6F287F589371C21E9 /* [CP] Embed Pods Frameworks */,
-				34EE40D5C047EEA0B7EB418A /* [CP] Copy Pods Resources */,
+				007D7E68CCD7A52BB76DE2B9 /* [CP] Embed Pods Frameworks */,
+				9753D8885E0827F4917B02DE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -241,13 +241,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BallysRewards" */;
 			buildPhases = (
-				D9A96066F4927A1349D84577 /* [CP] Check Pods Manifest.lock */,
+				8438C55B27F59F2F00D90E4E /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				DE2D9E59841C41D7C53EA891 /* [CP] Embed Pods Frameworks */,
-				FA277CE9908217041AB45F47 /* [CP] Copy Pods Resources */,
+				7B86EE5F0B279210AD2E132F /* [CP] Embed Pods Frameworks */,
+				A052ADA78F85860FCE035FD5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -333,62 +333,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/.xcode.env.local",
-				"$(SRCROOT)/.xcode.env",
-			);
-			name = "Bundle React Native code and images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
-		};
-		23C538FF64E8BCE6F284822A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BallysRewards-BallysRewardsTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		34EE40D5C047EEA0B7EB418A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3593A6E6F287F589371C21E9 /* [CP] Embed Pods Frameworks */ = {
+		007D7E68CCD7A52BB76DE2B9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -405,7 +350,40 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D9A96066F4927A1349D84577 /* [CP] Check Pods Manifest.lock */ = {
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		7B86EE5F0B279210AD2E132F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BallysRewards/Pods-BallysRewards-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BallysRewards/Pods-BallysRewards-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BallysRewards/Pods-BallysRewards-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8438C55B27F59F2F00D90E4E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -427,24 +405,46 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DE2D9E59841C41D7C53EA891 /* [CP] Embed Pods Frameworks */ = {
+		94B70C19E511810196D2592F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BallysRewards/Pods-BallysRewards-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BallysRewards/Pods-BallysRewards-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BallysRewards-BallysRewardsTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BallysRewards/Pods-BallysRewards-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FA277CE9908217041AB45F47 /* [CP] Copy Pods Resources */ = {
+		9753D8885E0827F4917B02DE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BallysRewards-BallysRewardsTests/Pods-BallysRewards-BallysRewardsTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A052ADA78F85860FCE035FD5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -494,7 +494,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FEC32DA60EE108CEDBD896E9 /* Pods-BallysRewards-BallysRewardsTests.debug.xcconfig */;
+			baseConfigurationReference = 17694830D51D06164D066882 /* Pods-BallysRewards-BallysRewardsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -526,7 +526,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 477954428716C9F5E824ECFC /* Pods-BallysRewards-BallysRewardsTests.release.xcconfig */;
+			baseConfigurationReference = 74F2D1AF12E30963282C401A /* Pods-BallysRewards-BallysRewardsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -555,7 +555,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA20C7045AC024856FE4D477 /* Pods-BallysRewards.debug.xcconfig */;
+			baseConfigurationReference = E15EB88360554A59E234EC34 /* Pods-BallysRewards.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -591,7 +591,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9413D9E07EBBE08DFCF5D2D8 /* Pods-BallysRewards.release.xcconfig */;
+			baseConfigurationReference = B996C0BCF21A4F34ED54641D /* Pods-BallysRewards.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -692,7 +692,10 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -760,7 +763,10 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

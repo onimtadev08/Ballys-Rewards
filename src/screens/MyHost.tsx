@@ -133,12 +133,12 @@ class MyHost extends Component<myProps, myStates> {
                 <Image source={{ uri: item.Img_Url }} style={{ height: 200, width: 200, borderColor: 'gold', borderWidth: 3, borderRadius: 20 }}></Image>
                 <Text style={{ color: 'white', marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{item.M_Name}</Text>
                 <Text style={{ color: 'white', fontSize: 16 }}>{item.M_Language}</Text>
-                <Text style={{ color: 'white', marginBottom: 10, fontSize: 20 }}>MOBILE : {item.M_Mobile}</Text>
+                <Text style={{ color: 'white', marginBottom: 10, fontSize: 20 }}>MOBILE : {item.M_Mobile.split("/", 2)[0]}</Text>
                 <View style={{ flexDirection: "row", flex: 1 }}>
                     <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginEnd: 10, marginTop: 10 }}>
                         <TouchableOpacity
                             onPress={() => {
-                                Linking.openURL('whatsapp://send?text=&phone={' + item.M_Mobile + '}');
+                                Linking.openURL('whatsapp://send?text=&phone={' + item.M_Mobile.split("/", 2)[0] + '}');
                             }}
                         >
                             <Ionicons name='logo-whatsapp' size={40} color={'white'} style={{ margin: 10 }} />
@@ -148,7 +148,7 @@ class MyHost extends Component<myProps, myStates> {
                     <View style={{ backgroundColor: 'green', borderRadius: 50, alignItems: 'center', marginStart: 10, marginTop: 10 }}>
                         <TouchableOpacity
                             onPress={() => {
-                                Linking.openURL('tel:${' + item.M_Mobile + '}');
+                                Linking.openURL('tel:${' + item.M_Mobile.split("/", 2)[0] + '}');
                             }}
                         >
                             <Ionicons name='call-outline' size={40} color={'white'} style={{ margin: 10 }} />
@@ -156,6 +156,32 @@ class MyHost extends Component<myProps, myStates> {
                     </View>
 
                 </View>
+
+                <Text style={{ textAlign: 'center', color: 'white', marginBottom: 10, marginTop: 20, fontSize: 20 }}>24 HOURS HOTLINE{'\n'}{item.M_Mobile.split("/", 2)[1]}</Text>
+                <View style={{ flexDirection: "row", flex: 1 }}>
+                    <View style={{ backgroundColor: 'red', borderRadius: 50, alignItems: 'center', marginEnd: 10 }}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                Linking.openURL('whatsapp://send?text=&phone={' + item.M_Mobile.split("/", 2)[1] + '}');
+                            }}
+                        >
+                            <Ionicons name='logo-whatsapp' size={30} color={'white'} style={{ margin: 10 }} />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{ backgroundColor: 'red', borderRadius: 50, alignItems: 'center', marginStart: 10 }}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                Linking.openURL('tel:${' + item.M_Mobile.split("/", 2)[1] + '}');
+                            }}
+                        >
+                            <Ionicons name='call-outline' size={30} color={'white'} style={{ margin: 10 }} />
+                        </TouchableOpacity>
+                    </View>
+
+                </View>
+
+
                 {/* <View style={{ borderWidth: 2, borderColor: 'white', width: '90%', marginTop: 20 }} /> */}
             </View>
         );

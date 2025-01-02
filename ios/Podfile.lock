@@ -73,9 +73,16 @@ PODS:
     - FlipperKit/FlipperKitNetworkPlugin
   - fmt (6.2.1)
   - glog (0.3.5)
-  - hermes-engine (0.73.9):
-    - hermes-engine/Pre-built (= 0.73.9)
-  - hermes-engine/Pre-built (0.73.9)
+  - Google-Maps-iOS-Utils (5.0.0):
+    - GoogleMaps (~> 8.0)
+  - GoogleMaps (8.4.0):
+    - GoogleMaps/Maps (= 8.4.0)
+  - GoogleMaps/Base (8.4.0)
+  - GoogleMaps/Maps (8.4.0):
+    - GoogleMaps/Base
+  - hermes-engine (0.73.11):
+    - hermes-engine/Pre-built (= 0.73.11)
+  - hermes-engine/Pre-built (0.73.11)
   - libevent (2.1.12)
   - lottie-ios (4.4.1)
   - lottie-react-native (6.7.2):
@@ -976,12 +983,18 @@ PODS:
     - SwiftyJSON (= 5.0)
   - react-native-date-picker (5.0.4):
     - React-Core
+  - react-native-google-maps (1.20.1):
+    - Google-Maps-iOS-Utils (= 5.0.0)
+    - GoogleMaps (= 8.4.0)
+    - React-Core
   - react-native-image-picker (7.1.2):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
   - react-native-loader-kit (2.0.8):
     - NVActivityIndicatorView (= 5.1.1)
+    - React-Core
+  - react-native-maps (1.20.1):
     - React-Core
   - react-native-photo-manipulator (1.5.2):
     - glog
@@ -1255,8 +1268,10 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-charts-wrapper (from `../node_modules/react-native-charts-wrapper`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
+  - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-loader-kit (from `../node_modules/react-native-loader-kit`)
+  - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-photo-manipulator (from `../node_modules/react-native-photo-manipulator`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -1304,6 +1319,8 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - FlipperKit
     - fmt
+    - Google-Maps-iOS-Utils
+    - GoogleMaps
     - libevent
     - lottie-ios
     - NVActivityIndicatorView
@@ -1381,10 +1398,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-charts-wrapper"
   react-native-date-picker:
     :path: "../node_modules/react-native-date-picker"
+  react-native-google-maps:
+    :path: "../node_modules/react-native-maps"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-loader-kit:
     :path: "../node_modules/react-native-loader-kit"
+  react-native-maps:
+    :path: "../node_modules/react-native-maps"
   react-native-photo-manipulator:
     :path: "../node_modules/react-native-photo-manipulator"
   react-native-safe-area-context:
@@ -1470,7 +1491,9 @@ SPEC CHECKSUMS:
   FlipperKit: 37525a5d056ef9b93d1578e04bc3ea1de940094f
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
-  hermes-engine: ed62e0dcd013bf4a3b487f164feec1c4e705b5b5
+  Google-Maps-iOS-Utils: 66d6de12be1ce6d3742a54661e7a79cb317a9321
+  GoogleMaps: 8939898920281c649150e0af74aa291c60f2e77d
+  hermes-engine: d992945b77c506e5164e6a9a77510c9d57472c59
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: e047b1d2e6239b787cc5e9755b988869cf190494
   lottie-react-native: 2d9efc8a5ffabe688b55a1a1ac1fb94b9d971995
@@ -1501,8 +1524,10 @@ SPEC CHECKSUMS:
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-charts-wrapper: cd83d9b1acb8e06ebd18bf297de597906e1cc87d
   react-native-date-picker: 6891317e850deae5b53d51355226e07a495aba61
+  react-native-google-maps: 7cc1184afe41fbd15a3dffd53c924819f6587b69
   react-native-image-picker: d3db110a3ded6e48c93aef7e8e51afdde8b16ed0
   react-native-loader-kit: ed18c8ce83b69083211912326897d8286f37d797
+  react-native-maps: ee1e65647460c3d41e778071be5eda10e3da6225
   react-native-photo-manipulator: 3d1a8f3d9dcd20f0d090c607a36681e2f2b6e909
   react-native-safe-area-context: b7daa1a8df36095a032dff095a1ea8963cb48371
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
@@ -1541,6 +1566,6 @@ SPEC CHECKSUMS:
   Yoga: 6aaa3c45f0fda0c6929f855121622669dabe1aaf
   YotiFaceCapture: 7862e56682f6135c2aa51c011a6f5fa017f19ae4
 
-PODFILE CHECKSUM: dd933afff1b721db619dd51c3bc29511418714cf
+PODFILE CHECKSUM: bd06773108607cd8586eb9abdcbb5f88e20f1528
 
 COCOAPODS: 1.15.2

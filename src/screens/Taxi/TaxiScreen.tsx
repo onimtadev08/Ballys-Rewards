@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Text, TouchableOpacity, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import SuccsessMsg from '../components/SuccsessMsg.tsx';
-import InfoMsg from '../components/InfoMsg.tsx';
-import ErrorMsg from '../components/errorMsg.tsx';
-import Loader from '../components/Loader.tsx';
-import ButtomNav from '../components/ButtomNav.tsx';
-import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
-import TopNav from '../components/TopNav.tsx';
+import SuccsessMsg from '../../components/SuccsessMsg.tsx';
+import InfoMsg from '../../components/InfoMsg.tsx';
+import ErrorMsg from '../../components/errorMsg.tsx';
+import Loader from '../../components/Loader.tsx';
+import ButtomNav from '../../components/ButtomNav.tsx';
+import { ColorFirst, ColorSecond, ColorTherd } from '../../data/data.tsx';
+import TopNav from '../../components/TopNav.tsx';
 import AntDesign from 'react-native-vector-icons/AntDesign.js'
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -100,6 +101,9 @@ class TaxiScreen extends Component<myProps, myStates> {
                 color: '#000000',
                 fontSize: 18,
                 textAlign: 'center',
+            },
+            map: {
+                ...StyleSheet.absoluteFillObject,
             }
         });
 
@@ -126,8 +130,36 @@ class TaxiScreen extends Component<myProps, myStates> {
 
                         <View style={{ flex: 1, flexDirection: 'column' }}>
 
-                            <View style={{ flex: 2, backgroundColor: 'white' }}>
-                           
+                            <View style={{ flex: 2 }}>
+
+                                <View
+                                    style={{ width: '100%', height: '100%' }}
+                                >
+
+                                    <MapView
+                                        zoomEnabled={true}
+                                        zoomControlEnabled={true}
+                                        zoomTapEnabled={true}
+                                        onRegionChange={(region, description) => {
+                                            console.log(region);
+                                            console.log(description);
+                                        }}
+                                        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                                        style={styles.map}
+                                        showsCompass={true}
+                                        showsUserLocation={true}
+                                        showsMyLocationButton={true}
+                                        mapType='standard'
+                                    // region={{
+                                    //     latitude: 37.78825,
+                                    //     longitude: -122.4324,
+                                    //     latitudeDelta: 0.015,
+                                    //     longitudeDelta: 0.0121,
+                                    // }}
+                                    >
+                                    </MapView>
+
+                                </View>
                             </View>
 
                             <View style={{ flex: 1, backgroundColor: ColorTherd, alignItems: 'center' }}>
@@ -163,7 +195,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                                     <TouchableOpacity style={{ height: 55, width: '100%', justifyContent: 'center' }} onPress={() => {
                                         this.props.navigation.navigate('TaxiDetailsScreen');
                                     }}>
-                                        <Image source={require('../images/svgtopng/Button.png')}
+                                        <Image source={require('../../images/svgtopng/Button.png')}
                                             style={{ width: '100%', height: '100%' }} resizeMode='contain' />
                                         <Text style={{ position: 'absolute', textAlign: 'center', width: '100%', fontSize: 20 }}>BOOK NOW</Text>
                                     </TouchableOpacity>
@@ -171,6 +203,7 @@ class TaxiScreen extends Component<myProps, myStates> {
 
 
                             </View>
+
                         </View>
 
 
