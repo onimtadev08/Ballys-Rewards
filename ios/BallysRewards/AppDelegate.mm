@@ -8,11 +8,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GMSServices provideAPIKey:@"AIzaSyB7Ho3GPLNNpdOKZeMVoUhQugMic57_zuk"]; // add this line using the api key obtained from Google Console
+  [GMSServices provideAPIKey:@"AIzaSyB_BzB6fWyeWJ7Rb9auA2CHOTPyzTZtvlM"]; // add this line using the api key obtained from Google Console
   self.moduleName = @"BallysRewards";
 
 // AIzaSyB7Ho3GPLNNpdOKZeMVoUhQugMic57_zuk
 
+// AIzaSyB_BzB6fWyeWJ7Rb9auA2CHOTPyzTZtvlM
 
 //AIzaSyBRXYQn2i47IoBhiJ14jjM9DjV_lxpV2Vg
   // You can add your custom initial props in the dictionary below.

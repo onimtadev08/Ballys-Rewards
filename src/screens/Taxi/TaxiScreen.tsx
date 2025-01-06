@@ -12,6 +12,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign.js'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Geocoder from 'react-native-geocoder';
 
 const { width: screenWidth } = Dimensions.get('window');
 interface myStates {
@@ -27,6 +28,8 @@ interface myStates {
     Messages: any[];
     latitude: number;
     longitude: number;
+    myAddress: string;
+
 }
 interface myProps {
     navigation: any;
@@ -57,6 +60,7 @@ class TaxiScreen extends Component<myProps, myStates> {
             Messages: [],
             latitude: 0,
             longitude: 0,
+            myAddress: '',
         };
 
 
@@ -88,7 +92,17 @@ class TaxiScreen extends Component<myProps, myStates> {
                     },
                     () => {
 
-                        console.log('aaa');
+                        // Position Geocoding
+                        var NY = {
+                            lat: this.state.latitude,
+                            lng: this.state.longitude
+                        };
+
+                        Geocoder.geocodePosition(NY).then((res: any) => {
+                            console.log(res);
+                            this.setState({ myAddress: res[0].formattedAddress });
+                        })
+                            .catch((err: any) => console.error(err))
 
                         this.mapRef.current.animateToRegion({
                             latitude: this.state.latitude,
@@ -179,8 +193,8 @@ class TaxiScreen extends Component<myProps, myStates> {
                                         zoomControlEnabled={true}
                                         zoomTapEnabled={true}
                                         onRegionChange={(region, description) => {
-                                            console.log(region);
-                                            console.log(description);
+                                            // console.log(region);
+                                            // console.log(description);
                                         }}
                                         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                                         style={styles.map}
@@ -237,7 +251,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                                         </View>
 
                                         <Text style={{ fontSize: 18, flex: 1, color: 'blue', textAlign: 'center' }}>PICK UP</Text>
-                                        <Text style={{ fontSize: 18, flex: 3, textAlign: 'center' }}>YOUR LOCATION</Text>
+                                        <Text style={{ fontSize: 18, flex: 3, textAlign: 'center' }}>{this.state.myAddress}</Text>
                                         <AntDesign style={{}} name='plus' size={30} color={'black'} />
                                     </View>
 
