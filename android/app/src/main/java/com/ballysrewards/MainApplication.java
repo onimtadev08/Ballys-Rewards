@@ -9,7 +9,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.devfd.RNGeocoder.RNGeocoderPackage;
+// import com.devfd.RNGeocoder.RNGeocoderPackage;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       @SuppressWarnings("UnnecessaryLocalVariable")
       List<ReactPackage> packages = new PackageList(this).getPackages();
-      packages.add(new RNGeocoderPackage());
+    //  packages.add(new RNGeocoderPackage());
       // Packages that cannot be autolinked yet can be added manually here, for
       // example:
       // packages.add(new SplashScreenReactPackage());

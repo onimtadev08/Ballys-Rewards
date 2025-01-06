@@ -108,7 +108,7 @@ android {
 
 dependencies {
 
-    compile project(':react-native-geocoder')
+    //compile project(':react-native-geocoder')
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:flipper-integration")

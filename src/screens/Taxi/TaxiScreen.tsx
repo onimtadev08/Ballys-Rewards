@@ -9,10 +9,14 @@ import ButtomNav from '../../components/ButtomNav.tsx';
 import { ColorFirst, ColorSecond, ColorTherd } from '../../data/data.tsx';
 import TopNav from '../../components/TopNav.tsx';
 import AntDesign from 'react-native-vector-icons/AntDesign.js'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Geocoder from 'react-native-geocoder';
+import AddressSearch from '../../components/AddressSearch.tsx';
+import { getAddressFromCoordinates, getDirections } from '../../api/MapApi.tsx';
+import { CommonGeoMetry, CommonRequestPayload, GEOCodeResult, GeoMetry } from '../../model/model.tsx';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+
 
 const { width: screenWidth } = Dimensions.get('window');
 interface myStates {
@@ -29,6 +33,10 @@ interface myStates {
     latitude: number;
     longitude: number;
     myAddress: string;
+    ShowAddressSearch: boolean;
+    geoCodes: any;
+    directions: any;
+    dropLocation: string;
 
 }
 interface myProps {
@@ -61,6 +69,10 @@ class TaxiScreen extends Component<myProps, myStates> {
             latitude: 0,
             longitude: 0,
             myAddress: '',
+            ShowAddressSearch: false,
+            geoCodes: null,
+            directions: null,
+            dropLocation: '',
         };
 
 
@@ -90,19 +102,14 @@ class TaxiScreen extends Component<myProps, myStates> {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude,
                     },
-                    () => {
+                    async () => {
 
                         // Position Geocoding
-                        var NY = {
-                            lat: this.state.latitude,
-                            lng: this.state.longitude
-                        };
+                        // var NY = {
+                        //     lat: this.state.latitude,
+                        //     lng: this.state.longitude
+                        // };
 
-                        Geocoder.geocodePosition(NY).then((res: any) => {
-                            console.log(res);
-                            this.setState({ myAddress: res[0].formattedAddress });
-                        })
-                            .catch((err: any) => console.error(err))
 
                         this.mapRef.current.animateToRegion({
                             latitude: this.state.latitude,
@@ -110,6 +117,21 @@ class TaxiScreen extends Component<myProps, myStates> {
                             latitudeDelta: 0.0,
                             longitudeDelta: 0.007,
                         });
+
+                        // Geocoder.geocodePosition(NY).then((res: any) => {
+                        //     console.log(res);
+                        //     this.setState({ myAddress: res[0].formattedAddress });
+                        // })
+                        //     .catch((err: any) => console.error(err))
+
+                        const myAddress = await getAddressFromCoordinates({
+                            latitude: this.state.latitude,
+                            longitude: this.state.longitude,
+                        }).then((res: any) => {
+                            console.log(res);
+                            this.setState({ myAddress: res });
+                        });
+
 
                     },
                 );
@@ -155,11 +177,27 @@ class TaxiScreen extends Component<myProps, myStates> {
             },
             map: {
                 ...StyleSheet.absoluteFillObject,
-            }
+            },
+            outterSqure: {
+                width: 15,
+                height: 15,
+                borderRadius: 3,
+                backgroundColor: 'transparent',
+                borderColor: '#000',
+                borderWidth: 3,
+                alignItems: 'center',
+                justifyContent: 'center',
+            },
+            innerSqure: {
+                width: 8,
+                height: 8,
+                backgroundColor: '#000',
+                borderRadius: 2,
+            },
         });
 
 
-
+        console.log(this.state.geoCodes?.geometry.location)
 
         return (
             <LinearGradient
@@ -204,6 +242,32 @@ class TaxiScreen extends Component<myProps, myStates> {
                                         mapType='standard'
 
                                     >
+                                        <Polyline
+                                            coordinates={this.state.directions}
+                                            strokeWidth={3}
+                                            strokeColors={['black']}
+                                        />
+                                        <Marker
+                                            anchor={{ x: 0.5, y: 0.5 }}
+                                            coordinate={{
+                                                latitude: this.state.latitude,
+                                                longitude: this.state.longitude,
+                                            }}>
+                                            <FontAwesome5Icon name="dot-circle" color={'#000'} solid size={15} />
+                                        </Marker>
+
+
+                                        {this.state.geoCodes ?
+                                            <Marker
+                                                anchor={{ x: 0.5, y: 0.5 }}
+                                                coordinate={{
+                                                    latitude: this.state.geoCodes.geometry.location.lat,
+                                                    longitude: this.state.geoCodes.geometry.location.lng,
+                                                }}>
+                                                <FontAwesome5Icon name="dot-circle" color={'#000'} solid size={15} />
+                                            </Marker>
+                                            :
+                                            null}
                                     </MapView>
 
                                 </View>
@@ -251,7 +315,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                                         </View>
 
                                         <Text style={{ fontSize: 18, flex: 1, color: 'blue', textAlign: 'center' }}>PICK UP</Text>
-                                        <Text style={{ fontSize: 18, flex: 3, textAlign: 'center' }}>{this.state.myAddress}</Text>
+                                        <Text style={{ fontSize: 12, flex: 2, textAlign: 'center' }}>{this.state.myAddress}</Text>
                                         <AntDesign style={{}} name='plus' size={30} color={'black'} />
                                     </View>
 
@@ -259,8 +323,14 @@ class TaxiScreen extends Component<myProps, myStates> {
 
                                     <View style={{ flexDirection: 'row', flex: 1, width: '90%', marginTop: 10, marginBottom: 10, alignItems: 'center' }}>
                                         <Text style={{ fontSize: 18, flex: 1, color: 'red', textAlign: 'center' }}>DROP</Text>
-                                        <Text style={{ fontSize: 18, flex: 3, textAlign: 'center' }}>DROP LOCATION</Text>
-                                        <AntDesign style={{}} name='plus' size={30} color={'black'} />
+                                        <Text style={{ fontSize: 12, flex: 2, textAlign: 'center' }}>{this.state.dropLocation}</Text>
+                                        <TouchableOpacity onPress={() => {
+                                            this.setState({ ShowAddressSearch: true });
+                                        }}
+                                        >
+                                            <AntDesign style={{}} name='plus' size={30} color={'black'} />
+                                        </TouchableOpacity>
+
                                     </View>
 
                                 </View>
@@ -281,8 +351,39 @@ class TaxiScreen extends Component<myProps, myStates> {
 
                         </View>
 
+                        {this.state.ShowAddressSearch ?
+                            <AddressSearch
+                                onLocationSelect={(geoCodes) => {
 
-                        {/* </ScrollView> */}
+                                    console.log(geoCodes.geometry.location);
+
+                                    this.setState({ ShowAddressSearch: false, geoCodes: geoCodes, dropLocation: geoCodes.formatted_address }, () => {
+
+                                        const dirextion: CommonRequestPayload = {
+                                            origins: {
+                                                lat: this.state.latitude,
+                                                lng: this.state.longitude
+                                            },
+                                            destination: {
+                                                lat: this.state.geoCodes.geometry.location.lat,
+                                                lng: this.state.geoCodes.geometry.location.lng
+                                            }
+                                        }
+
+                                        getDirections(dirextion).then((directions) => {
+                                            this.setState({ directions: directions }, () => {
+                                                this.mapRef.current.fitToCoordinates(directions, {
+                                                    animated: true,
+                                                    edgePadding: { top: 50, right: 10, bottom: 100, left: 10 },
+                                                });
+                                            });
+                                        });
+
+                                    });
+                                }}
+                            />
+                            : null}
+
                         {this.state.showApiSuccsess ?
                             <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
                                 this.setState({ showApiSuccsess: false });
@@ -320,8 +421,11 @@ class TaxiScreen extends Component<myProps, myStates> {
         );
     }
 
+
+
 }
 
 
 
 export default TaxiScreen;
+
