@@ -19,8 +19,6 @@ export function getAddressFromCoordinates({
 }) {
     return new Promise<string>((resolve, reject) => {
 
-        console.log(`https://maps.googleapis.com/maps/api/geocode/json?address=${latitude},${longitude}&key=${myApiKey}`);
-
 
         fetch(
             `https://maps.googleapis.com/maps/api/geocode/json?address=${latitude},${longitude}&key=${myApiKey}`,
@@ -62,7 +60,6 @@ export function getAddressAutoComplete(placeInput: string) {
 
 export function getGeoCode(placeId: string) {
     return new Promise<GEOCodeResult>((resolve, reject) => {
-        console.log(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=${myApiKey}`);
 
         fetch(
             `https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=${myApiKey}`,

@@ -124,7 +124,7 @@ class TaxiDetailsScreen extends Component<myProps, myStates> {
 
 
                         <View style={{ zIndex: 10 }}>
-                            <TopNav navigation={this.props.navigation} titel={'MY TAXI'} />
+                            <TopNav navigation={this.props.navigation} titel={'MY TAXI'} BackButton={true} />
                         </View>
 
                         <ScrollView style={styles.container}>

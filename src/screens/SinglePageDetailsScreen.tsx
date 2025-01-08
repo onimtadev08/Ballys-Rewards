@@ -89,7 +89,7 @@ class SinglePageDetailsScreen extends Component<myProps, myStates> {
 
             if (result.message === 'success') {
 
-                console.log(result);
+
 
                 this.setState({
                     isLoading: false,
@@ -108,7 +108,7 @@ class SinglePageDetailsScreen extends Component<myProps, myStates> {
                 });
             }
         } catch (error) {
-            console.log(error);
+
 
             this.setState({
                 isLoading: false,

@@ -401,13 +401,12 @@ export async function getSinglePageDetailsApi(Page: string) {
             redirect: "follow"
         };
 
-        console.log(getSinglePageDetailsApiUrl + '/' + Page);
+
 
 
         fetch(getSinglePageDetailsApiUrl + '/' + Page, requestOptions)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result);
 
                 resolve(result);
             })
@@ -428,8 +427,6 @@ export async function getWhereToRedeem(MID: string) {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + Token);
-
-        console.log(Token);
 
 
         const raw = JSON.stringify({
@@ -469,9 +466,6 @@ export async function fetchUpgradeDowngradeMessage(MID: string) {
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + Token);
 
-        console.log(Token);
-
-
         const raw = JSON.stringify({
             "strMID": MID
         });
@@ -510,9 +504,6 @@ export async function fetchGiftAndGoodWill(MID: string) {
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + Token);
 
-        console.log(Token);
-
-
         const raw = JSON.stringify({
             "MID": MID
         });
@@ -549,9 +540,6 @@ export async function fetchMyCard(MID: string) {
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + Token);
 
-        console.log(Token);
-
-
         const raw = JSON.stringify({
             "MID": MID
         });
@@ -586,8 +574,6 @@ export async function fetchMyBooking(MID: string) {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + Token);
-
-        console.log(Token);
 
 
         const raw = JSON.stringify({

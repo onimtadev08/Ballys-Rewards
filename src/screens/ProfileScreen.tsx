@@ -238,7 +238,7 @@ class ProfileScreen extends PureComponent<myProps, myStates> {
                                         height={(screenHeight / 100) * 10}
                                         onPress={async () => {
                                             const MID = await AsyncStorage.getItem('MID');
-                                            console.log('MID : ' + MID);
+
                                             this.props.navigation.navigate('MyWallet', { 'PlayerID': MID });
                                         }}
                                     >

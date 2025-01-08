@@ -110,7 +110,6 @@ class WhereToRedeemScreen extends Component<myProps, myStates> {
             if (result.strRturnRes) {
 
                 // Log the result to the console
-                console.log(result);
 
                 // Update the component's state with the retrieved data
                 this.setState({

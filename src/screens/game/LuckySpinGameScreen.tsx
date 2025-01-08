@@ -98,10 +98,9 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                                 : require('./data/slices-for-svg.json')
                                         }
                                         onSpinningStart={() => {
-                                            console.log('onSpinningStart');
+
                                         }}
                                         onSpinningEnd={(_winner: any) => {
-                                            console.log('onSpinningEnd : ', _winner);
                                             this.setState({ isShowWin: true, Wininnings: _winner.value });
                                         }}
                                         backgroundColorOptions={{ luminosity: 'orenge', hue: 'vibrant' }}

@@ -114,11 +114,8 @@ class MyCard extends Component<myProps, myStates> {
 
             const MID = await AsyncStorage.getItem('MID') as string;
 
-            console.log(MID);
 
             const result: any = await fetchMyCard(MID);
-
-            console.log('vv : ', result.MImage, ' : img');
 
 
             if (result.strRturnRes) {
@@ -154,7 +151,7 @@ class MyCard extends Component<myProps, myStates> {
                     CardImg: crdImg,
                     MemberName: await AsyncStorage.getItem('strMName') as string,
                 }, () => {
-                    console.log('img : ', this.state.MemberImg);
+
                 })
 
 
@@ -340,7 +337,7 @@ class MyCard extends Component<myProps, myStates> {
                                                         position: 'absolute',
                                                         alignItems: 'flex-end',
                                                         justifyContent: 'center',
-                                                        backgroundColor:'blue'
+                                                        backgroundColor: 'blue'
                                                     }}>
 
                                                         <Text

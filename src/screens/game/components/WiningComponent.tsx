@@ -1,8 +1,5 @@
 import React from 'react';
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import Octicons from 'react-native-vector-icons/Octicons';
-import moment from 'moment';
+import { Image, Text, View } from 'react-native';
 import { ThousandSeparator } from '../../../utilitis/utilities';
 import GradientButton from '../../../components/GradientButton.tsx';
 interface myProps {
@@ -33,12 +30,21 @@ const WiningComponent: React.FC<myProps> = ({ WiningAmount, onRetry }) => {
                 {/* <Image source={require('../assets/congratz.png')} resizeMode='contain' style={{ width: '100%', height: '50%' }} /> */}
                 {/* https://thumbs.dreamstime.com/b/congratulations-banner-game-ui-awards-red-ribbon-golden-stars-receiving-cartoon-achievement-game-screen-155291159.jpg */}
 
-                <Image
+                {/* <Image
                     source={{
                         uri: 'https://thumbs.dreamstime.com/b/congratulations-banner-game-ui-awards-red-ribbon-golden-stars-receiving-cartoon-achievement-game-screen-155291159.jpg',
                     }}
                     resizeMode="contain"
                     style={{ width: '100%', height: '100%', marginTop: -200 }}
+                /> */}
+
+
+                <Image
+                    source={{
+                        uri: 'https://cdn.pixabay.com/animation/2024/05/02/07/43/07-43-00-535_512.gif',
+                    }}
+                    resizeMode='cover'
+                    style={{ width: '100%', height: '100%', position: 'absolute' }}
                 />
 
                 <Image

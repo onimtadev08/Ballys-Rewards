@@ -1,5 +1,5 @@
 //import liraries
-import React, {  } from 'react';
+import React, { } from 'react';
 import { View, Text, Image, Dimensions, TouchableOpacity, ScrollView, Keyboard } from 'react-native';
 import GradientButtonWithBorder from '../components/GradientButton';
 import TextInput from '../components/TextInput';
@@ -131,7 +131,6 @@ class SigninScrenn extends React.PureComponent<myProps, BallysLoginState> {
                 try {
                     const result = await TempLogin(this.state.PlayerID, this.state.PIN, this.state.Method);
 
-                    console.log(result);
 
                     if (result.strRturnRes) {
 

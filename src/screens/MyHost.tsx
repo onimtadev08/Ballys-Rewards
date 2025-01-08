@@ -98,7 +98,7 @@ class MyHost extends Component<myProps, myStates> {
 
             if (result.strRturnRes) {
 
-                console.log(result.data);
+
 
                 this.setState({
                     isLoading: false,

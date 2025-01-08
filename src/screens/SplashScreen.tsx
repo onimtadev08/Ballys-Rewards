@@ -71,7 +71,6 @@ class SplashScreen extends Component<myProps, myStates> {
             this.setState({ indeterminate: false });
             interval = setInterval(() => {
                 this.setState(prevProgress => ({ progress: Math.min(1, prevProgress.progress + Math.random() / 5) }), () => {
-                    console.log('clear : ', this.state.progress);
                     if (this.state.progress === 1) {
                         clearTimeout(timer);
                         clearInterval(interval);
@@ -106,8 +105,6 @@ class SplashScreen extends Component<myProps, myStates> {
             } else {
 
                 const result = await TempLogin(MID, PIN, 'F');
-
-                console.log(result);
 
                 if (result.strRturnRes) {
 

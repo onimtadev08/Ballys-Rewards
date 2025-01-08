@@ -100,8 +100,6 @@ class ManuScreen extends React.PureComponent<myProps> {
                                     Titel={"Account Settings"}
                                     Icon2="manage-accounts"
                                     onPress={(): void => {
-                                        console.log('lll');
-                                        
                                         this.props.navigation.navigate('AccountSettingsScreen', { 'PlayerID': this.props.route.params.PlayerID });
                                     }}
                                 />

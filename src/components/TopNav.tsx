@@ -193,8 +193,6 @@ const TopNav: React.FC<propsData> = ({
                                     }
                                 } else {
                                     if (BackButton) {
-                                        console.log('aaa');
-
                                         navigation.goBack();
                                     } else {
 

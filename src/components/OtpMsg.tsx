@@ -1,5 +1,13 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, TextInput, Keyboard, ImageBackground } from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Dimensions,
+    TextInput,
+    Keyboard,
+    ImageBackground,
+} from 'react-native';
 import { ColorTherd } from '../data/data';
 
 const { width, height } = Dimensions.get('window');
@@ -12,7 +20,7 @@ interface errorMsgProps {
     onPressCancel: () => void;
     onReturnOtp: (otp: string) => void;
     onResendOtp: () => void;
-    onPressDone: (otp: string) => void
+    onPressDone: (otp: string) => void;
 }
 const OtpMsg: React.FC<errorMsgProps> = ({
     msg,
@@ -58,43 +66,39 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                 clearInterval(interval);
             }
         }, 1000);
-    }
-
-
+    };
 
     React.useEffect(() => {
-        if ((Text1 + '' + Text2 + '' + Text3 + '' + Text4) !== '') {
+        if (Text1 + '' + Text2 + '' + Text3 + '' + Text4 !== '') {
             onReturnOtp(Text1 + '' + Text2 + '' + Text3 + '' + Text4);
             setText1('');
             setText2('');
             setText3('');
             setText4('');
         }
-
     }, [Text4]);
 
     return (
-        <View style={{
-            zIndex: 50,
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-            backgroundColor: 'rgba(0,0,0,0.4)',
-            overflow: 'hidden',
-        }}>
-
-            <ImageBackground source={require('../images/meg.jpg')}
+        <View
+            style={{
+                zIndex: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
+                backgroundColor: 'rgba(0,0,0,0.4)',
+                overflow: 'hidden',
+            }}>
+            <ImageBackground
+                source={require('../images/meg.jpg')}
                 blurRadius={100}
-                resizeMode='stretch'
+                resizeMode="stretch"
                 style={{
                     width: '100%',
                     height: '100%',
                     opacity: 1,
-                }}>
-
-            </ImageBackground>
+                }}></ImageBackground>
             <View
                 style={{
                     backgroundColor: ColorTherd,
@@ -110,28 +114,28 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                 }}>
                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                     <View style={{ flexDirection: 'row' }}>
-                        <Text style={{
-                            flex: 5,
-                            margin: 20,
-                            textAlign: 'center',
-                            color: 'white',
-                            fontSize: 18,
-                            fontWeight: '500',
-                        }}>{msg}</Text>
-
-
-
+                        <Text
+                            style={{
+                                flex: 5,
+                                margin: 20,
+                                textAlign: 'center',
+                                color: 'white',
+                                fontSize: 18,
+                                fontWeight: '500',
+                            }}>
+                            {msg}
+                        </Text>
                     </View>
-                    <View style={{
-                        flex: 1,
-                        width: '100%',
-                        height: '100%',
-                        marginTop: 10,
-                        flexDirection: 'row'
-                    }}>
-
+                    <View
+                        style={{
+                            flex: 1,
+                            width: '100%',
+                            height: '100%',
+                            marginTop: 10,
+                            flexDirection: 'row',
+                        }}>
                         <TextInput
-                            keyboardType='number-pad'
+                            keyboardType="number-pad"
                             style={{
                                 color: 'white',
                                 borderColor: 'gold',
@@ -143,21 +147,19 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                 textAlign: 'center',
                             }}
                             ref={ref_input1}
-                            onChangeText={(val) => {
+                            onChangeText={val => {
                                 if (val.length > 0) {
                                     setText1(val);
                                     ref_input2.current?.focus();
-                                }else{
+                                } else {
                                     setText1('');
                                 }
-                               
                             }}
                             maxLength={1}
-                            value={Text1}
-                        ></TextInput>
+                            value={Text1}></TextInput>
 
                         <TextInput
-                            keyboardType='number-pad'
+                            keyboardType="number-pad"
                             style={{
                                 color: 'white',
                                 borderColor: 'gold',
@@ -166,24 +168,23 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                 height: 50,
                                 borderRadius: 10,
                                 margin: 10,
-                                textAlign: 'center'
+                                textAlign: 'center',
                             }}
                             ref={ref_input2}
-                            onChangeText={(val) => {
+                            onChangeText={val => {
                                 if (val.length > 0) {
                                     setText2(val);
                                     ref_input3.current?.focus();
-                                }else{
+                                } else {
                                     setText2('');
                                     ref_input1.current?.focus();
                                 }
                             }}
                             maxLength={1}
-                            value={Text2}
-                        ></TextInput>
+                            value={Text2}></TextInput>
 
                         <TextInput
-                            keyboardType='number-pad'
+                            keyboardType="number-pad"
                             style={{
                                 color: 'white',
                                 borderColor: 'gold',
@@ -192,24 +193,23 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                 height: 50,
                                 borderRadius: 10,
                                 margin: 10,
-                                textAlign: 'center'
+                                textAlign: 'center',
                             }}
                             ref={ref_input3}
-                            onChangeText={(val) => {
+                            onChangeText={val => {
                                 if (val.length > 0) {
                                     setText3(val);
                                     ref_input4.current?.focus();
-                                }else{
+                                } else {
                                     setText3('');
                                     ref_input2.current?.focus();
                                 }
                             }}
                             maxLength={1}
-                            value={Text3}
-                        ></TextInput>
+                            value={Text3}></TextInput>
 
                         <TextInput
-                            keyboardType='number-pad'
+                            keyboardType="number-pad"
                             style={{
                                 color: 'white',
                                 borderColor: 'gold',
@@ -218,21 +218,19 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                 height: 50,
                                 borderRadius: 10,
                                 margin: 10,
-                                textAlign: 'center'
+                                textAlign: 'center',
                             }}
                             ref={ref_input4}
-                            onChangeText={(val) => {
+                            onChangeText={val => {
                                 if (val.length > 0) {
                                     setText4(val);
-                                }else{
+                                } else {
                                     setText4('');
                                     ref_input3.current?.focus();
                                 }
                             }}
                             maxLength={1}
-                            value={Text4}
-                        ></TextInput>
-
+                            value={Text4}></TextInput>
                     </View>
                     <TouchableOpacity
                         disabled={isEnable}
@@ -249,10 +247,10 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                         <View>
                             <Text
                                 style={{
-                                    color: isEnable ? 'black' : 'white', fontSize: 16
+                                    color: isEnable ? 'black' : 'white',
+                                    fontSize: 16,
                                 }}>
-                                Resend Code{' '}
-                                {isEnable ? '00:' + second : null}
+                                Resend Code {isEnable ? '00:' + second : null}
                             </Text>
                         </View>
                     </TouchableOpacity>
@@ -272,7 +270,9 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                 Keyboard.dismiss;
                                 onPressCancel();
                             }}>
-                            <Text style={{ color: 'white', fontWeight: '500', fontSize: 18 }}>Cancel</Text>
+                            <Text style={{ color: 'white', fontWeight: '500', fontSize: 18 }}>
+                                Cancel
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{
@@ -306,7 +306,10 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                     val = false;
                                 }
 
-                                if (((Text1 + '' + Text2 + '' + Text3 + '' + Text4) !== '') && val) {
+                                if (
+                                    Text1 + '' + Text2 + '' + Text3 + '' + Text4 !== '' &&
+                                    val
+                                ) {
                                     onReturnOtp(Text1 + '' + Text2 + '' + Text3 + '' + Text4);
                                     setText1('');
                                     setText2('');
@@ -314,14 +317,14 @@ const OtpMsg: React.FC<errorMsgProps> = ({
                                     setText4('');
                                 }
                             }}>
-                            <Text style={{ color: 'black', fontWeight: '500', fontSize: 18 }}>Verify</Text>
+                            <Text style={{ color: 'black', fontWeight: '500', fontSize: 18 }}>
+                                Verify
+                            </Text>
                         </TouchableOpacity>
                     </View>
-
-
                 </View>
             </View>
         </View>
     );
-}
-export default OtpMsg;                                            
+};
+export default OtpMsg;

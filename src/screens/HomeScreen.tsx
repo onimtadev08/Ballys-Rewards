@@ -79,7 +79,6 @@ class HomeScreen extends Component<myProps, myStates> {
     componentDidMount() {
 
         this.unsubscribe = this.props.navigation.addListener('focus', () => {
-            console.log('focus');
             this.MainHomeLoad();
         });
 
@@ -101,7 +100,7 @@ class HomeScreen extends Component<myProps, myStates> {
         this.setState({ isLoading: true });
         try {
             const result: any = await Home(this.state.PlayerID);
-            console.log(result);
+
 
             if (result.strRturnRes) {
 

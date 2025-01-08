@@ -21,7 +21,7 @@ const LuckyBoxComponent: React.FC<myProps> = ({
 
 
     React.useEffect(() => {
-        console.log(isWin);
+
 
         if (isWin) {
             setTimeout(() => {
@@ -36,7 +36,7 @@ const LuckyBoxComponent: React.FC<myProps> = ({
                 isWin ? require('../assets/LuckyBox/gif/luckyBoxCard4.gif') : require('../assets/LuckyBox/png/luckyBoxBlue.png');
 
     React.useEffect(() => {
-        console.log(imageSource);
+
 
 
     }, [imageSource]);
@@ -52,6 +52,7 @@ const LuckyBoxComponent: React.FC<myProps> = ({
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
+
             <TouchableOpacity disabled={isDisabled} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}
                 onPress={() => {
                     setisWin(!isWin);
@@ -67,7 +68,7 @@ const LuckyBoxComponent: React.FC<myProps> = ({
 
 
                 <Image key={imageSource} source={imageSource} resizeMode={isWin ? 'center' : 'contain'} style={{ width: '80%', height: '80%', }} />
-
+                {/* <Text style={{ color: 'red' }}>{winningAmount}</Text> */}
             </TouchableOpacity>
 
             {/* <Image source={require('../assets/luckyBoxBack.png')} resizeMode='center' style={{ width: '100%', height: '100%', position: 'absolute' }} /> */}

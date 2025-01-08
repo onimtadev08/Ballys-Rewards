@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { BackHandler, View, StyleSheet, ScrollView, Dimensions, SafeAreaView, Text, TouchableOpacity, Image } from 'react-native';
+import {
+    BackHandler,
+    View,
+    StyleSheet,
+    ScrollView,
+    Dimensions,
+    SafeAreaView,
+    Text,
+    TouchableOpacity,
+    Image,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SuccsessMsg from '../../components/SuccsessMsg.tsx';
 import InfoMsg from '../../components/InfoMsg.tsx';
@@ -8,15 +18,18 @@ import Loader from '../../components/Loader.tsx';
 import ButtomNav from '../../components/ButtomNav.tsx';
 import { ColorFirst, ColorSecond, ColorTherd } from '../../data/data.tsx';
 import TopNav from '../../components/TopNav.tsx';
-import AntDesign from 'react-native-vector-icons/AntDesign.js'
+import AntDesign from 'react-native-vector-icons/AntDesign.js';
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AddressSearch from '../../components/AddressSearch.tsx';
-import { getAddressFromCoordinates, getDirections } from '../../api/MapApi.tsx';
-import { CommonGeoMetry, CommonRequestPayload, GEOCodeResult, GeoMetry } from '../../model/model.tsx';
+import {
+    getAddressFromCoordinates,
+    getDirections,
+    getDistanceAndDuration,
+} from '../../api/MapApi.tsx';
+import { CommonRequestPayload, Rows } from '../../model/model.tsx';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-
 
 const { width: screenWidth } = Dimensions.get('window');
 interface myStates {
@@ -37,22 +50,22 @@ interface myStates {
     geoCodes: any;
     directions: any;
     dropLocation: string;
-
+    distance: string;
+    duration: string;
 }
 interface myProps {
     navigation: any;
     router: any;
 }
 
-
 class TaxiScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
-    scrollRef: React.RefObject<ScrollView>
-    mapRef: any
+    scrollRef: React.RefObject<ScrollView>;
+    mapRef: any;
 
     constructor(props: any) {
-        super(props)
+        super(props);
         this.scrollRef = React.createRef<ScrollView>();
         this.mapRef = React.createRef();
         this.state = {
@@ -72,11 +85,10 @@ class TaxiScreen extends Component<myProps, myStates> {
             ShowAddressSearch: false,
             geoCodes: null,
             directions: null,
-            dropLocation: '',
+            dropLocation: 'DROP LOCATION',
+            distance: '',
+            duration: '',
         };
-
-
-
     }
 
     componentWillUnmount() {
@@ -85,13 +97,11 @@ class TaxiScreen extends Component<myProps, myStates> {
 
     // Fetches navigation reference and sets up interval on mount
     componentDidMount() {
-
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
         this.navigation = this.props.navigation;
 
         this.getCurrentLocation();
-
     }
 
     getCurrentLocation() {
@@ -103,13 +113,11 @@ class TaxiScreen extends Component<myProps, myStates> {
                         longitude: position.coords.longitude,
                     },
                     async () => {
-
                         // Position Geocoding
                         // var NY = {
                         //     lat: this.state.latitude,
                         //     lng: this.state.longitude
                         // };
-
 
                         this.mapRef.current.animateToRegion({
                             latitude: this.state.latitude,
@@ -119,7 +127,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                         });
 
                         // Geocoder.geocodePosition(NY).then((res: any) => {
-                        //     console.log(res);
+
                         //     this.setState({ myAddress: res[0].formattedAddress });
                         // })
                         //     .catch((err: any) => console.error(err))
@@ -128,11 +136,8 @@ class TaxiScreen extends Component<myProps, myStates> {
                             latitude: this.state.latitude,
                             longitude: this.state.longitude,
                         }).then((res: any) => {
-                            console.log(res);
                             this.setState({ myAddress: res });
                         });
-
-
                     },
                 );
             },
@@ -143,15 +148,12 @@ class TaxiScreen extends Component<myProps, myStates> {
         );
     }
 
-    handleBackPress
-        = () => {
-            // Handle back button press logic here
-            return true; // Prevent default back behavior
-        };
-
+    handleBackPress = () => {
+        // Handle back button press logic here
+        return true; // Prevent default back behavior
+    };
 
     render(): React.ReactNode {
-
         const styles = StyleSheet.create({
             safeArea: {
                 backgroundColor: 'rgba(0,0,0,0.0)',
@@ -160,7 +162,8 @@ class TaxiScreen extends Component<myProps, myStates> {
             container: {
                 flex: 1,
                 width: screenWidth,
-            }, card: {
+            },
+            card: {
                 backgroundColor: '#fff',
                 borderRadius: 8,
                 shadowColor: '#000',
@@ -169,7 +172,8 @@ class TaxiScreen extends Component<myProps, myStates> {
                 shadowRadius: 4,
                 elevation: 3,
                 marginBottom: 20,
-            }, buttonText: {
+            },
+            buttonText: {
                 fontWeight: 'bold',
                 color: '#000000',
                 fontSize: 18,
@@ -196,52 +200,74 @@ class TaxiScreen extends Component<myProps, myStates> {
             },
         });
 
-
-        console.log(this.state.geoCodes?.geometry.location)
-
         return (
             <LinearGradient
                 colors={[ColorFirst, ColorSecond, ColorTherd]}
-                style={styles.container} >
-
+                style={styles.container}>
                 <SafeAreaView style={styles.safeArea}>
-
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-
-
                         <View style={{ zIndex: 10 }}>
-                            <TopNav navigation={this.props.navigation} BackButton={true} titel={'MY TAXI'} />
+                            <TopNav
+                                navigation={this.props.navigation}
+                                BackButton={true}
+                                titel={'MY TAXI'}
+                            />
                         </View>
 
                         {/* <ScrollView style={styles.container}> */}
 
                         <View style={{ flex: 1, flexDirection: 'column' }}>
-
                             <View style={{ flex: 2 }}>
+                                <View style={{ width: '100%', height: '100%' }}>
 
-                                <View
-                                    style={{ width: '100%', height: '100%' }}
-                                >
+
+                                    {this.state.distance !== '' ?
+
+                                        <View
+                                            style={{
+                                                zIndex: 1,
+                                                position: 'absolute',
+                                                width: '100%',
+                                                alignItems: 'center'
+                                            }}>
+                                            <View
+                                                style={{
+                                                    backgroundColor: 'rgba(0,0,0,0.5)',
+                                                    width: '95%',
+                                                    height: '100%',
+                                                    flexDirection: 'row',
+                                                    marginTop: 5,
+                                                    borderRadius: 5,
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                }}>
+                                                <Text style={{ color: 'white', flex: 1, marginTop: 5, marginBottom: 5, marginStart: 5, fontWeight: 'bold' }}>
+                                                    Distance : {this.state.distance}
+                                                </Text>
+                                                <Text style={{ color: 'white', flex: 1, marginTop: 5, marginBottom: 5, fontWeight: 'bold' }}>
+                                                    Duration : {this.state.duration}
+                                                </Text>
+                                            </View>
+                                        </View>
+
+                                        : null}
+
+
 
                                     <MapView
                                         ref={this.mapRef}
                                         zoomEnabled={true}
                                         zoomControlEnabled={true}
                                         zoomTapEnabled={true}
-                                        onRegionChange={(region, description) => {
-                                            // console.log(region);
-                                            // console.log(description);
-                                        }}
+                                        onRegionChange={(region, description) => { }}
                                         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                                         style={styles.map}
                                         showsCompass={true}
                                         showsUserLocation={true}
                                         //    showsMyLocationButton={true}
-                                        mapType='standard'
-
-                                    >
+                                        mapType="standard">
                                         <Polyline
                                             coordinates={this.state.directions}
                                             strokeWidth={3}
@@ -253,46 +279,60 @@ class TaxiScreen extends Component<myProps, myStates> {
                                                 latitude: this.state.latitude,
                                                 longitude: this.state.longitude,
                                             }}>
-                                            <FontAwesome5Icon name="dot-circle" color={'#000'} solid size={15} />
+                                            <FontAwesome5Icon
+                                                name="dot-circle"
+                                                color={'#000'}
+                                                solid
+                                                size={15}
+                                            />
                                         </Marker>
 
-
-                                        {this.state.geoCodes ?
+                                        {this.state.geoCodes ? (
                                             <Marker
                                                 anchor={{ x: 0.5, y: 0.5 }}
                                                 coordinate={{
                                                     latitude: this.state.geoCodes.geometry.location.lat,
                                                     longitude: this.state.geoCodes.geometry.location.lng,
                                                 }}>
-                                                <FontAwesome5Icon name="dot-circle" color={'#000'} solid size={15} />
+                                                <FontAwesome5Icon
+                                                    name="dot-circle"
+                                                    color={'#000'}
+                                                    solid
+                                                    size={15}
+                                                />
                                             </Marker>
-                                            :
-                                            null}
+                                        ) : null}
                                     </MapView>
-
                                 </View>
                             </View>
 
-
-
-
-
-                            <View style={{ flex: 1, backgroundColor: ColorTherd, alignItems: 'center' }}>
-
-
-
-                                <View style={[
-                                    styles.card,
-                                    {
-                                        width: '85%',
-                                        height: '50%',
-                                        alignItems: 'center',
-                                        backgroundColor: 'white',
-                                        top: -80,
-                                        flexDirection: 'column'
-                                    }]}>
-                                    <View style={{ flexDirection: 'row', flex: 1, width: '90%', marginTop: 10, marginBottom: 10, alignItems: 'center' }}>
-
+                            <View
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: ColorTherd,
+                                    alignItems: 'center',
+                                }}>
+                                <View
+                                    style={[
+                                        styles.card,
+                                        {
+                                            width: '85%',
+                                            height: '50%',
+                                            alignItems: 'center',
+                                            backgroundColor: 'white',
+                                            top: -80,
+                                            flexDirection: 'column',
+                                        },
+                                    ]}>
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            flex: 1,
+                                            width: '90%',
+                                            marginTop: 10,
+                                            marginBottom: 10,
+                                            alignItems: 'center',
+                                        }}>
                                         <View
                                             style={{
                                                 alignItems: 'flex-end',
@@ -302,8 +342,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                                                 borderRadius: 10,
                                                 top: -70,
                                                 right: -30,
-                                            }}
-                                        >
+                                            }}>
                                             <MaterialIcons
                                                 style={{ margin: 10 }}
                                                 size={30}
@@ -314,118 +353,192 @@ class TaxiScreen extends Component<myProps, myStates> {
                                             />
                                         </View>
 
-                                        <Text style={{ fontSize: 18, flex: 1, color: 'blue', textAlign: 'center' }}>PICK UP</Text>
-                                        <Text style={{ fontSize: 12, flex: 2, textAlign: 'center' }}>{this.state.myAddress}</Text>
-                                        <AntDesign style={{}} name='plus' size={30} color={'black'} />
+                                        <Text
+                                            style={{
+                                                fontSize: 18,
+                                                flex: 1,
+                                                color: 'blue',
+                                                textAlign: 'center',
+                                            }}>
+                                            PICK UP
+                                        </Text>
+                                        <Text style={{ fontSize: 12, flex: 2, textAlign: 'center' }}>
+                                            {this.state.myAddress}
+                                        </Text>
+                                        <AntDesign
+                                            style={{}}
+                                            name="plus"
+                                            size={30}
+                                            color={'black'}
+                                        />
                                     </View>
 
-                                    <View style={{ width: '80%', height: 1, backgroundColor: 'gray' }} />
+                                    <View
+                                        style={{ width: '80%', height: 1, backgroundColor: 'gray' }}
+                                    />
 
-                                    <View style={{ flexDirection: 'row', flex: 1, width: '90%', marginTop: 10, marginBottom: 10, alignItems: 'center' }}>
-                                        <Text style={{ fontSize: 18, flex: 1, color: 'red', textAlign: 'center' }}>DROP</Text>
-                                        <Text style={{ fontSize: 12, flex: 2, textAlign: 'center' }}>{this.state.dropLocation}</Text>
-                                        <TouchableOpacity onPress={() => {
-                                            this.setState({ ShowAddressSearch: true });
-                                        }}
-                                        >
-                                            <AntDesign style={{}} name='plus' size={30} color={'black'} />
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            flex: 1,
+                                            width: '90%',
+                                            marginTop: 10,
+                                            marginBottom: 10,
+                                            alignItems: 'center',
+                                        }}>
+                                        <Text
+                                            style={{
+                                                fontSize: 18,
+                                                flex: 1,
+                                                color: 'red',
+                                                textAlign: 'center',
+                                            }}>
+                                            DROP
+                                        </Text>
+                                        <Text style={{ fontSize: 12, flex: 2, textAlign: 'center' }}>
+                                            {this.state.dropLocation}
+                                        </Text>
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                this.setState({ ShowAddressSearch: true });
+                                            }}>
+                                            <AntDesign
+                                                style={{}}
+                                                name="plus"
+                                                size={30}
+                                                color={'black'}
+                                            />
                                         </TouchableOpacity>
-
                                     </View>
-
                                 </View>
 
-
-                                <View style={{ top: -80, height: '20%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                                    <TouchableOpacity style={{ height: 55, width: '100%', justifyContent: 'center' }} onPress={() => {
-                                        this.props.navigation.navigate('TaxiDetailsScreen');
+                                <View
+                                    style={{
+                                        top: -80,
+                                        height: '20%',
+                                        width: '100%',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
                                     }}>
-                                        <Image source={require('../../images/svgtopng/Button.png')}
-                                            style={{ width: '100%', height: '100%' }} resizeMode='contain' />
-                                        <Text style={{ position: 'absolute', textAlign: 'center', width: '100%', fontSize: 20 }}>BOOK NOW</Text>
+                                    <TouchableOpacity
+                                        style={{
+                                            height: 55,
+                                            width: '100%',
+                                            justifyContent: 'center',
+                                        }}
+                                        onPress={() => {
+                                            this.props.navigation.navigate('TaxiDetailsScreen');
+                                        }}>
+                                        <Image
+                                            source={require('../../images/svgtopng/Button.png')}
+                                            style={{ width: '100%', height: '100%' }}
+                                            resizeMode="contain"
+                                        />
+                                        <Text
+                                            style={{
+                                                position: 'absolute',
+                                                textAlign: 'center',
+                                                width: '100%',
+                                                fontSize: 20,
+                                            }}>
+                                            BOOK NOW
+                                        </Text>
                                     </TouchableOpacity>
                                 </View>
-
-
                             </View>
-
                         </View>
 
-                        {this.state.ShowAddressSearch ?
+                        {this.state.ShowAddressSearch ? (
                             <AddressSearch
-                                onLocationSelect={(geoCodes) => {
+                                onLocationSelect={geoCodes => {
+                                    this.setState(
+                                        {
+                                            ShowAddressSearch: false,
+                                            geoCodes: geoCodes,
+                                            dropLocation: geoCodes.formatted_address,
+                                        },
+                                        () => {
+                                            const dirextion: CommonRequestPayload = {
+                                                origins: {
+                                                    lat: this.state.latitude,
+                                                    lng: this.state.longitude,
+                                                },
+                                                destination: {
+                                                    lat: this.state.geoCodes.geometry.location.lat,
+                                                    lng: this.state.geoCodes.geometry.location.lng,
+                                                },
+                                            };
 
-                                    console.log(geoCodes.geometry.location);
+                                            getDirections(dirextion).then(directions => {
+                                                this.setState({ directions: directions }, () => {
+                                                    getDistanceAndDuration(dirextion).then(
+                                                        (distance: Rows[]) => {
+                                                            this.setState({
+                                                                distance: distance[0].elements[0].distance.text,
+                                                                duration: distance[0].elements[0].duration.text,
+                                                            });
+                                                        },
+                                                    );
 
-                                    this.setState({ ShowAddressSearch: false, geoCodes: geoCodes, dropLocation: geoCodes.formatted_address }, () => {
-
-                                        const dirextion: CommonRequestPayload = {
-                                            origins: {
-                                                lat: this.state.latitude,
-                                                lng: this.state.longitude
-                                            },
-                                            destination: {
-                                                lat: this.state.geoCodes.geometry.location.lat,
-                                                lng: this.state.geoCodes.geometry.location.lng
-                                            }
-                                        }
-
-                                        getDirections(dirextion).then((directions) => {
-                                            this.setState({ directions: directions }, () => {
-                                                this.mapRef.current.fitToCoordinates(directions, {
-                                                    animated: true,
-                                                    edgePadding: { top: 50, right: 10, bottom: 100, left: 10 },
+                                                    this.mapRef.current.fitToCoordinates(directions, {
+                                                        animated: true,
+                                                        edgePadding: {
+                                                            top: 50,
+                                                            right: 10,
+                                                            bottom: 100,
+                                                            left: 10,
+                                                        },
+                                                    });
                                                 });
                                             });
-                                        });
-
-                                    });
+                                        },
+                                    );
                                 }}
                             />
-                            : null}
-
-                        {this.state.showApiSuccsess ?
-                            <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
-                                this.setState({ showApiSuccsess: false });
-                            }} />
-                            : null}
-                        {this.state.showApiError ?
-                            <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
-                                this.setState({ showApiError: false });
-                            }} />
-                            : null}
-                        {this.state.showApiInfo ?
-                            <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
-                                this.setState({ showApiInfo: false });
-                            }} />
-                            : null}
-                        {this.state.isLoading ? (
-                            <Loader />
                         ) : null}
-                        <View style={{
-                            zIndex: 1,
-                            left: 0,
-                            bottom: 0,
-                            right: 0
-                            , position: 'absolute',
-                            height: '15%',
-                            backgroundColor: ColorTherd
-                        }}>
-                            <ButtomNav navigation={this.props.navigation}
-                            ></ButtomNav>
+
+                        {this.state.showApiSuccsess ? (
+                            <SuccsessMsg
+                                msg={this.state.showApiSuccsessMsg}
+                                onPress={() => {
+                                    this.setState({ showApiSuccsess: false });
+                                }}
+                            />
+                        ) : null}
+                        {this.state.showApiError ? (
+                            <ErrorMsg
+                                msg={this.state.showApiErrorMsg}
+                                onPress={() => {
+                                    this.setState({ showApiError: false });
+                                }}
+                            />
+                        ) : null}
+                        {this.state.showApiInfo ? (
+                            <InfoMsg
+                                msg={this.state.showApiInfoMsg}
+                                onPress={() => {
+                                    this.setState({ showApiInfo: false });
+                                }}
+                            />
+                        ) : null}
+                        {this.state.isLoading ? <Loader /> : null}
+                        <View
+                            style={{
+                                zIndex: 1,
+                                left: 0,
+                                bottom: 0,
+                                right: 0,
+                                position: 'absolute',
+                                height: '15%',
+                                backgroundColor: ColorTherd,
+                            }}>
+                            <ButtomNav navigation={this.props.navigation}></ButtomNav>
                         </View>
                     </LinearGradient>
-                </SafeAreaView >
-
-            </LinearGradient >
+                </SafeAreaView>
+            </LinearGradient>
         );
     }
-
-
-
 }
 
-
-
 export default TaxiScreen;
-

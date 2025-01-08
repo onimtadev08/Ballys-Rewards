@@ -16,8 +16,9 @@ const CustomeTextInput: FC<CustomeTextInputProps> = props => {
             <TextInput
                 placeholderTextColor={'#63666b'}
                 style={{
-                    height: 36,
+                    borderRadius: 5,
                     paddingTop: 10,
+                    paddingBottom: 10,
                     paddingLeft: 15,
                     fontFamily: 'Asap-Regular',
                     color: '#000',
@@ -33,8 +34,9 @@ export default CustomeTextInput;
 
 const styles = StyleSheet.create({
     mainContainer: {
+        justifyContent: 'center',
+        borderRadius: 5,
         backgroundColor: '#E8E8E8',
         width: 273,
-        height: 35,
     },
 });

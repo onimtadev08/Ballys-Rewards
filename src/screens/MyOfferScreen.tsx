@@ -115,12 +115,8 @@ class MyOfferScreen extends React.Component<myProps, myStates> {
 
             const MID = await AsyncStorage.getItem('MID') as string;
 
-            console.log(MID);
-
 
             const result: any = await fetchGiftAndGoodWill(MID);
-
-            console.log(result);
 
 
             if (result.strRturnRes) {

@@ -149,7 +149,6 @@ class MyBookings extends Component<myProps, myStates> {
 
             const result: any = await fetchMyBooking(MID);
 
-            console.log(result);
 
 
             if (result.strRturnRes) {

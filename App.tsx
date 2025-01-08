@@ -7,7 +7,7 @@ import Navigation from './src/components/Navigation';
 import SplashScreen from 'react-native-splash-screen';
 
 // ios run ## npm run ios -- --udid="F27F732D-763A-407E-B054-5171302504A5"
-
+// npm run ios -- --udid="00008120-001238D12652201E"
 
 // create a component
 const App = () => {
