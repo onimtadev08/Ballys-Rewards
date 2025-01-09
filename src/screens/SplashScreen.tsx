@@ -7,6 +7,7 @@ import * as Progress from 'react-native-progress';
 
 
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
+import { LocationPermissionStatus } from '../utilitis/utilities.ts';
 
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -61,7 +62,7 @@ class SplashScreen extends Component<myProps, myStates> {
         // setTimeout(() => {
         //     this.CheckLogin();
         // }, 3000);
-
+        LocationPermissionStatus();
         this.progressBar();
 
     }

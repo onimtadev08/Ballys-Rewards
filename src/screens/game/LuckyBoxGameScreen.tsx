@@ -16,6 +16,7 @@ import LuckyBoxComponent from './components/LuckyBoxComponent.tsx';
 import WiningComponent from './components/WiningComponent.tsx';
 import { Box, TotalWining } from './gameModel/gameModel.tsx';
 import TempWiningsComponent from './components/tempWiningsComponent.tsx';
+import RecesntWiningsComponent from './components/RecesntWiningsComponent.tsx';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -181,13 +182,27 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
 
                     } else {
 
-                        const data = this.state.TotalWinings;
-                        data.push({ id: this.state.TotalWinings.length, Amount: Win });
+                        if (this.state.TotalWinings.length > 1) {
 
-                        this.setState({ TotalWinings: data, isDisabled: false }, () => {
-                            this.setState({ BoxData: this.shuffle(this.myArray) });
-                        });
+                            const data = this.state.TotalWinings;
+                            data.push({ id: this.state.TotalWinings.length, Amount: Win });
 
+                            const sum = data.reduce((accumulator, currentValue) => accumulator + currentValue.Amount, 0);
+                            console.log(sum);
+
+                            this.setState({ TotalWinings: data, isWin: true, Wininnings: Number(sum), isDisabled: false }, () => {
+                                this.setState({ BoxData: this.shuffle(this.myArray) });
+                            });
+
+                        } else {
+
+                            const data = this.state.TotalWinings;
+                            data.push({ id: this.state.TotalWinings.length, Amount: Win });
+
+                            this.setState({ TotalWinings: data, isDisabled: false }, () => {
+                                this.setState({ BoxData: this.shuffle(this.myArray) });
+                            });
+                        }
                     }
                 }, 3000);
             });
@@ -210,6 +225,8 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
                                 titel={'LUCKY PICK'}
                             />
                         </View>
+
+                        <RecesntWiningsComponent Wimimgs={this.state.TotalWinings} />
 
                         {this.state.tempisWin ?
                             <View style={{ width: '100%', height: '100%', position: 'absolute', zIndex: 1 }}>

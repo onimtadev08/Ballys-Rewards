@@ -1,7 +1,59 @@
-import { Platform } from 'react-native';
+import { PermissionsAndroid, Platform } from 'react-native';
 import Permissions, { PERMISSIONS } from 'react-native-permissions';
 
 export const myApiKey = 'AIzaSyBRXYQn2i47IoBhiJ14jjM9DjV_lxpV2Vg'; //'AIzaSyBRXYQn2i47IoBhiJ14jjM9DjV_lxpV2Vg';
+
+export const LocationPermissionStatus = async () => {
+  if (Platform.OS === 'ios') {
+    const response = await Permissions.checkMultiple([
+      PERMISSIONS.IOS.LOCATION_ALWAYS,
+      PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+    ]);
+    if (
+      response['ios.permission.LOCATION_ALWAYS'] === 'blocked' ||
+      response['ios.permission.LOCATION_WHEN_IN_USE'] === 'blocked' ||
+      response['ios.permission.LOCATION_ALWAYS'] === 'denied' ||
+      response['ios.permission.LOCATION_WHEN_IN_USE'] === 'denied'
+    ) {
+      const permision = await LocationRequestPermission();
+      return permision;
+    }
+  } else {
+    const response = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+    console.log('response : ', response);
+
+    console.log(
+      'response : ', response.toString() !== PermissionsAndroid.RESULTS.GRANTED);
+
+
+    if (response.toString() !== PermissionsAndroid.RESULTS.GRANTED) {
+      const permision = await LocationRequestPermission();
+      return permision;
+    }
+  }
+};
+
+const LocationRequestPermission = async () => {
+  if (Platform.OS === 'ios') {
+    const response = await Permissions.requestMultiple([
+      PERMISSIONS.IOS.LOCATION_ALWAYS,
+      PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+    ]);
+    return (
+      response['ios.permission.LOCATION_ALWAYS'] ||
+      response['ios.permission.LOCATION_WHEN_IN_USE']
+    );
+  } else {
+    const reponse = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+    console.log('reponse : ', reponse);
+
+    return reponse;
+  }
+};
 
 export const permissionStatus = async () => {
   if (Platform.OS === 'ios') {

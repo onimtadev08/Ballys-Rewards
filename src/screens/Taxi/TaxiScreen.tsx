@@ -30,6 +30,7 @@ import {
 } from '../../api/MapApi.tsx';
 import { CommonRequestPayload, Rows } from '../../model/model.tsx';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import { LocationPermissionStatus } from '../../utilitis/utilities.ts';
 
 const { width: screenWidth } = Dimensions.get('window');
 interface myStates {
@@ -142,7 +143,8 @@ class TaxiScreen extends Component<myProps, myStates> {
                 );
             },
             error => {
-                console.error(error.message);
+                LocationPermissionStatus();
+                console.error("Error getting location : ", error.message);
             },
             { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
         );
@@ -208,7 +210,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
-                        <View style={{ zIndex: 10 }}>
+                        <View style={{ zIndex: 10, backgroundColor: ColorFirst, alignItems: 'center', justifyContent: 'center' }}>
                             <TopNav
                                 navigation={this.props.navigation}
                                 BackButton={true}
@@ -259,20 +261,22 @@ class TaxiScreen extends Component<myProps, myStates> {
                                     <MapView
                                         ref={this.mapRef}
                                         zoomEnabled={true}
-                                        zoomControlEnabled={true}
+                                        //        zoomControlEnabled={true}
                                         zoomTapEnabled={true}
                                         onRegionChange={(region, description) => { }}
                                         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                                         style={styles.map}
                                         showsCompass={true}
                                         showsUserLocation={true}
-                                        //    showsMyLocationButton={true}
+                                        showsMyLocationButton={false}
                                         mapType="standard">
-                                        <Polyline
-                                            coordinates={this.state.directions}
-                                            strokeWidth={3}
-                                            strokeColors={['black']}
-                                        />
+                                        {this.state.directions ?
+                                            <Polyline
+                                                coordinates={this.state.directions}
+                                                strokeWidth={3}
+                                                strokeColors={['black']}
+                                            />
+                                            : null}
                                         <Marker
                                             anchor={{ x: 0.5, y: 0.5 }}
                                             coordinate={{
@@ -400,7 +404,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                                         </Text>
                                         <TouchableOpacity
                                             onPress={() => {
-                                                this.setState({ ShowAddressSearch: true });
+                                                this.setState({ ShowAddressSearch: true, distance: '', duration: '' });
                                             }}>
                                             <AntDesign
                                                 style={{}}
