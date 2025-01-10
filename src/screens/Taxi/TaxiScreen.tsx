@@ -114,11 +114,9 @@ class TaxiScreen extends Component<myProps, myStates> {
                         longitude: position.coords.longitude,
                     },
                     async () => {
-                        // Position Geocoding
-                        // var NY = {
-                        //     lat: this.state.latitude,
-                        //     lng: this.state.longitude
-                        // };
+
+                        console.log('position : ', position.coords);
+
 
                         this.mapRef.current.animateToRegion({
                             latitude: this.state.latitude,
@@ -127,11 +125,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                             longitudeDelta: 0.007,
                         });
 
-                        // Geocoder.geocodePosition(NY).then((res: any) => {
 
-                        //     this.setState({ myAddress: res[0].formattedAddress });
-                        // })
-                        //     .catch((err: any) => console.error(err))
 
                         const myAddress = await getAddressFromCoordinates({
                             latitude: this.state.latitude,
@@ -268,7 +262,10 @@ class TaxiScreen extends Component<myProps, myStates> {
                                         style={styles.map}
                                         showsCompass={true}
                                         showsUserLocation={true}
-                                        showsMyLocationButton={false}
+                                        showsMyLocationButton={true}
+                                        onUserLocationChange={(data) => {
+                                            //  console.log(data);
+                                        }}
                                         mapType="standard">
                                         {this.state.directions ?
                                             <Polyline
@@ -337,7 +334,7 @@ class TaxiScreen extends Component<myProps, myStates> {
                                             marginBottom: 10,
                                             alignItems: 'center',
                                         }}>
-                                        <View
+                                        <TouchableOpacity
                                             style={{
                                                 alignItems: 'flex-end',
                                                 justifyContent: 'flex-end',
@@ -346,16 +343,15 @@ class TaxiScreen extends Component<myProps, myStates> {
                                                 borderRadius: 10,
                                                 top: -70,
                                                 right: -30,
-                                            }}>
+                                            }}
+                                            onPress={() => this.getCurrentLocation()}
+                                        >
                                             <MaterialIcons
                                                 style={{ margin: 10 }}
                                                 size={30}
                                                 name="my-location"
-                                                onPress={() => {
-                                                    this.getCurrentLocation();
-                                                }}
                                             />
-                                        </View>
+                                        </TouchableOpacity>
 
                                         <Text
                                             style={{

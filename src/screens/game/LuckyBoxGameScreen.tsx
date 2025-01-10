@@ -235,120 +235,116 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
                             : null}
 
                         {this.state.isWin ? (
-                            <View
-                                style={{
-                                    flex: 1,
-                                    marginBottom: 120,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}>
+
+                            <View style={{ width: '100%', height: '85%', position: 'absolute', zIndex: 1, alignItems: 'center', justifyContent: 'center' }}>
                                 <WiningComponent
                                     WiningAmount={this.state.Wininnings}
                                     onRetry={(): void => {
                                         this.setState({ isWin: false, isDisabled: false, TotalWinings: [] });
                                     }}
                                 />
+
                             </View>
-                        ) : (
-                            <View
-                                style={{
-                                    flex: 1,
-                                    marginBottom: 120,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}>
-                                <View
-                                    style={{ flexDirection: 'row', height: '25%', width: '100%' }}>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={'2'}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[0].isWin} winningAmount={this.state.BoxData[0].Win} />
-                                    </View>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={'3'}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[1].isWin} winningAmount={this.state.BoxData[1].Win} />
-                                    </View>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={'1'}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[2].isWin} winningAmount={this.state.BoxData[2].Win} />
-                                    </View>
-                                </View>
-
-                                <View
-                                    style={{ flexDirection: 'row', height: '25%', width: '100%' }}>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={''}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[3].isWin} winningAmount={this.state.BoxData[3].Win} />
-                                    </View>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={'2'}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[4].isWin} winningAmount={this.state.BoxData[4].Win} />
-                                    </View>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={'3'}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[5].isWin} winningAmount={this.state.BoxData[5].Win} />
-                                    </View>
-                                </View>
-
-                                <View
-                                    style={{ flexDirection: 'row', height: '25%', width: '100%' }}>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={'1'}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[6].isWin} winningAmount={this.state.BoxData[6].Win} />
-                                    </View>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={''}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[7].isWin} winningAmount={this.state.BoxData[7].Win} />
-                                    </View>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={'2'}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[8].isWin} winningAmount={this.state.BoxData[8].Win} />
-                                    </View>
-                                </View>
-
-                                <View
-                                    style={{ flexDirection: 'row', height: '25%', width: '100%' }}>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={'3'}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[9].isWin} winningAmount={this.state.BoxData[9].Win} />
-                                    </View>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={'1'}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[10].isWin} winningAmount={this.state.BoxData[10].Win} />
-                                    </View>
-                                    <View style={{ flex: 1, margin: 5 }}>
-                                        <LuckyBoxComponent
-                                            onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
-                                            type={''}
-                                            isDisabled={this.state.isDisabled} winnings={this.state.BoxData[11].isWin} winningAmount={this.state.BoxData[11].Win} />
-                                    </View>
-                                </View>
-                            </View>
-                        )}
+                        ) : null}
                         <View
                             style={{
-                                zIndex: 1,
+                                flex: 1,
+                                marginBottom: 120,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}>
+                            <View
+                                style={{ flexDirection: 'row', height: '25%', width: '100%' }}>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={'2'}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[0].isWin} winningAmount={this.state.BoxData[0].Win} />
+                                </View>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={'3'}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[1].isWin} winningAmount={this.state.BoxData[1].Win} />
+                                </View>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={'1'}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[2].isWin} winningAmount={this.state.BoxData[2].Win} />
+                                </View>
+                            </View>
+
+                            <View
+                                style={{ flexDirection: 'row', height: '25%', width: '100%' }}>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={''}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[3].isWin} winningAmount={this.state.BoxData[3].Win} />
+                                </View>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={'2'}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[4].isWin} winningAmount={this.state.BoxData[4].Win} />
+                                </View>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={'3'}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[5].isWin} winningAmount={this.state.BoxData[5].Win} />
+                                </View>
+                            </View>
+
+                            <View
+                                style={{ flexDirection: 'row', height: '25%', width: '100%' }}>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={'1'}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[6].isWin} winningAmount={this.state.BoxData[6].Win} />
+                                </View>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={''}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[7].isWin} winningAmount={this.state.BoxData[7].Win} />
+                                </View>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={'2'}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[8].isWin} winningAmount={this.state.BoxData[8].Win} />
+                                </View>
+                            </View>
+
+                            <View
+                                style={{ flexDirection: 'row', height: '25%', width: '100%' }}>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={'3'}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[9].isWin} winningAmount={this.state.BoxData[9].Win} />
+                                </View>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={'1'}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[10].isWin} winningAmount={this.state.BoxData[10].Win} />
+                                </View>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <LuckyBoxComponent
+                                        onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
+                                        type={''}
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[11].isWin} winningAmount={this.state.BoxData[11].Win} />
+                                </View>
+                            </View>
+                        </View>
+
+                        <View
+                            style={{
+                                zIndex: 2,
                                 left: 0,
                                 bottom: 0,
                                 right: 0,
