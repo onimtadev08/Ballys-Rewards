@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import {
     BackHandler,
     View,
@@ -31,7 +31,8 @@ interface myStates {
     isDisabled: boolean;
     BoxData: Box[];
     TotalWinings: TotalWining[];
-    tempisWin: boolean;
+    isAllOpen: boolean;
+
 }
 
 interface slice {
@@ -43,7 +44,7 @@ interface myProps {
     Page: number;
 }
 
-class LuckyBoxGameScreen extends Component<myProps, myStates> {
+class LuckyBoxGameScreen extends PureComponent<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
     scrollRef: React.RefObject<ScrollView>;
@@ -115,7 +116,7 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
             isDisabled: false,
             BoxData: this.shuffle(this.myArray),
             TotalWinings: [],
-            tempisWin: false,
+            isAllOpen: false,
         };
 
 
@@ -152,58 +153,33 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
         const handleDisableBoxPress = (Win: number, isWin: boolean): void => {
             this.setState({ isDisabled: true }, () => {
                 setTimeout(() => {
-                    if (isWin) {
 
-                        if (this.state.TotalWinings.length > 1) {
 
-                            const data = this.state.TotalWinings;
-                            data.push({ id: this.state.TotalWinings.length, Amount: Win });
+                    if (this.state.TotalWinings.length > 1) {
 
-                            const sum = data.reduce((accumulator, currentValue) => accumulator + currentValue.Amount, 0);
-                            console.log(sum);
+                        const data = this.state.TotalWinings;
+                        data.push({ id: this.state.TotalWinings.length, Amount: Win });
 
-                            this.setState({ TotalWinings: data, isWin: isWin, Wininnings: Number(sum), isDisabled: false }, () => {
-                                this.setState({ BoxData: this.shuffle(this.myArray) });
-                            });
+                        const sum = data.reduce((accumulator, currentValue) => accumulator + currentValue.Amount, 0);
 
-                        } else {
-
-                            const data = this.state.TotalWinings;
-                            data.push({ id: this.state.TotalWinings.length, Amount: Win });
-
-                            this.setState({ TotalWinings: data, isDisabled: false, tempisWin: true, Wininnings: Number(Win) }, () => {
-                                this.setState({ BoxData: this.shuffle(this.myArray) });
-                                setTimeout(() => {
-                                    this.setState({ tempisWin: false });
-                                }, 3000);
-                            });
-
-                        }
+                        this.setState({ isAllOpen: true }, () => {
+                            setTimeout(() => {
+                                this.setState({ TotalWinings: data, isWin: true, Wininnings: Number(sum), isDisabled: false }, () => {
+                                    console.log('aaa');
+                                });
+                            }, 4000);
+                        });
 
                     } else {
 
-                        if (this.state.TotalWinings.length > 1) {
+                        const data = this.state.TotalWinings;
+                        data.push({ id: this.state.TotalWinings.length, Amount: Win });
 
-                            const data = this.state.TotalWinings;
-                            data.push({ id: this.state.TotalWinings.length, Amount: Win });
+                        this.setState({ TotalWinings: data, isDisabled: false, Wininnings: Number(Win) })
 
-                            const sum = data.reduce((accumulator, currentValue) => accumulator + currentValue.Amount, 0);
-                            console.log(sum);
-
-                            this.setState({ TotalWinings: data, isWin: true, Wininnings: Number(sum), isDisabled: false }, () => {
-                                this.setState({ BoxData: this.shuffle(this.myArray) });
-                            });
-
-                        } else {
-
-                            const data = this.state.TotalWinings;
-                            data.push({ id: this.state.TotalWinings.length, Amount: Win });
-
-                            this.setState({ TotalWinings: data, isDisabled: false }, () => {
-                                this.setState({ BoxData: this.shuffle(this.myArray) });
-                            });
-                        }
                     }
+
+
                 }, 3000);
             });
 
@@ -228,24 +204,20 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
 
                         <RecesntWiningsComponent Wimimgs={this.state.TotalWinings} />
 
-                        {this.state.tempisWin ?
-                            <View style={{ width: '100%', height: '100%', position: 'absolute', zIndex: 1 }}>
-                                <TempWiningsComponent WiningAmount={this.state.Wininnings} />
-                            </View >
-                            : null}
-
                         {this.state.isWin ? (
 
                             <View style={{ width: '100%', height: '85%', position: 'absolute', zIndex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                {/* 
                                 <WiningComponent
                                     WiningAmount={this.state.Wininnings}
                                     onRetry={(): void => {
-                                        this.setState({ isWin: false, isDisabled: false, TotalWinings: [] });
+                                        this.setState({ isWin: false, isDisabled: false, TotalWinings: [], isAllOpen: false });
                                     }}
-                                />
+                                /> */}
 
                             </View>
                         ) : null}
+
                         <View
                             style={{
                                 flex: 1,
@@ -259,19 +231,19 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={'2'}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[0].isWin} winningAmount={this.state.BoxData[0].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[0].isWin} winningAmount={this.state.BoxData[0].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                                 <View style={{ flex: 1, margin: 5 }}>
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={'3'}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[1].isWin} winningAmount={this.state.BoxData[1].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[1].isWin} winningAmount={this.state.BoxData[1].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                                 <View style={{ flex: 1, margin: 5 }}>
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={'1'}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[2].isWin} winningAmount={this.state.BoxData[2].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[2].isWin} winningAmount={this.state.BoxData[2].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                             </View>
 
@@ -281,19 +253,19 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={''}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[3].isWin} winningAmount={this.state.BoxData[3].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[3].isWin} winningAmount={this.state.BoxData[3].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                                 <View style={{ flex: 1, margin: 5 }}>
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={'2'}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[4].isWin} winningAmount={this.state.BoxData[4].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[4].isWin} winningAmount={this.state.BoxData[4].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                                 <View style={{ flex: 1, margin: 5 }}>
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={'3'}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[5].isWin} winningAmount={this.state.BoxData[5].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[5].isWin} winningAmount={this.state.BoxData[5].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                             </View>
 
@@ -303,19 +275,19 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={'1'}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[6].isWin} winningAmount={this.state.BoxData[6].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[6].isWin} winningAmount={this.state.BoxData[6].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                                 <View style={{ flex: 1, margin: 5 }}>
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={''}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[7].isWin} winningAmount={this.state.BoxData[7].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[7].isWin} winningAmount={this.state.BoxData[7].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                                 <View style={{ flex: 1, margin: 5 }}>
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={'2'}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[8].isWin} winningAmount={this.state.BoxData[8].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[8].isWin} winningAmount={this.state.BoxData[8].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                             </View>
 
@@ -325,19 +297,19 @@ class LuckyBoxGameScreen extends Component<myProps, myStates> {
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={'3'}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[9].isWin} winningAmount={this.state.BoxData[9].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[9].isWin} winningAmount={this.state.BoxData[9].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                                 <View style={{ flex: 1, margin: 5 }}>
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={'1'}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[10].isWin} winningAmount={this.state.BoxData[10].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[10].isWin} winningAmount={this.state.BoxData[10].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                                 <View style={{ flex: 1, margin: 5 }}>
                                     <LuckyBoxComponent
                                         onPress={(Win: number, isWin: boolean): void => handleDisableBoxPress(Win, isWin)}
                                         type={''}
-                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[11].isWin} winningAmount={this.state.BoxData[11].Win} />
+                                        isDisabled={this.state.isDisabled} winnings={this.state.BoxData[11].isWin} winningAmount={this.state.BoxData[11].Win} isOpenAll={this.state.isAllOpen} />
                                 </View>
                             </View>
                         </View>

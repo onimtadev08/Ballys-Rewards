@@ -122,7 +122,7 @@ const ResentWinsComponent: React.FC<myProps> = ({ count }) => {
                 </TouchableOpacity>
             </View>
 
-            <FlatList data={Recentdata} renderItem={renderItem} numColumns={5} />
+            <FlatList data={Recentdata} renderItem={renderItem} numColumns={3} />
         </View>
     );
 };

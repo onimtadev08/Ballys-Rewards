@@ -52,9 +52,6 @@ export default function RockertGameScreen() {
                         style={{ flex: 1, backgroundColor: '#36105A' }}
                     >
 
-
-
-
                         <View style={{ flex: 1.4 }}>
                             <ResentWinsComponent count={Count} />
 
