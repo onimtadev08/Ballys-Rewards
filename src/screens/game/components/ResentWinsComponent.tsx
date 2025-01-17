@@ -18,6 +18,7 @@ let index: number = 0;
 const ResentWinsComponent: React.FC<myProps> = ({ count }) => {
 
     const [Count, setCount] = React.useState<number>(0);
+    const [isShow, setIsShow] = React.useState<boolean>(false);
 
     saveWins(count);
 
@@ -88,7 +89,7 @@ const ResentWinsComponent: React.FC<myProps> = ({ count }) => {
                 borderColor: '#7756B1',
                 borderRadius: 10,
                 backgroundColor: '#240332',
-                height: '90%',
+                height: isShow ? '30%' : null,
             }}>
             <View
                 style={{
@@ -112,7 +113,11 @@ const ResentWinsComponent: React.FC<myProps> = ({ count }) => {
                         marginEnd: 20,
                         backgroundColor: '#36105A',
                         borderRadius: 5,
-                    }}>
+                    }}
+                    onPress={() => {
+                        setIsShow(!isShow);
+                    }}
+                >
                     <Octicons
                         name="x"
                         size={20}
@@ -122,7 +127,7 @@ const ResentWinsComponent: React.FC<myProps> = ({ count }) => {
                 </TouchableOpacity>
             </View>
 
-            <FlatList data={Recentdata} renderItem={renderItem} numColumns={3} />
+            <FlatList data={isShow ? Recentdata : []} renderItem={renderItem} numColumns={3} />
         </View>
     );
 };

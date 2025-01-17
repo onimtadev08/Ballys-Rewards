@@ -18,7 +18,7 @@ const RockertBetingComponent: React.FC<myProps> = ({ isBet }) => {
                 borderColor: '#240332',
                 borderRadius: 10,
                 backgroundColor: '#7756B1',
-                height: '90%',
+                height: '20%',
             }}>
             <View style={{ flexDirection: 'row', flex: 1 }}>
                 <View style={{ flex: 1, margin: 5 }}>

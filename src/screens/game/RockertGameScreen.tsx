@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import ResentWinsComponent from './components/ResentWinsComponent';
 import ButtomNav from '../../components/ButtomNav';
 import RockertBetingComponent from './components/RockertBetingComponent';
-import { Image } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 // ...
 
@@ -52,22 +52,23 @@ export default function RockertGameScreen() {
                         style={{ flex: 1, backgroundColor: '#36105A' }}
                     >
 
-                        <View style={{ flex: 1.4 }}>
-                            <ResentWinsComponent count={Count} />
+                        <ResentWinsComponent count={Count} />
 
-                        </View>
+                        <View style={{ flex: 1, justifyContent: 'center' }}>
 
-
-                        <View style={{ flex: 1 }}>
-
-                            <Image
+                            <FastImage
+                                source={{
+                                    uri: 'https://i.gifer.com/WBVi.gif',
+                                    priority: FastImage.priority.normal,
+                                    cache: FastImage.cacheControl.immutable,
+                                }}
                                 style={{
                                     top: 0,
                                     width: '100%',
-                                    height: 220,
+                                    height: '100%',
                                     position: 'absolute',
                                 }}
-                                source={{ uri: 'https://i.gifer.com/WBVi.gif' }}
+                                resizeMode={FastImage.resizeMode.cover}
                             />
                             <AnimationView
                                 key={refresh}
@@ -89,25 +90,8 @@ export default function RockertGameScreen() {
                         </View>
 
 
-                        <View style={{ flex: 1, marginTop: 30 }}>
-                            {/* <CustomTextFeild
-                                title={'Bet'}
-                                disable={disable}
-                                placeholder="Type the price how much you betting"
-                                value={value.toString()}
-                                onChangeText={(text: string) => setValue(text)}
-                            />
-                            <ButtonGrid
-                                disable={disable}
-                                numberList={itemList}
-                                onPress={(value: number) => setValue(value === 0 ? '' : value)}
-                                onPlaceBetPress={() => { }}
-                                onTakeWinningPress={() => { }}
-                            /> */}
-                            <View style={{ height: '80%', marginTop: 25 }}>
-                                <RockertBetingComponent isBet={disable} />
-                            </View>
-                        </View>
+                        <RockertBetingComponent isBet={disable} />
+
 
                     </View>
                     <View style={{

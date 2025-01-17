@@ -9,6 +9,7 @@ interface myProps {
     winnings: boolean;
     winningAmount: number;
     isOpenAll: boolean;
+    reset: boolean;
 }
 
 const LuckyBoxComponent: React.FC<myProps> = ({
@@ -18,6 +19,7 @@ const LuckyBoxComponent: React.FC<myProps> = ({
     winnings,
     winningAmount,
     isOpenAll,
+    reset,
 }) => {
     const [isWin, setisWin] = React.useState(false);
     const [tempisWin, settempisWin] = React.useState(false);
@@ -43,6 +45,15 @@ const LuckyBoxComponent: React.FC<myProps> = ({
             }, 3000);
         }
     }, [isOpenAll]);
+
+
+    React.useEffect(() => {
+        if (reset) {
+            setisWin(false);
+            settempisWin(false);
+            setisWinMSg(true);
+        }
+    }, [reset]);
 
     const imageSource =
         type === '1'

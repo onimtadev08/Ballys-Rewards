@@ -19,7 +19,7 @@ interface AnimationViewProps {
   onBetFinished: (count: number) => void;
 }
 const AnimatedLine = Animated.createAnimatedComponent(Line);
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const AnimationView: FC<AnimationViewProps> = props => {
   const animateX = useRef(new Animated.Value(0));
@@ -85,7 +85,7 @@ const AnimationView: FC<AnimationViewProps> = props => {
   });
 
   return (
-    <View style={{}}>
+    <View style={{ top: -40 }}>
       {/* <AnimatedLottieView
         ref={sky}
         source={require('../assets/sky.json')}

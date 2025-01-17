@@ -1,8 +1,7 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { ThousandSeparator } from '../../../utilitis/utilities';
-import GradientButton from '../../../components/GradientButton.tsx';
+import { Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FastImage from 'react-native-fast-image';
 interface myProps {
     WiningAmount: number;
     onRetry: () => void;
@@ -47,9 +46,11 @@ const WiningComponent: React.FC<myProps> = ({ WiningAmount, onRetry }) => {
                     style={{ width: '100%', height: '100%', marginTop: -200 }}
                 /> */}
 
-                <Image
+                <FastImage
                     source={{
                         uri: 'https://cdn.pixabay.com/animation/2024/05/02/07/43/07-43-00-535_512.gif',
+                        priority: FastImage.priority.normal,
+                        cache: FastImage.cacheControl.immutable,
                     }}
                     resizeMode="cover"
                     style={{ width: '100%', height: '100%', position: 'absolute' }}
@@ -102,7 +103,7 @@ const WiningComponent: React.FC<myProps> = ({ WiningAmount, onRetry }) => {
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}>
-                        <Image
+                        <FastImage
                             source={require('../assets/LuckySpin/logomid.png')}
                             resizeMode="contain"
                             style={{
@@ -246,4 +247,4 @@ const WiningComponent: React.FC<myProps> = ({ WiningAmount, onRetry }) => {
 // 240332   2inside
 // 36105A   3main
 
-export default WiningComponent;
+export default React.memo(WiningComponent);

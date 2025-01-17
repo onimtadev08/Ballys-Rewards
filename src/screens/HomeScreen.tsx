@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
-import { Keyboard, BackHandler, View, StyleSheet, ScrollView, Dimensions, Image, SafeAreaView } from 'react-native';
+import {
+    Keyboard,
+    BackHandler,
+    View,
+    StyleSheet,
+    ScrollView,
+    Dimensions,
+    SafeAreaView,
+    Image
+} from 'react-native';
 import CardView from 'react-native-cardview';
 import LinearGradient from 'react-native-linear-gradient';
-import MainMenuButton from '../components/MainManuButton'
+import MainMenuButton from '../components/MainManuButton';
 import SuccsessMsg from '../components/SuccsessMsg';
 import ErrorMsg from '../components/errorMsg';
 import InfoMsg from '../components/InfoMsg';
 import Loader from '../components/Loader';
 import { Home } from '../api/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { interpolate } from "react-native-reanimated";
-import Carousel from "react-native-reanimated-carousel";
+import FastImage from 'react-native-fast-image';
+import { interpolate } from 'react-native-reanimated';
+import Carousel from 'react-native-reanimated-carousel';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 
 import ButtomNav from '../components/ButtomNav.tsx';
@@ -46,11 +55,11 @@ interface CustomSlideProps {
 class HomeScreen extends Component<myProps, myStates> {
     // Assuming navigation is passed as a prop
     navigation: any;
-    scrollRef: React.RefObject<ScrollView>
+    scrollRef: React.RefObject<ScrollView>;
     unsubscribe: any;
 
     constructor(props: any) {
-        super(props)
+        super(props);
         this.scrollRef = React.createRef<ScrollView>();
         this.state = {
             currentIndex: 0,
@@ -65,9 +74,6 @@ class HomeScreen extends Component<myProps, myStates> {
             PlayerID: props.route.params.PlayerID,
             Images: [],
         };
-
-
-
     }
 
     componentWillUnmount() {
@@ -77,7 +83,6 @@ class HomeScreen extends Component<myProps, myStates> {
 
     // Fetches navigation reference and sets up interval on mount
     componentDidMount() {
-
         this.unsubscribe = this.props.navigation.addListener('focus', () => {
             this.MainHomeLoad();
         });
@@ -85,25 +90,19 @@ class HomeScreen extends Component<myProps, myStates> {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
         this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
-
-
     }
 
-    handleBackPress
-        = () => {
-            // Handle back button press logic here
-            return true; // Prevent default back behavior
-        };
+    handleBackPress = () => {
+        // Handle back button press logic here
+        return true; // Prevent default back behavior
+    };
 
     async MainHomeLoad() {
-
         this.setState({ isLoading: true });
         try {
             const result: any = await Home(this.state.PlayerID);
 
-
             if (result.strRturnRes) {
-
                 let img: string[] = [];
 
                 for (let index = 0; index < result.data.length; index++) {
@@ -115,14 +114,12 @@ class HomeScreen extends Component<myProps, myStates> {
                     isLoading: false,
                     Images: img,
                 });
-
-
             } else {
                 Keyboard.dismiss();
                 this.setState({
                     isLoading: false,
                     showApiError: true,
-                    showApiErrorMsg: 'Please try again'
+                    showApiErrorMsg: 'Please try again',
                 });
             }
         } catch (error) {
@@ -132,20 +129,16 @@ class HomeScreen extends Component<myProps, myStates> {
                 showApiErrorMsg: 'Server Connection error',
             });
         } finally {
-
         }
-
     }
-
 
     // Handles login button press and navigates to 'SignUp' screen
     handleLogin = () => {
         this.navigation.navigate('SignUp');
     };
 
-
     animationStyle: TAnimationStyle = (value: number) => {
-        "worklet";
+        'worklet';
 
         const zIndex = interpolate(value, [-1, 0, 1], [10, 20, 30]);
         const scale = interpolate(value, [-1, 0, 1], [1.25, 1, 0.25]);
@@ -158,9 +151,7 @@ class HomeScreen extends Component<myProps, myStates> {
         };
     };
 
-
     render(): React.ReactNode {
-
         const styles = StyleSheet.create({
             safeArea: {
                 backgroundColor: 'rgba(0,0,0,0.0)',
@@ -207,7 +198,7 @@ class HomeScreen extends Component<myProps, myStates> {
                 fontSize: 18,
                 textAlign: 'center',
                 backgroundColor: 'black',
-                color: 'white'
+                color: 'white',
             },
             slider: { backgroundColor: '#000', height: 350 },
             content1: {
@@ -243,18 +234,14 @@ class HomeScreen extends Component<myProps, myStates> {
                 opacity: 0.9,
                 alignItems: 'center',
                 justifyContent: 'center',
-            }
-
+            },
         });
-
 
         return (
             <LinearGradient
                 colors={[ColorFirst, ColorSecond, ColorTherd]}
-                style={styles.container} >
-
+                style={styles.container}>
                 <SafeAreaView style={styles.safeArea}>
-
                     <LinearGradient
                         colors={[ColorFirst, ColorSecond, ColorTherd]}
                         style={styles.container}>
@@ -262,14 +249,16 @@ class HomeScreen extends Component<myProps, myStates> {
                             <TopNav navigation={this.props.navigation} titel={'HOME'} />
                         </View>
                         <ScrollView style={{ zIndex: 1 }}>
-
-
                             <View style={{ flexDirection: 'row' }}>
-
-                                <CardView style={{ flex: 1, flexDirection: 'column', borderRadius: 20, margin: 10 }}
+                                <CardView
+                                    style={{
+                                        flex: 1,
+                                        flexDirection: 'column',
+                                        borderRadius: 20,
+                                        margin: 10,
+                                    }}
                                     cornerRadius={20}>
                                     <View style={{ flexDirection: 'column', borderRadius: 10 }}>
-
                                         <Carousel
                                             autoPlay={true}
                                             autoPlayInterval={2000}
@@ -287,128 +276,153 @@ class HomeScreen extends Component<myProps, myStates> {
                                                 return (
                                                     <View key={index} style={{ width: screenWidth }}>
                                                         <View style={styles.backgroundContainer}>
+                                                            {/* <FastImage
+                                                                blurRadius={10}
+                                                                source={{
+                                                                    uri: this.state.Images[index],
+                                                                    priority: FastImage.priority.normal,
+                                                                }}
+                                                                resizeMode={FastImage.resizeMode.cover}
+                                                                style={styles.backdrop}
+                                                            /> */}
                                                             <Image blurRadius={6} source={{ uri: this.state.Images[index] }} style={styles.backdrop} />
                                                         </View>
 
                                                         <View style={styles.overlay}>
-                                                            <Image style={styles.logo} source={{ uri: this.state.Images[index] }} />
+                                                            <FastImage
+                                                                style={styles.logo}
+                                                                source={{
+                                                                    uri: this.state.Images[index],
+                                                                    priority: FastImage.priority.normal,
+                                                                }}
+                                                                resizeMode={FastImage.resizeMode.center}
+                                                            />
                                                         </View>
-
                                                     </View>
                                                 );
                                             }}
                                             customAnimation={this.animationStyle}
                                         />
-
-
                                     </View>
                                 </CardView>
-
                             </View>
 
-                            <View style={{
-                                marginTop: -20,
-                                flexDirection: 'row',
-                                width: screenWidth,
-                                alignItems: 'center',
-                                justifyContent: 'space-around',
-                                flex: 1,
-                                zIndex: -1,
-                            }}>
-
-
-
-                                <MainMenuButton Url={require('../images/svgtopng/MyWalletPng.png')} title={'My WALLET'}
+                            <View
+                                style={{
+                                    marginTop: -20,
+                                    flexDirection: 'row',
+                                    width: screenWidth,
+                                    alignItems: 'center',
+                                    justifyContent: 'space-around',
+                                    flex: 1,
+                                    zIndex: -1,
+                                }}>
+                                <MainMenuButton
+                                    Url={require('../images/svgtopng/MyWalletPng.png')}
+                                    title={'My WALLET'}
                                     onPress={async () => {
                                         const MID = await AsyncStorage.getItem('MID');
-                                        this.props.navigation.navigate('MyWallet', { 'PlayerID': MID });
-
-                                    }} />
-
-                                <MainMenuButton Url={require('../images/svgtopng/MyOfferPng.png')} title={'My Offer'}
-                                    onPress={async () => {
-                                        const MID = await AsyncStorage.getItem('MID');
-                                        this.props.navigation.navigate('MyOfferScreen', { 'PlayerID': MID });
-
+                                        this.props.navigation.navigate('MyWallet', { PlayerID: MID });
                                     }}
                                 />
 
-                                <MainMenuButton Url={require('../images/svgtopng/luckyGamePng.png')} title={'LUCKY GAME'}
+                                <MainMenuButton
+                                    Url={require('../images/svgtopng/MyOfferPng.png')}
+                                    title={'My Offer'}
                                     onPress={async () => {
                                         const MID = await AsyncStorage.getItem('MID');
-                                        this.props.navigation.navigate('GameHomeScreen', { 'PlayerID': MID });
+                                        this.props.navigation.navigate('MyOfferScreen', {
+                                            PlayerID: MID,
+                                        });
+                                    }}
+                                />
 
+                                <MainMenuButton
+                                    Url={require('../images/svgtopng/luckyGamePng.png')}
+                                    title={'LUCKY GAME'}
+                                    onPress={async () => {
+                                        const MID = await AsyncStorage.getItem('MID');
+                                        this.props.navigation.navigate('GameHomeScreen', {
+                                            PlayerID: MID,
+                                        });
                                     }}
                                 />
                             </View>
 
-
-                            <View style={{
-                                flexDirection: 'row',
-                                width: screenWidth,
-                                alignItems: 'center',
-                                justifyContent: 'space-around',
-                                flex: 1,
-                                marginBottom: 30,
-                                marginTop: -5
-                            }}>
-
-                                <MainMenuButton Url={require('../images/svgtopng/MyTaxiPng.png')} title={'MY TAXI'}
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    width: screenWidth,
+                                    alignItems: 'center',
+                                    justifyContent: 'space-around',
+                                    flex: 1,
+                                    marginBottom: 30,
+                                    marginTop: -5,
+                                }}>
+                                <MainMenuButton
+                                    Url={require('../images/svgtopng/MyTaxiPng.png')}
+                                    title={'MY TAXI'}
                                     onPress={() => {
                                         this.props.navigation.navigate('TaxiScreen');
                                     }}
                                 />
 
-                                <MainMenuButton Url={require('../images/svgtopng/ENTERTAINMENT.png')} title={'Entertainment'}
+                                <MainMenuButton
+                                    Url={require('../images/svgtopng/ENTERTAINMENT.png')}
+                                    title={'Entertainment'}
                                     onPress={() => {
                                         this.props.navigation.navigate('EntertainmentScreen');
                                     }}
                                 />
 
-                                <MainMenuButton Url={require('../images/svgtopng/ONLINE.png')} title={'Online'} />
-
+                                <MainMenuButton
+                                    Url={require('../images/svgtopng/ONLINE.png')}
+                                    title={'Online'}
+                                />
                             </View>
-
-
                         </ScrollView>
-                        {this.state.showApiSuccsess ?
-                            <SuccsessMsg msg={this.state.showApiSuccsessMsg} onPress={() => {
-                                this.setState({ showApiSuccsess: false });
-                            }} />
-                            : null}
-                        {this.state.showApiError ?
-                            <ErrorMsg msg={this.state.showApiErrorMsg} onPress={() => {
-                                this.setState({ showApiError: false });
-                            }} />
-                            : null}
-                        {this.state.showApiInfo ?
-                            <InfoMsg msg={this.state.showApiInfoMsg} onPress={() => {
-                                this.setState({ showApiInfo: false });
-                            }} />
-                            : null}
-                        {this.state.isLoading ? (
-                            <Loader />
+                        {this.state.showApiSuccsess ? (
+                            <SuccsessMsg
+                                msg={this.state.showApiSuccsessMsg}
+                                onPress={() => {
+                                    this.setState({ showApiSuccsess: false });
+                                }}
+                            />
                         ) : null}
-                        <View style={{
-                            zIndex: 1,
-                            // left: 0,
-                            // bottom: 0,
-                            // right: 0,
-                            // position: 'absolute',
-                            height: '15%',
-                            backgroundColor: 'transparent'
-                        }}>
-                            <ButtomNav navigation={this.props.navigation}
-                            ></ButtomNav>
+                        {this.state.showApiError ? (
+                            <ErrorMsg
+                                msg={this.state.showApiErrorMsg}
+                                onPress={() => {
+                                    this.setState({ showApiError: false });
+                                }}
+                            />
+                        ) : null}
+                        {this.state.showApiInfo ? (
+                            <InfoMsg
+                                msg={this.state.showApiInfoMsg}
+                                onPress={() => {
+                                    this.setState({ showApiInfo: false });
+                                }}
+                            />
+                        ) : null}
+                        {this.state.isLoading ? <Loader /> : null}
+                        <View
+                            style={{
+                                zIndex: 1,
+                                // left: 0,
+                                // bottom: 0,
+                                // right: 0,
+                                // position: 'absolute',
+                                height: '15%',
+                                backgroundColor: 'transparent',
+                            }}>
+                            <ButtomNav navigation={this.props.navigation}></ButtomNav>
                         </View>
                     </LinearGradient>
-                </SafeAreaView >
-
-            </LinearGradient >
+                </SafeAreaView>
+            </LinearGradient>
         );
     }
 }
-
-
 
 export default HomeScreen;
