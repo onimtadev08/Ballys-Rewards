@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Platform, ImageBackground, BackHandler, View, TouchableOpacity, Image, Text, Animated, Easing, Dimensions } from 'react-native';
+import { Platform, ImageBackground, BackHandler, View, TouchableOpacity, Text, Animated, Easing, Dimensions } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DrawerMenu from './DrawerMenu';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Marquee } from '@animatereactnative/marquee';
 import { ColorFirst } from '../data/data';
+import FastImage from 'react-native-fast-image';
 
 interface propsData {
     navigation: any;
@@ -216,7 +217,7 @@ const TopNav: React.FC<propsData> = ({
                                 BackToHome ?
                                     <Ionicons name='chevron-back-outline' size={40} color={'#f8d888'} style={{ width: 30 }} />
                                     :
-                                    <Image source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
+                                    <FastImage source={require('../images/svgtopng/menubar.png')} style={{ width: 30, height: 30 }} resizeMode={FastImage.resizeMode.contain} />
                         }
 
 
@@ -275,9 +276,8 @@ const TopNav: React.FC<propsData> = ({
                             navigation.navigate('NotificationScreen', { 'PlayerID': MID });
                         }}
                     >
-                        <Image source={require('../images/svgtopng/NOTIFICATION.png')} style={{ width: 30, height: 30 }} height={30} width={30} resizeMode='contain'></Image>
+                        <FastImage source={require('../images/svgtopng/NOTIFICATION.png')} style={{ width: 30, height: 30 }} resizeMode={FastImage.resizeMode.contain} />
                     </TouchableOpacity>
-
                 </View>
 
             </View>

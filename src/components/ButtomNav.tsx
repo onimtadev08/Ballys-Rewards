@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, View, Dimensions, Image } from 'react-native';
+import { Text, View, Dimensions } from 'react-native';
 import MyCard from '../images/svgs/MyCard.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AwesomeButton from 'react-native-really-awesome-button';
 import { ColorTherd } from '../data/data.js';
+import FastImage from 'react-native-fast-image';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -17,7 +18,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
     navigation
 }) => {
     return (
-        <View style={{ zIndex: -1, flexDirection: 'row', alignItems: 'center',paddingTop:10}}>
+        <View style={{ zIndex: -1, flexDirection: 'row', alignItems: 'center', paddingTop: 10 }}>
 
 
             <View style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', height: '100%', marginTop: 10 }}>
@@ -40,10 +41,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
                 >
                     <View style={{ flexDirection: 'column', backgroundColor: 'transparent', height: '100%', width: '100%', alignItems: 'center' }}>
 
-
-
-                        <Image source={require('../images/svgtopng/HOME.png')} resizeMode='contain' style={{ height: '80%', width: '80%' }} />
-
+                        <FastImage source={require('../images/svgtopng/HOME.png')} resizeMode={FastImage.resizeMode.contain} style={{ height: '80%', width: '80%' }} />
 
                         <Text
                             style={{
@@ -85,7 +83,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-                        <Image source={require('../images/svgtopng/myCard.png')} resizeMode='contain' style={{ height: '80%', width: '80%' }} />
+                        <FastImage source={require('../images/svgtopng/myCard.png')} resizeMode={FastImage.resizeMode.contain} style={{ height: '80%', width: '80%' }} />
 
 
                         <Text
@@ -127,7 +125,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-                        <Image source={require('../images/svgtopng/MyWalletPng.png')} resizeMode='contain' style={{ height: '85%', width: '85%' }} />
+                        <FastImage source={require('../images/svgtopng/MyWalletPng.png')} resizeMode={FastImage.resizeMode.contain} style={{ height: '85%', width: '85%' }} />
 
 
                         <Text
@@ -171,7 +169,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-                        <Image source={require('../images/svgtopng/MyBookingPng.png')} resizeMode='contain' style={{ height: '80%', width: '80%' }} />
+                        <FastImage source={require('../images/svgtopng/MyBookingPng.png')} resizeMode={FastImage.resizeMode.contain} style={{ height: '80%', width: '80%' }} />
 
 
                         <Text
@@ -214,7 +212,7 @@ const ButtomNav: React.FC<ButtomNavProps> = ({
 
 
 
-                        <Image source={require('../images/svgtopng/MyHost.png')} resizeMode='contain' style={{ height: '80%', width: '80%' }} />
+                        <FastImage source={require('../images/svgtopng/MyHost.png')} resizeMode={FastImage.resizeMode.contain} style={{ height: '80%', width: '80%' }} />
 
 
                         <Text

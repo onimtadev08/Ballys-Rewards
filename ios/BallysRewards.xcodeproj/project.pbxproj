@@ -25,6 +25,9 @@
 		912B6CB19604476FA016F940 /* SFPRODISPLAYBOLD.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 8A9EEFEEFCCD4C3CA4A46EE4 /* SFPRODISPLAYBOLD.OTF */; };
 		A46262A6EA5B42D1AFB5113A /* Satisfy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D8878AE54A643B4975419B6 /* Satisfy-Regular.ttf */; };
 		A8C78C6C7FBA43B288CC05E8 /* SFPRODISPLAYHEAVYITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = FD0F08E2D8C342CB8357A8E3 /* SFPRODISPLAYHEAVYITALIC.OTF */; };
+		B6B57B952D3E66B1007D3444 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6B57B942D3E66B1007D3444 /* click.mp3 */; };
+		B6B57B972D3E7212007D3444 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = B6B57B962D3E7212007D3444 /* win.wav */; };
+		B6B57B992D3E7954007D3444 /* backgorund.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6B57B982D3E7954007D3444 /* backgorund.mp3 */; };
 		BD2AF6DD00D74536B89EA3D4 /* SFPRODISPLAYTHINITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 3FFC1977A6AF4FB4A0D549FA /* SFPRODISPLAYTHINITALIC.OTF */; };
 		C5C35C4B70344831A174A4C8 /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87A8AC3B73E346B08D7E02B0 /* Ubuntu-Bold.ttf */; };
 		C6563FA480F04CFB9B938706 /* SFPRODISPLAYSEMIBOLDITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 2E7D7204015648F8B5BAD630 /* SFPRODISPLAYSEMIBOLDITALIC.OTF */; };
@@ -73,6 +76,9 @@
 		8A9EEFEEFCCD4C3CA4A46EE4 /* SFPRODISPLAYBOLD.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYBOLD.OTF; path = ../assets/fonts/SFPRODISPLAYBOLD.OTF; sourceTree = "<group>"; };
 		A3012B02C1594A99BB7C6A4E /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-BoldItalic.ttf"; path = "../assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; };
 		B18985F345154AC4A664840B /* SFPRODISPLAYULTRALIGHTITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYULTRALIGHTITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYULTRALIGHTITALIC.OTF; sourceTree = "<group>"; };
+		B6B57B942D3E66B1007D3444 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = click.mp3; path = ../src/screens/game/assets/LuckySpin/LuckySpinSound/click.mp3; sourceTree = "<group>"; };
+		B6B57B962D3E7212007D3444 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = win.wav; path = ../android/app/src/main/res/raw/win.wav; sourceTree = "<group>"; };
+		B6B57B982D3E7954007D3444 /* backgorund.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = backgorund.mp3; path = ../android/app/src/main/res/raw/backgorund.mp3; sourceTree = "<group>"; };
 		B80A6E727352400B8F56B8A6 /* SFPRODISPLAYLIGHTITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYLIGHTITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYLIGHTITALIC.OTF; sourceTree = "<group>"; };
 		B886A1FF51094E2BBF51A857 /* SFPRODISPLAYMEDIUM.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYMEDIUM.OTF; path = ../assets/fonts/SFPRODISPLAYMEDIUM.OTF; sourceTree = "<group>"; };
 		B996C0BCF21A4F34ED54641D /* Pods-BallysRewards.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BallysRewards.release.xcconfig"; path = "Target Support Files/Pods-BallysRewards/Pods-BallysRewards.release.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +155,9 @@
 		13B07FAE1A68108700A75B9A /* BallysRewards */ = {
 			isa = PBXGroup;
 			children = (
+				B6B57B982D3E7954007D3444 /* backgorund.mp3 */,
+				B6B57B962D3E7212007D3444 /* win.wav */,
+				B6B57B942D3E66B1007D3444 /* click.mp3 */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -315,10 +324,13 @@
 				248D6241568E475D907B9219 /* Ubuntu-Italic.ttf in Resources */,
 				DB4C5B7F107D4F5E89414492 /* Ubuntu-Light.ttf in Resources */,
 				5749B5A9114B41E98FE7873B /* Ubuntu-LightItalic.ttf in Resources */,
+				B6B57B972D3E7212007D3444 /* win.wav in Resources */,
 				734CE05353E341879E593BA7 /* Ubuntu-Medium.ttf in Resources */,
 				423D999EA64745D98D55C3A0 /* Ubuntu-MediumItalic.ttf in Resources */,
+				B6B57B992D3E7954007D3444 /* backgorund.mp3 in Resources */,
 				8D6547EB6607463D82B2F6BA /* Ubuntu-Regular.ttf in Resources */,
 				205299A6BC0D48E3A010BF8C /* SFPRODISPLAYBLACKITALIC.OTF in Resources */,
+				B6B57B952D3E66B1007D3444 /* click.mp3 in Resources */,
 				912B6CB19604476FA016F940 /* SFPRODISPLAYBOLD.OTF in Resources */,
 				A8C78C6C7FBA43B288CC05E8 /* SFPRODISPLAYHEAVYITALIC.OTF in Resources */,
 				3AFBEFF297314AE39DDD192F /* SFPRODISPLAYLIGHTITALIC.OTF in Resources */,
@@ -692,10 +704,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -763,10 +772,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

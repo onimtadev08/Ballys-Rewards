@@ -2,6 +2,7 @@ import { Font, View, Button, Text, StyleSheet, ScrollView, Dimensions, Image, Sa
 import CardView from 'react-native-cardview';
 import React from 'react'
 import AwesomeButton from 'react-native-really-awesome-button';
+import FastImage from 'react-native-fast-image';
 
 
 
@@ -20,7 +21,7 @@ const MainMenuButton: React.FC<myProps> = ({
     svg,
     onPress,
 }) => {
-   
+
 
     React.useEffect(() => {
         //     Font.loadAsync({
@@ -32,7 +33,7 @@ const MainMenuButton: React.FC<myProps> = ({
 
     return (
         <View style={{ height: '100%', alignItems: 'center', marginBottom: -15 }}>
-          
+
             <TouchableOpacity style={{
                 width: (screenWidth / 100) * 33,
                 height: (screenWidth / 100) * 43,
@@ -52,12 +53,18 @@ const MainMenuButton: React.FC<myProps> = ({
                         width: '80%',
                         height: '80%',
                     }}>
-                        {svg ? svg : <Image source={Url} style={{
-                            width: '100%',
-                            height: '80%',
-                        }}
-                            resizeMode='stretch'
-                        />}
+                        {svg ? svg :
+
+                            <FastImage
+                                style={{
+                                    width: '100%',
+                                    height: '80%',
+                                }}
+                                source={Url}
+                                resizeMode={FastImage.resizeMode.stretch}
+                            />
+
+                        }
                     </View>
                     <Text style={{
                         marginTop: -15,

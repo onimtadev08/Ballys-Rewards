@@ -190,8 +190,8 @@ class HomeScreen extends Component<myProps, myStates> {
                 height: screenWidth / 1.4,
             },
             backdrop: {
-                height: screenWidth * 1.1,
-                width: screenWidth,
+                height: '100%',
+                width: '100%',
                 resizeMode: 'cover',
             },
             headline: {
@@ -295,7 +295,7 @@ class HomeScreen extends Component<myProps, myStates> {
                                                                     uri: this.state.Images[index],
                                                                     priority: FastImage.priority.normal,
                                                                 }}
-                                                                resizeMode={FastImage.resizeMode.center}
+                                                                resizeMode={FastImage.resizeMode.contain}
                                                             />
                                                         </View>
                                                     </View>

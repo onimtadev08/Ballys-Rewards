@@ -19,6 +19,7 @@ import LuckyWheel from 'react-native-lucky-wheel';
 import GradientButton from '../../components/GradientButton.tsx';
 import WiningComponent from './components/WiningComponent.tsx';
 import FastImage from 'react-native-fast-image';
+import Sound from 'react-native-sound';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -45,6 +46,9 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
     navigation: any;
     scrollRef: React.RefObject<ScrollView>;
     wheelRef: React.RefObject<LuckyWheel>;
+    click_sound: any;
+    win_sound: any;
+    background_sound: any;
 
     constructor(props: any) {
         super(props);
@@ -65,12 +69,57 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
 
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-        this.navigation = this.props.navigation; // Assuming you're using a class-based navigation solution
+        this.navigation = this.props.navigation;
+
+        this.initSounds();
+
     }
 
     handleBackPress = () => {
         return true;
     };
+
+    initSounds() {
+
+        this.click_sound = new Sound('click.mp3', Sound.MAIN_BUNDLE, (error) => {
+            if (error) {
+                console.log('failed to load the sound', error);
+                return;
+            }
+        });
+
+        this.win_sound = new Sound('win.wav', Sound.MAIN_BUNDLE, (error) => {
+            if (error) {
+                console.log('failed to load the sound', error);
+                return;
+            }
+        });
+
+
+
+        this.background_sound = new Sound('backgorund.mp3', Sound.MAIN_BUNDLE, (error) => {
+            if (error) {
+                console.log('failed to load the sound', error);
+                return;
+            }
+
+
+            console.log('duration in seconds: ' + this.background_sound.getDuration() + 'number of channels: ' + this.background_sound.getNumberOfChannels());
+
+            // Play the sound with an onEnd callback
+            this.background_sound.play((success: any) => {
+                if (success) {
+                    console.log('successfully finished playing');
+                } else {
+                    console.log('playback failed due to audio decoding errors');
+                }
+            });
+
+        });
+
+
+
+    }
 
     render(): React.ReactNode {
         return (
@@ -106,6 +155,21 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                     }}
                                 />
                             )}
+
+
+
+
+                            <FastImage
+                                style={{
+                                    top: 20,
+                                    width: '90%',
+                                    height: '20%',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                                source={require('./assets/LuckySpin/Luckylogo.gif')}
+                                resizeMode={FastImage.resizeMode.contain}
+                            />
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 {/* <Image
                                     source={require('./assets/LuckySpin/spinBack.png')}
@@ -120,9 +184,9 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                 /> */}
                                 <FastImage
                                     style={{
-                                        width: '90%',
-                                        top: -40,
-                                        height: '100%',
+                                        width: '100%',
+                                        top: 13,
+                                        height: '115%',
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         position: 'absolute',
@@ -130,6 +194,19 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                     source={require('./assets/LuckySpin/spinBack.png')}
                                     resizeMode={FastImage.resizeMode.contain}
                                 />
+
+                                {/* <FastImage
+                                    style={{
+                                        borderRadius: 1000,
+                                        top: 27,
+                                        width: 328,
+                                        height: 328,
+                                        position: 'absolute',
+                                        zIndex: 10
+                                    }}
+                                    source={require('./assets/LuckySpin/7ZNJ.gif')}
+                                    resizeMode={FastImage.resizeMode.stretch}
+                                /> */}
 
                                 <LuckyWheel
                                     ref={this.wheelRef}
@@ -140,6 +217,16 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                     }
                                     onSpinningStart={() => { }}
                                     onSpinningEnd={(_winner: any) => {
+                                        console.log('duration in seconds: ' + this.win_sound.getDuration() + 'number of channels: ' + this.win_sound.getNumberOfChannels());
+
+                                        // Play the sound with an onEnd callback
+                                        this.win_sound.play((success: any) => {
+                                            if (success) {
+                                                console.log('successfully finished playing');
+                                            } else {
+                                                console.log('playback failed due to audio decoding errors');
+                                            }
+                                        });
                                         this.setState({ isShowWin: true, Wininnings: _winner.value });
                                     }}
                                     backgroundColorOptions={{
@@ -181,29 +268,48 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                     source={require('./assets/LuckySpin/logomid.png')}
                                     resizeMode="contain"
                                     style={{
-                                        width: '10%',
                                         top: 95,
+                                        width: '10%',
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         position: 'absolute',
                                         zIndex: 1,
                                     }}
                                 />
-
-                                <View style={styles.buttons}>
-                                    <TouchableOpacity
-                                        style={{ width: '100%', height: 60 }}
-                                        onPress={() => {
-                                            this.wheelRef?.current?.start();
-                                        }}>
-                                        <Image
-                                            source={require('./assets/LuckySpin/spinButton.png')}
-                                            style={{ width: '100%', height: 60 }}
-                                            resizeMode="contain"
-                                        />
-                                    </TouchableOpacity>
-                                </View>
                             </View>
+
+                            <View style={styles.buttons}>
+                                <TouchableOpacity
+                                    style={{ width: '100%', height: 60 }}
+                                    onPress={() => {
+
+
+                                        // loaded successfully
+                                        console.log('duration in seconds: ' + this.click_sound.getDuration() + 'number of channels: ' + this.click_sound.getNumberOfChannels());
+
+                                        // Play the sound with an onEnd callback
+                                        this.click_sound.play((success: any) => {
+                                            if (success) {
+                                                console.log('successfully finished playing');
+                                            } else {
+                                                console.log('playback failed due to audio decoding errors');
+                                            }
+                                        });
+
+
+                                        this.wheelRef?.current?.start();
+                                    }}>
+                                    <Image
+                                        source={require('./assets/LuckySpin/spinButton.png')}
+                                        style={{ width: '100%', height: 60 }}
+                                        resizeMode="contain"
+                                    />
+                                </TouchableOpacity>
+                            </View>
+
+
+
+
                         </ImageBackground>
 
                         <View
@@ -235,6 +341,7 @@ const styles = StyleSheet.create({
         width: screenWidth,
     },
     buttons: {
+        top: -20,
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 100,

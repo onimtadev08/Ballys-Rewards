@@ -18,6 +18,7 @@ import { Marquee } from '@animatereactnative/marquee';
 import { ColorFirst, ColorSecond, ColorTherd } from '../data/data.tsx';
 import TopNav from '../components/TopNav.tsx';
 import { color } from '@rneui/themed/dist/config/index';
+import FastImage from 'react-native-fast-image';
 
 const { width: screenWidth } = Dimensions.get('window');
 const { height: screenHeight } = Dimensions.get('window');
@@ -234,16 +235,17 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                 right: 0,
             },
             overlay: {
+                alignItems: 'center',
+                justifyContent: 'center',
                 opacity: 1,
                 // top: 60,
                 // right: 29,
             },
             logo: {
-
-                resizeMode: 'contain',
                 backgroundColor: 'rgba(0,0,0,0)',
                 width: '100%',
-                height: '100%',
+                height: '94%',
+                top: -13
                 // top:50,
                 // bottom: 70,
             },
@@ -382,12 +384,20 @@ class EntertainmentScreen extends Component<myProps, myStates> {
                                         renderItem={({ index }) => {
                                             return (
                                                 <View key={index} style={{ width: screenWidth }}>
-                                                    {/* <View style={styles.backgroundContainer}>
-                                                            <Image blurRadius={6} source={{ uri: this.state.Images[index] }} style={styles.backdrop} />
-                                                        </View> */}
+                                                    <View style={styles.backgroundContainer}>
+                                                        <Image blurRadius={6} source={{ uri: this.state.Images[index] }} style={styles.backdrop} />
+                                                    </View>
 
                                                     <View style={styles.overlay}>
-                                                        <Image style={styles.logo} source={{ uri: this.state.Images[index] }} />
+
+                                                        <FastImage
+                                                            style={styles.logo}
+                                                            source={{
+                                                                uri: this.state.Images[index],
+                                                                priority: FastImage.priority.normal,
+                                                            }}
+                                                            resizeMode={FastImage.resizeMode.contain}
+                                                        />
                                                     </View>
 
                                                 </View>
