@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FastImage from 'react-native-fast-image';
+import Sound from 'react-native-sound';
 interface myProps {
     WiningAmount: number;
     onRetry: () => void;
@@ -16,6 +17,28 @@ interface recentCount {
 let Recentdata: recentCount[] = [];
 let index: number = 0;
 const WiningComponent: React.FC<myProps> = ({ WiningAmount, onRetry }) => {
+
+    React.useEffect(() => {
+        const win_sound = new Sound('win.wav', Sound.MAIN_BUNDLE, (error) => {
+            if (error) {
+                console.log('failed to load the sound', error);
+                return;
+            }
+
+
+            console.log('duration in seconds: ' + win_sound.getDuration() + 'number of channels: ' + win_sound.getNumberOfChannels());
+
+            // Play the sound with an onEnd callback
+            win_sound.play((success: any) => {
+                if (success) {
+                    console.log('successfully finished playing');
+                } else {
+                    console.log('playback failed due to audio decoding errors');
+                }
+            });
+        });
+    }, [WiningAmount]);
+
     return (
         <View
             style={{

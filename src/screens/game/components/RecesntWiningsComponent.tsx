@@ -18,6 +18,8 @@ const RecesntWiningsComponent: React.FC<myProps> = ({ Wimimgs }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: 5,
+                marginStart: 30,
+                marginEnd: 40,
             }}>
             <View
                 style={{

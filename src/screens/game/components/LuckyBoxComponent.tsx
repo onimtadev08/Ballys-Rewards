@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import TempWiningsComponent from './tempWiningsComponent';
 import FastImage from 'react-native-fast-image'
+import Sound from 'react-native-sound';
 interface myProps {
     onPress: (Win: number, isWin: boolean) => void;
     type: string;
@@ -24,7 +25,6 @@ const LuckyBoxComponent: React.FC<myProps> = ({
     const [isWin, setisWin] = React.useState(false);
     const [tempisWin, settempisWin] = React.useState(false);
     const [isWinMSg, setisWinMSg] = React.useState(true);
-
 
     React.useEffect(() => {
         if (isWin) {
@@ -74,15 +74,42 @@ const LuckyBoxComponent: React.FC<myProps> = ({
 
     React.useEffect(() => { }, [imageSource]);
 
+    function hadelClick(): void {
+
+        const click_sound = new Sound('click.mp3', Sound.MAIN_BUNDLE, (error) => {
+
+            if (error) {
+                console.log('failed to load the sound', error);
+                return;
+            }
+
+            click_sound.play((success: any) => {
+                if (success) {
+                    console.log('successfully finished playing');
+                } else {
+                    console.log('playback failed due to audio decoding errors');
+                }
+            });
+
+        });
+
+        setisWin(!isWin);
+        onPress(winningAmount, winnings);
+        setTimeout(() => {
+            settempisWin(true);
+        }, 3000);
+    }
+
     return (
         <View
             style={{
                 height: '100%',
                 borderWidth: 1,
-                borderColor: 'gold',
+                borderColor: 'black',
                 borderRadius: 10,
                 alignItems: 'center',
                 justifyContent: 'center',
+                elevation: 10,
             }}>
 
             {tempisWin ?
@@ -106,13 +133,7 @@ const LuckyBoxComponent: React.FC<myProps> = ({
                     justifyContent: 'center',
                     zIndex: 1,
                 }}
-                onPress={() => {
-                    setisWin(!isWin);
-                    onPress(winningAmount, winnings);
-                    setTimeout(() => {
-                        settempisWin(true);
-                    }, 3000);
-                }}>
+                onPress={hadelClick}>
                 {/* <Image source={
                     type === '1' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard1.gif') : require('../assets/LuckyBox/png/luckBoxG.png') :
                         type === '2' ? isWin ? require('../assets/LuckyBox/gif/luckyBoxCard2.gif') : require('../assets/LuckyBox/png/luckyBoxB.png') :

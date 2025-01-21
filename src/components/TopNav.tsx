@@ -15,6 +15,7 @@ interface propsData {
     Tags?: any[];
     BackButtonNew?: boolean;
     BackToHome?: boolean;
+    onBackClick?: () => void;
 }
 
 //const Mname = await AsyncStorage.getItem('strMName');
@@ -27,6 +28,7 @@ const TopNav: React.FC<propsData> = ({
     Tags,
     BackButtonNew,
     BackToHome,
+    onBackClick
 }) => {
 
     const { width: screenWidth } = Dimensions.get('window');
@@ -180,6 +182,7 @@ const TopNav: React.FC<propsData> = ({
                                 if (BackButtonNew) {
 
                                     if (BackButton) {
+                                        onBackClick?.();
                                         navigation.goBack();
                                     } else {
                                         const MID = await AsyncStorage.getItem('MID');
@@ -194,6 +197,7 @@ const TopNav: React.FC<propsData> = ({
                                     }
                                 } else {
                                     if (BackButton) {
+                                        onBackClick?.();
                                         navigation.goBack();
                                     } else {
 

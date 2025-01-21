@@ -12,11 +12,9 @@ import ResentWinsComponent from './components/ResentWinsComponent';
 import ButtomNav from '../../components/ButtomNav';
 import RockertBetingComponent from './components/RockertBetingComponent';
 import FastImage from 'react-native-fast-image';
+import Sound from 'react-native-sound';
 
 // ...
-
-
-
 
 const itemList = [20, 100, 300, 800, 3000, 10000];
 
@@ -25,8 +23,11 @@ export default function RockertGameScreen() {
     const [disable, setDisable] = React.useState<boolean>(false);
     const [value, setValue] = React.useState<string | number>('');
     const [Count, setCount] = React.useState<number>(0);
+    const [isPlay, setisPlay] = React.useState<boolean>(true);
 
     const navigation = useNavigation();
+
+    let backgorund: any;
 
     const generateNumber = React.useMemo<number>(() => {
         const min = 500;
@@ -35,27 +36,54 @@ export default function RockertGameScreen() {
         return randomNumber;
     }, [refresh]);
 
+    React.useEffect(() => {
+        if (isPlay) {
+            backgorund = new Sound('rocket.mp3', Sound.MAIN_BUNDLE, error => {
+                if (error) {
+                    console.log('failed to load the sound', error);
+                    return;
+                }
+
+                console.log(
+                    'duration in seconds: ' +
+                    backgorund.getDuration() +
+                    'number of channels: ' +
+                    backgorund.getNumberOfChannels(),
+                );
+                // Play the sound with an onEnd callback
+                backgorund.play((success: any) => {
+                    if (success) {
+                        console.log('successfully finished playing backgorund');
+                    } else {
+                        console.log('playback failed due to audio decoding errors');
+                        setisPlay(true);
+                    }
+                });
+            });
+        }
+    }, [isPlay]);
+
     return (
         <LinearGradient
             colors={[ColorFirst, ColorSecond, ColorTherd]}
-            style={styles.container} >
-
+            style={styles.container}>
             <SafeAreaView style={styles.safeArea}>
-
                 <LinearGradient
                     colors={[ColorFirst, ColorSecond, ColorTherd]}
                     style={styles.container}>
                     <View style={{ zIndex: 10 }}>
-                        <TopNav navigation={navigation} BackToHome={false} BackButton={true} titel={'LUCKY ROCKERT'} />
+                        <TopNav
+                            navigation={navigation}
+                            BackToHome={false}
+                            BackButton={true}
+                            titel={'LUCKY ROCKERT'}
+                            onBackClick={() => backgorund.release()}
+                        />
                     </View>
-                    <View
-                        style={{ flex: 1, backgroundColor: '#36105A' }}
-                    >
-
+                    <View style={{ flex: 1, backgroundColor: '#36105A' }}>
                         <ResentWinsComponent count={Count} />
 
                         <View style={{ flex: 1, justifyContent: 'center' }}>
-
                             <FastImage
                                 source={{
                                     uri: 'https://i.gifer.com/WBVi.gif',
@@ -76,12 +104,11 @@ export default function RockertGameScreen() {
                                 onBetStart={() => {
                                     setDisable(true);
                                 }}
-                                onBetFinished={(count) => {
-
+                                onBetFinished={count => {
                                     setCount(count);
 
                                     setTimeout(() => {
-                                        setRefresh((prev) => prev + 1);
+                                        setRefresh(prev => prev + 1);
                                         setDisable(false);
                                         setValue('');
                                     }, 3000);
@@ -89,16 +116,14 @@ export default function RockertGameScreen() {
                             />
                         </View>
 
-
                         <RockertBetingComponent isBet={disable} />
-
-
                     </View>
-                    <View style={{
-                        zIndex: 1,
-                        height: '15%',
-                        backgroundColor: 'transparent'
-                    }}>
+                    <View
+                        style={{
+                            zIndex: 1,
+                            height: '15%',
+                            backgroundColor: 'transparent',
+                        }}>
                         <ButtomNav navigation={navigation} />
                     </View>
 
@@ -117,12 +142,9 @@ export default function RockertGameScreen() {
                                 }, 3000);
                             }}
                         /> */}
-
-
                 </LinearGradient>
             </SafeAreaView>
         </LinearGradient>
-
     );
 }
 

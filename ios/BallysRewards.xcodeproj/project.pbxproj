@@ -25,6 +25,8 @@
 		912B6CB19604476FA016F940 /* SFPRODISPLAYBOLD.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 8A9EEFEEFCCD4C3CA4A46EE4 /* SFPRODISPLAYBOLD.OTF */; };
 		A46262A6EA5B42D1AFB5113A /* Satisfy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D8878AE54A643B4975419B6 /* Satisfy-Regular.ttf */; };
 		A8C78C6C7FBA43B288CC05E8 /* SFPRODISPLAYHEAVYITALIC.OTF in Resources */ = {isa = PBXBuildFile; fileRef = FD0F08E2D8C342CB8357A8E3 /* SFPRODISPLAYHEAVYITALIC.OTF */; };
+		B67F0A2C2D3FBECB00570A03 /* rocket.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B67F0A2B2D3FBECB00570A03 /* rocket.mp3 */; };
+		B6B2308F2D3FBCC500B2777D /* explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6B2308E2D3FBCC500B2777D /* explosion.mp3 */; };
 		B6B57B952D3E66B1007D3444 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6B57B942D3E66B1007D3444 /* click.mp3 */; };
 		B6B57B972D3E7212007D3444 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = B6B57B962D3E7212007D3444 /* win.wav */; };
 		B6B57B992D3E7954007D3444 /* backgorund.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6B57B982D3E7954007D3444 /* backgorund.mp3 */; };
@@ -76,6 +78,8 @@
 		8A9EEFEEFCCD4C3CA4A46EE4 /* SFPRODISPLAYBOLD.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYBOLD.OTF; path = ../assets/fonts/SFPRODISPLAYBOLD.OTF; sourceTree = "<group>"; };
 		A3012B02C1594A99BB7C6A4E /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-BoldItalic.ttf"; path = "../assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; };
 		B18985F345154AC4A664840B /* SFPRODISPLAYULTRALIGHTITALIC.OTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFPRODISPLAYULTRALIGHTITALIC.OTF; path = ../assets/fonts/SFPRODISPLAYULTRALIGHTITALIC.OTF; sourceTree = "<group>"; };
+		B67F0A2B2D3FBECB00570A03 /* rocket.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = rocket.mp3; path = ../android/app/src/main/res/raw/rocket.mp3; sourceTree = "<group>"; };
+		B6B2308E2D3FBCC500B2777D /* explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = explosion.mp3; path = ../android/app/src/main/res/raw/explosion.mp3; sourceTree = "<group>"; };
 		B6B57B942D3E66B1007D3444 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = click.mp3; path = ../src/screens/game/assets/LuckySpin/LuckySpinSound/click.mp3; sourceTree = "<group>"; };
 		B6B57B962D3E7212007D3444 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = win.wav; path = ../android/app/src/main/res/raw/win.wav; sourceTree = "<group>"; };
 		B6B57B982D3E7954007D3444 /* backgorund.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = backgorund.mp3; path = ../android/app/src/main/res/raw/backgorund.mp3; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 		13B07FAE1A68108700A75B9A /* BallysRewards */ = {
 			isa = PBXGroup;
 			children = (
+				B67F0A2B2D3FBECB00570A03 /* rocket.mp3 */,
+				B6B2308E2D3FBCC500B2777D /* explosion.mp3 */,
 				B6B57B982D3E7954007D3444 /* backgorund.mp3 */,
 				B6B57B962D3E7212007D3444 /* win.wav */,
 				B6B57B942D3E66B1007D3444 /* click.mp3 */,
@@ -321,6 +327,7 @@
 				A46262A6EA5B42D1AFB5113A /* Satisfy-Regular.ttf in Resources */,
 				C5C35C4B70344831A174A4C8 /* Ubuntu-Bold.ttf in Resources */,
 				DEAC06AB7D544281B0A5BD31 /* Ubuntu-BoldItalic.ttf in Resources */,
+				B67F0A2C2D3FBECB00570A03 /* rocket.mp3 in Resources */,
 				248D6241568E475D907B9219 /* Ubuntu-Italic.ttf in Resources */,
 				DB4C5B7F107D4F5E89414492 /* Ubuntu-Light.ttf in Resources */,
 				5749B5A9114B41E98FE7873B /* Ubuntu-LightItalic.ttf in Resources */,
@@ -334,6 +341,7 @@
 				912B6CB19604476FA016F940 /* SFPRODISPLAYBOLD.OTF in Resources */,
 				A8C78C6C7FBA43B288CC05E8 /* SFPRODISPLAYHEAVYITALIC.OTF in Resources */,
 				3AFBEFF297314AE39DDD192F /* SFPRODISPLAYLIGHTITALIC.OTF in Resources */,
+				B6B2308F2D3FBCC500B2777D /* explosion.mp3 in Resources */,
 				7FF4957CC7DC4ADCACBDB00A /* SFPRODISPLAYMEDIUM.OTF in Resources */,
 				74A77CC110E44545ABD5F504 /* SFPRODISPLAYREGULAR.OTF in Resources */,
 				C6563FA480F04CFB9B938706 /* SFPRODISPLAYSEMIBOLDITALIC.OTF in Resources */,

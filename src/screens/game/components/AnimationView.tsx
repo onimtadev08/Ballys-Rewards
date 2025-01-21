@@ -12,6 +12,7 @@ import {
 import AnimatedLottieView from './AnimatedLottieView';
 import { useCount, useCountDown, useInitialState } from '../hooks';
 import { Line, Svg } from 'react-native-svg';
+import Sound from 'react-native-sound';
 
 interface AnimationViewProps {
   duration: number;
@@ -55,7 +56,27 @@ const AnimationView: FC<AnimationViewProps> = props => {
   }, [isLoaded]);
 
   useEffect(() => {
-    if (destroyed) props.onBetFinished(Number(countNumber.toFixed(2)));
+    if (destroyed) {
+      props.onBetFinished(Number(countNumber.toFixed(2)));
+
+      const explotion = new Sound('explosion.mp3', Sound.MAIN_BUNDLE, (error) => {
+        if (error) {
+          console.log('failed to load the sound', error);
+          return;
+        }
+
+        console.log('duration in seconds: ' + explotion.getDuration() + 'number of channels: ' + explotion.getNumberOfChannels());
+        // Play the sound with an onEnd callback
+        explotion.play((success: any) => {
+          if (success) {
+            console.log('successfully finished playing');
+          } else {
+            console.log('playback failed due to audio decoding errors');
+          }
+        });
+
+      });
+    }
   }, [destroyed]);
 
   // Rocket Line Interpolate
