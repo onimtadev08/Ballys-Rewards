@@ -105,7 +105,7 @@ const LuckyBoxComponent: React.FC<myProps> = ({
             style={{
                 height: '100%',
                 borderWidth: 1,
-                borderColor: 'black',
+                borderColor: 'gold',
                 borderRadius: 10,
                 alignItems: 'center',
                 justifyContent: 'center',

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import AnimationView from './components/AnimationView';
 import ButtonGrid from './components/ButtonGrid';
 import CustomTextFeild from './components/CustomTextFeild';
@@ -64,87 +64,73 @@ export default function RockertGameScreen() {
     }, [isPlay]);
 
     return (
-        <LinearGradient
-            colors={[ColorFirst, ColorSecond, ColorTherd]}
-            style={styles.container}>
-            <SafeAreaView style={styles.safeArea}>
-                <LinearGradient
-                    colors={[ColorFirst, ColorSecond, ColorTherd]}
-                    style={styles.container}>
-                    <View style={{ zIndex: 10 }}>
-                        <TopNav
-                            navigation={navigation}
-                            BackToHome={false}
-                            BackButton={true}
-                            titel={'LUCKY ROCKERT'}
-                            onBackClick={() => backgorund.release()}
+
+        <View style={{ flex: 1, backgroundColor: '#36105A', alignItems: 'center', justifyContent: 'center' }}>
+
+            <View style={{ width: '100%', height: '90%' }}>
+
+                <View style={{ width: '100%', height: '7%', justifyContent: 'center', zIndex: 1, top: 20, marginBottom: 30 }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.goBack();
+                        }}
+                        style={{ alignItems: 'flex-end' }}
+                    >
+                        <FastImage
+                            source={require('./assets/LuckyBox/png/close.png')}
+                            style={{
+                                margin: 10,
+                                borderRadius: 100,
+                                width: '16%',
+                                height: '90%',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
                         />
-                    </View>
-                    <View style={{ flex: 1, backgroundColor: '#36105A' }}>
-                        <ResentWinsComponent count={Count} />
+                    </TouchableOpacity>
+                </View>
 
-                        <View style={{ flex: 1, justifyContent: 'center' }}>
-                            <FastImage
-                                source={{
-                                    uri: 'https://i.gifer.com/WBVi.gif',
-                                    priority: FastImage.priority.normal,
-                                    cache: FastImage.cacheControl.immutable,
-                                }}
-                                style={{
-                                    top: 0,
-                                    width: '100%',
-                                    height: '100%',
-                                    position: 'absolute',
-                                }}
-                                resizeMode={FastImage.resizeMode.cover}
-                            />
-                            <AnimationView
-                                key={refresh}
-                                duration={generateNumber}
-                                onBetStart={() => {
-                                    setDisable(true);
-                                }}
-                                onBetFinished={count => {
-                                    setCount(count);
+                <ResentWinsComponent count={Count} />
 
-                                    setTimeout(() => {
-                                        setRefresh(prev => prev + 1);
-                                        setDisable(false);
-                                        setValue('');
-                                    }, 3000);
-                                }}
-                            />
-                        </View>
-
-                        <RockertBetingComponent isBet={disable} />
-                    </View>
-                    <View
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <FastImage
+                        source={{
+                            uri: 'https://i.gifer.com/WBVi.gif',
+                            priority: FastImage.priority.normal,
+                            cache: FastImage.cacheControl.immutable,
+                        }}
                         style={{
-                            zIndex: 1,
-                            height: '15%',
-                            backgroundColor: 'transparent',
-                        }}>
-                        <ButtomNav navigation={navigation} />
-                    </View>
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                        }}
+                        resizeMode={FastImage.resizeMode.cover}
+                    />
+                    <AnimationView
+                        key={refresh}
+                        duration={generateNumber}
+                        onBetStart={() => {
+                            setDisable(true);
+                        }}
+                        onBetFinished={count => {
+                            setCount(count);
 
-                    {/*    
-                        <AnimationView
-                            key={refresh}
-                            duration={generateNumber}
-                            onBetStart={() => {
-                                setDisable(true);
-                            }}
-                            onBetFinished={(_) => {
-                                setTimeout(() => {
-                                    setRefresh((prev) => prev + 1);
-                                    setDisable(false);
-                                    setValue('');
-                                }, 3000);
-                            }}
-                        /> */}
-                </LinearGradient>
-            </SafeAreaView>
-        </LinearGradient>
+                            setTimeout(() => {
+                                setRefresh(prev => prev + 1);
+                                setDisable(false);
+                                setValue('');
+                            }, 3000);
+                        }}
+                    />
+                </View>
+
+                <RockertBetingComponent isBet={disable} />
+            </View>
+        </View>
+
+
     );
 }
 

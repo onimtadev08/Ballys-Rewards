@@ -111,61 +111,63 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
 
     render(): React.ReactNode {
         return (
-            <LinearGradient
-                colors={[ColorFirst, ColorSecond, ColorTherd]}
-                style={styles.container}>
-                <SafeAreaView style={styles.safeArea}>
-                    <LinearGradient
-                        colors={[ColorFirst, ColorSecond, ColorTherd]}
-                        style={styles.container}>
-                        <View style={{ zIndex: 10, backgroundColor: ColorFirst }}>
-                            <TopNav
-                                navigation={this.props.navigation}
-                                BackToHome={false}
-                                BackButton={true}
-                                titel={'LUCKY SPIN'}
-                                onBackClick={(): void => {
-                                    this.background_sound.release();
-                                }}
-                            />
-                        </View>
-                        <ImageBackground
-                            // source={require('./assets/LuckySpin/backGround.jpg')}
-                            source={{ uri: 'https://i.makeagif.com/media/12-05-2023/7sCQBx.gif' }}
-                            resizeMode='cover'
+
+            <ImageBackground
+                // source={require('./assets/LuckySpin/backGround.jpg')}
+                source={{ uri: 'https://i.makeagif.com/media/12-05-2023/7sCQBx.gif' }}
+                resizeMode='cover'
+                style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                {!this.state.isShowWin ? null : (
+                    <WiningComponent
+                        WiningAmount={this.state.Wininnings}
+                        onRetry={(): void => {
+                            this.setState({ isShowWin: false });
+                        }}
+                    />
+                )}
+
+
+                <View style={{ width: '100%', height: '7%', justifyContent: 'center', zIndex: 1, top: -30 }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.navigation.goBack();
+                        }}
+                        style={{ alignItems: 'flex-end' }}
+                    >
+                        <FastImage
+                            source={require('./assets/LuckyBox/png/close.png')}
                             style={{
-                                flex: 1,
-                                marginBottom: 120,
+                                margin: 10,
+                                borderRadius: 100,
+                                width: '16%',
+                                height: '90%',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                            }}>
-                            {!this.state.isShowWin ? null : (
-                                <WiningComponent
-                                    WiningAmount={this.state.Wininnings}
-                                    onRetry={(): void => {
-                                        this.setState({ isShowWin: false });
-                                    }}
-                                />
-                            )}
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+                <FastImage
+                    style={{
+                        marginTop: -50,
+                        width: '90%',
+                        height: '20%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                    source={require('./assets/LuckySpin/LUCKY-SPIN.gif')}
+                    resizeMode={FastImage.resizeMode.contain}
+                />
 
 
-
-
-                            {/* <FastImage
-                                style={{
-                                    top: 20,
-                                    width: '90%',
-                                    height: '20%',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}
-                                source={require('./assets/LuckySpin/Luckylogo.gif')}
-                                resizeMode={FastImage.resizeMode.contain}
-                            /> */}
-
-
-                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                {/* <Image
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    {/* <Image
                                     source={require('./assets/LuckySpin/spinBack.png')}
                                     resizeMode="contain"
                                     style={{
@@ -176,20 +178,20 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                         position: 'absolute',
                                     }}
                                 /> */}
-                                <FastImage
-                                    style={{
-                                        width: '100%',
-                                        top: 13,
-                                        height: '115%',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        position: 'absolute',
-                                    }}
-                                    source={require('./assets/LuckySpin/spinBack.png')}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                />
+                    <FastImage
+                        style={{
+                            width: '100%',
+                            top: 13,
+                            height: '115%',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            position: 'absolute',
+                        }}
+                        source={require('./assets/LuckySpin/spinBack.png')}
+                        resizeMode={FastImage.resizeMode.contain}
+                    />
 
-                                {/* <FastImage
+                    {/* <FastImage
                                     style={{
                                         borderRadius: 1000,
                                         top: 27,
@@ -202,114 +204,100 @@ class LuckySpinGameScreen extends Component<myProps, myStates> {
                                     resizeMode={FastImage.resizeMode.stretch}
                                 /> */}
 
-                                <LuckyWheel
-                                    ref={this.wheelRef}
-                                    slices={
-                                        this.state.isImageMode
-                                            ? require('./data/slices-for-image.json')
-                                            : require('./data/slices-for-svg.json')
-                                    }
-                                    onSpinningStart={() => { }}
-                                    onSpinningEnd={(_winner: any) => {
-                                        this.setState({ isShowWin: true, Wininnings: _winner.value });
-                                    }}
-                                    backgroundColorOptions={{
-                                        luminosity: 'orenge',
-                                        hue: 'vibrant',
-                                    }}
-                                    size={300}
-                                    // source={this.state.isImageMode ? require('./assets/wheel.png') : null}
-                                    source={
-                                        this.state.isImageMode
-                                            ? require('./assets/LuckySpin/spinAmount2.png')
-                                            : null
-                                    }
-                                    enableGesture
-                                    minimumSpinVelocity={0.5} // 0.0 - 1.0
-                                    winnerIndex={this.state.winnerIndex}
-                                    waitWinner={this.state.isEndlessSpinningOn}
-                                    enableOuterDots={false}
-                                    customKnob={() => {
-                                        return (
-                                            <View>
-                                                <Image
-                                                    source={require('./assets/LuckySpin/mark.png')}
-                                                    style={{
-                                                        width: 40,
-                                                        height: 40,
-                                                        margin: 10,
-                                                        marginBottom: -10,
-                                                        transform: [{ rotate: '180deg' }],
-                                                    }}
-                                                    resizeMode="contain"
-                                                />
-                                            </View>
-                                        );
-                                    }}
-                                />
-
-                                <Image
-                                    source={require('./assets/LuckySpin/logomid.png')}
-                                    resizeMode="contain"
-                                    style={{
-                                        top: 95,
-                                        width: '10%',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        position: 'absolute',
-                                        zIndex: 1,
-                                    }}
-                                />
-                            </View>
-
-                            <View style={styles.buttons}>
-                                <TouchableOpacity
-                                    style={{ width: '100%', height: 60 }}
-                                    onPress={() => {
-
-                                        // loaded successfully
-                                        console.log('duration in seconds: ' + this.click_sound.getDuration() + 'number of channels: ' + this.click_sound.getNumberOfChannels());
-
-                                        // Play the sound with an onEnd callback
-                                        this.click_sound.play((success: any) => {
-                                            if (success) {
-                                                console.log('successfully finished playing');
-                                            } else {
-                                                console.log('playback failed due to audio decoding errors');
-                                            }
-                                        });
-
-
-                                        this.wheelRef?.current?.start();
-                                    }}>
+                    <LuckyWheel
+                        ref={this.wheelRef}
+                        slices={
+                            this.state.isImageMode
+                                ? require('./data/slices-for-image.json')
+                                : require('./data/slices-for-svg.json')
+                        }
+                        onSpinningStart={() => { }}
+                        onSpinningEnd={(_winner: any) => {
+                            this.setState({ isShowWin: true, Wininnings: _winner.value });
+                        }}
+                        backgroundColorOptions={{
+                            luminosity: 'orenge',
+                            hue: 'vibrant',
+                        }}
+                        size={300}
+                        // source={this.state.isImageMode ? require('./assets/wheel.png') : null}
+                        source={
+                            this.state.isImageMode
+                                ? require('./assets/LuckySpin/spinAmount2.png')
+                                : null
+                        }
+                        enableGesture
+                        minimumSpinVelocity={0.5} // 0.0 - 1.0
+                        winnerIndex={this.state.winnerIndex}
+                        waitWinner={this.state.isEndlessSpinningOn}
+                        enableOuterDots={false}
+                        customKnob={() => {
+                            return (
+                                <View>
                                     <Image
-                                        source={require('./assets/LuckySpin/spinButton.png')}
-                                        style={{ width: '100%', height: 60 }}
+                                        source={require('./assets/LuckySpin/mark.png')}
+                                        style={{
+                                            width: 40,
+                                            height: 40,
+                                            margin: 10,
+                                            marginBottom: -10,
+                                            transform: [{ rotate: '180deg' }],
+                                        }}
                                         resizeMode="contain"
                                     />
-                                </TouchableOpacity>
-                            </View>
+                                </View>
+                            );
+                        }}
+                    />
+
+                    <Image
+                        source={require('./assets/LuckySpin/logomid.png')}
+                        resizeMode="contain"
+                        style={{
+                            top: 95,
+                            width: '10%',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            position: 'absolute',
+                            zIndex: 1,
+                        }}
+                    />
+                </View>
+
+                <View style={styles.buttons}>
+                    <TouchableOpacity
+                        style={{ width: '100%', height: 60 }}
+                        onPress={() => {
+
+                            // loaded successfully
+                            console.log('duration in seconds: ' + this.click_sound.getDuration() + 'number of channels: ' + this.click_sound.getNumberOfChannels());
+
+                            // Play the sound with an onEnd callback
+                            this.click_sound.play((success: any) => {
+                                if (success) {
+                                    console.log('successfully finished playing');
+                                } else {
+                                    console.log('playback failed due to audio decoding errors');
+                                }
+                            });
+
+
+                            this.wheelRef?.current?.start();
+                        }}>
+                        <Image
+                            source={require('./assets/LuckySpin/spinButton.png')}
+                            style={{ width: '100%', height: 60 }}
+                            resizeMode="contain"
+                        />
+                    </TouchableOpacity>
+                </View>
 
 
 
 
-                        </ImageBackground>
+            </ImageBackground>
 
-                        <View
-                            style={{
-                                zIndex: 1,
-                                left: 0,
-                                bottom: 0,
-                                right: 0,
-                                position: 'absolute',
-                                height: '15%',
-                                backgroundColor: ColorTherd,
-                            }}>
-                            <ButtomNav navigation={this.props.navigation}></ButtomNav>
-                        </View>
-                    </LinearGradient>
-                </SafeAreaView>
-            </LinearGradient>
+
         );
     }
 }
